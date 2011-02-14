@@ -1,0 +1,6 @@
+record(longout, "ECTESTOUT1")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn(ECAT1)6")
+   field(SCAN, "Passive")
+}

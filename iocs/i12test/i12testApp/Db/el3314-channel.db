@@ -1,0 +1,205 @@
+#Macros
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, N, Channel number
+#% macro, ST, Ethercat scanner channel for status
+#% macro, CH, Ethercat scanner channel for value
+#% macro, PORT, Asyn port for ethercat scanner
+#value
+record(calc, "$(P)$(S):IN$(N)")
+{
+  field(INPA, "$(P)$(S):RAW$(N)")
+  field(CALC, "A/10")
+  field(PREC, "1")
+}
+record(ai, "$(P)$(S):RAW$(N)")
+{
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))$(CH)")
+  field(SCAN, "1 second")
+  field(FLNK, "$(P)$(S):IN$(N)")
+}
+record(ai, "$(P)$(S):ST$(N)")
+{
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))$(ST)")
+  field(SCAN, "1 second")
+  field(FLNK, "$(P)$(S):CH$(N):B0")
+}
+record(mbbi, "$(P)$(S):CH$(N):B0") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "0")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B1")
+}
+record(mbbi, "$(P)$(S):CH$(N):B1") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "1")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B2")
+}
+record(mbbi, "$(P)$(S):CH$(N):B2") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "2")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B3")
+}
+record(mbbi, "$(P)$(S):CH$(N):B3") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "3")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B4")
+}
+record(mbbi, "$(P)$(S):CH$(N):B4") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "4")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B5")
+}
+record(mbbi, "$(P)$(S):CH$(N):B5") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "5")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B6")
+}
+record(mbbi, "$(P)$(S):CH$(N):B6") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "6")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B7")
+}
+record(mbbi, "$(P)$(S):CH$(N):B7") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "7")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B8")
+}
+record(mbbi, "$(P)$(S):CH$(N):B8") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "8")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B9")
+}
+record(mbbi, "$(P)$(S):CH$(N):B9") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "9")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B10")
+}
+record(mbbi, "$(P)$(S):CH$(N):B10") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "10")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B11")
+}
+record(mbbi, "$(P)$(S):CH$(N):B11") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "11")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B12")
+}
+record(mbbi, "$(P)$(S):CH$(N):B12") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "12")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B13")
+}
+record(mbbi, "$(P)$(S):CH$(N):B13") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "13")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B14")
+}
+record(mbbi, "$(P)$(S):CH$(N):B14") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "14")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):CH$(N):B15")
+}
+record(mbbi, "$(P)$(S):CH$(N):B15") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):ST$(N)")
+  field(NOBT, "1")
+  field(SHFT, "15")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+}
