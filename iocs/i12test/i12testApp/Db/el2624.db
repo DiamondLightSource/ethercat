@@ -1,0 +1,99 @@
+#Macros
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, CHANNEL, Ethercat scanner channel
+#% macro, PORT, Asyn port for ethercat scanner
+#Module el2624, Four Outputs, Relay output
+record(ao, "$(P)$(S):EL2624")
+{
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(OUT,  "@asyn($(PORT))$(CHANNEL)")
+  field(SCAN, "Passive")
+  field(FLNK, "$(P)$(S):RBV1")
+}
+record(calcout, "$(P)$(S):CALC")
+{
+  field(DESC, "Write values to device")
+  field(CALC, "A+2*B+4*C+8*D")
+  field(INPA, "$(P)$(S):OUT1")
+  field(INPB, "$(P)$(S):OUT2")
+  field(INPC, "$(P)$(S):OUT3")
+  field(INPD, "$(P)$(S):OUT4")
+  field(OUT, "$(P)$(S):EL2624.VAL PP")
+}
+record(bo, "$(P)$(S):OUT1")
+{
+  field(DTYP, "Soft Channel")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(FLNK, "$(P)$(S):CALC")
+}
+record(bo, "$(P)$(S):OUT2")
+{
+  field(DTYP, "Soft Channel")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(FLNK, "$(P)$(S):CALC")
+}
+record(bo, "$(P)$(S):OUT3")
+{
+  field(DTYP, "Soft Channel")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(FLNK, "$(P)$(S):CALC")
+}
+record(bo, "$(P)$(S):OUT4")
+{
+  field(DTYP, "Soft Channel")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(FLNK, "$(P)$(S):CALC")
+}
+
+#Read-back
+record(mbbi, "$(P)$(S):RBV1") {
+# least significant bit B0
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL2624")
+  field(NOBT, "1")
+  field(SHFT, "0")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):RBV2")
+}
+record(mbbi, "$(P)$(S):RBV2") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL2624")
+  field(NOBT, "1")
+  field(SHFT, "1")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):RBV3")
+}
+record(mbbi, "$(P)$(S):RBV3") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL2624")
+  field(NOBT, "1")
+  field(SHFT, "2")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):RBV4")
+}
+record(mbbi, "$(P)$(S):RBV4") {
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL2624")
+  field(NOBT, "1")
+  field(SHFT, "3")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+}
+

@@ -1,0 +1,34 @@
+#!$(INSTALL)/bin/$(ARCH)/i12test
+
+## You may have to change i12test to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+# Load binaries on architectures that need to do so.
+# VXWORKS_ONLY, LINUX_ONLY and RTEMS_ONLY are macros that resolve
+# to a comment symbol on architectures that are not the current
+# build architecture, so they can be used liberally to do architecture
+# specific things. Alternatively, you can include an architecture
+# specific file.
+$(VXWORKS_ONLY)ld < bin/$(ARCH)/i12test.munch
+
+## This drvTS initializer is needed if the IOC has a hardware event system
+#TSinit
+
+## Register all support components
+dbLoadDatabase("dbd/i12test.dbd")
+i12test_registerRecordDeviceDriver(pdbbase)
+
+ecConfigure("ECSCAN", 0, 27)
+## Load record instances
+dbLoadRecords("db/i12-test.db")
+enableWriterMsg(0)
+enableReaderMsg(0)
+asynSetTraceMask("ECSCAN", 0, 0x00)
+asynSetTraceIOMask("ECSCAN", 0, 0x00)
+
+iocInit()
+
+## Start any sequence programs
+#seq sncExample,"user=xxx"

@@ -1,0 +1,28 @@
+record(bi, "ECTEST:CH7")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0)7")
+   field(SCAN, "I/O Intr")
+}
+record(bi, "ECTEST:CH8")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0)8")
+   field(SCAN, "I/O Intr")
+}
+record(bi, "ECTEST:CH9")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0)9")
+   field(SCAN, "I/O Intr")
+}
+record(bi, "ECTEST:CH10")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0)A")
+   field(SCAN, "I/O Intr")
+}
