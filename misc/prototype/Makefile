@@ -11,3 +11,6 @@ config.o: config.c config.h
 
 clean:
 	rm server client capture config.o capture3702
+
+install:
+	echo "Nothing to install"
