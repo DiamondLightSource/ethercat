@@ -13,10 +13,6 @@ file el1014.db
 {
 {P="",S="BL12I-EA-ECAT-07",CHANNEL="1b",PORT="ECSCAN"}
 }
-file el4134-channel.db
-{
-{ P="",S="BL12I-EA-ECAT-02",N="1",CHANNEL="5",PORT="ECSCAN"}
-}
 file el3314-channel.db 
 {
 pattern { P, S, N, ST, CH, PORT}
@@ -27,7 +23,7 @@ pattern { P, S, N, ST, CH, PORT}
 }
 file el4134-channel.db
 {
- {Pi"", S="BL12I-EA-ECAT-02", N="1", CH="5", PORT="ECSCAN"}
+ {P="", S="BL12I-EA-ECAT-02", N="1", CH="5", PORT="ECSCAN"}
 
 }
 
