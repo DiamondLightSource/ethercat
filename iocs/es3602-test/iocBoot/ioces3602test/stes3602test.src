@@ -1,0 +1,32 @@
+#!$(INSTALL)/bin/$(ARCH)/es3602test
+
+## You may have to change es3602test to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+# Load binaries on architectures that need to do so.
+# VXWORKS_ONLY, LINUX_ONLY and RTEMS_ONLY are macros that resolve
+# to a comment symbol on architectures that are not the current
+# build architecture, so they can be used liberally to do architecture
+# specific things. Alternatively, you can include an architecture
+# specific file.
+$(VXWORKS_ONLY)ld < bin/$(ARCH)/es3602test.munch
+
+## This drvTS initializer is needed if the IOC has a hardware event system
+#TSinit
+
+## Register all support components
+dbLoadDatabase("dbd/es3602test.dbd")
+es3602test_registerRecordDeviceDriver(pdbbase)
+
+ecConfigure("ECSCAN", 0, 3)
+
+dbLoadRecords("db/es3603-test.db")
+enableWriterMsg(0)
+enableReaderMsg(0)
+asynSetTraceMask("ECSCAN", 0, 0x00)
+asynSetTraceIOMask("ECSCAN", 0, 0x00)
+
+iocInit()
+
