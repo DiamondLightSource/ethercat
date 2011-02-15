@@ -41,5 +41,6 @@ i12test_LIBS += ethercatSupport
 i12test_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 DATA += i12test-gui
+DATA += i12test.grp
 
 include $(TOP)/configure/RULES
