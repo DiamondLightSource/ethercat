@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 89
-y 93
+x 123
+y 258
 w 702
 h 668
 font "helvetica-medium-r-14.0"
@@ -369,147 +369,6 @@ font "arial-medium-r-12.0"
 fontAlign "center"
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 35
-w 340
-h 55
-
-beginGroup
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 5
-y 45
-w 340
-h 45
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 15
-y 55
-w 30
-h 25
-font "helvetica-bold-r-12.0"
-fgColor index 14
-bgColor index 5
-useDisplayBg
-value {
-  "CH 1:"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 185
-y 55
-w 30
-h 25
-font "helvetica-bold-r-12.0"
-fgColor index 14
-bgColor index 5
-useDisplayBg
-value {
-  "CH 2:"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 4
-release 0
-x 60
-y 55
-w 110
-h 25
-controlPv "$(P)$(S1).IN1"
-font "arial-medium-r-12.0"
-fontAlign "center"
-fgColor index 16
-fgAlarm
-bgColor index 10
-limitsFromDb
-nullColor index 0
-fastUpdate
-showUnits
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 4
-release 0
-x 230
-y 55
-w 110
-h 25
-controlPv "$(P)$(S1).IN2"
-font "arial-medium-r-12.0"
-fontAlign "center"
-fgColor index 16
-fgAlarm
-bgColor index 10
-limitsFromDb
-nullColor index 0
-fastUpdate
-showUnits
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 5
-y 35
-w 125
-h 14
-font "arial-medium-r-12.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 8
-value {
-  "  EL3702 Analog Input"
-}
-autoSize
-border
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 # (Text Monitor)
 object activeXTextDspClass:noedit
 beginObjectProperties
@@ -681,7 +540,7 @@ release 0
 x 60
 y 120
 w 110
-h 25
+h 35
 controlPv "$(P)$(S2):OUT1"
 displayMode "decimal"
 precision 5
@@ -702,7 +561,7 @@ release 0
 x 230
 y 120
 w 110
-h 25
+h 35
 controlPv "$(P)$(S2):OUT2"
 displayMode "decimal"
 precision 5
@@ -723,7 +582,7 @@ release 0
 x 60
 y 160
 w 110
-h 25
+h 35
 controlPv "$(P)$(S2):OUT3"
 displayMode "decimal"
 precision 5
@@ -744,7 +603,7 @@ release 0
 x 230
 y 160
 w 110
-h 25
+h 35
 controlPv "$(P)$(S2):OUT4"
 displayMode "decimal"
 precision 5
@@ -2301,5 +2160,129 @@ displayFileName {
 symbols {
   0 "S=$(S6),N=2"
 }
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 5
+y 45
+w 340
+h 45
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 15
+y 55
+w 30
+h 25
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 5
+useDisplayBg
+value {
+  "CH 1:"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 185
+y 55
+w 30
+h 25
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 5
+useDisplayBg
+value {
+  "CH 2:"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 60
+y 55
+w 110
+h 25
+controlPv "$(P)$(S1):CH1"
+font "arial-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 10
+limitsFromDb
+nullColor index 0
+fastUpdate
+showUnits
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 230
+y 55
+w 110
+h 25
+controlPv "$(P)$(S1):CH2"
+font "arial-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 10
+limitsFromDb
+nullColor index 0
+fastUpdate
+showUnits
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 5
+y 35
+w 125
+h 14
+font "arial-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 8
+value {
+  "  EL3702 Analog Input"
+}
+autoSize
+border
 endObjectProperties
 

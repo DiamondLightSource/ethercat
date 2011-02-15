@@ -1,4 +1,4 @@
-#Macros
+# el4134-channel.db
 #% macro, P, Device Prefix
 #% macro, S, Device suffix
 #% macro, N, Channel Number

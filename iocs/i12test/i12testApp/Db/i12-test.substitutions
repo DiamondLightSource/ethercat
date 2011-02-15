@@ -26,4 +26,13 @@ file el4134-channel.db
  {P="", S="BL12I-EA-ECAT-02", N="1", CH="5", PORT="ECSCAN"}
 
 }
-
+file el3702-channel.db
+{
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, N, Channel number
+#% macro, CYCLE, Ethercat scanner channel for cycle count
+#% macro, CH, Ethercat scanner channel for value
+#% macro, PORT, Asyn port for ethercat scanner
+ {P="", S="BL12I-EA-ECAT-01", N="2", CYCLE="2", CH="3", PORT="ECSCAN"}
+}

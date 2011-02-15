@@ -1,4 +1,4 @@
-#Macros
+# el1014.db
 #% macro, P, Device Prefix
 #% macro, S, Device suffix
 #% macro, CHANNEL, Ethercat scanner channel
