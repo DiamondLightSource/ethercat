@@ -1,0 +1,41 @@
+#!$(INSTALL)/bin/$(ARCH)/delayTest
+
+## You may have to change delayTest to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+# Load binaries on architectures that need to do so.
+# VXWORKS_ONLY, LINUX_ONLY and RTEMS_ONLY are macros that resolve
+# to a comment symbol on architectures that are not the current
+# build architecture, so they can be used liberally to do architecture
+# specific things. Alternatively, you can include an architecture
+# specific file.
+$(VXWORKS_ONLY)ld < bin/$(ARCH)/delayTest.munch
+
+## This drvTS initializer is needed if the IOC has a hardware event system
+#TSinit
+
+## Register all support components
+dbLoadDatabase("dbd/delayTest.dbd")
+delayTest_registerRecordDeviceDriver(pdbbase)
+
+ecConfigure("ECSCAN",1,10)
+## Load record instances
+dbLoadRecords("db/RJQ35657-DELAYTEST.db")
+
+enableWriterMsg(0)
+#enableWriterMsg(0)
+enableReaderMsg(0)
+asynSetTraceMask("ECSCAN", 0, 0x00)
+asynSetTraceIOMask("ECSCAN", 0, 0x00)
+#asynSetTraceMask("ECAT0", 0,0)
+
+
+## Set this to see messages from mySub
+#mySubDebug 1
+
+iocInit()
+
+## Start any sequence programs
+#seq sncExample,"user=xxx"

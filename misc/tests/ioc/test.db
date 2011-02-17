@@ -1,0 +1,62 @@
+record(longout, "ECTEST:100:output0")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn(ECAT0,100)output0")
+}
+
+record(longin, "ECTEST:400:value0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,400)value0")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "ECTEST:400:value0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0)default")
+   field(SCAN, "I/O Intr")
+}
+
+record(waveform, "ECTEST:400:value0w")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32ArrayIn")
+   field(INP,  "@asyn(ECAT1)BUFFER")
+   field(SCAN, "I/O Intr")
+   field(FTVL, "LONG")
+   field(NELM, "100")
+}
+
+record(longout, "ECTEST:400:TRIGGER")
+{
+   field(PINI,  "1")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn(ECAT1)TRIGGER")
+}
+
+record(longin, "ECTEST:400:al_state")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,400)al_state")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "ECTEST:200:value0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,200)value0")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "ECTEST:100:n_slaves")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,100)n_slaves")
+   field(SCAN, "I/O Intr")
+}

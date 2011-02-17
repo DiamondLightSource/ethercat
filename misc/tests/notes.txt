@@ -1,0 +1,55 @@
+Plug test, using out_fail.c:
+
+unplug unit after the analogue output:
+waveform keeps going
+
+unplug unit before the analogue ouput (using the 2 port splitter):
+waveform stops, bus rescans automatically
+
+
+before:
+0  300:0  OP     +  EK1100 EtherCAT-Koppler (2A E-Bus)
+1  300:1  PREOP  +  EK1122 2-Port EtherCAT-Abzweig
+2  400:0  PREOP  +  EK1100 EtherCAT-Koppler (2A E-Bus)
+3  400:1  PREOP  +  EL3102 2K. Ana. Eingang +/-10V, Diff.
+4  400:2  OP     +  EL4102 2K. Ana. Ausgang 0-10V, 16bit
+after:
+0  300:0  OP     +  EK1100 EtherCAT-Koppler (2A E-Bus)
+1  300:1  PREOP  +  EK1122 2-Port EtherCAT-Abzweig
+2  300:2  PREOP  +  EL4102 2K. Ana. Ausgang 0-10V, 16bit
+
+Starting cyclic function.
+5 slave(s).
+AL states: 0x02.
+Link is up.
+Domain1: WC 1.
+Domain1: State 2.
+AL states: 0x0A.
+Domain1: WC 0.
+Domain1: State 0.
+Domain1: WC 1.
+Domain1: State 2.
+3 slave(s).
+Domain1: WC 0.
+Domain1: State 0.
+5 slave(s).
+Domain1: WC 1.
+Domain1: State 2.
+
+When using alias for the particular device, keeps going when previous device is unplugged:
+
+This could be very useful.
+
+Starting cyclic function.
+5 slave(s).
+AL states: 0x02.
+Link is up.
+Domain1: WC 1.
+Domain1: State 2.
+AL states: 0x0A.
+3 slave(s).
+5 slave(s).
+3 slave(s).
+5 slave(s).
+
+

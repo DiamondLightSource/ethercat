@@ -1,0 +1,9 @@
+#define Beckhoff 0x00000002
+#define EK1100 0x044c2c52
+#define EK1101 0x044d2c52
+#define EL2008 0x07d83052
+#define EL2004 0x07d43052
+#define EL4102 0x10063052
+#define EL4732 0x127c3052
+#define EL3702 0x0e763052
+#define EL3162 0x0c5a3052

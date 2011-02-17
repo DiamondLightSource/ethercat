@@ -1,0 +1,43 @@
+minimal
+=======
+
+<devices>
+  <device name="EL3702" vendor="0x00000002" product="0x0e763052" dcactivate="0x0730" >
+    <entry index="0x6800" subindex="0x01" name="cycle0" />
+    <entry index="0x6000" subindex="0x01" name="value0" length="100" />
+    <entry index="0x6800" subindex="0x02" name="cycle1" />
+    <entry index="0x6000" subindex="0x02" name="value1" length="100" />
+    <entry index="0x1d09" subindex="0x98" name="next" />
+  </device>
+</devices>
+
+full
+====
+
+<devices>
+  <device name="EL3702" vendor="0x00000002" product="0x0e763052" revision="0x00020000" dcactivate="0x0730" >
+    <sync index="0" n_pdos="2" dir="2" watchdog="2">
+      <pdo index="0x1b00" n_entries="1" >
+        <entry index="0x6800" subindex="0x01" bit_length="16" name="cycle0" />
+      </pdo>
+      <pdo index="0x1a00" n_entries="1" >
+        <entry index="0x6000" subindex="0x01" bit_length="16" name="value0"
+          length="100" />
+      </pdo>
+    </sync>
+    <sync index="1" n_pdos="2" dir="2" watchdog="2">
+      <pdo index="0x1b01" n_entries="1" >
+        <entry index="0x6800" subindex="0x02" bit_length="16" name="cycle1" />
+      </pdo>
+      <pdo index="0x1a80" n_entries="1" >
+        <entry index="0x6000" subindex="0x02" bit_length="16" name="value1" 
+          length="100" />
+      </pdo>
+    </sync>
+    <sync index="2" n_pdos="1" dir="2" watchdog="2">
+      <pdo index="0x1b10" n_entries="1" >
+        <entry index="0x1d09" subindex="0x98" bit_length="32" name="next" />
+      </pdo>
+    </sync>
+  </device>
+</devices>
