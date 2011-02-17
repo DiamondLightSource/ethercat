@@ -1,6 +1,38 @@
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
 
+typedef struct monitor_request monitor_request;
+struct monitor_request
+{
+    int tag;
+    int client;
+    int vaddr;
+    int route;
+    char name[16];
+};
+
+typedef struct write_request write_request;
+struct write_request
+{
+    int tag;
+    int client;
+    int vaddr;
+    int route;
+    char name[16];
+    int32_t value;
+};
+
+typedef struct monitor_response monitor_response;
+struct monitor_response
+{
+    int tag;
+    int client;
+    int vaddr;
+    int route;
+    int length;
+    int32_t value[10];
+};
+
 typedef struct ec_addr ec_addr;
 struct ec_addr
 {
@@ -10,19 +42,8 @@ struct ec_addr
     int period;
     uint64_t value;
     int client;
-    int reason;
+    int route;
     int tick;
-    int size;
-    int datatype;
-};
-
-// put the datatype in the message
-
-typedef struct ec_addr_buf ec_addr_buf;
-struct ec_addr_buf
-{
-    ec_addr base;
-    char buf[1024];
 };
 
 typedef struct pdo_entry_type pdo_entry_type;
@@ -69,6 +90,9 @@ struct ethercat_device
     char * pdo_buffer;
     pdo_entry_type * regs;
     ethercat_device * next;
+    // keep copy as int32
+    int32_t al_state;
+    int32_t error_flag;
 };
 
 typedef struct ethercat_device_config ethercat_device_config;
@@ -82,8 +106,6 @@ struct ethercat_device_config
     ethercat_device * dev;
     ethercat_device_config * next;
 };
-
-enum { S8 = 0, U8, S16, U16, S32, U32 };
 
 struct master_device;
 typedef struct master_device master_device;

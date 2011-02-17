@@ -9,9 +9,10 @@
 struct master_device
 {
     ethercat_device base;
-    unsigned int slaves_responding;
-    unsigned int al_states;
-    unsigned int link_up;
+    int32_t slaves_responding;
+    int32_t al_states;
+    int32_t link_up;
+    int32_t cycle;
 };
 
 int ethercat_device_read_field(field_t * f, void * buf, int max_buf)
@@ -37,32 +38,40 @@ int ethercat_device_write_field(field_t * f, void * buf, int max_buf)
 void read_pdo(pdo_entry_type * r, uint8_t * pd, char * buffer)
 {
     int s;
+    int32_t * y = (int32_t *)(buffer + r->buffer_offset);
     switch(r->entry->bit_length)
     {
-    case 8:
+    case 1:
     {
-        uint8_t * y = (uint8_t *)(buffer + r->buffer_offset);
         for(s = 0; s < r->length; s++)
         {
-            *y++ = EC_READ_U8(pd + r->pdo_offset[s]);
+            *y = *(pd + r->pdo_offset[s]);
+            *y &= 1U << r->pdo_bit[s];
+            y++;
+        }
+    }
+    break;
+    case 8:
+    {
+        for(s = 0; s < r->length; s++)
+        {
+            *y++ = EC_READ_S8(pd + r->pdo_offset[s]);
         }
     }
     break;
     case 16:
     {
-        uint16_t * y = (uint16_t *)(buffer + r->buffer_offset);
         for(s = 0; s < r->length; s++)
         {
-            *y++ = EC_READ_U16(pd + r->pdo_offset[s]);
+            *y++ = EC_READ_S16(pd + r->pdo_offset[s]);
         }
     }
     break;
     case 32:
     {
-        uint32_t * y = (uint32_t *)(buffer + r->buffer_offset);
         for(s = 0; s < r->length; s++)
         {
-            *y++ = EC_READ_U32(pd + r->pdo_offset[s]);
+            *y++ = EC_READ_S32(pd + r->pdo_offset[s]);
         }
     }
     break;
@@ -97,6 +106,7 @@ void process_master(ethercat_device * base, uint8_t * pd)
     dev->slaves_responding = state.slaves_responding;
     dev->al_states = state.al_states;
     dev->link_up = state.link_up;
+    dev->cycle++;
 }
 
 ethercat_device * init_master_device(ec_master_t * master)
@@ -106,17 +116,15 @@ ethercat_device * init_master_device(ec_master_t * master)
     dev->base.process = process_master;
     dev->base.master = master;
 
-    enum { N_DEFAULT = 3 };
+    enum { N_DEFAULT = 4 };
     dev->base.n_fields = N_DEFAULT;
     dev->base.fields = calloc(dev->base.n_fields, sizeof(field_t));
     field_t default_fields[N_DEFAULT] =
     {
-        { "slaves", &dev->slaves_responding, 
-          sizeof(dev->slaves_responding) },
-        { "alarm", &dev->al_states, 
-          sizeof(dev->al_states) },
-        { "link", &dev->link_up, 
-          sizeof(dev->link_up) },
+        { "slaves", &dev->slaves_responding, sizeof(dev->slaves_responding) },
+        { "alarm",  &dev->al_states,         sizeof(dev->al_states)         },
+        { "link",   &dev->link_up,           sizeof(dev->link_up)           },
+        { "cycle",  &dev->cycle,             sizeof(dev->cycle)             }
     };        
 
     for(n = 0; n < N_DEFAULT; n++)
@@ -155,6 +163,8 @@ field_t * find_field(ethercat_device_config * chain,
 void process_slave_metadata(ethercat_device * d, uint8_t * pd)
 {
     ecrt_master_get_slave(d->master, d->pos, &d->slave_info);
+    d->al_state = d->slave_info.al_state;
+    d->error_flag = d->slave_info.error_flag;
 }
 
 ethercat_device * clone_from_prototype(ethercat_device * proto, 
@@ -244,18 +254,9 @@ ethercat_device * clone_from_prototype(ethercat_device * proto,
                r->entry->bit_length == 16 || 
                r->entry->bit_length == 32);
 
-        switch(r->entry->bit_length)
-        {
-        case 8:
-            r->buffer_size = sizeof(uint8_t) * r->length;
-            break;
-        case 16:
-            r->buffer_size = sizeof(uint16_t) * r->length;
-            break;
-        case 32:
-            r->buffer_size = sizeof(uint32_t) * r->length;
-            break;
-        }
+        /* only support int32 interface */
+        r->buffer_size = sizeof(int32_t) * r->length;
+
         buffer_size += r->buffer_size;
         nregs++;
     }
@@ -266,11 +267,11 @@ ethercat_device * clone_from_prototype(ethercat_device * proto,
     enum { N_DEFAULT = 2 };
     field_t default_fields[N_DEFAULT] =
     {
-        {"al_state", &dev->slave_info.al_state, 
-         sizeof(dev->slave_info.al_state) },
-        {"error_flag", &dev->slave_info.error_flag, 
-         sizeof(dev->slave_info.error_flag) },
-    };        
+        {"al_state", &dev->al_state, 
+         sizeof(dev->al_state) },
+        {"error_flag", &dev->error_flag, 
+         sizeof(dev->error_flag) },
+    };
     dev->n_fields = nregs + N_DEFAULT;
     dev->fields = calloc(dev->n_fields, sizeof(field_t));
     for(n = 0, r = dev->regs; r != NULL; r = r->next, n++)

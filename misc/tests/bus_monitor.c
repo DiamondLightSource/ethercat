@@ -45,7 +45,7 @@ void show_monitor(field_t * f, ec_addr * e, char * buf)
     if(strncmp(f->name, "value", 5) == 0 && e->vaddr == 300)
     {
         int s;
-        int16_t * val = (int16_t *)buf;
+        int32_t * val = (int32_t *)buf;
         for(s = 0; s < 10; s++)
         {
             printf("(%d)%s[%d] %d\n", e->vaddr, f->name, s, val[s]);

@@ -30,85 +30,67 @@ rtMessageQueueId replyq = NULL;
 queue_t * monitorq = NULL;
 queue_t * writeq = NULL;
 
-void create_default_monitors(ethercat_device_config * chain)
+field_t * create_default_monitors(ethercat_device_config * chain)
 {
-    int reason = 0;
-    ec_addr addr = {0};
+    int MAX_ROUTE = 1000;
+    field_t * lookup_route = calloc(MAX_ROUTE, sizeof(field_t));
+    int route = 0;
+
+    monitor_request req = {0};
+
     ethercat_device_config * c;
     for(c = chain; c != NULL; c = c->next)
     {
         ethercat_device * d = c->dev;
-        addr.tag = MSG_MONITOR;
-        addr.period = 100;
-        addr.vaddr = c->vaddr;
-        addr.client = 0;
+        req.tag = MSG_MONITOR;
+        req.vaddr = c->vaddr;
+        req.client = 0;
+
         int j;
         for(j = 0; j < d->n_fields; j++)
         {
-            addr.reason = reason++;
-            strncpy(addr.name, d->fields[j].name, sizeof(addr.name)-1);
-            rtMessageQueueSend(workq, &addr, sizeof(addr));
+            req.route = route;
+            lookup_route[route] = d->fields[j];
+            strncpy(req.name, d->fields[j].name, sizeof(req.name)-1);
+            rtMessageQueueSend(workq, &req, sizeof(req));
+            route++;
         }
+    }
+    return lookup_route;
+}
+
+void reader_task2(void * usr)
+{
+    ethercat_device_config * chain = (ethercat_device_config *)usr;
+    field_t * fields = create_default_monitors(chain);
+    char msg[1024];
+    monitor_response * r = (monitor_response *)msg;
+    int count = 0;
+    while(1)
+    {
+        rtMessageQueueReceive(clientq[1], msg, sizeof(msg));
+        if(count % 1000 == 0)
+            printf("black hole client\n");
+        count++;
     }
 }
 
 void reader_task(void * usr)
 {
+
+    ethercat_device_config * chain = (ethercat_device_config *)usr;
+    field_t * fields = create_default_monitors(chain);
     char msg[1024];
-    ec_addr_buf * reply = (ec_addr_buf *)msg;
-    ec_addr * e = (ec_addr *)&reply->base;
+    monitor_response * r = (monitor_response *)msg;
     while(1)
     {
         rtMessageQueueReceive(clientq[0], msg, sizeof(msg));
-        uint8_t  * value1 = (uint8_t  *)reply->buf;
-        uint16_t * value2 = (uint16_t *)reply->buf;
-        uint32_t * value4 = (uint32_t *)reply->buf;
-        switch(e->datatype)
-        {
-        case 1:
-            printf("(%d:%d:%d)%s %u\n", 
-                   e->vaddr, e->client, e->reason, e->name, value1[0]);
-            break;
-        case 2:
-            printf("(%d:%d:%d)%s %u\n", 
-                   e->vaddr, e->client, e->reason, e->name, value2[0]);
-            break;
-        case 4:
-            printf("(%d:%d:%d)%s %u\n", 
-                   e->vaddr, e->client, e->reason, e->name, value4[0]);
-            break;
-        default:
-            printf("(%d:%d:%d)%s %u\n", 
-                   e->vaddr, e->client, e->reason, e->name, value2[0]);
-            break;
-        }
-    }
-}
-
-void send_monitor(field_t * f, ec_addr * e, char * buf)
-{
-    rtMessageQueueSend(clientq[0], e, sizeof(ec_addr));
-}
-
-void show_monitor(field_t * f, ec_addr * e, char * buf)
-{
-    if(strncmp(e->name, "value", 5) == 0 && e->vaddr == 300)
-    {
         int s;
-        int16_t * val = (int16_t *)buf;
-        for(s = 0; s < 10; s++)
+        for(s = 0; s < r->length; s++)
         {
             printf("(%d:%d:%d)%s[%d] %d\n", 
-                   e->vaddr, e->client, e->reason, e->name, s, val[s]);
-            e->value = val[0];
+                   r->vaddr, r->client, r->route, fields[r->route].name, s, r->value[s]);
         }
-    }
-    else
-    {
-        uint32_t * val = (uint32_t *)buf;
-        printf("(%d:%d:%d)%s %u\n", 
-               e->vaddr, e->client, e->reason, f->name, val[0]);
-        e->value = val[0];
     }
 }
 
@@ -133,12 +115,9 @@ void cyclic_task(void * usr)
     printf("activating\n");
 
     uint8_t * pd = task->pd;
-    
     struct timespec wakeupTime;
-    
     char msg[1024] = {0};
     int * tag = (int *)msg;
-
     int tick = 0;
 
     while(1)
@@ -147,15 +126,27 @@ void cyclic_task(void * usr)
         rtMessageQueueReceive(workq, msg, sizeof(msg));
         if(tag[0] == MSG_MONITOR)
         {
-            ec_addr * e = (ec_addr *)msg;
-            printf("subscription %s\n", e->name);
-            queue_put(monitorq, e);
+            monitor_request * req = (monitor_request *)msg;
+            ec_addr addr = {0};
+            addr.route = req->route;
+            addr.vaddr = req->vaddr;
+            addr.period = 100;
+            addr.client = req->client;
+            strncpy(addr.name, req->name, sizeof(addr.name));
+            printf("subscription %s\n", req->name);
+            queue_put(monitorq, &addr);
         }
 
         else if(tag[0] == MSG_WRITE)
         {
-            ec_addr * e = (ec_addr *)msg;
-            queue_put(writeq, e);
+            write_request * wr = (write_request *)msg;
+            ec_addr e;
+            strncpy(e.name, wr->name, sizeof(e.name));
+            e.route = wr->route;
+            e.vaddr = wr->vaddr;
+            e.client = wr->client;
+            e.value = wr->value;
+            queue_put(writeq, &e);
         }
 
         else if(tag[0] == MSG_TICK)
@@ -163,7 +154,7 @@ void cyclic_task(void * usr)
         
             wakeupTime.tv_sec = tag[1];
             wakeupTime.tv_nsec = tag[2];
-
+            
             ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
             ecrt_master_sync_reference_clock(master);
             ecrt_master_sync_slave_clocks(master);
@@ -176,6 +167,7 @@ void cyclic_task(void * usr)
             {
                 ec_addr e;
                 queue_get(writeq, &e);
+
                 field_t * f = find_field(chain, &e);
                 if(f != NULL)
                 {
@@ -216,17 +208,18 @@ void cyclic_task(void * usr)
                 field_t * f = find_field(chain, &e);
                 if(f != NULL)
                 {
-                    ec_addr_buf reply = {0};
-                    memcpy(&reply.base, &e, sizeof(e));
-                    reply.base.tag = MSG_DATA;
-                    reply.base.size = sizeof(ec_addr);
-                    reply.base.size += ethercat_device_read_field(
-                        f, reply.buf, sizeof(reply.buf));
-                    reply.base.datatype = f->size;
+                    monitor_response reply = { 0 };
+                    reply.tag = MSG_DATA;
+                    reply.client = 0;
+                    reply.vaddr = e.vaddr;
+                    reply.route = e.route;
+                    reply.length = f->size / sizeof(int32_t);
+                    ethercat_device_read_field(f, reply.value, sizeof(reply.value));
+
                     if(e.tick == e.period)
                     {
-                        rtMessageQueueSend(clientq[e.client], &reply, reply.base.size);
-                        //show_monitor(f, &e, reply.buf);
+                        int size = (char *)(&reply.value[reply.length]) - (char *)&reply;
+                        rtMessageQueueSend(clientq[e.client], &reply, size);
                         e.tick = 0;
                     }
                     else
@@ -240,7 +233,7 @@ void cyclic_task(void * usr)
             
             ecrt_domain_queue(domain);
             ecrt_master_send(master);
-
+            
             tick++;
         }
 
@@ -291,19 +284,18 @@ int main(int argc, char **argv)
 
     timer_usr t = { PERIOD_NS, workq };
 
-    rtThreadCreate("reader", LOW,  0, reader_task, NULL );
+    rtThreadCreate("reader", LOW,  0, reader_task, chain );
+    rtThreadCreate("reader", LOW,  0, reader_task2, chain );
     rtThreadCreate("cyclic", HIGH, 0, cyclic_task, &config);
     rtThreadCreate("timer",  HIGH, 0, timer_task, &t);
 
-    create_default_monitors(chain);
-
     int n = 0;
-    ec_addr e = { MSG_WRITE, 200, "output0" };
+    write_request wr = { MSG_WRITE, 0, 200, 0, "output0" };
     while(1)
     {
-        e.value = n % 2000;
+        wr.value = n % 2000;
         usleep(1000);
-        rtMessageQueueSend(workq, &e, sizeof(e));
+        rtMessageQueueSend(workq, &wr, sizeof(wr));
         n++;
     }
 
