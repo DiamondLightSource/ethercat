@@ -21,13 +21,16 @@
 
 /* globals */
 
+enum { MAX_MONITORS = 1000 };
+enum { MAX_WRITES = 1000 };
+enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
 enum { MAX_CLIENTS = 10 };
-enum { MAX_MESSAGE = 1024 };
+enum { MAX_MESSAGE = 128 };
+enum { CLIENT_Q_CAPACITY = 10 };
+enum { WORK_Q_CAPACITY = 10 };
 
 rtMessageQueueId clientq[MAX_CLIENTS] = { NULL };
 rtMessageQueueId workq = NULL;
-rtMessageQueueId dataq = NULL;
-rtMessageQueueId replyq = NULL;
 queue_t * monitorq = NULL;
 queue_t * writeq = NULL;
 
@@ -105,24 +108,17 @@ struct task_config
     
 void cyclic_task(void * usr)
 {
-
     task_config * task = (task_config *)usr;
-
     ec_master_t * master = task->master;
     ec_domain_t * domain = task->domain;
     ethercat_device_config * chain = task->chain;
-    
-    printf("activating\n");
-
     uint8_t * pd = task->pd;
     struct timespec wakeupTime;
     char msg[MAX_MESSAGE] = {0};
     int * tag = (int *)msg;
     int tick = 0;
-
     while(1)
     {
-
         rtMessageQueueReceive(workq, msg, sizeof(msg));
         if(tag[0] == MSG_MONITOR)
         {
@@ -136,7 +132,6 @@ void cyclic_task(void * usr)
             printf("subscription %s\n", req->name);
             queue_put(monitorq, &addr);
         }
-
         else if(tag[0] == MSG_WRITE)
         {
             write_request * wr = (write_request *)msg;
@@ -148,10 +143,8 @@ void cyclic_task(void * usr)
             e.value = wr->value;
             queue_put(writeq, &e);
         }
-
         else if(tag[0] == MSG_TICK)
         {
-        
             wakeupTime.tv_sec = tag[1];
             wakeupTime.tv_nsec = tag[2];
             
@@ -214,11 +207,13 @@ void cyclic_task(void * usr)
                     reply.vaddr = e.vaddr;
                     reply.route = e.route;
                     reply.length = f->size / sizeof(int32_t);
-                    ethercat_device_read_field(f, reply.value, sizeof(reply.value));
+                    ethercat_device_read_field(f, reply.value, 
+                                               sizeof(reply.value));
 
                     if(e.tick == e.period)
                     {
-                        int size = (char *)(&reply.value[reply.length]) - (char *)&reply;
+                        int size = (char *)(&reply.value[reply.length]) 
+                            - (char *)&reply;
                         rtMessageQueueSend(clientq[e.client], &reply, size);
                         e.tick = 0;
                     }
@@ -245,9 +240,6 @@ int main(int argc, char **argv)
 {
     LIBXML_TEST_VERSION; 
 
-    enum { MAX_MONITORS = 1000 };
-    enum { MAX_WRITES = 1000 };
-
     monitorq = queue_init(MAX_MONITORS, sizeof(ec_addr));
     writeq = queue_init(MAX_WRITES, sizeof(ec_addr));
 
@@ -266,17 +258,14 @@ int main(int argc, char **argv)
 
     ecrt_master_activate(master);
 
-    dataq = rtMessageQueueCreate(10, 128);
-    workq = rtMessageQueueCreate(10, 128);
-    replyq = rtMessageQueueCreate(1, 128);
+    workq = rtMessageQueueCreate(WORK_Q_CAPACITY, MAX_MESSAGE);
 
     int c;
     for(c = 0; c < MAX_CLIENTS; c++)
     {
-        clientq[c] = rtMessageQueueCreate(10, 128);
+        clientq[c] = rtMessageQueueCreate(CLIENT_Q_CAPACITY, 
+                                          MAX_MESSAGE);
     }
-
-    enum { HIGH = 60, LOW = 0 };
 
     task_config config = { master, domain, chain };
     config.pd = ecrt_domain_data(domain);
@@ -284,10 +273,10 @@ int main(int argc, char **argv)
 
     timer_usr t = { PERIOD_NS, workq };
 
-    rtThreadCreate("reader", LOW,  0, reader_task, chain );
-    rtThreadCreate("reader", LOW,  0, reader_task2, chain );
-    rtThreadCreate("cyclic", HIGH, 0, cyclic_task, &config);
-    rtThreadCreate("timer",  HIGH, 0, timer_task, &t);
+    rtThreadCreate("reader", PRIO_LOW,  0, reader_task, chain );
+    rtThreadCreate("reader", PRIO_LOW,  0, reader_task2, chain );
+    rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, &config);
+    rtThreadCreate("timer",  PRIO_HIGH, 0, timer_task, &t);
 
     int n = 0;
     write_request wr = { MSG_WRITE, 0, 200, 0, "output0" };
@@ -298,9 +287,6 @@ int main(int argc, char **argv)
         rtMessageQueueSend(workq, &wr, sizeof(wr));
         n++;
     }
-
-    char msg[MAX_MESSAGE];
-    rtMessageQueueReceive(replyq, msg, sizeof(msg));
 
     xmlCleanupParser();
     return 0;
