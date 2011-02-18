@@ -4,7 +4,7 @@ dbLoadDatabase("dbd/ecAsynPort.dbd")
 ecAsynPort_registerRecordDeviceDriver(pdbbase)
 
 # ethercat scanner port
-ecConfigure("ECAT0", "/tmp/scanner.sock")
+ecConfigure("ECAT0", "/tmp/scanner.sock", 100, 1)
 
 # circular buffer port
 accConfigure("ECAT1", "ECAT0", 400, "value0", 100, 50)

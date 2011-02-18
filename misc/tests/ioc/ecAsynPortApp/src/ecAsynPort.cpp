@@ -15,6 +15,7 @@
 
 #include "asynPortDriver.h"
 #include "messages.h"
+#include "scanmock.h"
 
 #include "/home/jr76/ethercat/scanner_complete/misc/utils/src/msgsock.h"
 #include "/home/jr76/ethercat/scanner_complete/misc/utils/src/msgsock.c"
@@ -26,21 +27,21 @@
         port->func(); \
     }
 
-#include "scanmock.c"
-
 class ecAccumulate : public asynPortDriver 
 {
     int length;
     int ofs;
     int delay;
     int triggered;
+    int period;
+    int tick;
     int countdown;
     int32_t * buffer;
     int P_Buffer;
     int P_Trigger;
 public:
     ecAccumulate(const char * portName, const char * ecPortName, 
-                 int addr, const char * name, int length, int delay);
+                 int addr, const char * name, int length, int delay, int period);
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
     virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 * value);
     virtual asynStatus readInt32Array(asynUser *pasynUser, epicsInt32 *value,
@@ -114,10 +115,14 @@ void ecAccumulate::interrupt_callback(asynUser *pasynUser, epicsInt32 value)
     {
         buffer[ofs] = value;
         ofs = (ofs + 1) % length;
+
+        if(tick == 0)
+        {
+            doCallback();
+        }
+        tick = (tick + 1) % period;
     }
     
-    // nice for debug, far too fast for normal use
-    doCallback();
 }
 
 void queue_request_helper(asynUser *pasynUser)
@@ -133,7 +138,7 @@ void interrupt_callback_helper(void *drvPvt, asynUser *pasynUser,
 }
 
 ecAccumulate::ecAccumulate(const char *portName, const char * ecPortName,
-                           int addr, const char * name, int length, int delay)
+                           int addr, const char * name, int length, int delay, int period)
     : asynPortDriver(portName,
                      1, /* maxAddr - not using C++ params */
                      2, /* maxParams */
@@ -143,9 +148,9 @@ ecAccumulate::ecAccumulate(const char *portName, const char * ecPortName,
                      1, /* autoconnect */
                      0, /* default priority */
                      0) /* default stack size */,
-      length(length), ofs(0), delay(delay), triggered(0)
+      length(length), ofs(0), delay(delay), period(period), tick(0)
 {
-    printf("accumulate init: %s\n", portName);
+    printf("accumulate init: %s period %d\n", portName, period);
     buffer = (int32_t *)calloc(length, sizeof(epicsInt32));
     assert(buffer);
     
@@ -194,7 +199,9 @@ struct ecDrvUser
 class ecAsynPort : public asynPortDriver 
 {
 public:
-    ecAsynPort(const char *portName, const char * socketName);
+    ecAsynPort(const char *portName, const char * socketName, 
+               int default_period,
+               int selftest);
     /* overriden from asynPortDriver */
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
     virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 * value);
@@ -208,6 +215,7 @@ public:
 private:
     gphPvt * commands;
     int max_channel;
+    int default_period;
     ScanMock * scanner;
     epicsThreadId reader_thread;
     epicsThreadId writer_thread;
@@ -337,8 +345,13 @@ asynStatus ecAsynPort::doCallback(monitor_response * m)
         ecDrvUser * user = (ecDrvUser *)pInterrupt->pasynUser->drvUser;
         if(user->routing == m->routing && addr == m->vaddr)
         {
-            pInterrupt->callback(pInterrupt->userPvt, pInterrupt->pasynUser, 
-                                 m->value);
+            // TODO oversampling modules produce 10 samples in a row
+            // not a waveform
+            for(int s = 0; s < m->length; s++)
+            {
+                pInterrupt->callback(pInterrupt->userPvt, pInterrupt->pasynUser, 
+                                     m->value);
+            }
         }
      }
     pasynManager->interruptEnd(pInterfaces->int32InterruptPvt);
@@ -349,7 +362,18 @@ void ecAsynPort::createSubscription(int addr, const char * usr, int route)
 {
     monitor_request m;
     m.tag = MSG_MONITOR;
+    m.period = default_period;
     strncpy(m.usr, usr, sizeof(m.usr)-1);
+    for(int n = 0; n < (int)strlen(usr); n++)
+    {
+        if(m.usr[n] == ',')
+        {
+            sscanf(m.usr + n, ",%d", &m.period);
+            printf("new period is %d\n", m.period);
+            m.usr[n] = '\0';
+            break;
+        }
+    }
     m.routing = route;
     m.vaddr = addr;
     epicsMessageQueueSend(commandq, &m, sizeof(m));
@@ -396,7 +420,7 @@ asynStatus ecAsynPort::writeInt32(asynUser *pasynUser, epicsInt32 value)
     w.tag = MSG_WRITE;
     w.vaddr = addr;
     w.value = value;
-    strncpy(w.usr, (const char *)pasynUser->drvUser, sizeof(w.usr));
+    strncpy(w.usr, ((ecDrvUser *)pasynUser->drvUser)->drvInfo, sizeof(w.usr));
 
     epicsMessageQueueSend(commandq, &w, sizeof(w));
 
@@ -411,7 +435,9 @@ asynStatus ecAsynPort::readInt32(asynUser *pasynUser, epicsInt32 * value)
     return asynSuccess;
 }
 
-ecAsynPort::ecAsynPort(const char *portName, const char * sockName)
+ecAsynPort::ecAsynPort(const char *portName, const char * sockName, 
+                       int default_period,
+                       int selftest)
     : asynPortDriver(portName,
                      0, /* maxAddr - not using C++ params */
                      0, /* maxParams - not using C++ params*/
@@ -421,14 +447,18 @@ ecAsynPort::ecAsynPort(const char *portName, const char * sockName)
                      1, /* autoconnect */
                      0, /* default priority */
                      0), /* default stack size */
-      max_channel(0)
+      max_channel(0), default_period(default_period)
 {
     printf("ethercat client: %s %s\n", portName, sockName);
     this->socket_name = strdup(sockName);
 
     commandq = epicsMessageQueueCreate(10, MAX_MESSAGE);
 
-    scanner = new ScanMock(this->socket_name);
+    if(selftest)
+    {
+        printf("starting built-in self test scanner mockup\n");
+        scanner = new ScanMock(this->socket_name);
+    }
 
     reader_thread = epicsThreadCreate(
         "reader", 0, epicsThreadGetStackSize(epicsThreadStackMedium), ecAsynPort_reader_start, this);
@@ -441,13 +471,23 @@ extern "C"
 
     /* EPICS iocsh shell commands */
 
-    static const iocshArg portnameArg0 = { "portName",iocshArgString};
-    static const iocshArg sockNameArg1 = { "sockName",iocshArgString};
-    static const iocshArg * const initArgs[] = {&portnameArg0, &sockNameArg1 };
-    static const iocshFuncDef initFuncDef = {"ecConfigure",2,initArgs};
+    static const iocshArg InitArg[] = { { "portName", iocshArgString},
+                                        { "sockName", iocshArgString},
+                                        { "period",   iocshArgInt},
+                                        { "selftest", iocshArgInt   } };
+
+
+    static const iocshArg * const InitArgs[] = { &InitArg[0], 
+                                                 &InitArg[1], 
+                                                 &InitArg[2],
+                                                 &InitArg[3] };
+    
+    static const iocshFuncDef initFuncDef = {"ecConfigure", 3, InitArgs};
+
     static void initCallFunc(const iocshArgBuf *args)
     {
-        new ecAsynPort(args[0].sval, args[1].sval);
+        new ecAsynPort(args[0].sval, args[1].sval, 
+                       args[2].ival, args[3].ival );
     }
 
     static const iocshArg AccArg[] = { { "portName", iocshArgString },
@@ -455,22 +495,24 @@ extern "C"
                                        { "address",  iocshArgInt    },
                                        { "name",     iocshArgString },
                                        { "length",   iocshArgInt    },
-                                       { "delay",    iocshArgInt    } };
+                                       { "delay",    iocshArgInt    }, 
+                                       { "period",   iocshArgInt    } };
 
     static const iocshArg * const AccArgs[] = { &AccArg[0], 
                                                 &AccArg[1], 
                                                 &AccArg[2], 
                                                 &AccArg[3], 
                                                 &AccArg[4], 
-                                                &AccArg[5] };
+                                                &AccArg[5],
+                                                &AccArg[6] };
     
-    static const iocshFuncDef AccFuncDef = {"accConfigure", 6, AccArgs};
+    static const iocshFuncDef AccFuncDef = {"accConfigure", 7, AccArgs};
     
     static void AccCallFunc(const iocshArgBuf *args)
     {
         new ecAccumulate(args[0].sval, args[1].sval, 
                          args[2].ival, args[3].sval, 
-                         args[4].ival, args[5].ival);
+                         args[4].ival, args[5].ival, args[6].ival);
     }
     
     void ecAsynPortDriverRegister(void)
@@ -482,4 +524,3 @@ extern "C"
     epicsExportRegistrar(ecAsynPortDriverRegister);
 
 }
-

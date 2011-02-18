@@ -9,7 +9,7 @@ DBD += ecAsynPort.dbd
 DBD += ecAsynPortSupport.dbd
 
 LIBRARY_IOC += ethercatSupport
-ethercatSupport_SRCS += ecAsynPort.cpp
+ethercatSupport_SRCS += ecAsynPort.cpp scanmock.cpp
 # buffer.cpp
 ethercatSupport_LIBS += asyn
 ethercatSupport_LIBS += $(EPICS_BASE_IOC_LIBS)

@@ -1,18 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <unistd.h>
+#include <errno.h>
+
+#include <epicsTypes.h>
+#include <epicsTime.h>
+#include <epicsThread.h>
+#include <epicsString.h>
+#include <epicsMessageQueue.h>
+#include <epicsExport.h>
+#include <gpHash.h>
+#include <iocsh.h>
+
+#include "asynPortDriver.h"
+#include "messages.h"
+
 // Mock scanner for testing ASYN
 
-class ScanMock
-{
-    epicsMessageQueueId commandq;
-    const char * socket_name;
-public: 
-    epicsThreadId scanner_thread;
-    epicsThreadId timer_thread;
-    epicsThreadId reader_thread;
-    ScanMock(const char * socket_name);
-    void scanner();
-    void timer();
-    void reader();
-};
+#include "scanmock.h"
+
+#include "/home/jr76/ethercat/scanner_complete/misc/utils/src/msgsock.h"
+
+#define MAKE_DISPATCH_HELPER(cls, func)  \
+    static void cls##_##func##_start(void * usr) \
+    { \
+        cls * port = static_cast<cls *>(usr); \
+        port->func(); \
+    }
 
 MAKE_DISPATCH_HELPER(ScanMock, scanner);
 MAKE_DISPATCH_HELPER(ScanMock, timer);
@@ -69,6 +85,12 @@ void ScanMock::timer()
     }
 }
 
+struct monitor_request_node
+{
+    ELLNODE node;
+    monitor_request req;
+};
+
 void ScanMock::scanner()
 {
     char msg[MAX_MESSAGE];
@@ -91,29 +113,28 @@ void ScanMock::scanner()
         else if(tag[0] == MSG_MONITOR)
         {
             printf("subscribe (%d) %d:%s\n", m->routing, m->vaddr, m->usr);
-            monitor_request * next = 
-                (monitor_request *)calloc(1, sizeof(monitor_request));
-            memcpy(next, m, sizeof(monitor_request));
+            monitor_request_node * next = 
+                (monitor_request_node *)calloc(1, sizeof(monitor_request_node));
+            memcpy(&next->req, m, sizeof(monitor_request_node));
             ellAdd(&monitors, &next->node);
         }
         else if(tag[0] == MSG_WRITE)
         {
             write_request * w = (write_request *)msg;
-            printf("writing %d:%s %lld\n", w->vaddr, w->usr, w->value);
+            printf("writing %d:%s %d\n", w->vaddr, w->usr, w->value);
 
         }
         else if(tag[0] == MSG_TICK)
         {
-            ELLNODE * node;
-            for(node = ellFirst(&monitors); node != NULL; node = ellNext(node))
+            monitor_request_node * node;
+            for(node = (monitor_request_node *)ellFirst(&monitors); 
+                node != NULL; 
+                node = (monitor_request_node *)ellNext(&node->node))
             {
-                monitor_request * m = (monitor_request *)
-                    ((char *)node - offsetof(monitor_request, node));
-                
                 monitor_response resp;
                 resp.tag = MSG_REPLY;
-                resp.vaddr = m->vaddr;
-                resp.routing = m->routing;
+                resp.vaddr = node->req.vaddr;
+                resp.routing = node->req.routing;
                 resp.value = value++;
                 if(sock != 0)
                 {

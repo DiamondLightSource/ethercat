@@ -1,7 +1,44 @@
-record(longout, "ECTEST:100:output0")
+record(longout, "ECTEST:200:output0")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn(ECAT0,100)output0")
+   field(OUT,  "@asyn(ECAT0,200)output0")
+}
+
+record(longout, "ECTEST:200:output1")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn(ECAT0,200)output1")
+}
+
+record(longin, "ECTEST:200:output1_readback")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,200)output1")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "ECTEST:master:slaves")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,999)slaves ")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "ECTEST:master:alarm")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,999)alarm")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "ECTEST:master:link")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn(ECAT0,999)link")
+   field(SCAN, "I/O Intr")
 }
 
 record(longin, "ECTEST:400:value0")
@@ -12,12 +49,22 @@ record(longin, "ECTEST:400:value0")
    field(SCAN, "I/O Intr")
 }
 
-record(longin, "ECTEST:400:value0")
+record(longin, "ECTEST:400:al_state")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn(ECAT0)default")
+   field(INP,  "@asyn(ECAT0,400)al_state")
    field(SCAN, "I/O Intr")
+}
+
+record(waveform, "ECTEST:300:value0")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32ArrayIn")
+   field(INP,  "@asyn(ECAT2)BUFFER")
+   field(SCAN, "I/O Intr")
+   field(FTVL, "LONG")
+   field(NELM, "10000")
 }
 
 record(waveform, "ECTEST:400:value0w")
