@@ -22,6 +22,7 @@
 /* globals */
 
 enum { MAX_CLIENTS = 10 };
+enum { MAX_MESSAGE = 1024 };
 
 rtMessageQueueId clientq[MAX_CLIENTS] = { NULL };
 rtMessageQueueId workq = NULL;
@@ -30,7 +31,7 @@ rtMessageQueueId replyq = NULL;
 queue_t * monitorq = NULL;
 queue_t * writeq = NULL;
 
-field_t * create_default_monitors(ethercat_device_config * chain)
+field_t * create_default_monitors(ethercat_device_config * chain, int client)
 {
     int MAX_ROUTE = 1000;
     field_t * lookup_route = calloc(MAX_ROUTE, sizeof(field_t));
@@ -44,7 +45,7 @@ field_t * create_default_monitors(ethercat_device_config * chain)
         ethercat_device * d = c->dev;
         req.tag = MSG_MONITOR;
         req.vaddr = c->vaddr;
-        req.client = 0;
+        req.client = client;
 
         int j;
         for(j = 0; j < d->n_fields; j++)
@@ -62,9 +63,8 @@ field_t * create_default_monitors(ethercat_device_config * chain)
 void reader_task2(void * usr)
 {
     ethercat_device_config * chain = (ethercat_device_config *)usr;
-    field_t * fields = create_default_monitors(chain);
-    char msg[1024];
-    monitor_response * r = (monitor_response *)msg;
+    create_default_monitors(chain, 1);
+    char msg[MAX_MESSAGE];
     int count = 0;
     while(1)
     {
@@ -79,8 +79,8 @@ void reader_task(void * usr)
 {
 
     ethercat_device_config * chain = (ethercat_device_config *)usr;
-    field_t * fields = create_default_monitors(chain);
-    char msg[1024];
+    field_t * fields = create_default_monitors(chain, 0);
+    char msg[MAX_MESSAGE];
     monitor_response * r = (monitor_response *)msg;
     while(1)
     {
@@ -116,7 +116,7 @@ void cyclic_task(void * usr)
 
     uint8_t * pd = task->pd;
     struct timespec wakeupTime;
-    char msg[1024] = {0};
+    char msg[MAX_MESSAGE] = {0};
     int * tag = (int *)msg;
     int tick = 0;
 
@@ -299,7 +299,7 @@ int main(int argc, char **argv)
         n++;
     }
 
-    char msg[1024];
+    char msg[MAX_MESSAGE];
     rtMessageQueueReceive(replyq, msg, sizeof(msg));
 
     xmlCleanupParser();
