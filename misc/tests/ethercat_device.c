@@ -328,5 +328,11 @@ void initialize_chain(ethercat_device_config * chain, ethercat_device * devices,
                 }
             }
         }
+        if(c->dev == NULL)
+        {
+            printf("error: no device description found in config.xml for chain device %s\n", 
+                   c->name);
+            exit(1);
+        }
     }
 }
