@@ -2,7 +2,8 @@ CFLAGS=-Wall -g
 LDLIBS=-lpthread -lrt -lm -lComrt -Wl,-rpath=$(PWD)/lib -L$(PWD)/lib
 EPICS=/home/jr76/base/realtime/base-3-14-11
 
-TARGETS=lib/libComrt.a test_server test_interval
+TARGETS=lib/libComrt.a
+# test_server test_interval
 
 all: $(TARGETS)
 

@@ -8,9 +8,12 @@ include $(TOP)/configure/CONFIG
 DBD += ecAsynPort.dbd
 DBD += ecAsynPortSupport.dbd
 
+USR_LDFLAGS += -L$(TOP)/../../utils/lib
+USR_INCLUDES += -I$(TOP)/../../utils/src
 LIBRARY_IOC += ethercatSupport
 ethercatSupport_SRCS += ecAsynPort.cpp scanmock.cpp
 # buffer.cpp
+ethercatSupport_SYS_LIBS += Comrt
 ethercatSupport_LIBS += asyn
 ethercatSupport_LIBS += $(EPICS_BASE_IOC_LIBS)
 

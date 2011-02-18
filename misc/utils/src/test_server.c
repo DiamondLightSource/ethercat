@@ -99,7 +99,7 @@ void timer_start(void * usr)
 void server_start(void * usr)
 {
     rtMessageQueueId q = (rtMessageQueueId)usr;
-    int sock = rtServerSockCreate(socket_name, 5);
+    int sock = rtServerSockCreate(socket_name);
     rtMessageQueueSend(q, &sock, sizeof(sock));
     while(1)
     {

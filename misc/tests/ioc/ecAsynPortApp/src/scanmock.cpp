@@ -21,7 +21,10 @@
 
 #include "scanmock.h"
 
-#include "/home/jr76/ethercat/scanner_complete/misc/utils/src/msgsock.h"
+extern "C"
+{
+#include "msgsock.h"
+}
 
 #define MAKE_DISPATCH_HELPER(cls, func)  \
     static void cls##_##func##_start(void * usr) \
