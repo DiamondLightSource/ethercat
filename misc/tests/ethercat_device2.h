@@ -8,6 +8,7 @@ struct monitor_request
     int client;
     int vaddr;
     int route;
+    int period;
     char name[16];
 };
 

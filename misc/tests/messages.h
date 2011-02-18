@@ -6,5 +6,5 @@ struct action
     uint64_t value;
 };
 
-enum { MSG_TICK = 0, MSG_WRITE, MSG_CYCLE, MSG_MONITOR, MSG_ASYN, MSG_DATA };
+enum { MSG_TICK = 0, MSG_MONITOR = 1, MSG_REPLY = 2, MSG_WRITE = 3, MSG_DISCONN = 4, MSG_CYCLE, MSG_SOCK };
 

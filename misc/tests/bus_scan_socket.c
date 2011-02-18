@@ -2,7 +2,9 @@
 #include <string.h>
 #include <assert.h>
 #include <stddef.h>
+#include <errno.h>
 #include <time.h>
+#include <sys/mman.h>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -11,6 +13,7 @@
 #include <unistd.h>
 
 #include "rtutils.h"
+#include "msgsock.h"
 
 #include "ethercat_device2.h"
 #include "configparser.h"
@@ -19,7 +22,19 @@
 #include "messages.h"
 #include "timer.h"
 
+enum { MAX_SAFE_STACK = 100000 };
+
+void stack_prefault(void) 
+{
+    unsigned char dummy[MAX_SAFE_STACK];
+    memset(dummy, 0, MAX_SAFE_STACK);
+    return;
+}
+
 /* globals */
+
+void client_write_task(void * usr);
+void client_read_task(void * usr);
 
 enum { MAX_MONITORS = 1000 };
 enum { MAX_WRITES = 1000 };
@@ -63,40 +78,6 @@ field_t * create_default_monitors(ethercat_device_config * chain, int client)
     return lookup_route;
 }
 
-void reader_task2(void * usr)
-{
-    ethercat_device_config * chain = (ethercat_device_config *)usr;
-    create_default_monitors(chain, 1);
-    char msg[MAX_MESSAGE];
-    int count = 0;
-    while(1)
-    {
-        rtMessageQueueReceive(clientq[1], msg, sizeof(msg));
-        if(count % 1000 == 0)
-            printf("black hole client\n");
-        count++;
-    }
-}
-
-void reader_task(void * usr)
-{
-
-    ethercat_device_config * chain = (ethercat_device_config *)usr;
-    field_t * fields = create_default_monitors(chain, 0);
-    char msg[MAX_MESSAGE];
-    monitor_response * r = (monitor_response *)msg;
-    while(1)
-    {
-        rtMessageQueueReceive(clientq[0], msg, sizeof(msg));
-        int s;
-        for(s = 0; s < r->length; s++)
-        {
-            printf("(%d:%d:%d)%s[%d] %d\n", 
-                   r->vaddr, r->client, r->route, fields[r->route].name, s, r->value[s]);
-        }
-    }
-}
-
 typedef struct task_config task_config;
 struct task_config
 {
@@ -108,6 +89,7 @@ struct task_config
     
 void cyclic_task(void * usr)
 {
+    stack_prefault();
     task_config * task = (task_config *)usr;
     ec_master_t * master = task->master;
     ec_domain_t * domain = task->domain;
@@ -120,16 +102,31 @@ void cyclic_task(void * usr)
     while(1)
     {
         rtMessageQueueReceive(workq, msg, sizeof(msg));
-        if(tag[0] == MSG_MONITOR)
+        if(tag[0] == MSG_DISCONN)
+        {
+            int client = tag[1];
+            int size = queue_size(monitorq);
+            while(size > 0)
+            {
+                ec_addr e;
+                queue_get(monitorq, &e);
+                if(e.client != client)
+                {
+                    queue_put(monitorq, &e);
+                }
+                size--;
+            }
+
+        }
+        else if(tag[0] == MSG_MONITOR)
         {
             monitor_request * req = (monitor_request *)msg;
             ec_addr addr = {0};
             addr.route = req->route;
             addr.vaddr = req->vaddr;
-            addr.period = 100;
+            addr.period = req->period;
             addr.client = req->client;
             strncpy(addr.name, req->name, sizeof(addr.name));
-            printf("subscription %s\n", req->name);
             queue_put(monitorq, &addr);
         }
         else if(tag[0] == MSG_WRITE)
@@ -202,7 +199,7 @@ void cyclic_task(void * usr)
                 if(f != NULL)
                 {
                     monitor_response reply = { 0 };
-                    reply.tag = MSG_DATA;
+                    reply.tag = MSG_REPLY;
                     reply.client = 0;
                     reply.vaddr = e.vaddr;
                     reply.route = e.route;
@@ -273,22 +270,110 @@ int main(int argc, char **argv)
 
     timer_usr t = { PERIOD_NS, workq };
 
-    rtThreadCreate("reader", PRIO_LOW,  0, reader_task, chain );
-    rtThreadCreate("reader", PRIO_LOW,  0, reader_task2, chain );
+
+    const char * socket_name = "/tmp/scanner.sock";
+    int server_sock = rtServerSockCreate(socket_name);
+
     rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, &config);
     rtThreadCreate("timer",  PRIO_HIGH, 0, timer_task, &t);
 
-    int n = 0;
-    write_request wr = { MSG_WRITE, 0, 200, 0, "output0" };
-    while(1)
+    rtThreadCreate("client_reader", PRIO_LOW,  0, client_read_task,  (void *)server_sock );
+    rtThreadCreate("client_writer", PRIO_LOW,  0, client_write_task, (void *)server_sock );
+
+    // TODO need to pre-fault thread stacks
+    if(mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
     {
-        wr.value = n % 2000;
-        usleep(1000);
-        rtMessageQueueSend(workq, &wr, sizeof(wr));
-        n++;
+        perror("warning: memory lock error, try sudo");
     }
 
+    pause();
+    
     xmlCleanupParser();
     return 0;
 }
 
+void client_write_task(void * usr)
+{
+    stack_prefault();
+    int client = 0;
+    char msg[MAX_MESSAGE];
+    int * tag = (int *)msg;
+    int sock = -1;
+    while(1)
+    {
+        rtMessageQueueReceive(clientq[client], msg, sizeof(msg));
+        if(tag[0] == MSG_SOCK)
+        {
+            sock = tag[1];
+        }
+        else if(tag[0] == MSG_REPLY && sock != -1)
+        {
+            rtSockSend(sock, msg, sizeof(msg));
+        }
+    }
+}
+
+void client_read_task(void * usr)
+{
+    stack_prefault();
+    int server_sock = (int)usr;
+    int client = 0;
+    int sock = -1;
+    while(1)
+    {
+        while(1)
+        {
+            sock = rtServerSockAccept(server_sock);
+            if(sock < 0)
+            {
+                printf("can't accept client %s\n", strerror(errno));
+                usleep(1000000);
+            }
+            else
+            {
+                break;
+            }
+        }
+        printf("client connected\n");
+        int msg_sock[] = { MSG_SOCK, sock };
+        rtMessageQueueSend(clientq[client], msg_sock, sizeof(msg_sock));
+        while(1)
+        {
+            char msg[MAX_MESSAGE];
+            int * tag = (int *)msg;
+            int sz = rtSockReceive(sock, msg, sizeof(msg));
+            if(sz < 0)
+            {
+                printf("client disconnect %d\n", sz);
+                usleep(1000000);
+                break;
+            }
+            if(tag[0] == MSG_MONITOR)
+            {
+                monitor_request * req = (monitor_request *)msg;
+                printf("got monitor request %d:%s rate %d route %d\n", 
+                       req->vaddr,
+                       req->name, 
+                       req->period,
+                       req->route);
+                // attach client indentifier
+                req->client = client;
+                rtMessageQueueSend(workq, req, sizeof(monitor_request));
+            }
+            else if(tag[0] == MSG_WRITE)
+            {
+                write_request * wr = (write_request *)msg;
+                wr->client = client;
+                printf("write request %s value %d\n", wr->name, wr->value);
+                rtMessageQueueSend(workq, wr, sizeof(write_request));
+            }
+            else
+            {
+                printf("unknown message\n");
+            }
+        }
+        close(sock);
+        int msg_disconn[] = { MSG_DISCONN, client };
+        rtMessageQueueSend(workq, msg_disconn, sizeof(msg_disconn));
+    }
+}

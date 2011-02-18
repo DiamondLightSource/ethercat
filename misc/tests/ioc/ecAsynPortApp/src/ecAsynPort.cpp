@@ -482,7 +482,7 @@ extern "C"
                                                  &InitArg[2],
                                                  &InitArg[3] };
     
-    static const iocshFuncDef initFuncDef = {"ecConfigure", 3, InitArgs};
+    static const iocshFuncDef initFuncDef = {"ecConfigure", 4, InitArgs};
 
     static void initCallFunc(const iocshArgBuf *args)
     {

@@ -202,7 +202,7 @@ void cyclic_task(void * usr)
                 if(f != NULL)
                 {
                     monitor_response reply = { 0 };
-                    reply.tag = MSG_DATA;
+                    reply.tag = MSG_REPLY;
                     reply.client = 0;
                     reply.vaddr = e.vaddr;
                     reply.route = e.route;
