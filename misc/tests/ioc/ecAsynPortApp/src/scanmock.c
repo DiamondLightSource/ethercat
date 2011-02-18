@@ -34,22 +34,24 @@ ScanMock::ScanMock(const char * socket_name) : socket_name(socket_name)
 // socket to message queue adapter
 void ScanMock::reader()
 {
-    printf("create server sock %s\n", socket_name);
     int server_sock = rtServerSockCreate(socket_name);
-    assert(server_sock);
+    printf("create server sock %s %d\n", socket_name, server_sock);
     while(1)
     {
         int sock = rtServerSockAccept(server_sock);
-        assert(sock);
+        if(sock < 0)
+        {
+            printf("can't accept client %s\n", strerror(errno));
+        }
         int tag[2] = { MSG_CONNECT, sock };
         epicsMessageQueueSend(commandq, tag, sizeof(tag));
         while(1)
         {
             char msg[MAX_MESSAGE];
             int sz = rtSockReceive(sock, msg, sizeof(msg));
-            if(sz == -1)
+            if(sz < 0)
             {
-                printf("client disconnect\n");
+                printf("client disconnect %d\n", sz);
                 break;
             }
             epicsMessageQueueSend(commandq, msg, sz);

@@ -222,25 +222,46 @@ void ecAsynPort::reader()
     char msg[MAX_MESSAGE];
     int * tag = (int *)msg;
 
-    epicsThreadSleep(1.0);
-    printf("wakeup\n");
-    int sock = rtSockCreate(socket_name);
-    assert(sock);
-    tag[0] = MSG_CONNECT;
-    tag[1] = sock;
-    
-    epicsMessageQueueSend(commandq, msg, sizeof(msg));
-    
+    int sock = -1;
+
     while(1)
     {
-        int sz = rtSockReceive(sock, msg, sizeof(msg));
-        assert(sz > 0);
-        if(tag[0] == MSG_REPLY)
+
+        while(1)
         {
-            monitor_response * resp = (monitor_response *)msg;
-            doCallback(resp);
+            printf("connection attempt\n");
+            sock = rtSockCreate(socket_name);
+            if(sock != -1)
+            {
+                printf("connected\n");
+                break;
+            }
+            epicsThreadSleep(1.0);
         }
+        
+        tag[0] = MSG_CONNECT;
+        tag[1] = sock;
+        epicsMessageQueueSend(commandq, msg, sizeof(msg));
+        
+        while(1)
+        {
+            int sz = rtSockReceive(sock, msg, sizeof(msg));
+            if(sz < 0)
+            {
+                printf("receive connection closed\n");
+                break;
+            }
+            if(tag[0] == MSG_REPLY)
+            {
+                monitor_response * resp = (monitor_response *)msg;
+                doCallback(resp);
+            }
+        }
+
+        close(sock);
+        
     }
+    
 }
 
 struct monitor_request_node
