@@ -20,30 +20,30 @@
 int sendall(int s, const char *buf, size_t len, int flags);
 int recvall(int s, char *buf, size_t len, int flags);
 
-int rtSockReceive(int s, void * buf, unsigned int len)
+int rtSockReceive(int s, void * buf, int len)
 {
-    uint32_t size;
+    int32_t size;
     if(recvall(s, (char *)&size, sizeof(size), 0) != sizeof(size))
     {
         return -1;
     }
     if(len < size)
     {
-        return -1;
+        return -2;
     }
-    return recvall(s, buf, size, 0);
+    return recvall(s, (char *)buf, size, 0);
 }
 
-int rtSockSend(int s, const void * buf, unsigned int len)
+int rtSockSend(int s, const void * buf, int len)
 {
-    uint32_t size = len;
+    int32_t size = len;
     if(sendall(s, (const char *)&size, sizeof(size), 0) != sizeof(size))
     {
         return -1;
     }
-    if(sendall(s, buf, len, 0) != len)
+    if(sendall(s, (char *)buf, len, 0) != len)
     {
-        return -1;
+        return -2;
     }
     return 0;
 }
@@ -82,26 +82,32 @@ int recvall(int s, char *buf, size_t len, int flags)
     return len;
 }
 
-int rtSockCreate(char * socket_name)
+int rtSockCreate(const char * socket_name)
 {
     size_t address_length;
     struct sockaddr_un address;
     int sock = socket(PF_UNIX, SOCK_STREAM, 0);
-
-    assert(sock >= 0);
+    if(sock == -1)
+    {
+        return -1;
+    }
     address.sun_family = AF_UNIX;
     address_length = sizeof(address.sun_family) +
         sprintf(address.sun_path, socket_name);
-
-    assert(connect(sock, (struct sockaddr *) &address, address_length) == 0);
+    if(connect(sock, (struct sockaddr *) &address, address_length) == -1)
+    {
+        fprintf(stderr, "connect failed %s\n", strerror(errno));
+        return -1;
+    }
     return sock;
 }
 
-int rtServerSockCreate(char * socket_name, int backlog)
+int rtServerSockCreate(const char * socket_name)
 {
     int sock;
-    size_t address_length;
     struct sockaddr_un address;
+    size_t address_length;
+    int BACKLOG = 5;
 
     umask(0);
     
@@ -112,15 +118,15 @@ int rtServerSockCreate(char * socket_name, int backlog)
     address_length = sizeof(address.sun_family) +
         sprintf(address.sun_path, socket_name);
     assert(bind(sock, (struct sockaddr *) &address, address_length) == 0);
-    assert(listen(sock, backlog) == 0);
+    assert(listen(sock, BACKLOG) == 0);
     
     return sock;
 }
 
 int rtServerSockAccept(int sock)
 {
-    size_t address_length;
     struct sockaddr_un address;
+    size_t address_length = sizeof(address);
     return accept(
         sock, (struct sockaddr *) &address, &address_length);
 }
