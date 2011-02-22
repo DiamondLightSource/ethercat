@@ -1,9 +1,9 @@
-# el3702-channel.db
+# ecAccumulate.db
 #% macro, P, Device Prefix
 #% macro, S, Device suffix
 #% macro, PORT, Circular buffer asyn port for waveform accumulation
 #% macro, NELM, Number of elements in waveform
-record(waveform, "$(P)$(S):value0")
+record(waveform, "$(P)$(S):BUFFER")
 {
   field(PINI, "YES")
    field(DTYP, "asynInt32ArrayIn")
