@@ -1,0 +1,33 @@
+# el2624.db
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, PORT, Asyn port for EtherCAT scanner
+#% macro, VADDR, Virtual address for module
+
+record(longin, "$(P)$(S):al_state")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(VADDR))al_state")
+   field(SCAN, "I/O Intr")
+}
+record(bo, "$(P)$(S):output1")
+{
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(VADDR))output1") 
+}
+record(bo, "$(P)$(S):output2")
+{
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(VADDR))output2") 
+}
+record(bo, "$(P)$(S):output3")
+{
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(VADDR))output3") 
+}
+record(bo, "$(P)$(S):output4")
+{
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(VADDR))output4") 
+}

@@ -1,0 +1,29 @@
+# el4134.db
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, PORT, Asyn port for EtherCAT scanner
+#% macro, VADDR, Virtual address for module
+
+record(longout, "$(P)$(S):output1")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(VADDR))output1")
+}
+
+record(longout, "$(P)$(S):output2")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(VADDR))output2")
+}
+
+record(longout, "$(P)$(S):output3")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(VADDR))output3")
+}
+
+record(longout, "$(P)$(S):output4")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(VADDR))output4")
+}

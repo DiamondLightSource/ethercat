@@ -26,5 +26,3 @@ record(longin, "$(P)$(S):master:link")
    field(INP,  "@asyn($(PORT),$(VADDR))link")
    field(SCAN, "I/O Intr")
 }
-
-
