@@ -1,0 +1,9 @@
+file master.db 
+{
+    pattern {P, S, VADDR, PORT}
+    {"ECTEST", "", "999", "ECAT0"}
+
+}
+file el3702.db
+{
+}
