@@ -766,93 +766,138 @@
     <Descriptions>
       <Devices>
         <Device>
-          <Type ProductCode="#x04622c52" RevisionNo="#x00110000">EK1122</Type>
-          <Name><![CDATA[EK1122 2-Port EtherCAT-Abzweig]]></Name>
-        </Device>
-      </Devices>
-    </Descriptions>
-  </EtherCATInfo>
-  <EtherCATInfo>
-    <!-- Slave 9 -->
-    <Vendor>
-      <Id>114</Id>
-    </Vendor>
-    <Descriptions>
-      <Devices>
-        <Device>
-          <Type ProductCode="#x00fa6053" RevisionNo="#x00000000">Serial Interface Unit</Type>
-          <Name><![CDATA[EX250-SEN1-X156,  EtherCAT Unit]]></Name>
-          <Sm Enable="9" StartAddress="#xf00" ControlByte="#x46" DefaultSize="0" />
-          <Sm Enable="1" StartAddress="#x1000" ControlByte="#x0" DefaultSize="0" />
-          <RxPdo Sm="0" Fixed="1" Mandatory="1">
-            <Index>#x1600</Index>
-            <Name>Outputs</Name>
-            <Entry>
-              <Index>#x7000</Index>
-              <SubIndex>1</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte0</Name>
-              <DataType>UINT8</DataType>
-            </Entry>
-            <Entry>
-              <Index>#x7000</Index>
-              <SubIndex>2</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte1</Name>
-              <DataType>UINT8</DataType>
-            </Entry>
-            <Entry>
-              <Index>#x7000</Index>
-              <SubIndex>3</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte2</Name>
-              <DataType>UINT8</DataType>
-            </Entry>
-            <Entry>
-              <Index>#x7000</Index>
-              <SubIndex>4</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte3</Name>
-              <DataType>UINT8</DataType>
-            </Entry>
-          </RxPdo>
-          <TxPdo Sm="1" Fixed="1" Mandatory="1">
+          <Type ProductCode="#x0e123052" RevisionNo="#x00100000">EL3602</Type>
+          <Name><![CDATA[EL3602 2K. Ana. Eingang +/- 10Volt, Diff. 24bit]]></Name>
+          <Sm Enable="1" StartAddress="#x1000" ControlByte="#x26" DefaultSize="128" />
+          <Sm Enable="1" StartAddress="#x1080" ControlByte="#x22" DefaultSize="128" />
+          <Sm Enable="0" StartAddress="#x1100" ControlByte="#x4" DefaultSize="0" />
+          <Sm Enable="1" StartAddress="#x1180" ControlByte="#x20" DefaultSize="12" />
+          <TxPdo Sm="3" Fixed="1" Mandatory="1">
             <Index>#x1a00</Index>
-            <Name>Inputs</Name>
+            <Name>AI TxPDO-Map Inputs Ch.1</Name>
             <Entry>
               <Index>#x6000</Index>
               <SubIndex>1</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte0</Name>
-              <DataType>UINT8</DataType>
+              <BitLen>1</BitLen>
+              <Name>Underrange</Name>
+              <DataType>BOOL</DataType>
             </Entry>
             <Entry>
               <Index>#x6000</Index>
               <SubIndex>2</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte1</Name>
-              <DataType>UINT8</DataType>
+              <BitLen>1</BitLen>
+              <Name>Overrange</Name>
+              <DataType>BOOL</DataType>
             </Entry>
             <Entry>
               <Index>#x6000</Index>
               <SubIndex>3</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte2</Name>
-              <DataType>UINT8</DataType>
-            </Entry>
-            <Entry>
-              <Index>#x6000</Index>
-              <SubIndex>4</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Byte3</Name>
-              <DataType>UINT8</DataType>
+              <BitLen>2</BitLen>
+              <Name>Limit 1</Name>
+              <DataType>BIT2</DataType>
             </Entry>
             <Entry>
               <Index>#x6000</Index>
               <SubIndex>5</SubIndex>
-              <BitLen>8</BitLen>
-              <Name>Status</Name>
-              <DataType>UINT8</DataType>
+              <BitLen>2</BitLen>
+              <Name>Limit 2</Name>
+              <DataType>BIT2</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6000</Index>
+              <SubIndex>7</SubIndex>
+              <BitLen>1</BitLen>
+              <Name>Error</Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x0000</Index>
+              <BitLen>7</BitLen>
+            </Entry>
+            <Entry>
+              <Index>#x1800</Index>
+              <SubIndex>7</SubIndex>
+              <BitLen>1</BitLen>
+              <Name></Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x1800</Index>
+              <SubIndex>9</SubIndex>
+              <BitLen>1</BitLen>
+              <Name></Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6000</Index>
+              <SubIndex>17</SubIndex>
+              <BitLen>32</BitLen>
+              <Name>Value</Name>
+              <DataType>UINT32</DataType>
+            </Entry>
+          </TxPdo>
+          <TxPdo Sm="3" Fixed="1" Mandatory="1">
+            <Index>#x1a01</Index>
+            <Name>AI TxPDO-Map Inputs Ch.2</Name>
+            <Entry>
+              <Index>#x6010</Index>
+              <SubIndex>1</SubIndex>
+              <BitLen>1</BitLen>
+              <Name>Underrange</Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6010</Index>
+              <SubIndex>2</SubIndex>
+              <BitLen>1</BitLen>
+              <Name>Overrange</Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6010</Index>
+              <SubIndex>3</SubIndex>
+              <BitLen>2</BitLen>
+              <Name>Limit 1</Name>
+              <DataType>BIT2</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6010</Index>
+              <SubIndex>5</SubIndex>
+              <BitLen>2</BitLen>
+              <Name>Limit 2</Name>
+              <DataType>BIT2</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6010</Index>
+              <SubIndex>7</SubIndex>
+              <BitLen>1</BitLen>
+              <Name>Error</Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x0000</Index>
+              <BitLen>7</BitLen>
+            </Entry>
+            <Entry>
+              <Index>#x1801</Index>
+              <SubIndex>7</SubIndex>
+              <BitLen>1</BitLen>
+              <Name></Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x1801</Index>
+              <SubIndex>9</SubIndex>
+              <BitLen>1</BitLen>
+              <Name></Name>
+              <DataType>BOOL</DataType>
+            </Entry>
+            <Entry>
+              <Index>#x6010</Index>
+              <SubIndex>17</SubIndex>
+              <BitLen>32</BitLen>
+              <Name>Value</Name>
+              <DataType>UINT32</DataType>
             </Entry>
           </TxPdo>
         </Device>
