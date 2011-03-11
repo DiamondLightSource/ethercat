@@ -118,10 +118,11 @@ static int msgq_put_(rtMessageQueueId msgq, void * data, int size, int nowait)
         return -1;
     }
     pthread_mutex_lock(&msgq->mutex);
-    if(msgq->length == msgq->capacity && nowait)
+    /* remove oldest element */
+    if(nowait && msgq->length == msgq->capacity)
     {
-        pthread_mutex_unlock(&msgq->mutex);
-        return -1;
+        msgq->tail = (msgq->tail + 1) % msgq->capacity;
+        msgq->length--;
     }
     while(msgq->length == msgq->capacity)
     {
