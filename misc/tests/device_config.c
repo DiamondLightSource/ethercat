@@ -42,6 +42,9 @@ void show_device(ec_master_t * master, int pos, FILE * f)
     ec_sync_info_t syncs[EC_MAX_SYNC_MANAGERS];
     ec_slave_info_t slave_info;
 
+    char next_name[1024] = {0};
+    int names = 0;
+
     assert(ecrt_master_get_slave(master, pos, &slave_info) == 0);
 
     fprintf(f, "  <device name=\"%s\" vendor=\"0x%08x\" product=\"0x%08x\" revision=\"0x%08x\">\n",
@@ -78,8 +81,11 @@ void show_device(ec_master_t * master, int pos, FILE * f)
                 ec_pdo_entry_info_t * entry = entries + j;
                 assert(ecrt_master_get_pdo_entry(
                            master, pos, n, p, j, entry) == 0);
-                fprintf(f, "        <entry index=\"0x%04x\" subindex=\"0x%02x\" bit_length=\"%d\" />\n", 
-                        entry->index, entry->subindex, entry->bit_length);
+
+                snprintf(next_name, sizeof(next_name), "entry%d", names++);
+
+                fprintf(f, "        <entry index=\"0x%04x\" subindex=\"0x%02x\" bit_length=\"%d\" name=\"%s\" />\n", 
+                        entry->index, entry->subindex, entry->bit_length, next_name);
             }
             fprintf(f, "      </pdo>\n");
         }
