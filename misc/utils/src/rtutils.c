@@ -148,6 +148,11 @@ int rtMessageQueueTrySend(rtMessageQueueId msgq, void * data, unsigned int size)
     return msgq_put_(msgq, data, size, 1);
 }
 
+int rtMessageQueueSendNoWait(rtMessageQueueId msgq, void * data, unsigned int size)
+{
+    return msgq_put_(msgq, data, size, 1);
+}
+
 int rtMessageQueueSendPriority(rtMessageQueueId msgq, void * data, unsigned int size)
 {
     if(size > msgq->maximumMessageSize)

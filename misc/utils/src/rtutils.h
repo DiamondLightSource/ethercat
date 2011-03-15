@@ -18,6 +18,11 @@ int rtMessageQueueSend(
     void *message,
     unsigned int messageSize);
 
+int rtMessageQueueSendNoWait(
+    rtMessageQueueId id,
+    void *message,
+    unsigned int messageSize);
+
 int rtMessageQueueTrySend(
     rtMessageQueueId id,
     void *message,
