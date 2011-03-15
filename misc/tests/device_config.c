@@ -83,9 +83,15 @@ void show_device(ec_master_t * master, int pos, FILE * f)
                            master, pos, n, p, j, entry) == 0);
 
                 snprintf(next_name, sizeof(next_name), "entry%d", names++);
-
-                fprintf(f, "        <entry index=\"0x%04x\" subindex=\"0x%02x\" bit_length=\"%d\" name=\"%s\" />\n", 
-                        entry->index, entry->subindex, entry->bit_length, next_name);
+                if(entry->index == 0 && entry->subindex == 0)
+                {
+                    // gap
+                }
+                else
+                {
+                    fprintf(f, "        <entry index=\"0x%04x\" subindex=\"0x%02x\" bit_length=\"%d\" name=\"%s\" />\n", 
+                            entry->index, entry->subindex, entry->bit_length, next_name);
+                }
             }
             fprintf(f, "      </pdo>\n");
         }
