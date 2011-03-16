@@ -5,7 +5,7 @@ CFLAGS=-I$(ETHERCAT)/include -O2 -g -I$(UTILS)/src -Wall -I/usr/include/libxml2
 LDFLAGS=-L$(ETHERCAT)/lib -Wl,-rpath=$(ETHERCAT)/lib -Wl,-rpath=$(UTILS)/lib -L$(UTILS)/lib
 LDLIBS=-lethercat -lrt -lpthread -lComrt -lm -lxml2
 
-TARGETS=bus_scan2
+TARGETS=bus_scan2 qordertest
 
 configparser: CFLAGS:=$(CFLAGS) -Dmain_TEST=main
 

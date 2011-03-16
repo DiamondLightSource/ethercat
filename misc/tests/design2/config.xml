@@ -1,0 +1,53 @@
+<devices>
+  <device name="EK1101 EtherCAT-Koppler (2A E-Bus, ID-Switch)" vendor="0x00000002" product="0x044d2c52" revision="0x00110000">
+    <sync index="0" n_pdos="1" dir="2" watchdog="2">
+      <pdo index="0x1a00" n_entries="1" >
+        <entry index="0x6000" subindex="0x01" bit_length="16" name="entry0" />
+      </pdo>
+    </sync>
+  </device>
+  <device name="EL1004 4K. Dig. Eingang 24V, 3ms" vendor="0x00000002" product="0x03ec3052" revision="0x00100000">
+    <sync index="0" n_pdos="4" dir="2" watchdog="2">
+      <pdo index="0x1a00" n_entries="1" >
+        <entry index="0x6000" subindex="0x01" bit_length="1" name="entry0" />
+      </pdo>
+      <pdo index="0x1a01" n_entries="1" >
+        <entry index="0x6010" subindex="0x01" bit_length="1" name="entry1" />
+      </pdo>
+      <pdo index="0x1a02" n_entries="1" >
+        <entry index="0x6020" subindex="0x01" bit_length="1" name="entry2" />
+      </pdo>
+      <pdo index="0x1a03" n_entries="1" >
+        <entry index="0x6030" subindex="0x01" bit_length="1" name="entry3" />
+      </pdo>
+    </sync>
+  </device>
+  <device name="EL1502 2K. +/- Zaehler 24V, 100kHz" vendor="0x00000002" product="0x05de3052" revision="0x00100000">
+    <sync index="0" n_pdos="0" dir="1" watchdog="2">
+    </sync>
+    <sync index="1" n_pdos="0" dir="2" watchdog="2">
+    </sync>
+    <sync index="2" n_pdos="1" dir="1" watchdog="2">
+      <pdo index="0x1602" n_entries="6" >
+        <entry index="0x7020" subindex="0x01" bit_length="1" name="entry0" />
+        <entry index="0x7020" subindex="0x02" bit_length="1" name="entry1" />
+        <entry index="0x7020" subindex="0x03" bit_length="1" name="entry2" />
+        <entry index="0x7020" subindex="0x04" bit_length="1" name="entry3" />
+        <entry index="0x7020" subindex="0x11" bit_length="32" name="entry5" />
+      </pdo>
+    </sync>
+    <sync index="3" n_pdos="1" dir="2" watchdog="2">
+      <pdo index="0x1a02" n_entries="11" >
+        <entry index="0x6020" subindex="0x01" bit_length="1" name="entry6" />
+        <entry index="0x6020" subindex="0x02" bit_length="1" name="entry7" />
+        <entry index="0x6020" subindex="0x03" bit_length="1" name="entry8" />
+        <entry index="0x6020" subindex="0x04" bit_length="1" name="entry9" />
+        <entry index="0x6020" subindex="0x05" bit_length="1" name="entry10" />
+        <entry index="0x6020" subindex="0x06" bit_length="1" name="entry11" />
+        <entry index="0x1c32" subindex="0x20" bit_length="1" name="entry13" />
+        <entry index="0x1802" subindex="0x09" bit_length="1" name="entry15" />
+        <entry index="0x6020" subindex="0x11" bit_length="32" name="entry16" />
+      </pdo>
+    </sync>
+  </device>
+</devices>

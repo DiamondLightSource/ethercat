@@ -1,0 +1,6 @@
+<chain>
+<device name="EK1101 EtherCAT-Koppler (2A E-Bus, ID-Switch)" pos="0" vaddr="100" />
+<device name="EL1004 4K. Dig. Eingang 24V, 3ms" pos="1" vaddr="200" />
+<device name="EL1502 2K. +/- Zaehler 24V, 100kHz" pos="2" vaddr="300" />
+<device name="MASTER" vaddr="999" pos="999" />
+</chain>

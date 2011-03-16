@@ -128,3 +128,20 @@ ethercat_device * clone_from_prototype(ethercat_device * proto,
 void initialize_chain(ethercat_device_config * chain, ethercat_device * devices, 
                       ec_master_t * master, ec_domain_t * domain);
 
+
+enum { MAX_SLAVES = 256 };
+
+struct pdo_message
+{
+    int tag;
+    // metadata
+    int active_slaves;
+    int alarm;
+    int link;
+    int cycle;
+    int bus_slaves;
+    int memory_size;
+    // slave metadata, int slave_state[bus_slaves]
+    // PDO memory, char memory[size]
+};
+
