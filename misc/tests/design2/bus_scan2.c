@@ -11,12 +11,16 @@
 #include <unistd.h>
 
 #include "rtutils.h"
+#include "msgsock.h"
 
 #include "ethercat_device2.h"
 #include "configparser.h"
 
 #include "messages.h"
 #include "timer.h"
+
+#include <sys/types.h>
+#include <sys/socket.h>
 
 typedef struct
 {
@@ -42,26 +46,53 @@ int pdo_size = 0;
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
 enum { MAX_CLIENTS = 100 };
-enum { MAX_MESSAGE = 128 };
+enum { MAX_MESSAGE = 13000 };
 enum { CLIENT_Q_CAPACITY = 10 };
 enum { WORK_Q_CAPACITY = 10 };
 
 rtMessageQueueId clientq[MAX_CLIENTS] = { NULL };
 rtMessageQueueId workq = NULL;
 
+struct reader_args
+{
+    int id;
+    int sock;
+};
+
+void socket_reader_task(void * usr)
+{
+    char msg[MAX_MESSAGE];
+    struct reader_args * args = (struct reader_args *)usr;
+    printf("hello %d %d\n", args->id, args->sock);
+    int count = 0;
+    while(1)
+    {
+        int sz = rtSockReceive(args->sock, msg, sizeof(msg));
+        if(count % 1000 == 0 && args->id == 1)
+        {
+            short * val = (short *)(msg + 13);
+            // unpack switch
+            printf("read check threaD %d: value %d size %d\n", args->id, *val, sz);
+        }
+        count++;
+    }
+}
+
 void reader_task(void * usr)
 {
-    int id = (int)usr;
+    struct reader_args * args = (struct reader_args *)usr;
+    int id = args->id;
     char msg[MAX_MESSAGE];
     int count = 0;
     while(1)
     {
-        rtMessageQueueReceive(clientq[id], msg, sizeof(msg));
+        int sz = rtMessageQueueReceive(clientq[id], msg, sizeof(msg));
+        rtSockSend(args->sock, msg, sz);
         if(count % 500 == 0)
         {
             short * val = (short *)(msg + 13);
             // unpack switch
-            printf("%d: %d\n", id, *val);
+            //printf("read check thread %d: value %d size %d\n", id, *val, sz);
         }
         count++;
     }
@@ -139,9 +170,14 @@ void cyclic_task(void * usr)
 
             // client broadcast
             int client;
+
+            char buffer[MAX_MESSAGE];
+            memcpy(buffer, pd, pdo_size);
+
             for(client = 0; client < MAX_CLIENTS; client++)
             {
-                rtMessageQueueSendNoWait(clientq[client], pd, pdo_size);
+                //rtMessageQueueSendNoWait(clientq[client], pd, pdo_size);
+                rtMessageQueueSendNoWait(clientq[client], buffer, MAX_MESSAGE);
             }
             
             ecrt_domain_queue(domain);
@@ -199,7 +235,18 @@ int main(int argc, char **argv)
     {
         clientq[client] = rtMessageQueueCreate(CLIENT_Q_CAPACITY, 
                                                MAX_MESSAGE);
-        rtThreadCreate("reader", PRIO_LOW,  0, reader_task, (void *)client);
+
+        struct reader_args * args = (struct reader_args *)calloc(1, sizeof(struct reader_args));
+        struct reader_args * args2 = (struct reader_args *)calloc(1, sizeof(struct reader_args));
+        args->id = client;
+        args2->id = client;
+
+        int pair[2];
+        assert(socketpair(AF_UNIX, SOCK_STREAM, 0, pair) == 0);
+        args->sock = pair[0];
+        args2->sock = pair[1];
+        rtThreadCreate("reader", PRIO_LOW,  0, reader_task, args);
+        rtThreadCreate("reader2", PRIO_LOW,  0, socket_reader_task, args2);
     }
 
     task_config config = { master, domain, chain };
