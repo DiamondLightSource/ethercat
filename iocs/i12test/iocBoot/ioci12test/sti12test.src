@@ -20,7 +20,7 @@ $(VXWORKS_ONLY)ld < bin/$(ARCH)/i12test.munch
 dbLoadDatabase("dbd/i12test.dbd")
 i12test_registerRecordDeviceDriver(pdbbase)
 
-ecConfigure("ECSCAN", 0, 27)
+ecConfigure("ECSCAN", 0, 1)
 ## Load record instances
 dbLoadRecords("db/i12-test.db")
 enableWriterMsg(0)

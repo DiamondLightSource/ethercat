@@ -1,38 +1,14 @@
 file el2624.db 
 {
 pattern {P, S, CHANNEL, PORT}
-{"","BL12I-EA-ECAT-03", "9", "ECSCAN"}
-}
-file el3202-channel.db
-{
-pattern {P, S, N, ST, CH, PORT }
-{ "", "BL12I-EA-ECAT-06","2","19","1a","ECSCAN"}
-{ "", "BL12I-EA-ECAT-06","1","17","18","ECSCAN"}
+{"","BL12I-EA-ECAT-01", "0", "ECSCAN"}
 }
 file el1014.db
 {
-{P="",S="BL12I-EA-ECAT-07",CHANNEL="1b",PORT="ECSCAN"}
+{P="",S="BL12I-EA-ECAT-02",CHANNEL="1",PORT="ECSCAN"}
 }
-file el3314-channel.db 
+file toggle.db
 {
-pattern { P, S, N, ST, CH, PORT}
-{"","BL12I-EA-ECAT-05","1","F","10","ECSCAN"}
-{"","BL12I-EA-ECAT-05","2","11","12","ECSCAN"}
-{"","BL12I-EA-ECAT-05","3","13","14","ECSCAN"}
-{"","BL12I-EA-ECAT-05","4","15","16","ECSCAN"}
-}
-file el4134-channel.db
-{
- {P="", S="BL12I-EA-ECAT-02", N="1", CH="5", PORT="ECSCAN"}
-
-}
-file el3702-channel.db
-{
-#% macro, P, Device Prefix
-#% macro, S, Device suffix
-#% macro, N, Channel number
-#% macro, CYCLE, Ethercat scanner channel for cycle count
-#% macro, CH, Ethercat scanner channel for value
-#% macro, PORT, Asyn port for ethercat scanner
- {P="", S="BL12I-EA-ECAT-01", N="2", CYCLE="2", CH="3", PORT="ECSCAN"}
+{P="",S="BL12I-EA-TOGGL-01",OUTPV="BL12I-EA-ECAT-01:OUT1",PERIOD="1 second"}
+{P="",S="BL12I-EA-TOGGL-02",OUTPV="BL12I-EA-ECAT-01:OUT3",PERIOD="5 second"}
 }
