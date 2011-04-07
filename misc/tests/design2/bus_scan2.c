@@ -64,7 +64,7 @@ void socket_reader_task(void * usr)
     while(1)
     {
         int sz = rtSockReceive(args->sock, msg, sizeof(msg));
-        if(count % 1000 == 0 && args->id == 1)
+        if(count % 100 == 0 && args->id == 1)
         {
             short * val = (short *)(msg + pdo_size - 2);
             // unpack switch
@@ -202,6 +202,7 @@ int debug = 1;
 
 int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * domain, int * pdo_size)
 {
+    int ordinal = 0;
     ec_slave_config_t * sc = ecrt_master_slave_config(
         master, 0, device->position, device->device_type->vendor_id, 
         device->device_type->product_id);
@@ -236,6 +237,7 @@ int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * do
                            pdo_entry->index,
                            pdo_entry->sub_index, pdo_entry->bits) == 0);
                 EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
+                pdo_entry_mapping->ordinal = ordinal++;
                 pdo_entry_mapping->offset = 
                     ecrt_slave_config_reg_pdo_entry(
                         sc, pdo_entry->index, pdo_entry->sub_index,
@@ -245,6 +247,7 @@ int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * do
                 {
                     *pdo_size = top;
                 }
+                listAdd(&device->pdo_entry_mappings, &pdo_entry_mapping->node);
             }
         }
     }
@@ -259,14 +262,29 @@ int main(int argc, char **argv)
     NODE * node;
     for(node = listFirst(&cfg->devices); node; node = node->next)
     {
-        EC_DEVICE * device =
-            (EC_DEVICE *)node;
+        EC_DEVICE * device = (EC_DEVICE *)node;
         device->device_type = find_device_type(cfg, device->type_name);
         assert(device->device_type);
         printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", device->name, device->type_name, device->position);
         device_initialize(device, master, domain, &pdo_size);
     }
     printf("PDO SIZE:     %d\n", pdo_size);
+
+    int ndevice = 0;
+    for(node = listFirst(&cfg->devices); node; node = node->next)
+    {
+        // device entry offset bit_position (unpacking information...)
+        // send as INT (length) int[4]* (values)
+        EC_DEVICE * device = (EC_DEVICE *)node;
+        NODE * node1;
+        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        {
+            EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
+            printf("Device %d Entry %d Offset %d Bit %d\n", 
+                   ndevice, pdo_entry_mapping->ordinal, pdo_entry_mapping->offset, pdo_entry_mapping->bit_position);
+        }
+        ndevice++;
+    }
 
     ecrt_master_activate(master);
 
@@ -317,3 +335,12 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+/*
+
+TODO
+1) unpack serialized PDO entry information
+2) unpack XML from RAM
+3) unpack PDO into ASYN parameters
+
+*/

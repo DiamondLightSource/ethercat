@@ -15,6 +15,7 @@ typedef struct LIST LIST;
 struct NODE
 {
     NODE * next;
+    NODE * previous;
 };
 
 struct LIST
@@ -85,7 +86,7 @@ struct EC_PDO_ENTRY_MAPPING
     EC_PDO_ENTRY * pdo_entry;
     EC_DEVICE * parent;
     // for serialization
-    int pdo_entry_number;
+    int ordinal;
     int parent_position;
 };
 
