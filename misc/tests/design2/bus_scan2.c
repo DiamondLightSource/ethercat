@@ -3,24 +3,20 @@
 #include <assert.h>
 #include <stddef.h>
 #include <time.h>
-
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-
-#include <ecrt.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <ecrt.h>
 
 #include "rtutils.h"
 #include "msgsock.h"
-
-#include "ethercat_device2.h"
-#include "configparser.h"
-
 #include "messages.h"
 #include "timer.h"
+#include "classes.h"
+#include "parser.h"
 
-#include <sys/types.h>
-#include <sys/socket.h>
+enum { PERIOD_NS = 1000000 };
+#define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
 
 typedef struct
 {
@@ -45,7 +41,7 @@ typedef struct
 int pdo_size = 0;
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
-enum { MAX_CLIENTS = 100 };
+enum { MAX_CLIENTS = 2 };
 enum { MAX_MESSAGE = 13000 };
 enum { CLIENT_Q_CAPACITY = 10 };
 enum { WORK_Q_CAPACITY = 10 };
@@ -70,9 +66,9 @@ void socket_reader_task(void * usr)
         int sz = rtSockReceive(args->sock, msg, sizeof(msg));
         if(count % 1000 == 0 && args->id == 1)
         {
-            short * val = (short *)(msg + 13);
+            short * val = (short *)(msg + pdo_size - 2);
             // unpack switch
-            printf("read check threaD %d: value %d size %d\n", args->id, *val, sz);
+            printf("read check thread %d: value %d size %d\n", args->id, *val, sz);
         }
         count++;
     }
@@ -90,7 +86,7 @@ void reader_task(void * usr)
         rtSockSend(args->sock, msg, sz);
         if(count % 500 == 0)
         {
-            short * val = (short *)(msg + 13);
+            //short * val = (short *)(msg + 13);
             // unpack switch
             //printf("read check thread %d: value %d size %d\n", id, *val, sz);
         }
@@ -102,10 +98,9 @@ typedef struct
 {
     ec_master_t * master;
     ec_domain_t * domain;
-    ethercat_device_config * chain;
     uint8_t * pd;
 } task_config;
-    
+
 void cyclic_task(void * usr)
 {
     task_config * task = (task_config *)usr;
@@ -169,11 +164,10 @@ void cyclic_task(void * usr)
             memset(write_mask, 0, pdo_size);
 
             // client broadcast
-            int client;
-
             char buffer[MAX_MESSAGE];
             memcpy(buffer, pd, pdo_size);
 
+            int client;
             for(client = 0; client < MAX_CLIENTS; client++)
             {
                 //rtMessageQueueSendNoWait(clientq[client], pd, pdo_size);
@@ -190,41 +184,89 @@ void cyclic_task(void * usr)
 
 }
 
-int main(int argc, char **argv)
+EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name)
 {
-    LIBXML_TEST_VERSION; 
-
-    ethercat_device * devs = parse_device_file("config.xml");
-    ethercat_device_config * chain = parse_chain_file("chain.xml");
-    
-    ec_master_t * master = NULL;
-    ec_domain_t * domain = NULL;
-
-    master = ecrt_request_master(0);
-    assert(master);
-    domain = ecrt_master_create_domain(master);
-    assert(domain);
-
-    initialize_chain(chain, devs, master, domain);
-
-    ethercat_device_config * c;
-    for(c = chain; c != NULL; c = c->next)
+    NODE * node;
+    for(node = listFirst(&cfg->device_types); node; node = node->next)
     {
-        ethercat_device * d = c->dev;
-        printf("%s\n", c->name);
-        pdo_entry_type * p;
-        for(p = d->regs; p != NULL; p = p->next)
+        EC_DEVICE_TYPE * device_type = (EC_DEVICE_TYPE *)node;
+        if(strcmp(device_type->name, name) == 0)
         {
-            int top = p->pdo_offset[p->length-1] + (p->entry->bit_length-1) / 8 + 1;
-            if(top > pdo_size)
-            {
-                pdo_size = top;
-            }
-            printf("%s %d %d %d %d\n", 
-                   p->name, p->pdo_offset[0], p->pdo_bit[0], p->entry->bit_length, p->length);
+            return device_type;
         }
     }
-    printf("pdo memory size %d\n", pdo_size);
+    return NULL;
+}
+
+int debug = 1;
+
+int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * domain, int * pdo_size)
+{
+    ec_slave_config_t * sc = ecrt_master_slave_config(
+        master, 0, device->position, device->device_type->vendor_id, 
+        device->device_type->product_id);
+    assert(sc);
+    NODE * node0;
+    for(node0 = listFirst(&device->device_type->sync_managers); node0; node0 = node0->next)
+    {
+        EC_SYNC_MANAGER * sync_manager = (EC_SYNC_MANAGER *)node0;
+        if(debug)
+        {
+            printf("SYNC MANAGER: dir %d watchdog %d\n", sync_manager->direction, sync_manager->watchdog);
+        }
+        NODE * node1;
+        for(node1 = listFirst(&sync_manager->pdos); node1; node1 = node1->next)
+        {
+            EC_PDO * pdo = (EC_PDO *)node1;
+            if(debug)
+            {
+                printf("PDO:          index %x\n", pdo->index);
+            }
+            NODE * node2;
+            for(node2 = listFirst(&pdo->pdo_entries); node2; node2 = node2->next)
+            {
+                EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
+                if(debug)
+                {
+                    printf("PDO ENTRY:    name \"%s\" index %x subindex %x bits %d\n", 
+                           pdo_entry->name, pdo_entry->index, pdo_entry->sub_index, pdo_entry->bits);
+                }
+                assert(ecrt_slave_config_pdo_mapping_add(
+                           sc, pdo->index, 
+                           pdo_entry->index,
+                           pdo_entry->sub_index, pdo_entry->bits) == 0);
+                EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
+                pdo_entry_mapping->offset = 
+                    ecrt_slave_config_reg_pdo_entry(
+                        sc, pdo_entry->index, pdo_entry->sub_index,
+                        domain, &pdo_entry_mapping->bit_position);
+                int top = pdo_entry_mapping->offset + (pdo_entry->bits-1)/8 + 1;
+                if(top > *pdo_size)
+                {
+                    *pdo_size = top;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    ec_master_t * master = ecrt_request_master(0);
+    ec_domain_t * domain = ecrt_master_create_domain(master);
+    EC_CONFIG * cfg = read_config("config.xml", "chain.xml");
+    NODE * node;
+    for(node = listFirst(&cfg->devices); node; node = node->next)
+    {
+        EC_DEVICE * device =
+            (EC_DEVICE *)node;
+        device->device_type = find_device_type(cfg, device->type_name);
+        assert(device->device_type);
+        printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", device->name, device->type_name, device->position);
+        device_initialize(device, master, domain, &pdo_size);
+    }
+    printf("PDO SIZE:     %d\n", pdo_size);
 
     ecrt_master_activate(master);
 
@@ -233,7 +275,7 @@ int main(int argc, char **argv)
     int client;
     for(client = 0; client < MAX_CLIENTS; client++)
     {
-        clientq[client] = rtMessageQueueCreate(CLIENT_Q_CAPACITY, 
+        clientq[client] = rtMessageQueueCreate(CLIENT_Q_CAPACITY,
                                                MAX_MESSAGE);
 
         struct reader_args * args = (struct reader_args *)calloc(1, sizeof(struct reader_args));
@@ -249,7 +291,7 @@ int main(int argc, char **argv)
         rtThreadCreate("reader2", PRIO_LOW,  0, socket_reader_task, args2);
     }
 
-    task_config config = { master, domain, chain };
+    task_config config = { master, domain };
     config.pd = ecrt_domain_data(domain);
     assert(config.pd);
 
@@ -269,10 +311,9 @@ int main(int argc, char **argv)
         wr.mask[0] = 0xff;
         wr.mask[1] = 0xff;
         usleep(1000);
-        //rtMessageQueueSend(workq, &wr, sizeof(wr));
+        rtMessageQueueSend(workq, &wr, sizeof(wr));
         n++;
     }
 
-    xmlCleanupParser();
     return 0;
 }
