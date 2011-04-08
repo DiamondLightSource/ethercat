@@ -1,53 +1,55 @@
 <devices>
-  <device name="EK1101 EtherCAT-Koppler (2A E-Bus, ID-Switch)" vendor="0x00000002" product="0x044d2c52" revision="0x00110000">
-    <sync index="0" n_pdos="1" dir="2" watchdog="2">
-      <pdo index="0x1a00" n_entries="1" >
-        <entry index="0x6000" subindex="0x01" bit_length="16" name="entry0" />
-      </pdo>
+  <device name="EL1502" vendor="0x00000002" product="0x05de3052" revision="0x00100000">
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="1" name="CNT Inputs" index="0x00001a02">
+      <entry name="Output functions enabled" index="0x00006020" subindex="0x00000001" bit_length="1" />
+      <entry name="Status of output" index="0x00006020" subindex="0x00000002" bit_length="1" />
+      <entry name="Set counter done" index="0x00006020" subindex="0x00000003" bit_length="1" />
+      <entry name="Counter inhibited" index="0x00006020" subindex="0x00000004" bit_length="1" />
+      <entry name="Status of input UD" index="0x00006020" subindex="0x00000005" bit_length="1" />
+      <entry name="Status of input clock" index="0x00006020" subindex="0x00000006" bit_length="1" />
+      <entry name="Sync Error" index="0x00001c32" subindex="0x00000020" bit_length="1" />
+      <entry name="TxPDO Toggle" index="0x00001802" subindex="0x00000009" bit_length="1" />
+      <entry name="Counter value" index="0x00006020" subindex="0x00000011" bit_length="32" />
+    </pdo>
+    </sync>
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="0" name="CNT Outputs" index="0x00001602">
+      <entry name="Enable output functions" index="0x00007020" subindex="0x00000001" bit_length="1" />
+      <entry name="Set output" index="0x00007020" subindex="0x00000002" bit_length="1" />
+      <entry name="Set counter" index="0x00007020" subindex="0x00000003" bit_length="1" />
+      <entry name="Inhibit counter" index="0x00007020" subindex="0x00000004" bit_length="1" />
+      <entry name="Set counter value" index="0x00007020" subindex="0x00000011" bit_length="32" />
+    </pdo>
     </sync>
   </device>
-  <device name="EL1004 4K. Dig. Eingang 24V, 3ms" vendor="0x00000002" product="0x03ec3052" revision="0x00100000">
-    <sync index="0" n_pdos="4" dir="2" watchdog="2">
-      <pdo index="0x1a00" n_entries="1" >
-        <entry index="0x6000" subindex="0x01" bit_length="1" name="entry0" />
-      </pdo>
-      <pdo index="0x1a01" n_entries="1" >
-        <entry index="0x6010" subindex="0x01" bit_length="1" name="entry1" />
-      </pdo>
-      <pdo index="0x1a02" n_entries="1" >
-        <entry index="0x6020" subindex="0x01" bit_length="1" name="entry2" />
-      </pdo>
-      <pdo index="0x1a03" n_entries="1" >
-        <entry index="0x6030" subindex="0x01" bit_length="1" name="entry3" />
-      </pdo>
+  <device name="EK1101" vendor="0x00000002" product="0x044d2c52" revision="0x00110000">
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="1" name="ID" index="0x00001a00">
+      <entry name="ID" index="0x00006000" subindex="0x00000001" bit_length="16" />
+    </pdo>
     </sync>
   </device>
-  <device name="EL1502 2K. +/- Zaehler 24V, 100kHz" vendor="0x00000002" product="0x05de3052" revision="0x00100000">
-    <sync index="0" n_pdos="0" dir="1" watchdog="2">
+  <device name="EL1004" vendor="0x00000002" product="0x03ec3052" revision="0x00100000">
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="1" name="Channel 1" index="0x00001a00">
+      <entry name="Input" index="0x00006000" subindex="0x00000001" bit_length="1" />
+    </pdo>
     </sync>
-    <sync index="1" n_pdos="0" dir="2" watchdog="2">
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="1" name="Channel 2" index="0x00001a01">
+      <entry name="Input" index="0x00006010" subindex="0x00000001" bit_length="1" />
+    </pdo>
     </sync>
-    <sync index="2" n_pdos="1" dir="1" watchdog="2">
-      <pdo index="0x1602" n_entries="6" >
-        <entry index="0x7020" subindex="0x01" bit_length="1" name="entry0" />
-        <entry index="0x7020" subindex="0x02" bit_length="1" name="entry1" />
-        <entry index="0x7020" subindex="0x03" bit_length="1" name="entry2" />
-        <entry index="0x7020" subindex="0x04" bit_length="1" name="entry3" />
-        <entry index="0x7020" subindex="0x11" bit_length="32" name="entry5" />
-      </pdo>
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="1" name="Channel 3" index="0x00001a02">
+      <entry name="Input" index="0x00006020" subindex="0x00000001" bit_length="1" />
+    </pdo>
     </sync>
-    <sync index="3" n_pdos="1" dir="2" watchdog="2">
-      <pdo index="0x1a02" n_entries="11" >
-        <entry index="0x6020" subindex="0x01" bit_length="1" name="entry6" />
-        <entry index="0x6020" subindex="0x02" bit_length="1" name="entry7" />
-        <entry index="0x6020" subindex="0x03" bit_length="1" name="entry8" />
-        <entry index="0x6020" subindex="0x04" bit_length="1" name="entry9" />
-        <entry index="0x6020" subindex="0x05" bit_length="1" name="entry10" />
-        <entry index="0x6020" subindex="0x06" bit_length="1" name="entry11" />
-        <entry index="0x1c32" subindex="0x20" bit_length="1" name="entry13" />
-        <entry index="0x1802" subindex="0x09" bit_length="1" name="entry15" />
-        <entry index="0x6020" subindex="0x11" bit_length="32" name="entry16" />
-      </pdo>
+    <sync index="0" dir="0" watchdog="0">
+    <pdo dir="1" name="Channel 4" index="0x00001a03">
+      <entry name="Input" index="0x00006030" subindex="0x00000001" bit_length="1" />
+    </pdo>
     </sync>
   </device>
 </devices>

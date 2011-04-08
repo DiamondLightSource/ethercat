@@ -1,5 +1,5 @@
 <chain>
-<device type_name="EK1101 EtherCAT-Koppler (2A E-Bus, ID-Switch)" position="0" name="COUPLER0" />
-<device type_name="EL1004 4K. Dig. Eingang 24V, 3ms" position="1" name="VACUUM0" />
-<device type_name="EL1502 2K. +/- Zaehler 24V, 100kHz" position="2" name="RF0" />
+<device type_name="EK1101" position="0" name="COUPLER0" />
+<device type_name="EL1004" position="1" name="VACUUM0" />
+<device type_name="EL1502" position="2" name="RF0" />
 </chain>

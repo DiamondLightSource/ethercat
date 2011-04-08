@@ -59,14 +59,14 @@ void socket_reader_task(void * usr)
 {
     char msg[MAX_MESSAGE];
     struct reader_args * args = (struct reader_args *)usr;
-    printf("hello %d %d\n", args->id, args->sock);
+    //printf("hello %d %d\n", args->id, args->sock);
     int count = 0;
     while(1)
     {
         int sz = rtSockReceive(args->sock, msg, sizeof(msg));
         if(count % 100 == 0 && args->id == 1)
         {
-            short * val = (short *)(msg + pdo_size - 2);
+            short * val = (short *)(msg);
             // unpack switch
             printf("read check thread %d: value %d size %d\n", args->id, *val, sz);
         }
@@ -184,25 +184,10 @@ void cyclic_task(void * usr)
 
 }
 
-EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name)
-{
-    NODE * node;
-    for(node = listFirst(&cfg->device_types); node; node = node->next)
-    {
-        EC_DEVICE_TYPE * device_type = (EC_DEVICE_TYPE *)node;
-        if(strcmp(device_type->name, name) == 0)
-        {
-            return device_type;
-        }
-    }
-    return NULL;
-}
-
 int debug = 1;
 
 int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * domain, int * pdo_size)
 {
-    int ordinal = 0;
     ec_slave_config_t * sc = ecrt_master_slave_config(
         master, 0, device->position, device->device_type->vendor_id, 
         device->device_type->product_id);
@@ -237,11 +222,12 @@ int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * do
                            pdo_entry->index,
                            pdo_entry->sub_index, pdo_entry->bits) == 0);
                 EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
-                pdo_entry_mapping->ordinal = ordinal++;
                 pdo_entry_mapping->offset = 
                     ecrt_slave_config_reg_pdo_entry(
                         sc, pdo_entry->index, pdo_entry->sub_index,
-                        domain, &pdo_entry_mapping->bit_position);
+                        domain, (unsigned int *)&pdo_entry_mapping->bit_position);
+                pdo_entry_mapping->index = pdo_entry->index;
+                pdo_entry_mapping->sub_index = pdo_entry->sub_index;
                 int top = pdo_entry_mapping->offset + (pdo_entry->bits-1)/8 + 1;
                 if(top > *pdo_size)
                 {
@@ -253,38 +239,47 @@ int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * do
     }
     return 0;
 }
-
 int main(int argc, char **argv)
 {
     ec_master_t * master = ecrt_request_master(0);
     ec_domain_t * domain = ecrt_master_create_domain(master);
-    EC_CONFIG * cfg = read_config("config.xml", "chain.xml");
+
+    // pass in the config structure...
+    
+    EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
+    
+    read_config("config.xml", "chain.xml", cfg);
+
     NODE * node;
     for(node = listFirst(&cfg->devices); node; node = node->next)
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        device->device_type = find_device_type(cfg, device->type_name);
         assert(device->device_type);
         printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", device->name, device->type_name, device->position);
         device_initialize(device, master, domain, &pdo_size);
     }
     printf("PDO SIZE:     %d\n", pdo_size);
+    
+    int scount = 1024*1024;
+    char * sbuf = calloc(scount, sizeof(char));
 
-    int ndevice = 0;
+    strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
     for(node = listFirst(&cfg->devices); node; node = node->next)
     {
-        // device entry offset bit_position (unpacking information...)
-        // send as INT (length) int[4]* (values)
         EC_DEVICE * device = (EC_DEVICE *)node;
         NODE * node1;
         for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
         {
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
-            printf("Device %d Entry %d Offset %d Bit %d\n", 
-                   ndevice, pdo_entry_mapping->ordinal, pdo_entry_mapping->offset, pdo_entry_mapping->bit_position);
+            char line[1024];
+            snprintf(line, sizeof(line), "<entry device_position=\"%d\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
+                     device->position, pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
+                     pdo_entry_mapping->bit_position);
+            strncat(sbuf, line, scount-strlen(sbuf)-1);
         }
-        ndevice++;
     }
+    strncat(sbuf, "</entries>\n", scount-strlen(sbuf)-1);
+    parseEntriesFromBuffer(sbuf, strlen(sbuf), cfg);
 
     ecrt_master_activate(master);
 
@@ -339,8 +334,8 @@ int main(int argc, char **argv)
 /*
 
 TODO
-1) unpack serialized PDO entry information
-2) unpack XML from RAM
-3) unpack PDO into ASYN parameters
+1) load files into buffer, send to other task, unpack...
+2) Beckhoff config file?
+3) unpack PDO into ASYN parameters -> need to read the device types and create the port parameterz...
 
 */

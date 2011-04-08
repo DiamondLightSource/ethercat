@@ -11,10 +11,10 @@ all: $(TARGETS)
 
 configparser: CFLAGS:=$(CFLAGS) -Dmain_TEST=main
 
-parser: CFLAGS:=$(CFLAGS) -Dmain_TEST_PARSER=main utils.c
+parser: CFLAGS:=$(CFLAGS) -Dmain_TEST_PARSER=main utils.c classes.c
 
 bus_monitor: bus_monitor.c configparser.c ethercat_device.c
-bus_scan2: bus_scan2.c configparser.c ethercat_device.c timer.c parser.c utils.c
+bus_scan2: bus_scan2.c configparser.c ethercat_device.c timer.c parser.c utils.c classes.c
 bus_scan_socket: bus_scan_socket.c configparser.c ethercat_device.c timer.c
 
 bus_scan: bus_scan.c EL3162.c EK1101.c EL4102.c EL3702.c master_device.c

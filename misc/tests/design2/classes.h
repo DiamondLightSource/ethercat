@@ -49,6 +49,7 @@ struct EC_PDO
 struct EC_SYNC_MANAGER
 {
     NODE node;
+    int index;
     int direction;
     int watchdog;
     EC_DEVICE_TYPE * parent;
@@ -82,16 +83,21 @@ struct EC_PDO_ENTRY_MAPPING
 {
     NODE node;
     int offset;
-    unsigned int bit_position;
+    int bit_position;
     EC_PDO_ENTRY * pdo_entry;
     EC_DEVICE * parent;
-    // for serialization
-    int ordinal;
-    int parent_position;
+    int index;
+    int sub_index;
+    int device_position;
 };
 
 struct EC_CONFIG
 {
     LIST device_types;
     LIST devices;
+    LIST pdo_entry_mappings;
 };
+
+EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
+EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int index, int sub_index);
+EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name);

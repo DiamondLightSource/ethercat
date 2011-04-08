@@ -6,15 +6,7 @@ NODE * listFirst(LIST * list)
     return list->node.next;
 }
 
-int listAdd(LIST * list, NODE * node)
-{
-    node->next = list->node.next;
-    list->node.next = node;
-    list->count++;
-    return 1;
-}
-
-int listAddHead(LIST * pList, NODE * pNode) /* ? */
+int listAdd(LIST * pList, NODE * pNode)
 {
   pNode->next = NULL;
   pNode->previous = pList->node.previous;
