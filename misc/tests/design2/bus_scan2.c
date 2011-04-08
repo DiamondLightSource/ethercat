@@ -239,6 +239,7 @@ int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * do
     }
     return 0;
 }
+
 int main(int argc, char **argv)
 {
     ec_master_t * master = ecrt_request_master(0);
@@ -248,8 +249,9 @@ int main(int argc, char **argv)
     
     EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
     
-    read_config("config.xml", "chain.xml", cfg);
+    read_config2("scanner.xml", cfg);
 
+    /* initialize */
     NODE * node;
     for(node = listFirst(&cfg->devices); node; node = node->next)
     {
@@ -259,10 +261,10 @@ int main(int argc, char **argv)
         device_initialize(device, master, domain, &pdo_size);
     }
     printf("PDO SIZE:     %d\n", pdo_size);
-    
+
+    /* serialize PDO mapping */
     int scount = 1024*1024;
     char * sbuf = calloc(scount, sizeof(char));
-
     strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
     for(node = listFirst(&cfg->devices); node; node = node->next)
     {
@@ -279,8 +281,17 @@ int main(int argc, char **argv)
         }
     }
     strncat(sbuf, "</entries>\n", scount-strlen(sbuf)-1);
+
+    /* deserialize PDO mapping */
     parseEntriesFromBuffer(sbuf, strlen(sbuf), cfg);
 
+    /* check PDO mapping */
+    for(node = listFirst(&cfg->devices); node; node = node->next)
+    {
+        EC_DEVICE * device = (EC_DEVICE *)node;
+        printf("%s entries %d\n", device->name, device->pdo_entry_mappings.count);
+    }
+    
     ecrt_master_activate(master);
 
     workq = rtMessageQueueCreate(WORK_Q_CAPACITY, MAX_MESSAGE);
@@ -332,10 +343,9 @@ int main(int argc, char **argv)
 }
 
 /*
-
 TODO
 1) load files into buffer, send to other task, unpack...
-2) Beckhoff config file?
-3) unpack PDO into ASYN parameters -> need to read the device types and create the port parameterz...
-
+2) do oversampling modules
+3) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
+4) remove PDO and SYNC_MANAGER types (not needed for config or unpacking)
 */

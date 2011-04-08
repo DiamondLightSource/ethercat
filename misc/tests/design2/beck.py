@@ -70,20 +70,20 @@ if __name__ == "__main__":
         name = d.xpathEval("@type_name")[0].content
         revision = parseInt(d.xpathEval("@revision")[0].content)
         reqs.add((name, revision))
+        # reqs.add(name)
 
     base = "/home/jr76/ethercat/xml"
     import os
-    # print "<scanner>"
+    print "<scanner>"
     print "<devices>"
     for f in os.listdir(base):
         if f.endswith("xml"):
             filename = os.path.join(base, f)
-            # print filename
             parseFile(filename)
 
     print "</devices>"
-    # print doc.xpathEval("/chain")[0]
-    # print "</scanner>"
+    print doc.xpathEval("/chain")[0]
+    print "</scanner>"
 
 # loads chain description, outputs complete config file...
 

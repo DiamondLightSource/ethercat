@@ -269,6 +269,34 @@ void show(CONTEXT * ctx)
     }
 }
 
+int read_config2(char * config, EC_CONFIG * cfg)
+{
+    LIBXML_TEST_VERSION;
+    xmlDoc * doc = xmlReadFile(config, NULL, 0);
+    assert(doc);
+    CONTEXT ctx;
+    ctx.config = cfg;
+    xmlNode * node = xmlDocGetRootElement(doc);
+    xmlNode * c;
+    for(c = node->children; c; c = c->next)
+    {
+        if(c->type != XML_ELEMENT_NODE)
+        {
+            continue;
+        }
+        printf("%s\n", c->name);
+        if(strcmp((char *)c->name, "devices") == 0)
+        {
+            parseTypes(c, &ctx);
+        }
+        else if(strcmp((char *)c->name, "chain") == 0)
+        {
+            parseChain(c, &ctx);
+        }
+    }
+    return 0;
+}
+
 int read_config(char * config, char * chain, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
@@ -304,8 +332,8 @@ int read_config(char * config, char * chain, EC_CONFIG * cfg)
 int main_TEST_PARSER(int argc, char ** argv)
 {
     LIBXML_TEST_VERSION; 
-    assert(argc > 2);
+    assert(argc > 1);
     EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
-    read_config(argv[1], argv[2], cfg);
+    read_config2(argv[1], cfg);
     return 0;
 }
