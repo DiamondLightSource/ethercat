@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+
 #include <ecrt.h>
 
 #include "rtutils.h"
@@ -15,8 +16,23 @@
 #include "classes.h"
 #include "parser.h"
 
+// packing stuff
+int pdo_data(char * buffer, int size);
+
+
+
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
+
+typedef struct
+{
+    EC_CONFIG * config;
+    char * config_buffer;
+    ec_master_t * master;
+    ec_domain_t * domain;
+    int pdo_size;
+    uint8_t * pd;
+} SCANNER;
 
 typedef struct
 {
@@ -38,11 +54,9 @@ typedef struct
 
 /* globals */
 
-int pdo_size = 0;
-
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
 enum { MAX_CLIENTS = 2 };
-enum { MAX_MESSAGE = 13000 };
+enum { MAX_MESSAGE = 16384 };
 enum { CLIENT_Q_CAPACITY = 10 };
 enum { WORK_Q_CAPACITY = 10 };
 
@@ -66,9 +80,10 @@ void socket_reader_task(void * usr)
         int sz = rtSockReceive(args->sock, msg, sizeof(msg));
         if(count % 100 == 0 && args->id == 1)
         {
-            short * val = (short *)(msg);
+            //short * val = (short *)(msg);
             // unpack switch
-            printf("read check thread %d: value %d size %d\n", args->id, *val, sz);
+            //printf("read check thread %d: value %d size %d\n", args->id, *val, sz);
+            pdo_data(msg, sz);
         }
         count++;
     }
@@ -94,26 +109,19 @@ void reader_task(void * usr)
     }
 }
 
-typedef struct
-{
-    ec_master_t * master;
-    ec_domain_t * domain;
-    uint8_t * pd;
-} task_config;
-
 void cyclic_task(void * usr)
 {
-    task_config * task = (task_config *)usr;
-    ec_master_t * master = task->master;
-    ec_domain_t * domain = task->domain;
-    uint8_t * pd = task->pd;
+    SCANNER * scanner = (SCANNER *)usr;
+    ec_master_t * master = scanner->master;
+    ec_domain_t * domain = scanner->domain;
+    uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
     char msg[MAX_MESSAGE] = {0};
     int * tag = (int *)msg;
     int tick = 0;
 
-    uint8_t * write_cache = calloc(pdo_size, sizeof(char));
-    uint8_t * write_mask = calloc(pdo_size, sizeof(char));
+    uint8_t * write_cache = calloc(scanner->pdo_size, sizeof(char));
+    uint8_t * write_mask = calloc(scanner->pdo_size, sizeof(char));
 
     ec_domain_state_t domain_state;
 
@@ -129,7 +137,7 @@ void cyclic_task(void * usr)
             int ofs = wr->ofs;
             for(n = 0; n < WRITE_SIZE; n++)
             {
-                if(ofs + n >= pdo_size)
+                if(ofs + n >= scanner->pdo_size)
                 {
                     break;
                 }
@@ -156,22 +164,18 @@ void cyclic_task(void * usr)
             
             // merge writes
             int n;
-            for(n = 0; n < pdo_size; n++)
+            for(n = 0; n < scanner->pdo_size; n++)
             {
                 pd[n] &= ~write_mask[n];
                 pd[n] |= write_cache[n];
             }
-            memset(write_mask, 0, pdo_size);
-
-            // client broadcast
-            char buffer[MAX_MESSAGE];
-            memcpy(buffer, pd, pdo_size);
-
+            memset(write_mask, 0, scanner->pdo_size);
+            
+            // distribute PDO
             int client;
             for(client = 0; client < MAX_CLIENTS; client++)
             {
-                //rtMessageQueueSendNoWait(clientq[client], pd, pdo_size);
-                rtMessageQueueSendNoWait(clientq[client], buffer, MAX_MESSAGE);
+                rtMessageQueueSendNoWait(clientq[client], pd, scanner->pdo_size);
             }
             
             ecrt_domain_queue(domain);
@@ -184,14 +188,26 @@ void cyclic_task(void * usr)
 
 }
 
+// why is ecrt_domain_size not defined for userspace?
+void adjust_pdo_size(SCANNER * scanner, int offset, int bits)
+{
+    int bytes = (bits-1) / 8 + 1;
+    int top = offset + bytes;
+    if(top > scanner->pdo_size)
+    {
+        scanner->pdo_size = top;
+    }
+}
+
 int debug = 1;
 
-int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * domain, int * pdo_size)
+int device_initialize(SCANNER * scanner, EC_DEVICE * device)
 {
     ec_slave_config_t * sc = ecrt_master_slave_config(
-        master, 0, device->position, device->device_type->vendor_id, 
+        scanner->master, 0, device->position, device->device_type->vendor_id, 
         device->device_type->product_id);
     assert(sc);
+
     NODE * node0;
     for(node0 = listFirst(&device->device_type->sync_managers); node0; node0 = node0->next)
     {
@@ -211,88 +227,155 @@ int device_initialize(EC_DEVICE * device, ec_master_t * master, ec_domain_t * do
             NODE * node2;
             for(node2 = listFirst(&pdo->pdo_entries); node2; node2 = node2->next)
             {
+                int n;
                 EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
                 if(debug)
                 {
                     printf("PDO ENTRY:    name \"%s\" index %x subindex %x bits %d\n", 
                            pdo_entry->name, pdo_entry->index, pdo_entry->sub_index, pdo_entry->bits);
                 }
-                assert(ecrt_slave_config_pdo_mapping_add(
-                           sc, pdo->index, 
-                           pdo_entry->index,
-                           pdo_entry->sub_index, pdo_entry->bits) == 0);
+                /* 
+                   scalar entries are added automatically, just add oversampling extensions
+                */
+                if(pdo_entry->oversampling)
+                {
+                    for(n = 1; n < device->oversampling_rate; n++)
+                    {
+                        printf("mapping %x\n", pdo_entry->index + n * pdo_entry->bits);
+                        assert(ecrt_slave_config_pdo_mapping_add(
+                                   sc, pdo->index, 
+                                   pdo_entry->index + n * pdo_entry->bits,
+                                   pdo_entry->sub_index, pdo_entry->bits) == 0);
+                    }
+                }
+            }
+        }
+    }
+    
+    /* second pass, assign mappings */
+    for(node0 = listFirst(&device->device_type->sync_managers); node0; node0 = node0->next)
+    {
+        EC_SYNC_MANAGER * sync_manager = (EC_SYNC_MANAGER *)node0;
+        NODE * node1;
+        for(node1 = listFirst(&sync_manager->pdos); node1; node1 = node1->next)
+        {
+            EC_PDO * pdo = (EC_PDO *)node1;
+            NODE * node2;
+            for(node2 = listFirst(&pdo->pdo_entries); node2; node2 = node2->next)
+            {
+                int n;
+                EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
                 EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
                 pdo_entry_mapping->offset = 
                     ecrt_slave_config_reg_pdo_entry(
                         sc, pdo_entry->index, pdo_entry->sub_index,
-                        domain, (unsigned int *)&pdo_entry_mapping->bit_position);
+                        scanner->domain, (unsigned int *)&pdo_entry_mapping->bit_position);
+                adjust_pdo_size(scanner, pdo_entry_mapping->offset, pdo_entry->bits);
+                if(pdo_entry->oversampling)
+                {
+                    for(n = 1; n < device->oversampling_rate; n++)
+                    {
+                        int bit_position;
+                        int ofs = ecrt_slave_config_reg_pdo_entry(
+                            sc, pdo_entry->index + n * pdo_entry->bits, pdo_entry->sub_index,
+                            scanner->domain, (unsigned int *)&bit_position);
+                        printf("pdo entry reg %08x %04x %d\n", 
+                               pdo_entry->index + n * pdo_entry->bits, 
+                               pdo_entry->sub_index, ofs);
+                        assert(ofs == pdo_entry_mapping->offset + n * pdo_entry->bits / 8);
+                        assert(bit_position == pdo_entry_mapping->bit_position);
+                        adjust_pdo_size(scanner, ofs, pdo_entry->bits);
+                    }
+                }
                 pdo_entry_mapping->index = pdo_entry->index;
                 pdo_entry_mapping->sub_index = pdo_entry->sub_index;
-                int top = pdo_entry_mapping->offset + (pdo_entry->bits-1)/8 + 1;
-                if(top > *pdo_size)
-                {
-                    *pdo_size = top;
-                }
                 listAdd(&device->pdo_entry_mappings, &pdo_entry_mapping->node);
             }
         }
     }
+
+    if(device->oversampling_rate != 0)
+    {
+        printf("oversamping rate %d\n", device->oversampling_rate);
+        ecrt_slave_config_dc(sc, device->device_type->oversampling_activate, PERIOD_NS / device->oversampling_rate,
+            0, PERIOD_NS, 0);
+    }
+
     return 0;
+}
+
+int init_unpack(char * data, int sz);
+
+void pack_int(char * buffer, int * ofs, int value)
+{
+    printf("packing at %d\n", *ofs);
+    *((int *)(buffer + *ofs)) = value;
+    (*ofs)+=sizeof(int);
+}
+
+void pack_string(char * buffer, int * ofs, char * str)
+{
+    int sl = strlen(str) + 1;
+    printf("string length %d\n", sl);
+    pack_int(buffer, ofs, sl);
+    strcpy(buffer + *ofs, str);
+    (*ofs) += sl;
+}
+
+int ethercat_init(SCANNER * scanner)
+{
+    NODE * node;
+    for(node = listFirst(&scanner->config->devices); node; node = node->next)
+    {
+        EC_DEVICE * device = (EC_DEVICE *)node;
+        assert(device->device_type);
+        printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", \
+               device->name, device->type_name, device->position);
+        device_initialize(scanner, device);
+    }
+    printf("PDO SIZE:     %d\n", scanner->pdo_size);
+    return 0;
+}
+
+SCANNER * start_scanner(char * filename, char * socketname)
+{
+    SCANNER * scanner = calloc(1, sizeof(SCANNER));
+    scanner->config = calloc(1, sizeof(EC_CONFIG));
+    scanner->config_buffer = load_config(filename);
+    assert(scanner->config_buffer);
+    read_config2(scanner->config_buffer, strlen(scanner->config_buffer), scanner->config);
+    scanner->master = ecrt_request_master(0);
+    scanner->domain = ecrt_master_create_domain(scanner->master);
+    ethercat_init(scanner);
+    return scanner;
+}
+
+void client_send_config(SCANNER * scanner)
+{
+    // send config to clients
+    EC_CONFIG * cfg = scanner->config;
+    char * sbuf = serialize_config(cfg);
+    int msg_size = strlen(sbuf) + 1 + strlen(scanner->config_buffer) + 1 + 3 * sizeof(int);
+    char * config_msg = calloc(msg_size, sizeof(char));
+    int msg_ofs = 0;
+    pack_int(config_msg, &msg_ofs, MSG_CONFIG);
+    pack_string(config_msg, &msg_ofs, scanner->config_buffer);
+    pack_string(config_msg, &msg_ofs, sbuf);
+    init_unpack(config_msg, msg_size);
 }
 
 int main(int argc, char **argv)
 {
-    ec_master_t * master = ecrt_request_master(0);
-    ec_domain_t * domain = ecrt_master_create_domain(master);
 
-    // pass in the config structure...
-    
-    EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
-    
-    read_config2("scanner.xml", cfg);
+    // start scanner
+    SCANNER * scanner = start_scanner("scanner.xml", NULL);
 
-    /* initialize */
-    NODE * node;
-    for(node = listFirst(&cfg->devices); node; node = node->next)
-    {
-        EC_DEVICE * device = (EC_DEVICE *)node;
-        assert(device->device_type);
-        printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", device->name, device->type_name, device->position);
-        device_initialize(device, master, domain, &pdo_size);
-    }
-    printf("PDO SIZE:     %d\n", pdo_size);
+    client_send_config(scanner);
 
-    /* serialize PDO mapping */
-    int scount = 1024*1024;
-    char * sbuf = calloc(scount, sizeof(char));
-    strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
-    for(node = listFirst(&cfg->devices); node; node = node->next)
-    {
-        EC_DEVICE * device = (EC_DEVICE *)node;
-        NODE * node1;
-        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
-        {
-            EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
-            char line[1024];
-            snprintf(line, sizeof(line), "<entry device_position=\"%d\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
-                     device->position, pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
-                     pdo_entry_mapping->bit_position);
-            strncat(sbuf, line, scount-strlen(sbuf)-1);
-        }
-    }
-    strncat(sbuf, "</entries>\n", scount-strlen(sbuf)-1);
-
-    /* deserialize PDO mapping */
-    parseEntriesFromBuffer(sbuf, strlen(sbuf), cfg);
-
-    /* check PDO mapping */
-    for(node = listFirst(&cfg->devices); node; node = node->next)
-    {
-        EC_DEVICE * device = (EC_DEVICE *)node;
-        printf("%s entries %d\n", device->name, device->pdo_entry_mappings.count);
-    }
-    
-    ecrt_master_activate(master);
+    // activate master
+    ecrt_master_activate(scanner->master);
+    scanner->pd = ecrt_domain_data(scanner->domain);
+    assert(scanner->pd);
 
     workq = rtMessageQueueCreate(WORK_Q_CAPACITY, MAX_MESSAGE);
 
@@ -315,15 +398,12 @@ int main(int argc, char **argv)
         rtThreadCreate("reader2", PRIO_LOW,  0, socket_reader_task, args2);
     }
 
-    task_config config = { master, domain };
-    config.pd = ecrt_domain_data(domain);
-    assert(config.pd);
-
     timer_usr t = { PERIOD_NS, workq };
 
-    rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, &config);
+    rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
     rtThreadCreate("timer",  PRIO_HIGH, 0, timer_task, &t);
 
+    // write test data
     int n = 0;
     message_write wr;
     while(1)
@@ -335,7 +415,7 @@ int main(int argc, char **argv)
         wr.mask[0] = 0xff;
         wr.mask[1] = 0xff;
         usleep(1000);
-        rtMessageQueueSend(workq, &wr, sizeof(wr));
+        //rtMessageQueueSend(workq, &wr, sizeof(wr));
         n++;
     }
 
@@ -344,8 +424,12 @@ int main(int argc, char **argv)
 
 /*
 TODO
-1) load files into buffer, send to other task, unpack...
-2) do oversampling modules (Search for OpMode for the codes)
-3) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
-4) remove PDO and SYNC_MANAGER types (not needed for config or unpacking)
+1) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
+2) proper logging macros
+
+Want single process for testing, make asyn function that starts the scanner in a thread
+connection handling state machine
+create N clients (threads, message queues, etc...)
+2 threads per client?
+
 */

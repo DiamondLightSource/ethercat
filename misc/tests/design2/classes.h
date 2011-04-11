@@ -1,7 +1,3 @@
-#define EC_MAX_PDOS 16
-#define EC_MAX_PDO_ENTRIES 32
-#define EC_MAX_SYNC_MANAGERS 16
-
 typedef struct EC_CONFIG EC_CONFIG;
 typedef struct EC_PDO_ENTRY EC_PDO_ENTRY;
 typedef struct EC_PDO EC_PDO;
@@ -36,11 +32,13 @@ struct EC_PDO_ENTRY
     int bits;
     int oversampling;
     EC_PDO * parent;
+    char * datatype;
 };
 
 struct EC_PDO
 {
     NODE node;
+    char * name;
     int index;
     EC_SYNC_MANAGER * parent;
     LIST pdo_entries;

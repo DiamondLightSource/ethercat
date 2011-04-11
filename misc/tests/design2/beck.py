@@ -10,7 +10,7 @@ import libxml2
 
 reqs = set()
 
-def parsePdoEntry(entry):
+def parsePdoEntry(entry, os):
     # some pdo entries are just padding with no name, ignore
     try:
         name = entry.xpathEval("Name")[0].content
@@ -19,19 +19,21 @@ def parsePdoEntry(entry):
     index = parseInt(entry.xpathEval("Index")[0].content)
     subindex = parseInt(entry.xpathEval("SubIndex")[0].content)
     bitlen = parseInt(entry.xpathEval("BitLen")[0].content)
-    print '      <entry name="%s" index="0x%08x" subindex="0x%08x" bit_length="%d" />' % (name, index, subindex, bitlen)
+    datatype = entry.xpathEval("DataType")[0].content
+    print '      <entry name="%s" index="0x%08x" subindex="0x%08x" bit_length="%d" datatype="%s" oversample="%d" />' % (name, index, subindex, bitlen, datatype, os)
 
-def parsePdo(pdo, d):
+def parsePdo(pdo, d, os):
     # some pdos don't have a sync manager assigment
     # not supported by EtherLab driver
     if not pdo.xpathEval("@Sm"):
         return
     name = pdo.xpathEval("Name")[0].content
+    name = name.replace(" ", "")
     index = parseInt(pdo.xpathEval("Index")[0].content)
     print '    <sync index="0" dir="0" watchdog="0">'
     print '    <pdo dir="%d" name="%s" index="0x%08x">' % (d, name, index)
     for entry in pdo.xpathEval("Entry"):
-        parsePdoEntry(entry)
+        parsePdoEntry(entry, index in os)
     print '    </pdo>'
     print '    </sync>'
     
@@ -53,12 +55,22 @@ def parseFile(filename):
             continue
         # key = (vendor, product, revision)
         key = (name, revision)
+
+        oversampling = set()
+        
         if key in reqs:
-            print '  <device name="%s" vendor="0x%08x" product="0x%08x" revision="0x%08x">' % (name, vendor, product, revision)
+            aa = device.xpathEval("Dc/OpMode/AssignActivate")
+            if aa:
+                aa = parseInt(aa[0].content)
+                print '  <device name="%s" vendor="0x%08x" product="0x%08x" revision="0x%08x" dcactivate="0x%08x">' % (name, vendor, product, revision, aa)
+            else:
+                print '  <device name="%s" vendor="0x%08x" product="0x%08x" revision="0x%08x">' % (name, vendor, product, revision)
+            for dcmode in device.xpathEval("Dc/OpMode/Sm/Pdo[@OSFac]"):
+                oversampling.add(parseInt(dcmode.content))
             for txpdo in device.xpathEval("TxPdo"):
-                parsePdo(txpdo, 1)
+                parsePdo(txpdo, 1, oversampling)
             for rxpdo in device.xpathEval("RxPdo"):
-                parsePdo(rxpdo, 0)
+                parsePdo(rxpdo, 0, oversampling)
             print '  </device>'
 
 if __name__ == "__main__":
@@ -86,4 +98,3 @@ if __name__ == "__main__":
     print "</scanner>"
 
 # loads chain description, outputs complete config file...
-

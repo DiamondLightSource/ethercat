@@ -16,6 +16,7 @@
             <xs:attribute name="name" type="xs:string" use="required"/>
             <xs:attribute name="position" type="xs:integer" use="required"/>
             <xs:attribute name="revision" type="hex-integer" use="required"/>
+            <xs:attribute name="oversample" type="xs:integer" use="optional"/>   
         </xs:complexType>
       </xs:element>
     </xs:sequence>

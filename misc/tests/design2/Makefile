@@ -5,20 +5,19 @@ CFLAGS=-I$(ETHERCAT)/include -O2 -g -I$(UTILS)/src -Wall -I/usr/include/libxml2
 LDFLAGS=-L$(ETHERCAT)/lib -Wl,-rpath=$(ETHERCAT)/lib -Wl,-rpath=$(UTILS)/lib -L$(UTILS)/lib
 LDLIBS=-lethercat -lrt -lpthread -lComrt -lm -lxml2
 
-TARGETS=bus_scan2 qordertest parser
+TARGETS=bus_scan2 qordertest parser scanner.xml
 
 all: $(TARGETS)
+
+scanner.xml: chain.xml
+	./beck.py > $@
 
 configparser: CFLAGS:=$(CFLAGS) -Dmain_TEST=main
 
 parser: CFLAGS:=$(CFLAGS) -Dmain_TEST_PARSER=main utils.c classes.c
 
 # bus_monitor: bus_monitor.c configparser.c ethercat_device.c
-bus_scan2: bus_scan2.c timer.c parser.c utils.c classes.c
-# bus_scan_socket: bus_scan_socket.c configparser.c ethercat_device.c timer.c
-
-# bus_scan: bus_scan.c EL3162.c EK1101.c EL4102.c EL3702.c master_device.c
-# 	$(CC) $(CFLAGS) $^ -o $@  $(LDFLAGS) $(LDLIBS) 
+bus_scan2: bus_scan2.c timer.c parser.c utils.c classes.c unpack.c
 
 
 clean: 

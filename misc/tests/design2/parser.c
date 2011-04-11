@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <stddef.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -127,7 +128,9 @@ int parsePdoEntry(xmlNode * node, CONTEXT * ctx)
         getInt(node, "subindex", &ctx->pdo_entry->sub_index, 1) &&
         getInt(node, "bit_length", &ctx->pdo_entry->bits, 1) &&
         getStr(node, "name", &ctx->pdo_entry->name) &&
-        getInt(node, "length", &ctx->pdo_entry->oversampling, 0) &&
+        getStr(node, "datatype", &ctx->pdo_entry->datatype) &&
+        getInt(node, "oversample", &ctx->pdo_entry->oversampling, 1) &&
+        (ctx->pdo_entry->parent = ctx->pdo) && 
         listAdd(&ctx->pdo->pdo_entries, &ctx->pdo_entry->node);
 }
 
@@ -135,8 +138,10 @@ int parsePdo(xmlNode * node, CONTEXT * ctx)
 {
     ctx->pdo = calloc(1, sizeof(EC_PDO));
     return 
+        getStr(node, "name", &ctx->pdo->name) &&
         getInt(node, "index", &ctx->pdo->index, 1) &&
         parseChildren(node, ctx, "entry", parsePdoEntry) &&
+        (ctx->pdo->parent = ctx->sync_manager) && 
         listAdd(&ctx->sync_manager->pdos, &ctx->pdo->node);
 }
              
@@ -148,6 +153,7 @@ int parseSync(xmlNode * node, CONTEXT * ctx)
         getInt(node, "dir", &ctx->sync_manager->direction, 1) &&
         getInt(node, "watchdog", &ctx->sync_manager->watchdog, 1) &&
         parseChildren(node, ctx, "pdo", parsePdo) &&
+        (ctx->sync_manager->parent = ctx->device_type) && 
         listAdd(&ctx->device_type->sync_managers, &ctx->sync_manager->node);
 }
 
@@ -156,6 +162,7 @@ int parseDeviceType(xmlNode * node, CONTEXT * ctx)
     ctx->device_type = calloc(1, sizeof(EC_DEVICE_TYPE));
     return
         getStr(node, "name", &ctx->device_type->name) &&
+        getInt(node, "dcactivate", &ctx->device_type->oversampling_activate, 0) &&
         getInt(node, "vendor", &ctx->device_type->vendor_id, 1) &&
         getInt(node, "product", &ctx->device_type->product_id, 1) &&
         parseChildren(node, ctx, "sync", parseSync) &&
@@ -180,6 +187,7 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
     ctx->device = calloc(1, sizeof(EC_DEVICE));
     return 
         getStr(node, "name", &ctx->device->name) &&
+        getInt(node, "oversample", &ctx->device->oversampling_rate, 0) &&
         getStr(node, "type_name", &ctx->device->type_name) &&
         getInt(node, "position", &ctx->device->position, 1) &&
         joinDevice(ctx->config, ctx->device) &&
@@ -269,10 +277,10 @@ void show(CONTEXT * ctx)
     }
 }
 
-int read_config2(char * config, EC_CONFIG * cfg)
+int read_config2(char * config, int size, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
-    xmlDoc * doc = xmlReadFile(config, NULL, 0);
+    xmlDoc * doc = xmlReadMemory(config, size, NULL, NULL, 0);
     assert(doc);
     CONTEXT ctx;
     ctx.config = cfg;
@@ -329,11 +337,56 @@ int read_config(char * config, char * chain, EC_CONFIG * cfg)
     return 0;
 }
 
+char * load_config(char * filename)
+{
+    struct stat st;
+    if(stat(filename, &st) != 0)
+    {
+        fprintf(stderr, "failed to get size of %s: %s\n", filename, strerror(errno));
+        exit(1);
+    }
+    void * buf = calloc(st.st_size + 1, sizeof(char));
+    assert(buf);
+    FILE * f = fopen(filename, "r");
+    if(f == NULL)
+    {
+        fprintf(stderr, "failed to open %s: %s\n", filename, strerror(errno));
+        exit(1);
+    }
+    assert(fread(buf, sizeof(char), st.st_size, f) == st.st_size);
+    return buf;
+}
+
+char * serialize_config(EC_CONFIG * cfg)
+{
+    /* serialize PDO mapping */
+    int scount = 1024*1024;
+    char * sbuf = calloc(scount, sizeof(char));
+    strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
+    NODE * node;
+    for(node = listFirst(&cfg->devices); node; node = node->next)
+    {
+        EC_DEVICE * device = (EC_DEVICE *)node;
+        NODE * node1;
+        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        {
+            EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
+            char line[1024];
+            snprintf(line, sizeof(line), "<entry device_position=\"%d\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
+                     device->position, pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
+                     pdo_entry_mapping->bit_position);
+            strncat(sbuf, line, scount-strlen(sbuf)-1);
+        }
+    }
+    strncat(sbuf, "</entries>\n", scount-strlen(sbuf)-1);
+    return sbuf;
+}
+
 int main_TEST_PARSER(int argc, char ** argv)
 {
     LIBXML_TEST_VERSION; 
     assert(argc > 1);
     EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
-    read_config2(argv[1], cfg);
+    //read_config2(argv[1], cfg);
     return 0;
 }
