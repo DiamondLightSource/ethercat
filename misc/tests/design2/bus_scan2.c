@@ -345,7 +345,7 @@ int main(int argc, char **argv)
 /*
 TODO
 1) load files into buffer, send to other task, unpack...
-2) do oversampling modules
+2) do oversampling modules (Search for OpMode for the codes)
 3) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
 4) remove PDO and SYNC_MANAGER types (not needed for config or unpacking)
 */
