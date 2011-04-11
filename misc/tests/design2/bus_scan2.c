@@ -19,10 +19,11 @@
 // packing stuff
 int pdo_data(char * buffer, int size);
 
-
-
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
+
+struct CLIENT;
+typedef struct CLIENT CLIENT;
 
 typedef struct
 {
@@ -32,7 +33,20 @@ typedef struct
     ec_domain_t * domain;
     int pdo_size;
     uint8_t * pd;
+    CLIENT * clients;
+    int max_clients;
+    int client_capacity;
+    int work_capacity;
+    rtMessageQueueId workq;
 } SCANNER;
+
+struct CLIENT
+{
+    rtMessageQueueId q;
+    SCANNER * scanner;
+    int sock;
+    int id;
+};
 
 typedef struct
 {
@@ -55,13 +69,7 @@ typedef struct
 /* globals */
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
-enum { MAX_CLIENTS = 2 };
 enum { MAX_MESSAGE = 16384 };
-enum { CLIENT_Q_CAPACITY = 10 };
-enum { WORK_Q_CAPACITY = 10 };
-
-rtMessageQueueId clientq[MAX_CLIENTS] = { NULL };
-rtMessageQueueId workq = NULL;
 
 struct reader_args
 {
@@ -73,16 +81,12 @@ void socket_reader_task(void * usr)
 {
     char msg[MAX_MESSAGE];
     struct reader_args * args = (struct reader_args *)usr;
-    //printf("hello %d %d\n", args->id, args->sock);
     int count = 0;
     while(1)
     {
         int sz = rtSockReceive(args->sock, msg, sizeof(msg));
-        if(count % 100 == 0 && args->id == 1)
+        if(count % 100 == 0 && args->id == 0)
         {
-            //short * val = (short *)(msg);
-            // unpack switch
-            //printf("read check thread %d: value %d size %d\n", args->id, *val, sz);
             pdo_data(msg, sz);
         }
         count++;
@@ -91,21 +95,12 @@ void socket_reader_task(void * usr)
 
 void reader_task(void * usr)
 {
-    struct reader_args * args = (struct reader_args *)usr;
-    int id = args->id;
+    CLIENT * client = (CLIENT *)usr;
     char msg[MAX_MESSAGE];
-    int count = 0;
     while(1)
     {
-        int sz = rtMessageQueueReceive(clientq[id], msg, sizeof(msg));
-        rtSockSend(args->sock, msg, sz);
-        if(count % 500 == 0)
-        {
-            //short * val = (short *)(msg + 13);
-            // unpack switch
-            //printf("read check thread %d: value %d size %d\n", id, *val, sz);
-        }
-        count++;
+        int sz = rtMessageQueueReceive(client->q, msg, sizeof(msg));
+        rtSockSend(client->sock, msg, sz);
     }
 }
 
@@ -127,7 +122,7 @@ void cyclic_task(void * usr)
 
     while(1)
     {
-        rtMessageQueueReceive(workq, msg, sizeof(msg));
+        rtMessageQueueReceive(scanner->workq, msg, sizeof(msg));
 
         if(tag[0] == MSG_WRITE)
         {
@@ -173,9 +168,9 @@ void cyclic_task(void * usr)
             
             // distribute PDO
             int client;
-            for(client = 0; client < MAX_CLIENTS; client++)
+            for(client = 0; client < scanner->max_clients; client++)
             {
-                rtMessageQueueSendNoWait(clientq[client], pd, scanner->pdo_size);
+                rtMessageQueueSendNoWait(scanner->clients[client].q, pd, scanner->pdo_size);
             }
             
             ecrt_domain_queue(domain);
@@ -369,6 +364,9 @@ int main(int argc, char **argv)
 
     // start scanner
     SCANNER * scanner = start_scanner("scanner.xml", NULL);
+    scanner->max_clients = 2;
+    scanner->client_capacity = 10;
+    scanner->work_capacity = 10;
 
     client_send_config(scanner);
 
@@ -377,28 +375,26 @@ int main(int argc, char **argv)
     scanner->pd = ecrt_domain_data(scanner->domain);
     assert(scanner->pd);
 
-    workq = rtMessageQueueCreate(WORK_Q_CAPACITY, MAX_MESSAGE);
+    scanner->workq = rtMessageQueueCreate(scanner->work_capacity, MAX_MESSAGE);
 
+    scanner->clients = calloc(scanner->max_clients, sizeof(CLIENT));
     int client;
-    for(client = 0; client < MAX_CLIENTS; client++)
+    for(client = 0; client < scanner->max_clients; client++)
     {
-        clientq[client] = rtMessageQueueCreate(CLIENT_Q_CAPACITY,
-                                               MAX_MESSAGE);
-
-        struct reader_args * args = (struct reader_args *)calloc(1, sizeof(struct reader_args));
+        scanner->clients[client].q = rtMessageQueueCreate(scanner->client_capacity, MAX_MESSAGE);
         struct reader_args * args2 = (struct reader_args *)calloc(1, sizeof(struct reader_args));
-        args->id = client;
+        scanner->clients[client].id = client;
         args2->id = client;
 
         int pair[2];
         assert(socketpair(AF_UNIX, SOCK_STREAM, 0, pair) == 0);
-        args->sock = pair[0];
+        scanner->clients[client].sock = pair[0];
         args2->sock = pair[1];
-        rtThreadCreate("reader", PRIO_LOW,  0, reader_task, args);
+        rtThreadCreate("reader", PRIO_LOW,  0, reader_task, &scanner->clients[client]);
         rtThreadCreate("reader2", PRIO_LOW,  0, socket_reader_task, args2);
     }
 
-    timer_usr t = { PERIOD_NS, workq };
+    timer_usr t = { PERIOD_NS, scanner->workq };
 
     rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
     rtThreadCreate("timer",  PRIO_HIGH, 0, timer_task, &t);
@@ -409,13 +405,13 @@ int main(int argc, char **argv)
     while(1)
     {
         wr.tag = MSG_WRITE;
-        wr.ofs = 13;
+        wr.ofs = 2;
         short * val = (short *)wr.data;
         *val = n;
         wr.mask[0] = 0xff;
         wr.mask[1] = 0xff;
         usleep(1000);
-        //rtMessageQueueSend(workq, &wr, sizeof(wr));
+        // rtMessageQueueSend(scanner->workq, &wr, sizeof(wr));
         n++;
     }
 
@@ -430,6 +426,8 @@ TODO
 Want single process for testing, make asyn function that starts the scanner in a thread
 connection handling state machine
 create N clients (threads, message queues, etc...)
-2 threads per client?
+2 threads per client? 
+
+
 
 */
