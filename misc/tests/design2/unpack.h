@@ -1,5 +1,1 @@
-typedef struct unpack_usr unpack_usr;
-struct unpack_usr
-{
-    rtMessageQueueId config;
-};
+void test_ioc_client(char * path, int max_message);

@@ -14,9 +14,7 @@
 #include "messages.h"
 #include "classes.h"
 #include "parser.h"
-
-// packing stuff
-int pdo_data(char * buffer, int size);
+#include "unpack.h"
 
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
@@ -26,13 +24,16 @@ typedef struct CLIENT CLIENT;
 
 typedef struct
 {
+    char * config_message;
+    int config_size;
     EC_CONFIG * config;
     char * config_buffer;
     ec_master_t * master;
     ec_domain_t * domain;
     int pdo_size;
     uint8_t * pd;
-    CLIENT * clients;
+    CLIENT ** clients;
+    int max_message;
     int max_clients;
     int client_capacity;
     int work_capacity;
@@ -41,9 +42,9 @@ typedef struct
 
 struct CLIENT
 {
+    ENGINE * engine;
     rtMessageQueueId q;
     SCANNER * scanner;
-    int sock;
     int id;
 };
 
@@ -69,39 +70,6 @@ typedef struct
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
 enum { MAX_MESSAGE = 16384 };
-
-struct reader_args
-{
-    int id;
-    int sock;
-};
-
-void socket_reader_task(void * usr)
-{
-    char msg[MAX_MESSAGE];
-    struct reader_args * args = (struct reader_args *)usr;
-    int count = 0;
-    while(1)
-    {
-        int sz = rtSockReceive(args->sock, msg, sizeof(msg));
-        if(count % 100 == 0 && args->id == 0)
-        {
-            pdo_data(msg, sz);
-        }
-        count++;
-    }
-}
-
-void reader_task(void * usr)
-{
-    CLIENT * client = (CLIENT *)usr;
-    char msg[MAX_MESSAGE];
-    while(1)
-    {
-        int sz = rtMessageQueueReceive(client->q, msg, sizeof(msg));
-        rtSockSend(client->sock, msg, sz);
-    }
-}
 
 void cyclic_task(void * usr)
 {
@@ -140,6 +108,11 @@ void cyclic_task(void * usr)
                 write_cache[ofs + n] |= wr->data[n];
             }
         }
+        else if(tag[0] == MSG_HEARTBEAT)
+        {
+            printf("HEARTBEAT\n");
+            // ignore, keeps connection alive
+        }
         else if(tag[0] == MSG_TICK)
         {
             TIMER_MESSAGE * timer_message = (TIMER_MESSAGE *)msg;
@@ -168,7 +141,7 @@ void cyclic_task(void * usr)
             int client;
             for(client = 0; client < scanner->max_clients; client++)
             {
-                rtMessageQueueSendNoWait(scanner->clients[client].q, pd, scanner->pdo_size);
+                rtMessageQueueSendNoWait(scanner->clients[client]->q, pd, scanner->pdo_size);
             }
             
             ecrt_domain_queue(domain);
@@ -297,8 +270,6 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
     return 0;
 }
 
-int init_unpack(char * data, int sz);
-
 void pack_int(char * buffer, int * ofs, int value)
 {
     printf("packing at %d\n", *ofs);
@@ -343,30 +314,47 @@ SCANNER * start_scanner(char * filename, char * socketname)
     return scanner;
 }
 
-void client_send_config(SCANNER * scanner)
+void build_config_message(SCANNER * scanner)
 {
     // send config to clients
     EC_CONFIG * cfg = scanner->config;
     char * sbuf = serialize_config(cfg);
-    int msg_size = strlen(sbuf) + 1 + strlen(scanner->config_buffer) + 1 + 3 * sizeof(int);
-    char * config_msg = calloc(msg_size, sizeof(char));
+    scanner->config_message = calloc(scanner->max_message, sizeof(char));
     int msg_ofs = 0;
-    pack_int(config_msg, &msg_ofs, MSG_CONFIG);
-    pack_string(config_msg, &msg_ofs, scanner->config_buffer);
-    pack_string(config_msg, &msg_ofs, sbuf);
-    init_unpack(config_msg, msg_size);
+    pack_int(scanner->config_message, &msg_ofs, MSG_CONFIG);
+    pack_string(scanner->config_message, &msg_ofs, scanner->config_buffer);
+    pack_string(scanner->config_message, &msg_ofs, sbuf);
+    scanner->config_size = msg_ofs;
 }
 
-int main(int argc, char **argv)
+static int queue_send(ENGINE * server, int size)
+{
+    CLIENT * client = (CLIENT *)server->usr;
+    return rtMessageQueueSend(client->scanner->workq, server->receive_buffer, size);
+}
+
+static int queue_receive(ENGINE * server)
+{
+    CLIENT * client = (CLIENT *)server->usr;
+    return rtMessageQueueReceive(client->q, server->send_buffer, server->max_message);
+}
+static int send_config_on_connect(ENGINE * server, int sock)
+{
+    CLIENT * client = (CLIENT *)server->usr;
+    return rtSockSend(sock, client->scanner->config_message, client->scanner->config_size);
+}
+
+int main(int argc, char ** argv)
 {
 
     // start scanner
     SCANNER * scanner = start_scanner("scanner.xml", NULL);
+    scanner->max_message = 1000000;
     scanner->max_clients = 2;
     scanner->client_capacity = 10;
     scanner->work_capacity = 10;
 
-    client_send_config(scanner);
+    build_config_message(scanner);
 
     // activate master
     ecrt_master_activate(scanner->master);
@@ -374,26 +362,34 @@ int main(int argc, char **argv)
     assert(scanner->pd);
 
     scanner->workq = rtMessageQueueCreate(scanner->work_capacity, MAX_MESSAGE);
+    scanner->clients = calloc(scanner->max_clients, sizeof(CLIENT *));
 
-    scanner->clients = calloc(scanner->max_clients, sizeof(CLIENT));
-    int client;
-    for(client = 0; client < scanner->max_clients; client++)
+    char * path = "/tmp/socket";
+    int sock = rtServerSockCreate(path);
+    assert(sock);
+    
+    int c;
+    for(c = 0; c < scanner->max_clients; c++)
     {
-        scanner->clients[client].q = rtMessageQueueCreate(scanner->client_capacity, MAX_MESSAGE);
-        struct reader_args * args2 = (struct reader_args *)calloc(1, sizeof(struct reader_args));
-        scanner->clients[client].id = client;
-        args2->id = client;
-
-        int pair[2];
-        assert(socketpair(AF_UNIX, SOCK_STREAM, 0, pair) == 0);
-        scanner->clients[client].sock = pair[0];
-        args2->sock = pair[1];
-        rtThreadCreate("reader", PRIO_LOW,  0, reader_task, &scanner->clients[client]);
-        rtThreadCreate("reader2", PRIO_LOW,  0, socket_reader_task, args2);
+        CLIENT * client = calloc(1, sizeof(CLIENT));
+        client->q = rtMessageQueueCreate(scanner->client_capacity, MAX_MESSAGE);
+        client->scanner = scanner;
+        scanner->clients[c] = client;
+        // setup socket engine server side
+        client->engine = new_engine(scanner->max_message);
+        client->engine->listening = sock;
+        client->engine->connect = server_connect;
+        client->engine->on_connect = send_config_on_connect;
+        client->engine->receive_message = queue_receive;
+        client->engine->send_message = queue_send;
+        client->engine->usr = client;
+        engine_start(client->engine);
     }
-
+    
+    test_ioc_client(path, scanner->max_message);
+    
     rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
-
+    
     new_timer(PERIOD_NS, scanner->workq, PRIO_HIGH);
 
     // write test data
@@ -419,12 +415,4 @@ int main(int argc, char **argv)
 TODO
 1) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
 2) proper logging macros
-
-Want single process for testing, make asyn function that starts the scanner in a thread
-connection handling state machine
-create N clients (threads, message queues, etc...)
-2 threads per client? 
-
-
-
 */

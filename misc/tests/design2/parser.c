@@ -384,9 +384,11 @@ char * serialize_config(EC_CONFIG * cfg)
 
 int main_TEST_PARSER(int argc, char ** argv)
 {
-    LIBXML_TEST_VERSION; 
+    LIBXML_TEST_VERSION;
+    /*
     assert(argc > 1);
     EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
-    //read_config2(argv[1], cfg);
+    read_config2(argv[1], cfg);
+    */
     return 0;
 }

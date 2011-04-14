@@ -2,11 +2,47 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
+
 #include "classes.h"
+#include "messages.h"
 #include "parser.h"
 #include "rtutils.h"
+#include "msgsock.h"
 
 static EC_CONFIG * cfg;
+
+static int count = 0;
+
+int pdo_data(char * buffer, int size);
+int init_unpack(char * buffer, int size);
+
+static int receive_config_on_connect(ENGINE * engine, int sock)
+{
+    int size = rtSockReceive(sock, engine->receive_buffer, engine->max_message);
+    if(size > 0)
+    {
+        init_unpack(engine->receive_buffer, size);
+    }
+    return size > 0;
+}
+
+static int ioc_send(ENGINE * server, int size)
+{
+    if(count % 100 == 0)
+    {
+        pdo_data(server->receive_buffer, size);
+    }
+    count++;
+    return 0;
+}
+
+static int ioc_receive(ENGINE * server)
+{
+    usleep(1000000);
+    *(int *)server->send_buffer = MSG_HEARTBEAT;
+    return sizeof(int);
+}
 
 int unpack_int(char * buffer, int * ofs)
 {
@@ -116,6 +152,7 @@ int init_unpack(char * buffer, int size)
     cfg = calloc(1, sizeof(EC_CONFIG));
     int ofs = 0;
     int tag = unpack_int(buffer, &ofs);
+    printf("unpack got tag %d\n", tag);
     int scanner_config_size = unpack_int(buffer, &ofs);
     read_config2(buffer + ofs, scanner_config_size, cfg);
     ofs += scanner_config_size;
@@ -142,4 +179,15 @@ int init_unpack(char * buffer, int size)
         }
     }
     return 0;
+}
+
+void test_ioc_client(char * path, int max_message)
+{
+    ENGINE * ioc = new_engine(max_message);
+    ioc->path = path;
+    ioc->connect = client_connect;
+    ioc->on_connect = receive_config_on_connect;
+    ioc->send_message = ioc_send;
+    ioc->receive_message = ioc_receive;
+    engine_start(ioc);
 }
