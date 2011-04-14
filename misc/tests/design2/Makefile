@@ -17,7 +17,7 @@ configparser: CFLAGS:=$(CFLAGS) -Dmain_TEST=main
 parser: CFLAGS:=$(CFLAGS) -Dmain_TEST_PARSER=main utils.c classes.c
 
 # bus_monitor: bus_monitor.c configparser.c ethercat_device.c
-bus_scan2: bus_scan2.c timer.c parser.c utils.c classes.c unpack.c
+bus_scan2: bus_scan2.c parser.c utils.c classes.c unpack.c
 
 
 clean: 

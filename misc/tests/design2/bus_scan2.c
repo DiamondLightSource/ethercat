@@ -12,7 +12,6 @@
 #include "rtutils.h"
 #include "msgsock.h"
 #include "messages.h"
-#include "timer.h"
 #include "classes.h"
 #include "parser.h"
 
@@ -143,9 +142,8 @@ void cyclic_task(void * usr)
         }
         else if(tag[0] == MSG_TICK)
         {
-            wakeupTime.tv_sec = tag[1];
-            wakeupTime.tv_nsec = tag[2];
-            
+            TIMER_MESSAGE * timer_message = (TIMER_MESSAGE *)msg;
+            wakeupTime = timer_message->ts;
             ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
             
             // do this how often?
@@ -394,10 +392,9 @@ int main(int argc, char **argv)
         rtThreadCreate("reader2", PRIO_LOW,  0, socket_reader_task, args2);
     }
 
-    timer_usr t = { PERIOD_NS, scanner->workq };
-
     rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
-    rtThreadCreate("timer",  PRIO_HIGH, 0, timer_task, &t);
+
+    new_timer(PERIOD_NS, scanner->workq, PRIO_HIGH);
 
     // write test data
     int n = 0;
