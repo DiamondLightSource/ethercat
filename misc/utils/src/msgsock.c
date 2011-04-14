@@ -107,7 +107,7 @@ int rtServerSockCreate(const char * socket_name)
     int sock;
     struct sockaddr_un address;
     size_t address_length;
-    int BACKLOG = 5;
+    int BACKLOG = 0;
 
     umask(0);
     

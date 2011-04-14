@@ -12,7 +12,7 @@ all: $(TARGETS)
 src/%.o: src/%.c
 	gcc -c $^ -o $@ $(CFLAGS)
 
-lib/libComrt.a: src/rtutils.o src/msgsock.o
+lib/libComrt.a: src/rtutils.o src/msgsock.o src/engine.o
 	ar rcs $@ $^
 
 % : src/%.c
