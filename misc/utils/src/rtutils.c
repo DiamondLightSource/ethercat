@@ -1,5 +1,6 @@
 #define _GNU_SOURCE
 
+#include <time.h>
 #include "rtutils.h"
 #include <pthread.h>
 #include <stdlib.h>
@@ -203,4 +204,35 @@ struct timespec timespec_sub(struct timespec a, struct timespec b)
         result.tv_sec  -= 1;
     }
     return result;
+}
+
+typedef struct
+{
+    int period_ns;
+    rtMessageQueueId sink;
+} TIMER;
+
+static void timer_task(void * usr)
+{
+    TIMER * timer = (TIMER *)usr;
+    struct timespec wakeupTime = {0};
+    struct timespec cycletime = {0};
+    cycletime.tv_nsec = timer->period_ns;
+    TIMER_MESSAGE msg;
+    clock_gettime(CLOCK_MONOTONIC, &wakeupTime);
+    while(1)
+    {
+        wakeupTime = timespec_add(wakeupTime, cycletime);
+        clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &wakeupTime, NULL);
+        msg.ts = wakeupTime;
+        rtMessageQueueSendPriority(timer->sink, &msg, sizeof(TIMER_MESSAGE));
+    }
+}
+
+void new_timer(int period_ns, rtMessageQueueId sink, int priority)
+{
+    TIMER * timer = calloc(1, sizeof(TIMER));
+    timer->period_ns = period_ns;
+    timer->sink = sink;
+    rtThreadCreate("timer", priority, 0, timer_task, timer);
 }

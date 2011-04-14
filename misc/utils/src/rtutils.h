@@ -51,4 +51,12 @@ enum { NSEC_PER_SEC = 1000000000 };
 struct timespec timespec_add(struct timespec a, struct timespec b);
 struct timespec timespec_sub(struct timespec a, struct timespec b);
 
+typedef struct
+{
+    int tag;
+    struct timespec ts;
+} TIMER_MESSAGE;
+
+void new_timer(int period_ns, rtMessageQueueId sink, int priority);
+
 #endif
