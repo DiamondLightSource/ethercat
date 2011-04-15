@@ -1,10 +1,45 @@
-struct action
+enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2, MSG_PDO = 3, MSG_CONFIG = 4 };
+
+enum { PDO_WRITE_SIZE = 8 };
+
+typedef struct
 {
     int tag;
-    int device;
-    int channel;
-    uint64_t value;
+    char buffer[1];
+} CONFIG_MESSAGE;
+
+typedef struct
+{
+    int tag;
+    int ofs;
+    uint8_t data[PDO_WRITE_SIZE];
+    uint8_t mask[PDO_WRITE_SIZE];
+} WRITE_MESSAGE;
+
+typedef struct
+{
+    int tag;
+    int working_counter;
+    int wc_state;
+    int cycle;
+    int size;
+    char buffer[1];
+} PDO_MESSAGE;
+
+typedef struct
+{
+    int tag;
+    int dummy;
+} HEARTBEAT_MESSAGE;
+
+union EC_MESSAGE
+{
+    int tag;
+    PDO_MESSAGE pdo;
+    WRITE_MESSAGE write;
+    HEARTBEAT_MESSAGE heartbeat;
+    CONFIG_MESSAGE config;
+    TIMER_MESSAGE timer;
 };
 
-enum { MSG_TICK = 0, MSG_MONITOR = 1, MSG_REPLY = 2, MSG_WRITE = 3, MSG_DISCONN = 4, MSG_PDO = 5, MSG_CYCLE, MSG_SOCK, MSG_CONFIG, MSG_HEARTBEAT };
-
+typedef union EC_MESSAGE EC_MESSAGE;

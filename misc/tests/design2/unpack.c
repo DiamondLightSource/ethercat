@@ -3,12 +3,13 @@
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
+#include <assert.h>
 
 #include "classes.h"
-#include "messages.h"
 #include "parser.h"
 #include "rtutils.h"
 #include "msgsock.h"
+#include "messages.h"
 
 static EC_CONFIG * cfg;
 
@@ -90,8 +91,17 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
         }
         break;
     case 32:
-        value = *(int32_t *)buffer;
-        // no unsigned 32 bit type in EPICS
+        if(is_signed)
+        {
+            value = *(int32_t *)buffer;
+        }
+        else
+        {
+            value = *(int32_t *)buffer;
+            // WARNING no unsigned types in ASYN
+            // discard top bit
+            value &= INT32_MAX;
+        }
         break;
     default:
         printf("unknown type\n");
@@ -101,6 +111,8 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 
 int pdo_data(char * buffer, int size)
 {
+    EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
+    assert(msg->tag == MSG_PDO);
     int n;
     for(n = 0; n < size; n++)
     {
@@ -111,6 +123,8 @@ int pdo_data(char * buffer, int size)
         }
     }
     printf("\n");
+    printf("bys cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
+           msg->pdo.wc_state);
     NODE * node;
     for(node = listFirst(&cfg->devices); node; node = node->next)
     {
@@ -128,13 +142,13 @@ int pdo_data(char * buffer, int size)
             {
                 for(n = 0; n < mapping->parent->oversampling_rate; n++)
                 {
-                    printf("%d ", cast_int32(mapping, buffer, n));
+                    printf("%d ", cast_int32(mapping, msg->pdo.buffer, n));
                 }
                 printf("\n");
             }
             else
             {
-                int32_t val = cast_int32(mapping, buffer, 0);
+                int32_t val = cast_int32(mapping, msg->pdo.buffer, 0);
                 printf("%d\n", val);
             }
 
@@ -152,7 +166,7 @@ int init_unpack(char * buffer, int size)
     cfg = calloc(1, sizeof(EC_CONFIG));
     int ofs = 0;
     int tag = unpack_int(buffer, &ofs);
-    printf("unpack got tag %d\n", tag);
+    assert(tag == MSG_CONFIG);
     int scanner_config_size = unpack_int(buffer, &ofs);
     read_config2(buffer + ofs, scanner_config_size, cfg);
     ofs += scanner_config_size;
@@ -191,3 +205,22 @@ void test_ioc_client(char * path, int max_message)
     ioc->receive_message = ioc_receive;
     engine_start(ioc);
 }
+
+/*
+    // write test data
+    int n = 0;
+    message_write wr;
+    while(1)
+    {
+        wr.tag = MSG_WRITE;
+        wr.ofs = 2;
+        short * val = (short *)wr.data;
+        *val = n;
+        wr.mask[0] = 0xff;
+        wr.mask[1] = 0xff;
+        usleep(1000);
+        // rtMessageQueueSend(scanner->workq, &wr, sizeof(wr));
+        n++;
+    }
+*/
+

@@ -24,7 +24,7 @@ typedef struct CLIENT CLIENT;
 
 typedef struct
 {
-    char * config_message;
+    EC_MESSAGE * config_message;
     int config_size;
     EC_CONFIG * config;
     char * config_buffer;
@@ -34,6 +34,7 @@ typedef struct
     uint8_t * pd;
     CLIENT ** clients;
     int max_message;
+    int max_queue_message;
     int max_clients;
     int client_capacity;
     int work_capacity;
@@ -48,28 +49,7 @@ struct CLIENT
     int id;
 };
 
-typedef struct
-{
-    int tag;
-    int working_counter;
-    int size;
-    char buffer;
-} message_pdo;
-
-enum { WRITE_SIZE = 8 };
-
-typedef struct
-{
-    int tag;
-    int ofs;
-    uint8_t data[WRITE_SIZE];
-    uint8_t mask[WRITE_SIZE];
-} message_write;
-
-/* globals */
-
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
-enum { MAX_MESSAGE = 16384 };
 
 void cyclic_task(void * usr)
 {
@@ -78,8 +58,7 @@ void cyclic_task(void * usr)
     ec_domain_t * domain = scanner->domain;
     uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
-    char msg[MAX_MESSAGE] = {0};
-    int * tag = (int *)msg;
+    EC_MESSAGE * msg = (EC_MESSAGE *)calloc(1, scanner->max_message);
     int tick = 0;
 
     uint8_t * write_cache = calloc(scanner->pdo_size, sizeof(char));
@@ -91,32 +70,29 @@ void cyclic_task(void * usr)
     {
         rtMessageQueueReceive(scanner->workq, msg, sizeof(msg));
 
-        if(tag[0] == MSG_WRITE)
+        if(msg->tag == MSG_WRITE)
         {
-            message_write * wr = (message_write *)msg;
             // write with mask requires read-modify-write
             int n;
-            int ofs = wr->ofs;
-            for(n = 0; n < WRITE_SIZE; n++)
+            int ofs = msg->write.ofs;
+            for(n = 0; n < PDO_WRITE_SIZE; n++)
             {
                 if(ofs + n >= scanner->pdo_size)
                 {
                     break;
                 }
-                write_mask[ofs + n] |= wr->mask[n];
-                write_cache[ofs + n] &= ~wr->mask[n];
-                write_cache[ofs + n] |= wr->data[n];
+                write_mask[ofs + n] |= msg->write.mask[n];
+                write_cache[ofs + n] &= ~msg->write.mask[n];
+                write_cache[ofs + n] |= msg->write.data[n];
             }
         }
-        else if(tag[0] == MSG_HEARTBEAT)
+        else if(msg->tag == MSG_HEARTBEAT)
         {
-            printf("HEARTBEAT\n");
-            // ignore, keeps connection alive
+            // keeps connection alive
         }
-        else if(tag[0] == MSG_TICK)
+        else if(msg->tag == MSG_TICK)
         {
-            TIMER_MESSAGE * timer_message = (TIMER_MESSAGE *)msg;
-            wakeupTime = timer_message->ts;
+            wakeupTime = msg->timer.ts;
             ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
             
             // do this how often?
@@ -137,11 +113,19 @@ void cyclic_task(void * usr)
             }
             memset(write_mask, 0, scanner->pdo_size);
             
+            msg->pdo.working_counter = domain_state.working_counter;
+            msg->pdo.wc_state = domain_state.wc_state;
+            msg->pdo.tag = MSG_PDO;
+            msg->pdo.cycle = tick;
+            msg->pdo.size = scanner->pdo_size;
+            memcpy(msg->pdo.buffer, pd, msg->pdo.size);
+            int msg_size = (msg->pdo.buffer + msg->pdo.size) - (char *)msg;
+            
             // distribute PDO
             int client;
             for(client = 0; client < scanner->max_clients; client++)
             {
-                rtMessageQueueSendNoWait(scanner->clients[client]->q, pd, scanner->pdo_size);
+                rtMessageQueueSendNoWait(scanner->clients[client]->q, msg, msg_size);
             }
             
             ecrt_domain_queue(domain);
@@ -272,15 +256,16 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
 
 void pack_int(char * buffer, int * ofs, int value)
 {
-    printf("packing at %d\n", *ofs);
-    *((int *)(buffer + *ofs)) = value;
-    (*ofs)+=sizeof(int);
+    buffer[*ofs + 0] = value & 0xff;
+    buffer[*ofs + 1] = (value >> 8)  & 0xff;
+    buffer[*ofs + 2] = (value >> 16) & 0xff;
+    buffer[*ofs + 3] = (value >> 24) & 0xff;
+    (*ofs) += 4;
 }
 
 void pack_string(char * buffer, int * ofs, char * str)
 {
     int sl = strlen(str) + 1;
-    printf("string length %d\n", sl);
     pack_int(buffer, ofs, sl);
     strcpy(buffer + *ofs, str);
     (*ofs) += sl;
@@ -301,7 +286,7 @@ int ethercat_init(SCANNER * scanner)
     return 0;
 }
 
-SCANNER * start_scanner(char * filename, char * socketname)
+SCANNER * start_scanner(char * filename)
 {
     SCANNER * scanner = calloc(1, sizeof(SCANNER));
     scanner->config = calloc(1, sizeof(EC_CONFIG));
@@ -320,11 +305,12 @@ void build_config_message(SCANNER * scanner)
     EC_CONFIG * cfg = scanner->config;
     char * sbuf = serialize_config(cfg);
     scanner->config_message = calloc(scanner->max_message, sizeof(char));
+    scanner->config_message->tag = MSG_CONFIG;
+    char * buffer = scanner->config_message->config.buffer;
     int msg_ofs = 0;
-    pack_int(scanner->config_message, &msg_ofs, MSG_CONFIG);
-    pack_string(scanner->config_message, &msg_ofs, scanner->config_buffer);
-    pack_string(scanner->config_message, &msg_ofs, sbuf);
-    scanner->config_size = msg_ofs;
+    pack_string(buffer, &msg_ofs, scanner->config_buffer);
+    pack_string(buffer, &msg_ofs, sbuf);
+    scanner->config_size = buffer + msg_ofs - (char *)scanner->config_message;
 }
 
 static int queue_send(ENGINE * server, int size)
@@ -348,8 +334,9 @@ int main(int argc, char ** argv)
 {
 
     // start scanner
-    SCANNER * scanner = start_scanner("scanner.xml", NULL);
+    SCANNER * scanner = start_scanner("scanner.xml");
     scanner->max_message = 1000000;
+    scanner->max_queue_message = 10000;
     scanner->max_clients = 2;
     scanner->client_capacity = 10;
     scanner->work_capacity = 10;
@@ -361,7 +348,7 @@ int main(int argc, char ** argv)
     scanner->pd = ecrt_domain_data(scanner->domain);
     assert(scanner->pd);
 
-    scanner->workq = rtMessageQueueCreate(scanner->work_capacity, MAX_MESSAGE);
+    scanner->workq = rtMessageQueueCreate(scanner->work_capacity, scanner->max_queue_message);
     scanner->clients = calloc(scanner->max_clients, sizeof(CLIENT *));
 
     char * path = "/tmp/socket";
@@ -372,7 +359,7 @@ int main(int argc, char ** argv)
     for(c = 0; c < scanner->max_clients; c++)
     {
         CLIENT * client = calloc(1, sizeof(CLIENT));
-        client->q = rtMessageQueueCreate(scanner->client_capacity, MAX_MESSAGE);
+        client->q = rtMessageQueueCreate(scanner->client_capacity, scanner->max_queue_message);
         client->scanner = scanner;
         scanner->clients[c] = client;
         // setup socket engine server side
@@ -386,33 +373,22 @@ int main(int argc, char ** argv)
         engine_start(client->engine);
     }
     
-    test_ioc_client(path, scanner->max_message);
-    
     rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
-    
     new_timer(PERIOD_NS, scanner->workq, PRIO_HIGH);
 
-    // write test data
-    int n = 0;
-    message_write wr;
-    while(1)
+    int selftest = 1;
+    if(selftest)
     {
-        wr.tag = MSG_WRITE;
-        wr.ofs = 2;
-        short * val = (short *)wr.data;
-        *val = n;
-        wr.mask[0] = 0xff;
-        wr.mask[1] = 0xff;
-        usleep(1000);
-        // rtMessageQueueSend(scanner->workq, &wr, sizeof(wr));
-        n++;
+        test_ioc_client(path, scanner->max_message);
     }
-
+    pause();
+    
     return 0;
 }
 
 /*
 TODO
 1) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
+Make test code that mocks up the server by parsing the config file and sending it... OK
 2) proper logging macros
 */
