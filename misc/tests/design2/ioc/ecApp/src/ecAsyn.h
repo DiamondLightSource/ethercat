@@ -1,8 +1,10 @@
 class ecAsyn : public asynPortDriver
 {
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
+    rtMessageQueueId writeq;
+    EC_PDO_ENTRY_MAPPING ** mappings;
 public:
-    ecAsyn(EC_DEVICE * device, int pdos);
+    ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq);
     EC_DEVICE * device;
     void on_pdo_message(PDO_MESSAGE * message, int size);
 };

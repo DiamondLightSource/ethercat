@@ -32,6 +32,7 @@ struct ENGINE_USER
     EC_CONFIG * config;
     rtMessageQueueId config_ready;
     int count;
+    rtMessageQueueId writeq;
 };
 
 static const int N_RESERVED_PARAMS = 10;
@@ -53,7 +54,7 @@ ecMaster::ecMaster(char * name) :
     createParam("WcState", asynParamInt32, &P_WcState);
 }
 
-ecAsyn::ecAsyn(EC_DEVICE * device, int pdos) :
+ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
                    pdos + N_RESERVED_PARAMS, /* max parameters */
@@ -63,11 +64,13 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos) :
                    1, /* autoconnect */
                    0, /* default priority */
                    0) /* default stack size */,
-    device(device)
+    writeq(writeq), device(device)
 {
     printf("ecAsyn INIT %s PDOS %d\n", device->name, pdos);
     int * PdoParam = new int[pdos]; /* leak */
+    mappings = new EC_PDO_ENTRY_MAPPING *[pdos]; /* leak */
     int n = 0;
+    /*
     NODE * node1;
     for(node1 = listFirst(&device->device_type->sync_managers); node1; node1 = node1->next)
     {
@@ -87,6 +90,18 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos) :
             }
         }
     }
+    */
+    for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
+    {
+        EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
+        char * name = mapping->pdo_entry->parent->name;
+        printf("createParam %s\n", name);
+        createParam(name, asynParamInt32, PdoParam + n);
+        mapping->pdo_entry->parameter = PdoParam[n];
+        mappings[n] = mapping;
+        n++;
+    }
+
 }
 
 void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
@@ -110,7 +125,16 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 
 asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
-    return asynPortDriver::writeInt32(pasynUser, value);
+    asynStatus status = asynPortDriver::writeInt32(pasynUser, value);
+    EC_PDO_ENTRY_MAPPING * mapping = mappings[pasynUser->reason];
+    WRITE_MESSAGE write;
+    write.tag = MSG_WRITE;
+    write.offset = mapping->offset;
+    write.bit_position = mapping->bit_position;
+    write.bits = mapping->pdo_entry->bits;
+    write.value = value;
+    rtMessageQueueSend(writeq, &write, sizeof(WRITE_MESSAGE));
+    return status;
 }
 
 int init_unpack(ENGINE_USER * usr, char * buffer, int size)
@@ -166,7 +190,7 @@ static void readConfig(ENGINE_USER * usr)
             }
         }
         PORT_NODE * pn = (PORT_NODE *)calloc(1, sizeof(PORT_NODE));
-        pn->port = new ecAsyn(device, pdos);
+        pn->port = new ecAsyn(device, pdos, usr->writeq);
         listAdd(&usr->ports, &pn->node);
     }
 }
@@ -207,9 +231,9 @@ static int ioc_send(ENGINE * server, int size)
 
 static int ioc_receive(ENGINE * server)
 {
-    usleep(1000000);
-    *(int *)server->send_buffer = MSG_HEARTBEAT;
-    return sizeof(int);
+    ENGINE_USER * usr = (ENGINE_USER *)server->usr;
+    int size = rtMessageQueueReceive(usr->writeq, server->send_buffer, server->max_message);
+    return size;
 }
 
 void makePorts(char * path, int max_message)
@@ -218,6 +242,7 @@ void makePorts(char * path, int max_message)
     usr->master = new ecMaster("MASTER0");
     usr->config_ready = rtMessageQueueCreate(1, sizeof(int));
     usr->config = (EC_CONFIG *)calloc(1, sizeof(EC_CONFIG));
+    usr->writeq = rtMessageQueueCreate(1, max_message);
     
     ENGINE * engine = new_engine(max_message);
     engine->path = path;
@@ -227,6 +252,8 @@ void makePorts(char * path, int max_message)
     engine->receive_message = ioc_receive;
     engine->usr = usr;
     engine_start(engine);
+
+    new_timer(1000000000, usr->writeq, 0, MSG_HEARTBEAT);
 
     int ack;
     rtMessageQueueReceive(usr->config_ready, &ack, sizeof(int));

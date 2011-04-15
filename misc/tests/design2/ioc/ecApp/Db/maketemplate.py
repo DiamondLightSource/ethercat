@@ -48,10 +48,21 @@ record(longin, "$(DEVICE):%(name)s")
 }
 """
 
+longout_text = """
+record(longout, "$(DEVICE):%(name)s")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))%(command)s")
+  field("OMSL", "supervisory")
+}
+"""
+
 def makeTemplate(name, longin, longout):
     f = file("%s.template" % name, "w")
     for l in longin:
         print >> f, longin_text % {"name": l, "command": l}
+    for l in longout:
+        print >> f, longout_text % {"name": l, "command": l}
     f.close()
 
 def parseFile(filename):

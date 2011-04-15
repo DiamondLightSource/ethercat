@@ -68,22 +68,51 @@ void cyclic_task(void * usr)
 
     while(1)
     {
-        rtMessageQueueReceive(scanner->workq, msg, sizeof(msg));
+        rtMessageQueueReceive(scanner->workq, msg, scanner->max_message);
 
         if(msg->tag == MSG_WRITE)
         {
-            // write with mask requires read-modify-write
-            int n;
-            int ofs = msg->write.ofs;
-            for(n = 0; n < PDO_WRITE_SIZE; n++)
+            int bit;
+            assert(msg->write.bits == 1 || msg->write.bit_position == 0);
+            int value = msg->write.value;
+            switch(msg->write.bits)
             {
-                if(ofs + n >= scanner->pdo_size)
+            case 1:
+                assert(msg->write.offset < scanner->pdo_size);
+                bit = (1 << msg->write.bit_position);
+                write_mask[msg->write.offset] |= bit;
+                if(value)
                 {
-                    break;
+                    write_cache[msg->write.offset] |= bit;
                 }
-                write_mask[ofs + n] |= msg->write.mask[n];
-                write_cache[ofs + n] &= ~msg->write.mask[n];
-                write_cache[ofs + n] |= msg->write.data[n];
+                else
+                {
+                    write_cache[msg->write.offset] &= ~bit;
+                }
+                break;
+            case 8:
+                assert(msg->write.offset < scanner->pdo_size);
+                write_mask[msg->write.offset + 0] = 0xff;
+                write_cache[msg->write.offset + 0] = value & 0xff;
+                break;
+            case 16:
+                assert(msg->write.offset + 1 < scanner->pdo_size);
+                write_mask[msg->write.offset + 0] = 0xff;
+                write_mask[msg->write.offset + 1] = 0xff;
+                write_cache[msg->write.offset + 0] = value & 0xff;
+                write_cache[msg->write.offset + 1] = (value >> 8) & 0xff;
+                break;
+            case 32:
+                assert(msg->write.offset + 3 < scanner->pdo_size);
+                write_mask[msg->write.offset + 0] = 0xff;
+                write_mask[msg->write.offset + 1] = 0xff;
+                write_mask[msg->write.offset + 2] = 0xff;
+                write_mask[msg->write.offset + 3] = 0xff;
+                write_cache[msg->write.offset + 0] = value & 0xff;
+                write_cache[msg->write.offset + 1] = (value >> 8) & 0xff;
+                write_cache[msg->write.offset + 2] = (value >> 16) & 0xff;
+                write_cache[msg->write.offset + 3] = (value >> 24) & 0xff;
+                break;
             }
         }
         else if(msg->tag == MSG_HEARTBEAT)
@@ -374,7 +403,7 @@ int main(int argc, char ** argv)
     }
     
     rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
-    new_timer(PERIOD_NS, scanner->workq, PRIO_HIGH);
+    new_timer(PERIOD_NS, scanner->workq, PRIO_HIGH, MSG_TICK);
 
     int selftest = 1;
     if(selftest)

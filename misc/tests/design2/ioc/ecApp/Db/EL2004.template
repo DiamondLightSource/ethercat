@@ -1,0 +1,32 @@
+
+record(longout, "$(DEVICE):Channel1")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel1")
+  field("OMSL", "supervisory")
+}
+
+
+record(longout, "$(DEVICE):Channel2")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel2")
+  field("OMSL", "supervisory")
+}
+
+
+record(longout, "$(DEVICE):Channel3")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel3")
+  field("OMSL", "supervisory")
+}
+
+
+record(longout, "$(DEVICE):Channel4")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel4")
+  field("OMSL", "supervisory")
+}
+

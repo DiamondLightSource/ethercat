@@ -1,7 +1,5 @@
 enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2, MSG_PDO = 3, MSG_CONFIG = 4 };
 
-enum { PDO_WRITE_SIZE = 8 };
-
 typedef struct
 {
     int tag;
@@ -11,9 +9,10 @@ typedef struct
 typedef struct
 {
     int tag;
-    int ofs;
-    uint8_t data[PDO_WRITE_SIZE];
-    uint8_t mask[PDO_WRITE_SIZE];
+    int offset;
+    int bit_position;
+    int bits;
+    int value;
 } WRITE_MESSAGE;
 
 typedef struct
