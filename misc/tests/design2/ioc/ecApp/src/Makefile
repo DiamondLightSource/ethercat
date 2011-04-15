@@ -5,10 +5,9 @@ include $(TOP)/configure/CONFIG
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 #=============================
 
-USR_INCLUDES += -I$(TOP)/..
-USR_LDFLAGS += -L$(TOP)/..
-USR_SYS_LIBS += Scanner xml2
-
+USR_INCLUDES += -I$(TOP)/.. -I$(TOP)/../../../utils/src
+USR_LDFLAGS += -L$(TOP)/.. -L$(TOP)/../../../utils/lib
+USR_SYS_LIBS += Scanner xml2 Comrt
 
 #==================================================
 # build a support library

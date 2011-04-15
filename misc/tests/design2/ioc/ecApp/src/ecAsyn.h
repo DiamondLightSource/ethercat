@@ -1,20 +1,22 @@
 class ecAsyn : public asynPortDriver
 {
-    int testmode;
-    //int writeCommand(int function, epicsInt32 value = 0);
-    //virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
-
-    int P_FullTimeouts;
-    int P_EmptyTimeouts;
-    int P_ProtocolErrors;
-    int P_ReadSignals;
-    int P_ReadComms;
-    int P_ReadFlash;
-    int P_WriteFlash;
-    int P_SoftReset;
-
+    virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
 public:
-    
-    ecAsyn(const char * name, int dummy);
-
+    ecAsyn(EC_DEVICE * device, int pdos);
+    EC_DEVICE * device;
+    void on_pdo_message(PDO_MESSAGE * message, int size);
 };
+
+class ecMaster : public asynPortDriver
+{
+    int P_Cycle;
+#define FIRST_MASTER_COMMAND P_Cycle
+    int P_WorkingCounter;
+    int P_WcState;
+#define LAST_MASTER_COMMAND P_WcState
+public:
+    ecMaster(char * name);
+    void on_pdo_message(PDO_MESSAGE * message, int size);
+};
+
+#define NUM_MASTER_PARAMS (&LAST_MASTER_COMMAND - &FIRST_MASTER_COMMAND + 1)

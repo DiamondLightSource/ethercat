@@ -1,8 +1,7 @@
 #!bin/linux-x86/ectest
 dbLoadDatabase("dbd/ecAsyn.dbd")
 ecAsyn_registerRecordDeviceDriver(pdbbase)
-ecAsynInit
+ecAsynInit("/tmp/socket", 1000000)
 
-# dlspscInit("PORT0", 0)
-# dbLoadRecords("db/test.db")
-# iocInit()
+dbLoadRecords("test.db", "DEVICE=JR")
+iocInit()

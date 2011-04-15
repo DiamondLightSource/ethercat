@@ -1,0 +1,27 @@
+record(longin, "$(DEVICE):CYCLE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn(MASTER0)Cycle")
+  field("SCAN", "I/O Intr")
+}
+
+record(longin, "$(DEVICE):WORKING_COUNTER")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn(MASTER0)WorkingCounter")
+  field("SCAN", "I/O Intr")
+}
+
+record(longin, "$(DEVICE):WC_STATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn(MASTER0)WcState")
+  field("SCAN", "I/O Intr")
+}
+
+record(longin, "$(DEVICE):ID")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn(COUPLER0)ID")
+  field("SCAN", "I/O Intr")
+}
