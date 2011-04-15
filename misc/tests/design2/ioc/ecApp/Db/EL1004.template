@@ -1,0 +1,32 @@
+
+record(longin, "$(DEVICE):Channel1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Channel1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Channel2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Channel2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Channel3")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Channel3")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Channel4")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Channel4")
+  field("SCAN", "$(SCAN)")
+}
+

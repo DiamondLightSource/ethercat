@@ -1,0 +1,8 @@
+
+record(longin, "$(DEVICE):ID")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))ID")
+  field("SCAN", "$(SCAN)")
+}
+

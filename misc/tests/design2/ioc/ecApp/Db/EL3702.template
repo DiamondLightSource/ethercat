@@ -1,0 +1,40 @@
+
+record(longin, "$(DEVICE):Ch1CycleCount")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Ch1CycleCount")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Ch1Sample")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Ch1Sample")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Ch2CycleCount")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Ch2CycleCount")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Ch2Sample")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Ch2Sample")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):NextSync1Time")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))NextSync1Time")
+  field("SCAN", "$(SCAN)")
+}
+
