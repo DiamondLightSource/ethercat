@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct EC_CONFIG EC_CONFIG;
 typedef struct EC_PDO_ENTRY EC_PDO_ENTRY;
 typedef struct EC_PDO EC_PDO;
@@ -33,6 +37,7 @@ struct EC_PDO_ENTRY
     int oversampling;
     EC_PDO * parent;
     char * datatype;
+    int parameter; // for asyn connection
 };
 
 struct EC_PDO
@@ -99,3 +104,7 @@ struct EC_CONFIG
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
 EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int index, int sub_index);
 EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name);
+
+#ifdef __cplusplus
+}
+#endif

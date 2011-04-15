@@ -12,12 +12,12 @@ all: $(TARGETS)
 scanner.xml: chain.xml
 	./beck.py > $@
 
-libScanner.a: parser.o classes.o
+libScanner.a: parser.o classes.o unpack.o
 	ar rcs $@ $^
 
 # parser: CFLAGS:=$(CFLAGS) -Dmain_TEST_PARSER=main classes.c
 
-bus_scan2: libScanner.a bus_scan2.c unpack.c
+bus_scan2: libScanner.a bus_scan2.c
 
 clean: 
 	-rm $(TARGETS) *~
