@@ -1,0 +1,9 @@
+# provide definitions such as
+#include "xxxRecord.dbd"
+#device(xxx,CONSTANT,devXxxSoft,"SoftChannel")
+#driver(myDriver)
+#variable(myVariable)
+
+include "base.dbd"
+include "asyn.dbd"
+registrar(ecAsynRegistrar)
