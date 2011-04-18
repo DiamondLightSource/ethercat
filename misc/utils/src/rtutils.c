@@ -208,6 +208,7 @@ struct timespec timespec_sub(struct timespec a, struct timespec b)
 
 typedef struct
 {
+    int tag;
     int period_ns;
     rtMessageQueueId sink;
 } TIMER;
@@ -219,6 +220,7 @@ static void timer_task(void * usr)
     struct timespec cycletime = {0};
     cycletime.tv_nsec = timer->period_ns;
     TIMER_MESSAGE msg;
+    msg.tag = timer->tag;
     clock_gettime(CLOCK_MONOTONIC, &wakeupTime);
     while(1)
     {
@@ -229,10 +231,11 @@ static void timer_task(void * usr)
     }
 }
 
-void new_timer(int period_ns, rtMessageQueueId sink, int priority)
+void new_timer(int period_ns, rtMessageQueueId sink, int priority, int tag)
 {
     TIMER * timer = calloc(1, sizeof(TIMER));
     timer->period_ns = period_ns;
     timer->sink = sink;
+    timer->tag = tag;
     rtThreadCreate("timer", priority, 0, timer_task, timer);
 }

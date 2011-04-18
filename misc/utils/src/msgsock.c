@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <stdint.h>
 
+#include "rtutils.h"
 #include "msgsock.h"
 
 /* 
@@ -84,19 +85,17 @@ int recvall(int s, char *buf, size_t len, int flags)
 
 int rtSockCreate(const char * socket_name)
 {
-    size_t address_length;
-    struct sockaddr_un address;
+    struct sockaddr_un address = {0};
     int sock = socket(PF_UNIX, SOCK_STREAM, 0);
     if(sock == -1)
     {
         return -1;
     }
     address.sun_family = AF_UNIX;
-    address_length = sizeof(address.sun_family) +
-        sprintf(address.sun_path, socket_name);
-    if(connect(sock, (struct sockaddr *) &address, address_length) == -1)
+    strncpy(address.sun_path, socket_name, sizeof(address.sun_path)-1);
+    if(connect(sock, (struct sockaddr *) &address, sizeof(address) == -1)
     {
-        fprintf(stderr, "connect failed %s\n", strerror(errno));
+        fprintf(stderr, "connect to %s failed %s\n", socket_name, strerror(errno));
         return -1;
     }
     return sock;

@@ -57,6 +57,6 @@ typedef struct
     struct timespec ts;
 } TIMER_MESSAGE;
 
-void new_timer(int period_ns, rtMessageQueueId sink, int priority);
+void new_timer(int period_ns, rtMessageQueueId sink, int priority, int tag);
 
 #endif

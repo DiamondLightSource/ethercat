@@ -33,6 +33,8 @@ struct ENGINE_USER
     rtMessageQueueId config_ready;
     int count;
     rtMessageQueueId writeq;
+    void * config_buffer;
+    int config_size;
 };
 
 static const int N_RESERVED_PARAMS = 10;
@@ -202,9 +204,21 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
     int size = rtSockReceive(sock, engine->receive_buffer, engine->max_message);
     if(size > 0)
     {
-        init_unpack(usr, engine->receive_buffer, size);
-        readConfig(usr);
-        rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
+        if(usr->config_buffer == NULL)
+        {
+            usr->config_size = size;
+            usr->config_buffer = calloc(size, sizeof(char));
+            memcpy(usr->config_buffer, engine->receive_buffer, size);
+            init_unpack(usr, engine->receive_buffer, size);
+            readConfig(usr);
+            rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
+        }
+        else
+        {
+            // check that the config hasn't changed
+            assert(size == usr->config_size && 
+                   memcmp(usr->config_buffer, engine->receive_buffer, size) == 0);
+        }
     }
     return size > 0;
 }
@@ -245,7 +259,7 @@ void makePorts(char * path, int max_message)
     usr->writeq = rtMessageQueueCreate(1, max_message);
     
     ENGINE * engine = new_engine(max_message);
-    engine->path = path;
+    engine->path = strdup(path);
     engine->connect = client_connect;
     engine->on_connect = receive_config_on_connect;
     engine->send_message = ioc_send;
