@@ -59,6 +59,8 @@ record(longout, "$(DEVICE):%(name)s")
 
 def makeTemplate(name, longin, longout):
     f = file("%s.template" % name, "w")
+    for l in ["AL_STATE", "ERROR_FLAG"]:
+        print >> f, longin_text % {"name": l, "command": l}
     for l in longin:
         print >> f, longin_text % {"name": l, "command": l}
     for l in longout:

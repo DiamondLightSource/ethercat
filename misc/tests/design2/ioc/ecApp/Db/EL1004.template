@@ -1,4 +1,20 @@
 
+record(longin, "$(DEVICE):AL_STATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))AL_STATE")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):ERROR_FLAG")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))ERROR_FLAG")
+  field("SCAN", "$(SCAN)")
+}
+
+
 record(longin, "$(DEVICE):Channel1")
 {
   field("DTYP", "asynInt32")

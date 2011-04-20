@@ -387,7 +387,7 @@ int main(int argc, char ** argv)
     SCANNER * scanner = start_scanner("scanner.xml");
     scanner->max_message = 1000000;
     scanner->max_queue_message = 10000;
-    scanner->max_clients = 2;
+    scanner->max_clients = 10;
     scanner->client_capacity = 10;
     scanner->work_capacity = 10;
 
