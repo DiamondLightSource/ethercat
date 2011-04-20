@@ -66,6 +66,13 @@ void cyclic_task(void * usr)
 
     ec_domain_state_t domain_state;
 
+    int nslaves = 0;
+    NODE * node;
+    for(node = listFirst(&scanner->config->devices); node; node = node->next)
+    {
+        nslaves++;
+    }
+
     while(1)
     {
         rtMessageQueueReceive(scanner->workq, msg, scanner->max_message);
@@ -142,14 +149,28 @@ void cyclic_task(void * usr)
             }
             memset(write_mask, 0, scanner->pdo_size);
             
+            clock_gettime(CLOCK_MONOTONIC, &msg->pdo.ts);
+            //msg->pdo.ts = wakeupTime;
             msg->pdo.working_counter = domain_state.working_counter;
             msg->pdo.wc_state = domain_state.wc_state;
             msg->pdo.tag = MSG_PDO;
             msg->pdo.cycle = tick;
             msg->pdo.size = scanner->pdo_size;
             memcpy(msg->pdo.buffer, pd, msg->pdo.size);
-            int msg_size = (msg->pdo.buffer + msg->pdo.size) - (char *)msg;
-            
+            int msg_size = (msg->pdo.buffer + msg->pdo.size + nslaves * 2 * sizeof(char)) - (char *)msg;
+
+            /* master sends FPRD datagrams every cycle to get this slave info */
+            NODE * node;
+            int ofs = msg->pdo.size;
+            for(node = listFirst(&scanner->config->devices); node; node = node->next)
+            {
+                EC_DEVICE * device = (EC_DEVICE *)node;
+                ec_slave_info_t slave_info;
+                ecrt_master_get_slave(master, device->position, &slave_info);
+                msg->pdo.buffer[ofs++] = slave_info.al_state;
+                msg->pdo.buffer[ofs++] = slave_info.error_flag;
+            }
+
             // distribute PDO
             int client;
             for(client = 0; client < scanner->max_clients; client++)

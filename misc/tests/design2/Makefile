@@ -20,6 +20,6 @@ libScanner.a: parser.o classes.o unpack.o
 bus_scan2: libScanner.a bus_scan2.c
 
 clean: 
-	-rm $(TARGETS) *~
+	-rm $(TARGETS) *~ *.o
 
 

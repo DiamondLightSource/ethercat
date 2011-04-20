@@ -18,6 +18,7 @@ typedef struct
 typedef struct
 {
     int tag;
+    struct timespec ts;
     int working_counter;
     int wc_state;
     int cycle;
