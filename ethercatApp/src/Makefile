@@ -13,7 +13,6 @@ DBD += ecAsyn.dbd
 # IOC
 
 PROD_IOC = ethercat
-DBD += ethercat.dbd
 ethercat_DBD += base.dbd
 ethercat_SRCS += ethercat_registerRecordDeviceDriver.cpp
 
@@ -22,8 +21,7 @@ ethercat_SRCS_DEFAULT += ethercatMain.cpp
 ethercat_SRCS_vxWorks += -nil-
 
 # Add locally compiled object code
-#ethercat_SRCS +=
-ethercat_DBD += ecAsyn.dbd
+# ethercat_SRCS +=
 
 # The following adds object code from base/src/vxWorks
 ethercat_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
