@@ -1,6 +1,6 @@
-#!bin/linux-x86/ectest
-dbLoadDatabase("dbd/ecAsyn.dbd")
-ecAsyn_registerRecordDeviceDriver(pdbbase)
+#!../../bin/linux-x86/ethercat
+dbLoadDatabase("../../dbd/ecAsyn.dbd")
+ethercat_registerRecordDeviceDriver(pdbbase)
 ecAsynInit("/tmp/socket", 1000000)
 
 dbLoadRecords("ecApp/Db/MASTER.template", "DEVICE=JRM,PORT=MASTER0,SCAN=I/O Intr")
