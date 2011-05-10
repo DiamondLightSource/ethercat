@@ -1,0 +1,1481 @@
+<?xml version="1.0"?>
+<EtherCATInfo Version="1.2">
+	<Vendor>
+		<Id>2</Id>
+		<Name>Beckhoff Automation GmbH</Name>
+		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
+	</Vendor>
+	<Descriptions>
+		<Groups>
+			<Group>
+				<Type>DigIn</Type>
+				<Name LcId="1033">Digital Input Terminals (EL1xxx)</Name>
+				<Name LcId="1031">Digitale Eingangsklemmen (EL1xxx)</Name>
+				<Image16x14>TERM_DI</Image16x14>
+			</Group>
+			<Group>
+				<Type>DigOut</Type>
+				<Name LcId="1033">Digital Output Terminals (EL2xxx)</Name>
+				<Name LcId="1031">Digitale Ausgangklemmen (EL2xxx)</Name>
+				<Image16x14>TERM_DO</Image16x14>
+			</Group>
+			<Group>
+				<Type>AnaIn</Type>
+				<Name LcId="1033">Analog Input Terminals (EL3xxx)</Name>
+				<Name LcId="1031">Analoge Eingangsklemmen (EL3xxx)</Name>
+				<Image16x14>TERM_AI</Image16x14>
+			</Group>
+			<Group>
+				<Type>AnaOut</Type>
+				<Name LcId="1033">Analog Output Terminals (EL4xxx)</Name>
+				<Name LcId="1031">Analoge Ausgangklemmen (EL4xxx)</Name>
+				<Image16x14>TERM_AO</Image16x14>
+			</Group>
+			<Group>
+				<Type>Measuring</Type>
+				<Name LcId="1033">Measuring Terminals (EL5xxx)</Name>
+				<Name LcId="1031">Winkel-/Wegmessungsklemmen (EL5xxx)</Name>
+				<Image16x14>TERM_SYS</Image16x14>
+			</Group>
+			<Group>
+				<Type>Communication</Type>
+				<Name LcId="1033">Communication Terminals (EL6xxx)</Name>
+				<Name LcId="1031">Kommunikationsklemmen (EL6xxx)</Name>
+				<Image16x14>TERM_SYS</Image16x14>
+			</Group>
+			<Group>
+				<Type>System</Type>
+				<Name LcId="1033">System Terminals</Name>
+				<Name LcId="1031">System Klemmen</Name>
+				<Image16x14>TERM_SYS</Image16x14>
+			</Group>
+			<Group>
+				<Type>SystemBk</Type>
+				<Name LcId="1033">System Couplers</Name>
+				<Name LcId="1031">System Koppler</Name>
+				<Image16x14>EK1100</Image16x14>
+			</Group>
+			<Group>
+				<Type>Drive</Type>
+				<Name LcId="1033">Drives</Name>
+				<Name LcId="1031">Antriebe</Name>
+				<Image16x14>DRIVE</Image16x14>
+			</Group>
+			<Group>
+				<Type>Misc</Type>
+				<Name LcId="1033">Miscellaneous</Name>
+				<Name LcId="1031">Verschiedenes</Name>
+				<Image16x14>TERM_CUST</Image16x14>
+			</Group>
+		</Groups>
+		<Devices>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x270b0000">BK1120</Type>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler (WEB)]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler (WEB)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<GroupType>Misc</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1c00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>BKXX20</Image16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x270c0000">BK1120</Type>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler (WEB)]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler (WEB)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<GroupType>Misc</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1c00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<EoE MAC="1" IP="1"/>
+					<CoE EdsFile="BK1120.eds"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>BKXX20</Image16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x270d0000">BK1120</Type>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<GroupType>Misc</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1c00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>BKXX20</Image16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x270e0000">BK1120</Type>
+				<HideType ProductRevision="BK1120-0000-9991"/>
+				<HideType ProductRevision="BK1120-0000-9902"/>
+				<HideType ProductRevision="BK1120-0000-9995"/>
+				<HideType ProductRevision="BK1120-0000-9996"/>
+				<HideType ProductRevision="BK1120-0000-9997"/>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<GroupType>Misc</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="264" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>BKXX20</Image16x14>
+			</Device>
+			<Device Physics="BB">
+				<Type TcSmClass="AX2000" ProductCode="#x07d06014" RevisionNo="#x270b1e02">AX2000-B120</Type>
+				<Name LcId="1033"><![CDATA[AX2000-B120 EtherCAT Drive (E-Bus)]]></Name>
+				<Name LcId="1031"><![CDATA[AX2000-B120 EtherCAT Antrieb (E-Bus)]]></Name>
+				<GroupType>Drive</GroupType>
+				<Fmmu/>
+				<Fmmu/>
+				<Fmmu/>
+				<Fmmu/>
+				<Fmmu/>
+				<Sm MinSize="2" MaxSize="2" DefaultSize="2" StartAddress="#x110a" ControlByte="#x26" Enable="1">Outputs</Sm>
+				<Sm DefaultSize="2" StartAddress="#x1388" ControlByte="#x20" Enable="0">Inputs</Sm>
+				<RxPdo Ref="AX2000Out" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="AX2000In" Fixed="1" Mandatory="1" Sm="1"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>09010000</ConfigData>
+				</Eeprom>
+				<Image16x14>DRIVE</Image16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="AX2000" ProductCode="#x07d06014" RevisionNo="#x270b1b82">AX2000-B110</Type>
+				<Name LcId="1033"><![CDATA[AX2000-B110 EtherCAT Drive]]></Name>
+				<Name LcId="1031"><![CDATA[AX2000-B110 EtherCAT Antrieb]]></Name>
+				<GroupType>Drive</GroupType>
+				<Fmmu/>
+				<Fmmu/>
+				<Fmmu/>
+				<Fmmu/>
+				<Fmmu/>
+				<Sm MinSize="2" MaxSize="2" DefaultSize="2" StartAddress="#x110a" ControlByte="#x26" Enable="1">Outputs</Sm>
+				<Sm DefaultSize="2" StartAddress="#x1388" ControlByte="#x20" Enable="0">Inputs</Sm>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>09010000</ConfigData>
+				</Eeprom>
+				<Image16x14>DRIVE</Image16x14>
+			</Device>
+			<Device Physics="YKY">
+				<Type ProductCode="#x044c2c52" RevisionNo="#x270b0000">EK1100</Type>
+				<Name LcId="1033"><![CDATA[EK1100 Ethernet Coupler Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EK1100 Ethernet Kopplerklemme]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-500</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>SystemBk</GroupType>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0001</ConfigData>
+				</Eeprom>
+				<Image16x14>EK1100</Image16x14>
+			</Device>
+			<Device Physics="YK" Invisible="1">
+				<Type>EK0000</Type>
+				<Name LcId="1033"><![CDATA[EK0000 Unknown Coupler Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EK0000 Unbekannte Kopplerklemme]]></Name>
+				<GroupType>SystemBk</GroupType>
+				<Image16x14>EK0000</Image16x14>
+			</Device>
+			<Device Physics="KY">
+				<Type ProductCode="#x04562c52" RevisionNo="#x270b0000">EK1110</Type>
+				<Name LcId="1033"><![CDATA[EK1110 Ethernet Extension Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EK1110 Ethernet Ereiterungsklemme]]></Name>
+				<GroupType>System</GroupType>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0001</ConfigData>
+				</Eeprom>
+				<Image16x14>EK1110</Image16x14>
+			</Device>
+			<Device Physics="BK" Invisible="1">
+				<Type>EK1200</Type>
+				<Name LcId="1033"><![CDATA[EK1200 E-Bus Coupler Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EK1200 E-Bus Kopplerklemme]]></Name>
+				<GroupType>SystemBk</GroupType>
+				<Image16x14>EK1200</Image16x14>
+			</Device>
+			<Device Physics="KB" Invisible="1">
+				<Type>EK1210</Type>
+				<Name LcId="1033"><![CDATA[EK1210 E-Bus Extension Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EK1210 E-Bus Erweiterungsklemme]]></Name>
+				<GroupType>System</GroupType>
+				<Image16x14>EK1210</Image16x14>
+			</Device>
+			<Device>
+				<Type>EL0000</Type>
+				<Name LcId="1033"><![CDATA[EL0000 Unknown Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EL0000 Unbekannte Klemme]]></Name>
+				<GroupType>System</GroupType>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0001</ConfigData>
+				</Eeprom>
+				<Image16x14>EL0000</Image16x14>
+			</Device>
+			<Device>
+				<Type ProductCode="#x03ea3052" RevisionNo="#x270b0000">EL1002</Type>
+				<Name LcId="1033"><![CDATA[EL1002 2Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1002 2K. Dig. Eingang 24V, 3ms]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<TxPdo Ref="DigInputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0101</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x03ec3052" RevisionNo="#x270b0000">EL1004</Type>
+				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<TxPdo Ref="DigInputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="2" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="3" Fixed="1" Mandatory="1" Sm="0"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0101</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x03f43052" RevisionNo="#x270b0000">EL1012</Type>
+				<Name LcId="1033"><![CDATA[EL1012 2Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1012 2K. Dig. Eingang 24V, 10µs]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<TxPdo Ref="DigInputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0101</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x03f63052" RevisionNo="#x270b0000">EL1014</Type>
+				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<TxPdo Ref="DigInputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="2" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigInputBit" Chn="3" Fixed="1" Mandatory="1" Sm="0"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0101</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x07d23052" RevisionNo="#x270b0000">EL2002</Type>
+				<Name LcId="1033"><![CDATA[EL2002 2Ch. Dig. Output 24V, 0,5A]]></Name>
+				<Name LcId="1031"><![CDATA[EL2002 2K. Dig. Ausgang 24V, 0,5A]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>130</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigOut</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<RxPdo Ref="DigOutputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<RxPdo Ref="DigOutputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0201</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x07d43052" RevisionNo="#x270b0000">EL2004</Type>
+				<Name LcId="1033"><![CDATA[EL2004 4Ch. Dig. Output 24V, 0,5A]]></Name>
+				<Name LcId="1031"><![CDATA[EL2004 4K. Dig. Ausgang 24V, 0,5A]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>130</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigOut</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<RxPdo Ref="DigOutputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<RxPdo Ref="DigOutputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<RxPdo Ref="DigOutputBit" Chn="2" Fixed="1" Mandatory="1" Sm="0"/>
+				<RxPdo Ref="DigOutputBit" Chn="3" Fixed="1" Mandatory="1" Sm="0"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0201</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x07f03052" RevisionNo="#x270b0000">EL2032</Type>
+				<Name LcId="1033"><![CDATA[EL2032 2Ch. Dig. Output 24V, 2A Diag]]></Name>
+				<Name LcId="1031"><![CDATA[EL2032 2K. Dig. Ausgang 24V, 2A Diag]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>130</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigOut</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<RxPdo Ref="DigOutputBit" Chn="0" Fixed="1" Mandatory="1" Sm="0"/>
+				<RxPdo Ref="DigOutputBit" Chn="1" Fixed="1" Mandatory="1" Sm="0"/>
+				<TxPdo Ref="DigDiagBit" Chn="0" Fixed="1" Mandatory="1" Sm="1"/>
+				<TxPdo Ref="DigDiagBit" Chn="1" Fixed="1" Mandatory="1" Sm="1"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0301</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c1e3052" RevisionNo="#x270b0000">EL3102</Type>
+				<Name LcId="1033"><![CDATA[EL3102 2Ch. Ana. Input +/-10V, DIFF]]></Name>
+				<Name LcId="1031"><![CDATA[EL3102 2K. Ana. Eingang +/-10V, DIFF]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex10-10V" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex10-10V" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c283052" RevisionNo="#x270b0000">EL3112</Type>
+				<Name LcId="1033"><![CDATA[EL3112 2Ch. Ana. Input 0-20mA, DIFF]]></Name>
+				<Name LcId="1031"><![CDATA[EL3112 2K. Ana. Eingang 0-20mA, DIFF]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c323052" RevisionNo="#x270b0000">EL3122</Type>
+				<Name LcId="1033"><![CDATA[EL3122 2Ch. Ana. Input 4-20mA, DIFF]]></Name>
+				<Name LcId="1031"><![CDATA[EL3122 2K. Ana. Eingang 4-20mA, DIFF]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c463052" RevisionNo="#x270b0000">EL3142</Type>
+				<Name LcId="1033"><![CDATA[EL3142 2Ch. Ana. Input 0-20mA]]></Name>
+				<Name LcId="1031"><![CDATA[EL3142 2K. Ana. Eingang 0-20mA]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c463052" RevisionNo="#x270c0000">EL3142</Type>
+				<Name LcId="1033"><![CDATA[EL3142 2Ch. Ana. Input 0-20mA]]></Name>
+				<Name LcId="1031"><![CDATA[EL3142 2K. Ana. Eingang 0-20mA]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex0-20mA" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+					<BootStrap>0018f600f618f600</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c503052" RevisionNo="#x270b0000">EL3152</Type>
+				<Name LcId="1033"><![CDATA[EL3152 2Ch. Ana. Input 4-20mA]]></Name>
+				<Name LcId="1031"><![CDATA[EL3152 2K. Ana. Eingang 4-20mA]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex4-20mA" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex4-20mA" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x0c5a3052" RevisionNo="#x270b0000">EL3162</Type>
+				<Name LcId="1033"><![CDATA[EL3162 2Ch. Ana. Input 0-10V]]></Name>
+				<Name LcId="1031"><![CDATA[EL3162 2K. Ana. Eingang 0-10V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaIn</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL3xxNComplex10-10V" Chn="0" Fixed="1" Sm="3"/>
+				<TxPdo Ref="TxEL3xxNComplex10-10V" Chn="1" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x10063052" RevisionNo="#x270b0000">EL4102</Type>
+				<Name LcId="1033"><![CDATA[EL4102 2Ch. Ana. Output 0-10V]]></Name>
+				<Name LcId="1031"><![CDATA[EL4102 2K. Ana. Ausgang 0-10V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>180</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaOut</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Outputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL4xxNComplex0-10V" Chn="0" Fixed="1" Sm="2"/>
+				<RxPdo Ref="TxEL4xxNComplex0-10V" Chn="1" Fixed="1" Sm="2"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x10103052" RevisionNo="#x270b0000">EL4112</Type>
+				<Name LcId="1033"><![CDATA[EL4112 2Ch. Ana. Output 0-20mA]]></Name>
+				<Name LcId="1031"><![CDATA[EL4112 2K. Ana. Ausgang 0-20mA]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>180</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaOut</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Outputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL4xxNComplex0-20mA" Chn="0" Fixed="1" Sm="2"/>
+				<RxPdo Ref="TxEL4xxNComplex0-20mA" Chn="1" Fixed="1" Sm="2"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x10243052" RevisionNo="#x270b0000">EL4132</Type>
+				<Name LcId="1033"><![CDATA[EL4132 2Ch. Ana. Output +/-10V]]></Name>
+				<Name LcId="1031"><![CDATA[EL4132 2K. Ana. Ausgang +/-10V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>180</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaOut</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Outputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL4xxNComplex10-10V" Chn="0" Fixed="1" Sm="2"/>
+				<RxPdo Ref="TxEL4xxNComplex10-10V" Chn="1" Fixed="1" Sm="2"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x13893052" RevisionNo="#x270b0000">EL5001</Type>
+				<Name LcId="1033"><![CDATA[EL5001 1Ch. SSI Encoder]]></Name>
+				<Name LcId="1031"><![CDATA[EL5001 1K. SSI Encoder]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>120</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Measuring</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>				
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL5xx1" Chn="0" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type ProductCode="#x13893052" RevisionNo="#x270c0000">EL5001</Type>
+				<Name LcId="1033"><![CDATA[EL5001 1Ch. SSI Encoder]]></Name>
+				<Name LcId="1031"><![CDATA[EL5001 1K. SSI Encoder]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>120</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Measuring</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>				
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL5xx1" Chn="0" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+					<BootStrap>0018f600f618f600</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x13ed3052" RevisionNo="#x270b0000">EL5101</Type>
+				<Name LcId="1033"><![CDATA[EL5101 1Ch. Encoder 5V]]></Name>
+				<Name LcId="1031"><![CDATA[EL5101 1K. Encoder 5V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>120</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Measuring</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL5151Out" Chn="0" Fixed="1" Sm="2"/>
+				<TxPdo Ref="TxEL5151In" Chn="0" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x13ed3052" RevisionNo="#x270b03e9">EL5101</Type>
+				<Name LcId="1033"><![CDATA[EL5101-1001 1Ch. Encoder 5V]]></Name>
+				<Name LcId="1031"><![CDATA[EL5101-1001 1K. Encoder 5V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>120</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Measuring</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL5151Out" Chn="0" Fixed="1" Sm="2"/>
+				<TxPdo Ref="TxEL5151In" Chn="0" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x141f3052" RevisionNo="#x270b0000">EL5151</Type>
+				<Name LcId="1033"><![CDATA[EL5151 1Ch. Inc. Encoder]]></Name>
+				<Name LcId="1031"><![CDATA[EL5151 1K. Inc. Encoder]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>120</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Measuring</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL5151Out" Chn="0" Fixed="1" Sm="2"/>
+				<TxPdo Ref="TxEL5151In" Chn="0" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x13893462" RevisionNo="#x270b0000">FM5001</Type>
+				<Name LcId="1033"><![CDATA[FM5001-B100 Encoder]]></Name>
+				<Name LcId="1031"><![CDATA[FM5001-B100 Encoder]]></Name>
+				<GroupType>Misc</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<TxPdo Ref="TxEL5xx1" Chn="0" Fixed="1" Sm="3"/>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+				<Image16x14>ENCODER</Image16x14>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x17713052" RevisionNo="#x270b0000">EL6001</Type>
+				<Name LcId="1033"><![CDATA[EL6001 Interface (RS232) (15 Byte)]]></Name>
+				<Name LcId="1031"><![CDATA[EL6001 Schnittstelle (RS232) (15 Byte)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>180</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Communication</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Ref="TxEL60X0_16Out" Chn="0" Fixed="1" Sm="2"/>
+				<TxPdo Ref="TxEL60X0_16In" Chn="0" Fixed="1" Sm="3"/>
+				<Mailbox>
+					<AoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0500</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device>
+				<Type UseLrdLwr="1" ProductCode="#x19c93052" RevisionNo="#x270b0000">EL6601</Type>
+				<Name LcId="1033"><![CDATA[EL6601 1 Port Switch (Ethernet)]]></Name>
+				<Name LcId="1031"><![CDATA[EL6601 1 Port Switch (Ethernet)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>350</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Communication</GroupType>
+				<Fmmu>MBoxState</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="520" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="520" StartAddress="6664" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Mailbox>
+					<EoE/>
+					<CoE/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>0800</ConfigData>
+				</Eeprom>
+				<Image16x14>EM2</Image16x14>
+			</Device>
+			<Device>
+				<Type TcSmClass="EL6731" ProductCode="#x1a4b3052" RevisionNo="#x270b0000">EL6731</Type>
+				<Name LcId="1033"><![CDATA[EL6731 Profibus Master (12 MBaud)]]></Name>
+				<Name LcId="1031"><![CDATA[EL6731 Profibus Master (12 MBaud)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>240</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Communication</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1a2e" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x26" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<AoE AdsRouter="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF005DD55D88888888DD5DD5D577777778DD55D55D77888778DD5D55D577888778DD55D55D77888778DDDDDDDD77777778DDDDDDDD77777778DD9B9B9B77777778DDB9B9B977777778DD9B9B9B77777778DDB9B9B977797778DD9B9B9B77797778DDB9B9B9777A7778DD9B9B9B77777778DD</ImageData16x14>
+			</Device>
+			<Device>
+				<Type TcSmClass="EL6731-0010" ProductCode="#x1a4b3052" RevisionNo="#x270b000a">EL6731-0010</Type>
+				<Name LcId="1033"><![CDATA[EL6731-0010 Profibus Slave (12 MBaud)]]></Name>
+				<Name LcId="1031"><![CDATA[EL6731-0010 Profibus Slave (12 MBaud)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>240</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Communication</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1a2e" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Name>Outputs</Name>
+					<Index>#x1600</Index>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Name>Inputs</Name>
+					<Index>#x1a00</Index>
+				</TxPdo>
+				<Mailbox>
+					<AoE AdsRouter="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>EM2</Image16x14>
+			</Device>
+			<Device>
+				<Type TcSmClass="EL6751" ProductCode="#x1a5f3052" RevisionNo="#x270b0000">EL6751</Type>
+				<Name LcId="1033"><![CDATA[EL6751 CANopen Master]]></Name>
+				<Name LcId="1031"><![CDATA[EL6751 CANopen Master]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Communication</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1a2e" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<AoE AdsRouter="1"/>
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>EM2</Image16x14>
+			</Device>
+			<Device>
+				<Type TcSmClass="EL6752" ProductCode="#x1a603052" RevisionNo="#x270b0000">EL6752</Type>
+				<Name LcId="1033"><![CDATA[EL6752 DeviceNet Master]]></Name>
+				<Name LcId="1031"><![CDATA[EL6752 DeviceNet Master]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>Communication</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="558" StartAddress="#x1a2e" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox>
+					<AoE AdsRouter="1"/>
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<Image16x14>EM2</Image16x14>
+			</Device>
+		</Devices>
+		<Pdos>
+			<Pdo RefName="DigInputBit">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Entry>
+					<Index>#x3101</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>1</BitLen>
+					<Name>Input</Name>
+					<DataType>BOOL</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="DigDiagBit">
+				<Name ChnFac="1">Diag #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Entry>
+					<Index>#x3101</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>1</BitLen>
+					<Name>Diag</Name>
+					<DataType>BOOL</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="DigOutputBit">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Entry>
+					<Index>#x3001</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>1</BitLen>
+					<Name>Output</Name>
+					<DataType>BOOL</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL3xxNComplex0-10V">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Exclude ChnFac="1">#x1a10</Exclude>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Value</Name>
+					<DataType DScale="0-10">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL3xxNComplex10-10V">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Exclude ChnFac="1">#x1a10</Exclude>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Value</Name>
+					<DataType DScale="+/-10">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL3xxNComplex0-20mA">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Exclude ChnFac="1">#x1a10</Exclude>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Value</Name>
+					<DataType DScale="0-20">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL3xxNComplex4-20mA">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Exclude ChnFac="1">#x1a10</Exclude>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Value</Name>
+					<DataType DScale="4-20">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL4xxNComplex0-10V">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Exclude ChnFac="1">#x1610</Exclude>
+				<Entry>
+					<Index>#x6411</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Output</Name>
+					<DataType DScale="0-10">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL4xxNComplex10-10V">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Exclude ChnFac="1">#x1610</Exclude>
+				<Entry>
+					<Index>#x6411</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Output</Name>
+					<DataType DScale="+/-10">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL4xxNComplex0-20mA">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Exclude ChnFac="1">#x1610</Exclude>
+				<Entry>
+					<Index>#x6411</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Output</Name>
+					<DataType DScale="0-20">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL4xxNComplex4-20mA">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Exclude ChnFac="1">#x1610</Exclude>
+				<Entry>
+					<Index>#x6411</Index>
+					<SubIndex ChnFac="1">1</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Output</Name>
+					<DataType DScale="4-20">INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL5xx1">
+				<Name ChnFac="1">Channel #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>32</BitLen>
+					<Name>Value</Name>
+					<DataType>UDINT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL5151In">
+				<Name ChnFac="1">Inputs #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Value</Name>
+					<DataType>UINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>3</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Latch</Name>
+					<DataType>UINT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL5151Out">
+				<Name ChnFac="1">Outputs #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Ctrl</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Value</Name>
+					<DataType>UINT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL60X0_16In">
+				<Name ChnFac="1">Inputs #1</Name>
+				<Index ChnFac="1">#x1a00</Index>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Status</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data1</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>3</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data2</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>4</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data3</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>5</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data4</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>6</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data5</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>7</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data6</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>8</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data7</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>9</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data8</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>10</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data9</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>11</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data10</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>12</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data11</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>13</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data12</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>14</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data13</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>15</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data14</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3101</Index>
+					<SubIndex>16</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data15</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="TxEL60X0_16Out">
+				<Name ChnFac="1">Outputs #1</Name>
+				<Index ChnFac="1">#x1600</Index>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Ctrl</Name>
+					<DataType>BYTE</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data1</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>3</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data2</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>4</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data3</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>5</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data4</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>6</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data5</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>7</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data6</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>8</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data7</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>9</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data8</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>10</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data9</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>11</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data10</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>12</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data11</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>13</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data12</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>14</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data13</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>15</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data14</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+				<Entry>
+					<Index ChnFac="1">#x3001</Index>
+					<SubIndex>16</SubIndex>
+					<BitLen>8</BitLen>
+					<Name>Data15</Name>
+					<DataType>USINT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="AX2000In">
+				<Name>Inputs</Name>
+				<Index>#x1a00</Index>
+				<Entry>
+					<Index>#x3101</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>32</BitLen>
+					<Name>PosAct</Name>
+					<DataType>DINT</DataType>
+				</Entry>
+				<Entry>
+					<Index>#x3101</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Status</Name>
+					<DataType>INT</DataType>
+				</Entry>
+			</Pdo>
+			<Pdo RefName="AX2000Out">
+				<Name>Outputs</Name>
+				<Index>#x1600</Index>
+				<Entry>
+					<Index>#x3001</Index>
+					<SubIndex>1</SubIndex>
+					<BitLen>32</BitLen>
+					<Name>PosNom</Name>
+					<DataType>DINT</DataType>
+				</Entry>
+				<Entry>
+					<Index>#x3001</Index>
+					<SubIndex>2</SubIndex>
+					<BitLen>16</BitLen>
+					<Name>Ctrl</Name>
+					<DataType>INT</DataType>
+				</Entry>
+			</Pdo>
+		</Pdos>
+	</Descriptions>
+</EtherCATInfo>

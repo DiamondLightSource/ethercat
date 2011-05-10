@@ -1,0 +1,1821 @@
+<?xml version="1.0"?>
+<EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.3">
+	<InfoReference>Beckhoff BKxxxx MDP\BKxxxxModules.xml</InfoReference>
+	<Vendor>
+		<Id>2</Id>
+		<Name>Beckhoff Automation GmbH</Name>
+		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
+	</Vendor>
+	<Descriptions>
+		<Groups>
+			<Group SortOrder="390">
+				<Type>System</Type>
+				<Name LcId="1033">System Terminals</Name>
+				<Name LcId="1031">System Klemmen</Name>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000FFFFC0C0C000FFFF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0FF0000C0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C00000FFC0C0C00000FF808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0008000C0C0C0008000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Group>
+			<Group SortOrder="392">
+				<Type>TermBk</Type>
+				<Name LcId="1033">Terminal Couplers (BK1xxx)</Name>
+				<Name LcId="1031">Klemmen Koppler (BK1xxx)</Name>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Group>
+		</Groups>
+		<Devices>
+			<Device Physics="YY">
+				<Type ProductCode="#x04602c22" RevisionNo="#x00120001" ModulePdoGroup="0">BK1120</Type>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler (MDP)]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler (MDP)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Profile>
+					<Dictionary>
+						<DataTypes>
+							<DataType>
+								<Name>BOOL</Name>
+								<BitSize>1</BitSize>
+							</DataType>
+							<DataType>
+								<Name>UDINT</Name>
+								<BitSize>32</BitSize>
+							</DataType>
+							<DataType>
+								<Name>UINT</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>USINT</Name>
+								<BitSize>8</BitSize>
+							</DataType>
+							<DataType>
+								<Name>STRING(12)</Name>
+								<BitSize>96</BitSize>
+							</DataType>
+							<DataType>
+								<Name>STRING(17)</Name>
+								<BitSize>136</BitSize>
+							</DataType>
+							<DataType>
+								<Name>STRING(3)</Name>
+								<BitSize>24</BitSize>
+							</DataType>
+							<DataType>
+								<Name>DT1018</Name>
+								<BitSize>144</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Vendor ID</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Product Code</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Revision</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>80</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Serial Number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>112</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT16FF</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Control PDO</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Output Mapping Area</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1AFF</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Status PDO</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Input Mapping Area</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C00ARR</Name>
+								<BaseType>USINT</BaseType>
+								<BitSize>32</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>4</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT1C00</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT1C00ARR</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C12</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C13</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4000ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4000</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 0         [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4000ARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4001ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4001</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 0         [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4001ARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4012ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>80</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>5</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4012</Name>
+								<BitSize>96</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 9         [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4012ARR</Type>
+									<BitSize>80</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4013</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 9         [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40B4ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT40B4</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 90       [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT40B4ARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40B5ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT40B5</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 90       [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT40B5ARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40C4</Name>
+								<BitSize>64</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 98       [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Min. Kbus Time</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Max. Kbus Time</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Curr. Kbus Time</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40C5</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 98       [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40C8ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT40C8</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 100     [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT40C8ARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40C9ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT40C9</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 100     [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT40C9ARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40FEARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT40FE</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 127     [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT40FEARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT40FFARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>2048</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>128</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT40FF</Name>
+								<BitSize>2064</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Coupler Table 127     [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT40FFARR</Type>
+									<BitSize>2048</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4280ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>1024</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>64</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4280</Name>
+								<BitSize>1040</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 0    [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4280ARR</Type>
+									<BitSize>1024</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4281</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 0    [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4282ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>1024</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>64</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4282</Name>
+								<BitSize>1040</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 1    [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4282ARR</Type>
+									<BitSize>1024</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4283</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 1    [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4284ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>1024</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>64</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4284</Name>
+								<BitSize>1040</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 2    [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4284ARR</Type>
+									<BitSize>1024</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4285</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 2    [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4286ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>1024</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>64</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT4286</Name>
+								<BitSize>1040</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 3    [LO]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT4286ARR</Type>
+									<BitSize>1024</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT4287</Name>
+								<BitSize>16</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Terminal Channel 3    [HI]</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF000</Name>
+								<BitSize>120</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Module Index Distance</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Maximum Number of Modules</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Standard Entries in Object 0x8yy0</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Standard Entries in Object 0x9yy0</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>80</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>5</SubIdx>
+									<Name>Number of Types </Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>112</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF00EARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>48</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>3</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTF00E</Name>
+								<BitSize>64</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTF00EARR</Type>
+									<BitSize>48</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF00FARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>48</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>3</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTF00F</Name>
+								<BitSize>64</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTF00FARR</Type>
+									<BitSize>48</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF010ARR</Name>
+								<BaseType>UDINT</BaseType>
+								<BitSize>160</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>5</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTF010</Name>
+								<BitSize>176</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTF010ARR</Type>
+									<BitSize>160</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF040ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>4064</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>254</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTF040</Name>
+								<BitSize>4080</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTF040ARR</Type>
+									<BitSize>4064</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF050ARR</Name>
+								<BaseType>UDINT</BaseType>
+								<BitSize>8128</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>254</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTF050</Name>
+								<BitSize>8144</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTF050ARR</Type>
+									<BitSize>8128</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF100</Name>
+								<BitSize>32</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Status PDO</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>CouplerState</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<Category>o</Category>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF200</Name>
+								<BitSize>32</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>Control PDO</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>CouplerCtrl</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+										<Category>o</Category>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+						</DataTypes>
+						<Objects>
+							<Object>
+								<Index>#x1000</Index>
+								<Name>Device Type</Name>
+								<Type>UDINT</Type>
+								<BitSize>32</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1008</Index>
+								<Name>Device Name</Name>
+								<Type>STRING(17)</Type>
+								<BitSize>136</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1009</Index>
+								<Name>Hardware Version</Name>
+								<Type>STRING(3)</Type>
+								<BitSize>24</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x100a</Index>
+								<Name>Software Version</Name>
+								<Type>STRING(12)</Type>
+								<BitSize>96</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1018</Index>
+								<Name>Identity</Name>
+								<Type>DT1018</Type>
+								<BitSize>144</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x16ff</Index>
+								<Name>Control PDO</Name>
+								<Type>DT16FF</Type>
+								<BitSize>48</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1aff</Index>
+								<Name>Status PDO</Name>
+								<Type>DT1AFF</Type>
+								<BitSize>48</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c00</Index>
+								<Name>Sync Manager Type</Name>
+								<Type>DT1C00</Type>
+								<BitSize>48</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c12</Index>
+								<Name>RxPDO Assign</Name>
+								<Type>DT1C12</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c13</Index>
+								<Name>TxPDO Assign</Name>
+								<Type>DT1C13</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4000</Index>
+								<Name>Coupler Table 0         [LO]</Name>
+								<Type>DT4000</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4001</Index>
+								<Name>Coupler Table 0         [HI]</Name>
+								<Type>DT4001</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4012</Index>
+								<Name>Coupler Table 9         [LO]</Name>
+								<Type>DT4012</Type>
+								<BitSize>96</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4013</Index>
+								<Name>Coupler Table 9         [HI]</Name>
+								<Type>DT4013</Type>
+								<BitSize>0</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40b4</Index>
+								<Name>Coupler Table 90       [LO]</Name>
+								<Type>DT40B4</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40b5</Index>
+								<Name>Coupler Table 90       [HI]</Name>
+								<Type>DT40B5</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40c4</Index>
+								<Name>Coupler Table 98       [LO]</Name>
+								<Type>DT40C4</Type>
+								<BitSize>64</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40c5</Index>
+								<Name>Coupler Table 98       [HI]</Name>
+								<Type>DT40C5</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40c8</Index>
+								<Name>Coupler Table 100     [LO]</Name>
+								<Type>DT40C8</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40c9</Index>
+								<Name>Coupler Table 100     [HI]</Name>
+								<Type>DT40C9</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40fe</Index>
+								<Name>Coupler Table 127     [LO]</Name>
+								<Type>DT40FE</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x40ff</Index>
+								<Name>Coupler Table 127     [HI]</Name>
+								<Type>DT40FF</Type>
+								<BitSize>2064</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x427f</Index>
+								<Name>Terminal No</Name>
+								<Type>USINT</Type>
+								<BitSize>8</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4280</Index>
+								<Name>Terminal Channel 0    [LO]</Name>
+								<Type>DT4280</Type>
+								<BitSize>1040</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4281</Index>
+								<Name>Terminal Channel 0    [HI]</Name>
+								<Type>DT4281</Type>
+								<BitSize>0</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4282</Index>
+								<Name>Terminal Channel 1    [LO]</Name>
+								<Type>DT4282</Type>
+								<BitSize>1040</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4283</Index>
+								<Name>Terminal Channel 1    [HI]</Name>
+								<Type>DT4283</Type>
+								<BitSize>0</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4284</Index>
+								<Name>Terminal Channel 2    [LO]</Name>
+								<Type>DT4284</Type>
+								<BitSize>1040</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4285</Index>
+								<Name>Terminal Channel 2    [HI]</Name>
+								<Type>DT4285</Type>
+								<BitSize>0</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4286</Index>
+								<Name>Terminal Channel 3    [LO]</Name>
+								<Type>DT4286</Type>
+								<BitSize>1040</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x4287</Index>
+								<Name>Terminal Channel 3    [HI]</Name>
+								<Type>DT4287</Type>
+								<BitSize>0</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf000</Index>
+								<Name>Modular Device Profile</Name>
+								<Type>DTF000</Type>
+								<BitSize>120</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf00e</Index>
+								<Name>Group alignment PDO</Name>
+								<Type>DTF00E</Type>
+								<BitSize>64</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf00f</Index>
+								<Name>Module Group Mapping Alignment</Name>
+								<Type>DTF00F</Type>
+								<BitSize>64</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf010</Index>
+								<Name>Module List</Name>
+								<Type>DTF010</Type>
+								<BitSize>176</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf020</Index>
+								<Name>Configured Address List</Name>
+								<Type>DTF040</Type>
+								<BitSize>4080</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf030</Index>
+								<Name>Configured Module List</Name>
+								<Type>DTF050</Type>
+								<BitSize>8144</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf040</Index>
+								<Name>Detected Address List</Name>
+								<Type>DTF040</Type>
+								<BitSize>4080</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf050</Index>
+								<Name>Detected Module List</Name>
+								<Type>DTF050</Type>
+								<BitSize>8144</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf100</Index>
+								<Name>Status PDO</Name>
+								<Type>DTF100</Type>
+								<BitSize>32</BitSize>
+								<Flags>
+									<Access>ro</Access>
+									<Category>o</Category>
+									<PdoMapping>T</PdoMapping>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf200</Index>
+								<Name>Control PDO</Name>
+								<Type>DTF200</Type>
+								<BitSize>32</BitSize>
+								<Flags>
+									<Access>rw</Access>
+									<Category>o</Category>
+									<PdoMapping>T</PdoMapping>
+								</Flags>
+							</Object>
+						</Objects>
+					</Dictionary>
+				</Profile>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2" Mandatory="1" Fixed="1">
+					<Index>#x16ff</Index>
+					<Name>Outputs</Name>
+					<Entry>
+						<Index>#xF090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>CouplerCtrl</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Sm="3" Mandatory="1" Fixed="1">
+					<Index>#x1aff</Index>
+					<Name>Inputs</Name>
+					<Entry>
+						<Index>#xF090</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>CouplerState</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true"/>
+					<FoE/>
+				</Mailbox>
+				<Slots IdentifyModuleBy="ModuleIdent">
+					<Slot MinInstances="0" MaxInstances="254">
+						<Name>Terminals</Name>
+						<ModuleClass>
+							<Class>kl_dig_in</Class>
+							<Name LcId="1031">Digital Input Terminals (KL1xxx)</Name>
+							<Name LcId="1033">Digitale Eingangsklemmen (KL1xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>km_dig_in</Class>
+							<Name LcId="1031">Digital Input Modules (KM1xxx)</Name>
+							<Name LcId="1033">Digitale Eingangsmodule (KM1xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_dig_out</Class>
+							<Name LcId="1031">Digital Output Terminals (KL2xxx)</Name>
+							<Name LcId="1033">Digitale Ausgangsklemmen (KL2xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>km_dig_out</Class>
+							<Name LcId="1031">Digital Output Modules (KM2xxx)</Name>
+							<Name LcId="1033">Digitale Ausgangsmodule (KM2xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_ana_in_x</Class>
+							<Name LcId="1031">Analog Input Terminals (KL3xxx, complex)</Name>
+							<Name LcId="1033">Analoge Eingangsklemmen (KL3xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>km_ana_in_x</Class>
+							<Name LcId="1031">Analog Input Modules (KM3xxx, complex)</Name>
+							<Name LcId="1033">Analoge Eingangsmodule (KM3xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_ana_out_x</Class>
+							<Name LcId="1031">Analog Output Terminals (KL4xxx, complex)</Name>
+							<Name LcId="1033">Analoge Ausgangsklemmen (KL4xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_measuring</Class>
+							<Name LcId="1031">Measuring Terminals (KL5xxx)</Name>
+							<Name LcId="1033">Winkel-/Wegmessungsklemmen (KL5xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_comm_x</Class>
+							<Name LcId="1031">Communication Terminals (KL6xxx, complex)</Name>
+							<Name LcId="1033">Kommunikationsklemmen (KL6xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_power</Class>
+							<Name>Power Terminals (KL8xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_system</Class>
+							<Name LcId="1031">System Terminals (KL9xxx)</Name>
+							<Name LcId="1033">Systemklemmen (KL9xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_custom</Class>
+							<Name LcId="1031">Custom specific Terminals</Name>
+							<Name LcId="1033">Kundenspezifische Klemmen</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_safe_x</Class>
+							<Name LcId="1031">Safety Terminals (KLx9xx)</Name>
+							<Name LcId="1033">Safety Klemmen (KLx9xx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000080800000808000008080000080800000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff00ff00000000ffff00ff00000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000000ff0000ffff000000ff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000080000000ffff000080000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_dig_out_3party</Class>
+							<Name LcId="1031">Third Party Digital Outputs</Name>
+							<Name LcId="1033">Third Party Digitale Ausgangsmodule</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888888D707087070870708D7B7B87B7B87B7B8D777787777877778D707087070870708D7C7C87C7C87C7C8D777787777877778D707087070870708D797987979879798D777787777877778D707087070870708D777787777877778D727287272872728D777787777877778D</ImageData16x14>
+					</Slot>
+					<ModulePdoGroup Alignment="2" RxPdo="#x1702" TxPdo="#x1B02"/>
+					<ModulePdoGroup Alignment="2" RxPdo="#x1700" TxPdo="#x1B00"/>
+					<ModulePdoGroup Alignment="2" RxPdo="#x1701" TxPdo="#x1B01"/>
+				</Slots>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+			<Device Physics="K">
+				<Type ProductCode="#x04E22C22" RevisionNo="#x00000001" ModulePdoGroup="0">BK1250</Type>
+				<Name LcId="1033"><![CDATA[BK1250 Coupler between E-bus and K-bus Terminals (MDP)]]></Name>
+				<Name LcId="1031"><![CDATA[BK1250 Koppler zwischen E-Bus- und K-Bus-Klemmen (MDP)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1250.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1250.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x64" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2" Mandatory="1" Fixed="1">
+					<Index>#x16ff</Index>
+					<Name>Outputs</Name>
+					<Entry>
+						<Index>#xF090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>CouplerCtrl</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Sm="3" Mandatory="1" Fixed="1">
+					<Index>#x1aff</Index>
+					<Name>Inputs</Name>
+					<Entry>
+						<Index>#xF090</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>CouplerState</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true"/>
+					<FoE/>
+				</Mailbox>
+				<Slots IdentifyModuleBy="ModuleIdent">
+					<Slot MinInstances="0" MaxInstances="254">
+						<Name>Terminals</Name>
+						<ModuleClass>
+							<Class>kl_dig_in</Class>
+							<Name LcId="1031">Digital Input Terminals (KL1xxx)</Name>
+							<Name LcId="1033">Digitale Eingangsklemmen (KL1xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>km_dig_in</Class>
+							<Name LcId="1031">Digital Input Modules (KM1xxx)</Name>
+							<Name LcId="1033">Digitale Eingangsmodule (KM1xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_dig_out</Class>
+							<Name LcId="1031">Digital Output Terminals (KL2xxx)</Name>
+							<Name LcId="1033">Digitale Ausgangsklemmen (KL2xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>km_dig_out</Class>
+							<Name LcId="1031">Digital Output Modules (KM2xxx)</Name>
+							<Name LcId="1033">Digitale Ausgangsmodule (KM2xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_ana_in_x</Class>
+							<Name LcId="1031">Analog Input Terminals (KL3xxx, complex)</Name>
+							<Name LcId="1033">Analoge Eingangsklemmen (KL3xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>km_ana_in_x</Class>
+							<Name LcId="1031">Analog Input Modules (KM3xxx, complex)</Name>
+							<Name LcId="1033">Analoge Eingangsmodule (KM3xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ff000000ff000000ff000000ff000000ff000000ff0000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_ana_out_x</Class>
+							<Name LcId="1031">Analog Output Terminals (KL4xxx, complex)</Name>
+							<Name LcId="1033">Analoge Ausgangsklemmen (KL4xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000000ff000000ff000000ff000000ff000000ff000000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_measuring</Class>
+							<Name LcId="1031">Measuring Terminals (KL5xxx)</Name>
+							<Name LcId="1033">Winkel-/Wegmessungsklemmen (KL5xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_comm_x</Class>
+							<Name LcId="1031">Communication Terminals (KL6xxx, complex)</Name>
+							<Name LcId="1033">Kommunikationsklemmen (KL6xxx, komplex)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_power</Class>
+							<Name>Power Terminals (KL8xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_system</Class>
+							<Name LcId="1031">System Terminals (KL9xxx)</Name>
+							<Name LcId="1033">Systemklemmen (KL9xxx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00007fff00007fff00007fff00007fff00007fff00007fff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_custom</Class>
+							<Name LcId="1031">Custom specific Terminals</Name>
+							<Name LcId="1033">Kundenspezifische Klemmen</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_safe_x</Class>
+							<Name LcId="1031">Safety Terminals (KLx9xx)</Name>
+							<Name LcId="1033">Safety Klemmen (KLx9xx)</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff000080800000808000008080000080800000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff00ff00000000ffff00ff00000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000000ff0000ffff000000ff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000000000000ffff000000000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff000080000000ffff000080000000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff0080008000800080008000800080008000800080008000800000ffff0000ffff0000ffff0000ffff0000808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ModuleClass>
+							<Class>kl_dig_out_3party</Class>
+							<Name LcId="1031">Third Party Digital Outputs</Name>
+							<Name LcId="1033">Third Party Digitale Ausgangsmodule</Name>
+							<ImageData16x14>424dba030000000000003a00000028000000100000000e000000010020000000000080030000000000000000000000000000000000000df0adbaff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff008080800080808000808080008080800080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000ffff00c0c0c00000ffff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000ff000000c0c0c000ff00000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c0000000ff00c0c0c0000000ff0080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000000000c0c0c0000000000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c00000800000c0c0c0000080000080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00800080008000800080008000800080008000800080008000c0c0c000c0c0c000c0c0c000c0c0c00080808000ff00ff00ff00ff00ff00ff00ff00ff00ff00ff00</ImageData16x14>
+						</ModuleClass>
+						<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00888888888888888D707087070870708D7B7B87B7B87B7B8D777787777877778D707087070870708D7C7C87C7C87C7C8D777787777877778D707087070870708D797987979879798D777787777877778D707087070870708D777787777877778D727287272872728D777787777877778D</ImageData16x14>
+					</Slot>
+					<ModulePdoGroup Alignment="2" RxPdo="#x1702" TxPdo="#x1B02"/>
+					<ModulePdoGroup Alignment="2" RxPdo="#x1700" TxPdo="#x1B00"/>
+					<ModulePdoGroup Alignment="2" RxPdo="#x1701" TxPdo="#x1B01"/>
+				</Slots>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+		</Devices>
+	</Descriptions>
+</EtherCATInfo>
