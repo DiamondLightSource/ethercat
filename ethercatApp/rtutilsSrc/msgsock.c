@@ -93,7 +93,7 @@ int rtSockCreate(const char * socket_name)
     }
     address.sun_family = AF_UNIX;
     strncpy(address.sun_path, socket_name, sizeof(address.sun_path)-1);
-    if(connect(sock, (struct sockaddr *) &address, sizeof(address) == -1)
+    if(connect(sock, (struct sockaddr *) &address, sizeof(address)) == -1)
     {
         fprintf(stderr, "connect to %s failed %s\n", socket_name, strerror(errno));
         return -1;

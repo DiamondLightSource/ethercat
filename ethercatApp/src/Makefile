@@ -51,7 +51,7 @@ ethercat_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
 # This line says that this IOC Application depends on the
 # xxx Support Module
-#ethercat_LIBS += xxx
+ethercat_LIBS += rtutils
 
 # We need to link this IOC Application against the EPICS Base libraries
 ethercat_LIBS += $(EPICS_BASE_IOC_LIBS)
