@@ -1,8 +1,0 @@
-<chain>
-<device name="EK1101" vaddr="100" pos="0" />
-<device name="EL4102" vaddr="200" pos="1" />
-<device name="EL3162" vaddr="400" pos="2" />
-<device name="EL1004" vaddr="500" pos="3" />
-<device name="EL3702" vaddr="300" pos="4" user="OS10" />
-<device name="MASTER" vaddr="999" pos="999" />
-</chain>

@@ -13,7 +13,7 @@ DBD += ecAsyn.dbd
 # IOC
 
 PROD_IOC = ethercat
-ethercat_DBD += base.dbd
+ethercat_DBD += base.dbd ecAsyn.dbd
 ethercat_SRCS += ethercat_registerRecordDeviceDriver.cpp
 
 # These two lines are needed for non-vxWorks builds, such as Linux
