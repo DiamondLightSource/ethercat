@@ -16,6 +16,7 @@ DB += EL1004.template
 DB += EK1101.template
 DB += EL2004.template
 DB += EL3702.template
+DB += MASTER.template
 
 # DB += basic_motor.template
 
