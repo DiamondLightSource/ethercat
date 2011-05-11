@@ -4,8 +4,10 @@ include $(TOP)/configure/CONFIG
 
 # IOC
 
-PROD_IOC = scantest
+DBD += scantest.dbd
 scantest_DBD += base.dbd ecAsyn.dbd
+
+PROD_IOC = scantest
 scantest_SRCS += scantest_registerRecordDeviceDriver.cpp
 
 # These two lines are needed for non-vxWorks builds, such as Linux
