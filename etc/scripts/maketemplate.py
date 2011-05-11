@@ -98,16 +98,22 @@ def parseFile(filename):
 
 if __name__ == "__main__":
     import sys
-    chain = sys.argv[1]
-    doc = libxml2.parseFile(chain)
+    assert(len(sys.argv) == 4)
 
-    for d in doc.xpathEval("//device"):
-        name = d.xpathEval("@type_name")[0].content
-        revision = parseInt(d.xpathEval("@revision")[0].content)
-        reqs.add((name, revision))
+    base = sys.argv[1]
+    name = sys.argv[2]
+    revision = int(sys.argv[3], 16)
+    
+    # chain = sys.argv[1]
+    # doc = libxml2.parseFile(chain)
+    # base = sys.argv[2]
+
+##     for d in doc.xpathEval("//device"):
+##         name = d.xpathEval("@type_name")[0].content
+##         revision = parseInt(d.xpathEval("@revision")[0].content)
+    reqs.add((name, revision))
         # reqs.add(name)
 
-    base = "/home/jr76/ethercat/xml"
     import os
     for f in os.listdir(base):
         if f.endswith("xml"):
