@@ -382,9 +382,14 @@ static int send_config_on_connect(ENGINE * server, int sock)
 
 int main(int argc, char ** argv)
 {
-
+    if(argc != 2)
+    {
+        fprintf(stderr, "usage: scanner scanner.xml\n");
+        exit(1);
+    }
+    char * xml_filename = argv[1];
     // start scanner
-    SCANNER * scanner = start_scanner("scanner.xml");
+    SCANNER * scanner = start_scanner(xml_filename);
     scanner->max_message = 1000000;
     scanner->max_queue_message = 10000;
     scanner->max_clients = 10;
