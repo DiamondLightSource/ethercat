@@ -11,8 +11,13 @@ include $(TOP)/configure/CONFIG
 # In a Diamond Support Module, install
 # templates like this
 #
-#DB += motor.template
-#DB += basic_motor.template
+DB += EL2624.template
+DB += EL1004.template
+DB += EK1101.template
+DB += EL2004.template
+DB += EL3702.template
+
+# DB += basic_motor.template
 
 #----------------------------------------------------
 # In a Diamond IOC Application, build db files from
