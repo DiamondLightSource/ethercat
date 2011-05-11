@@ -15,34 +15,42 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longin, "$(DEVICE):Channel1")
+record(bi, "$(DEVICE):Channel1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Channel1")
   field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
 }
 
 
-record(longin, "$(DEVICE):Channel2")
+record(bi, "$(DEVICE):Channel2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Channel2")
   field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
 }
 
 
-record(longin, "$(DEVICE):Channel3")
+record(bi, "$(DEVICE):Channel3")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Channel3")
   field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
 }
 
 
-record(longin, "$(DEVICE):Channel4")
+record(bi, "$(DEVICE):Channel4")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Channel4")
   field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
 }
 
