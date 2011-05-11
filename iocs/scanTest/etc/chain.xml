@@ -1,0 +1,6 @@
+<chain>
+<device type_name="EK1101" revision="0x00110000" position="0" name="COUPLER0" />
+<device type_name="EL1004" revision="0x00100000" position="1" name="VACUUM0" />
+<device type_name="EL3702" revision="0x00020000" position="2" name="RF0" oversample="10" />
+<device type_name="EL2004" revision="0x00100000" position="3" name="OUT0" />
+</chain>
