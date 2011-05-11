@@ -295,7 +295,7 @@ x 150
 y 60
 w 18
 h 18
-controlPv "$(P)$(S3):RBV1"
+controlPv "$(P)$(S3):Channel1"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -317,7 +317,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):OUT1"
+controlPv "$(P)$(S3):Channel1"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -331,7 +331,7 @@ x 150
 y 100
 w 18
 h 18
-controlPv "$(P)$(S3):RBV3"
+controlPv "$(P)$(S3):Channel3"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -353,7 +353,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):OUT3"
+controlPv "$(P)$(S3):Channel3"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -367,7 +367,7 @@ x 320
 y 60
 w 18
 h 18
-controlPv "$(P)$(S3):RBV2"
+controlPv "$(P)$(S3):Channel2"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -389,7 +389,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):OUT2"
+controlPv "$(P)$(S3):Channel2"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -403,7 +403,7 @@ x 320
 y 100
 w 18
 h 18
-controlPv "$(P)$(S3):RBV4"
+controlPv "$(P)$(S3):Channel4"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -425,7 +425,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):OUT4"
+controlPv "$(P)$(S3):Channel4"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -471,7 +471,7 @@ x 230
 y 155
 w 70
 h 25
-controlPv "$(P)$(S7):IN2"
+controlPv "$(P)$(S7):Channel2"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -495,7 +495,7 @@ x 315
 y 160
 w 18
 h 18
-controlPv "$(P)$(S7):IN2"
+controlPv "$(P)$(S7):Channel2"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -512,7 +512,7 @@ x 150
 y 160
 w 18
 h 18
-controlPv "$(P)$(S7):IN1"
+controlPv "$(P)$(S7):Channel1"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -529,7 +529,7 @@ x 65
 y 155
 w 70
 h 25
-controlPv "$(P)$(S7):IN1"
+controlPv "$(P)$(S7):Channel1"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -629,7 +629,7 @@ x 65
 y 195
 w 70
 h 25
-controlPv "$(P)$(S7):IN3"
+controlPv "$(P)$(S7):Channel3"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -653,7 +653,7 @@ x 150
 y 200
 w 18
 h 18
-controlPv "$(P)$(S7):IN3"
+controlPv "$(P)$(S7):Channel3"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -670,7 +670,7 @@ x 230
 y 190
 w 70
 h 25
-controlPv "$(P)$(S7):IN4"
+controlPv "$(P)$(S7):Channel4"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -694,10 +694,31 @@ x 315
 y 195
 w 18
 h 18
-controlPv "$(P)$(S7):IN4"
+controlPv "$(P)$(S7):Channel4"
 lineColor index 14
 onColor index 15
 offColor index 22
 numBits 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 5
+y 140
+w 121
+h 14
+font "arial-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 8
+value {
+  "  EL1004 Digital Input"
+}
+autoSize
+border
 endObjectProperties
 

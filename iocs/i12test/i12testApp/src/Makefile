@@ -6,7 +6,7 @@ include $(TOP)/configure/CONFIG
 # Build an IOC Application
 # ------------------------
 
-PROD_IOC_Linux = i12test
+PROD_IOC = i12test
 
 # i12test.dbd will be installed into <top>/dbd
 DBD += i12test.dbd
@@ -14,7 +14,7 @@ DBD += i12test.dbd
 # i12test.dbd will be created from these files
 i12test_DBD += base.dbd
 i12test_DBD += asyn.dbd
-i12test_DBD += ecAsynPortSupport.dbd
+i12test_DBD += ecAsyn.dbd
 #i12test_DBD += xxx.dbd
 
 # i12test_registerRecordDeviceDriver.cpp will be created
@@ -36,11 +36,16 @@ i12test_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 #i12test_LIBS += ethercatSupport asyn
 
 # We need to link this IOC Application against the EPICS Base libraries
+i12test_LIBS += ecAsyn
 i12test_LIBS += asyn
-i12test_LIBS += ethercatSupport
 i12test_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 DATA += i12test-gui
 DATA += i12test.grp
+DATA += scanner.xml
 
 include $(TOP)/configure/RULES
+
+scanner.xml:
+	$(ETHERCAT)/etc/scripts/expandChain.py ../chain.xml > scanner.xml
+

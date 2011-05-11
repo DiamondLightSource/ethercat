@@ -19,14 +19,9 @@ $(VXWORKS_ONLY)ld < bin/$(ARCH)/i12test.munch
 ## Register all support components
 dbLoadDatabase("dbd/i12test.dbd")
 i12test_registerRecordDeviceDriver(pdbbase)
+ecAsynInit("/tmp/socket", 1000000)
 
-ecConfigure("ECSCAN", 0, 1)
-## Load record instances
 dbLoadRecords("db/i12-test.db")
-enableWriterMsg(0)
-enableReaderMsg(0)
-asynSetTraceMask("ECSCAN", 0, 0x00)
-asynSetTraceIOMask("ECSCAN", 0, 0x00)
 
 iocInit()
 
