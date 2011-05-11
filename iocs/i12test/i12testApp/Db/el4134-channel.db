@@ -1,0 +1,19 @@
+# el4134-channel.db
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, N, Channel Number
+#% macro, CH, Ethercat scanner channel
+#% macro, PORT, Asyn port for ethercat scanner
+#Module el4134, Four Outputs, Analogue output
+record(ao, "$(P)$(S):OUT$(N)")
+{
+  field(DTYP, "asynInt32")
+  field(OUT, "@asyn($(PORT))$(CH)")
+  field(FLNK, "$(P)$(S):RBV$(N)")
+}
+#Read-back
+record(ai, "$(P)$(S):RBV$(N)") {
+  field(DTYP, "asynInt32")
+  field(INP, "@asyn($(PORT))$(CH)")
+}
+

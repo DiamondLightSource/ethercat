@@ -1,0 +1,9 @@
+
+TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
+
+ETHERCAT=/dls_sw/work/R3.14.11/support/ethercat/misc/ioc
+ASYN= /dls_sw/prod/R3.14.11/support/asyn/4-14
+
+# EPICS_BASE usually appears last so other apps can override stuff:
+EPICS_BASE=/dls_sw/epics/R3.14.11/base
+

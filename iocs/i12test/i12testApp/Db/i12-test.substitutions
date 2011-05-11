@@ -1,0 +1,14 @@
+file el2624.db 
+{
+pattern {P, S, CHANNEL, PORT}
+{"","BL12I-EA-ECAT-01", "0", "ECSCAN"}
+}
+file el1014.db
+{
+{P="",S="BL12I-EA-ECAT-02",CHANNEL="1",PORT="ECSCAN"}
+}
+file toggle.db
+{
+{P="",S="BL12I-EA-TOGGL-01",OUTPV="BL12I-EA-ECAT-01:OUT1",PERIOD="1 second"}
+{P="",S="BL12I-EA-TOGGL-02",OUTPV="BL12I-EA-ECAT-01:OUT3",PERIOD="5 second"}
+}

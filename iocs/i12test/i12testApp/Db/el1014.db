@@ -1,0 +1,62 @@
+# el1014.db
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, CHANNEL, Ethercat scanner channel
+#% macro, PORT, Asyn port for ethercat scanner
+#Module el1014, Four Digital Inputs
+record(ai, "$(P)$(S):EL1014")
+{
+  field(PINI, "YES")
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))$(CHANNEL)")
+  field(SCAN, "I/O Intr")
+  field(FLNK, "$(P)$(S):IN1")
+}
+record(mbbi, "$(P)$(S):IN1") {
+# least significant bit B0
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL1014")
+  field(NOBT, "1")
+  field(SHFT, "0")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):IN2")
+}
+record(mbbi, "$(P)$(S):IN2") {
+# bit B1 where B0 is least significant
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL1014")
+  field(NOBT, "1")
+  field(SHFT, "1")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):IN3")
+}
+record(mbbi, "$(P)$(S):IN3") {
+# bit B7 where B0 is least significant and B7 is most significant
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL1014")
+  field(NOBT, "1")
+  field(SHFT, "6")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+  field(FLNK, "$(P)$(S):IN4")
+}
+record(mbbi, "$(P)$(S):IN4") {
+# most significant bit B7
+  field(DTYP, "Raw Soft Channel")
+  field(INP, "$(P)$(S):EL1014")
+  field(NOBT, "1")
+  field(SHFT, "7")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(ZRST, "OFF")
+  field(ONST, "ON")
+}
+

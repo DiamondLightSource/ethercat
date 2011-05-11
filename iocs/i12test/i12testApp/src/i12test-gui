@@ -1,0 +1,7 @@
+#!/bin/bash
+DATADIR=$(dirname $0)
+MACROS="P=''"
+MACROS="$MACROS,S3=BL12I-EA-ECAT-01"
+MACROS="$MACROS,S7=BL12I-EA-ECAT-02"
+export EDMDATAFILES=$DATADIR
+edm -x -eolc -m "$MACROS" i12test
