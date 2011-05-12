@@ -74,8 +74,13 @@ def parseFile(filename):
             print '  </device>'
 
 if __name__ == "__main__":
+    import sys
+    if len(sys.argv) != 3:
+        print "usage: %s base-dir chain.xml" % (sys.argv[0])
+        sys.exit(1)
+    base = sys.argv[1]
+    chain = sys.argv[2]
 
-    chain = "chain.xml"
     doc = libxml2.parseFile(chain)
 
     for d in doc.xpathEval("//device"):
@@ -84,7 +89,6 @@ if __name__ == "__main__":
         reqs.add((name, revision))
         # reqs.add(name)
 
-    base = "/home/jr76/ethercat/xml"
     import os
     print "<scanner>"
     print "<devices>"
