@@ -354,6 +354,7 @@ char * load_config(char * filename)
         exit(1);
     }
     assert(fread(buf, sizeof(char), st.st_size, f) == st.st_size);
+    assert(fclose(f) == 0);
     return buf;
 }
 
