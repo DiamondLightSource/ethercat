@@ -9,7 +9,7 @@ dbLoadRecords("../../db/EK1101.template", "DEVICE=JRECTEST:1,PORT=COUPLER0,SCAN=
 dbLoadRecords("../../db/EL1004.template", "DEVICE=JRECTEST:2,PORT=VACUUM0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EL3702.template", "DEVICE=JRECTEST:3,PORT=RF0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EL2004.template", "DEVICE=JRECTEST:4,PORT=OUT0,SCAN=I/O Intr")
-dbLoadRecords("../../db/gadc.template", "DEVICE=JRECTEST:3,PORT=RF0,SCAN=.1 second,CHANNEL=1")
+dbLoadRecords("../../db/gadc.template", "DEVICE=JRECTEST:3,PORT=RF0,SCAN=.1 second,CHANNEL=1,SAMPLES=100840")
 dbLoadRecords("../../db/xfc.template", "DEVICE=JRECTEST:3,PORT=RF0,SCAN=.1 second,CHANNEL=1")
 
 iocInit()
