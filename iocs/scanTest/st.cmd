@@ -2,11 +2,13 @@
 dbLoadDatabase("dbd/scantest.dbd")
 scantest_registerRecordDeviceDriver(pdbbase)
 ecAsynInit("/tmp/socket", 1000000)
+# ecWaveformInit("WAVEPORT0")
 
 dbLoadRecords("../../db/MASTER.template", "DEVICE=JRM,PORT=MASTER0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EK1101.template", "DEVICE=JRC,PORT=COUPLER0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EL1004.template", "DEVICE=JRV,PORT=VACUUM0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EL3702.template", "DEVICE=JRR,PORT=RF0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EL2004.template", "DEVICE=JRO,PORT=OUT0,SCAN=I/O Intr")
+dbLoadRecords("wave.db", "DEVICE=JRO,PORT=RF0,SCAN=1 second")
 
 iocInit()

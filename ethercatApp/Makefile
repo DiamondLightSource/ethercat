@@ -1,6 +1,6 @@
 TOP = ..
 include $(TOP)/configure/CONFIG
-DIRS := rtutilsSrc scannerSrc
+DIRS := rtutilsSrc scannerSrc gadcSrc
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *src*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *Src*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *db*))

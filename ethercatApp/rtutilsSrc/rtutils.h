@@ -1,6 +1,10 @@
 #ifndef __rtUTILS_H__
 #define __rtUTILS_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct rtMessageQueueOSD;
 typedef struct rtMessageQueueOSD *rtMessageQueueId;
 
@@ -58,5 +62,9 @@ typedef struct
 } TIMER_MESSAGE;
 
 void new_timer(int period_ns, rtMessageQueueId sink, int priority, int tag);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

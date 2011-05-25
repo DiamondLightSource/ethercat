@@ -7,7 +7,7 @@ include $(TOP)/configure/CONFIG
 USR_SYS_LIBS += xml2
 LIBRARY_IOC += ecAsyn
 ecAsyn_SRCS += ecAsyn.cpp
-ecAsyn_LIBS += asyn scannerlib rtutils
+ecAsyn_LIBS += asyn scannerlib rtutils gadc
 DBD += ecAsyn.dbd
 
 # IOC
