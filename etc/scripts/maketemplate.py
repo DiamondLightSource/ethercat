@@ -200,7 +200,7 @@ if __name__ == "__main__":
             sys.exit(1)
         elif verbose:
             print "devtype=%s" % devtype
-        if  not revision:
+        if  revision == None:
             print "No revision specified"
             usage(sys.argv[0])
             sys.exit(1)
