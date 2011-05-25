@@ -19,6 +19,33 @@
 #include "gadc.h"
 #include "ecAsyn.h"
 
+struct sampler_config_t
+{
+    ELLNODE node;
+    char * port;
+    int channel;
+    char * sample;
+    char * cycle;
+};
+
+ELLLIST sampler_configs;
+void Configure_Sampler(char * port, int channel, char * sample, char * cycle)
+{
+    sampler_config_t * conf = (sampler_config_t *)calloc(1, sizeof(sampler_config_t));
+    if(port == NULL || sample == NULL)
+    {
+        printf("adc configure error: port %p sample %p\n", port, sample);
+    }
+    conf->port = strdup(port);
+    conf->channel = channel;
+    conf->sample = strdup(sample);
+    if(cycle != NULL)
+    {
+        conf->cycle = strdup(cycle);
+    }
+    ellAdd(&sampler_configs, &conf->node);
+}
+
 /* used in 99.9% of programs */
 static char * format(const char *fmt, ...)
 {
@@ -184,44 +211,33 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
     int n = 0;
     
     printf("device type %s\n", device->type_name);
-    
 
-    if(strcmp(device->type_name, "NI 9144") == 0)
+    for(ELLNODE * node = ellFirst(&sampler_configs); node; node = ellNext(node))
     {
-        for(int c = 0; c < 4; c++)
+        sampler_config_t * conf = (sampler_config_t *)node;
+        if(strcmp(conf->port, device->name) == 0)
         {
-            EC_PDO_ENTRY_MAPPING * mapping = mapping_by_name(device, format("Slot1-9215.IN1.%d", c + 1));
-            if(mapping)
+            Sampler * s = NULL;
+            EC_PDO_ENTRY_MAPPING * sample_mapping = mapping_by_name(device, conf->sample);
+            if(sample_mapping != NULL)
             {
-                Sampler * s = new Sampler(this, c + 1, mapping);
-                ellAdd(&samplers, &s->node.node);
+                if(conf->cycle == NULL)
+                {
+                    s = new Sampler(this, conf->channel, sample_mapping);
+                }
+                else
+                {
+                    EC_PDO_ENTRY_MAPPING * cycle_mapping = mapping_by_name(device, conf->cycle);
+                    if(cycle_mapping != NULL)
+                    {
+                        s = new Oversampler(this, conf->channel, sample_mapping, cycle_mapping);
+                    }
+                }
             }
-        }
-    }
-
-    if(strcmp(device->type_name, "EL3702") == 0)
-    {
-        EC_PDO_ENTRY_MAPPING * cycle_test = mapping_by_name(device, "Ch1CycleCount.Ch1CycleCount");
-        if(cycle_test != NULL)
-        {
-            Sampler * s = new Sampler(this, 99, cycle_test);
-            ellAdd(&samplers, &s->node.node);
-        }
-        printf("oversampling device creating waveforms\n");
-        const int MAX_CHANNELS = 2;
-        for(int c = 0; c < MAX_CHANNELS; c++)
-        {
-            EC_PDO_ENTRY_MAPPING * sample = mapping_by_name(
-                device, format("Ch%dSample.Ch%dValue", c+1, c+1));
-            EC_PDO_ENTRY_MAPPING * cycle = mapping_by_name(
-                device, format("Ch%dCycleCount.Ch%dCycleCount", c+1, c+1));
-            if(sample == NULL || cycle == NULL)
+            if(s != NULL)
             {
-                continue;
+                ellAdd(&samplers, &s->node.node);                
             }
-            // 1-based PDO naming 
-            Sampler * s = new Oversampler(this, c + 1, sample, cycle);
-            ellAdd(&samplers, &s->node.node);
         }
     }
     
@@ -485,14 +501,33 @@ extern "C"
     static const iocshArg InitArg[] = { { "path",       iocshArgString },
                                         { "maxmessage", iocshArgInt    } };
     static const iocshArg * const InitArgs[] = { &InitArg[0], &InitArg[1] };
-    static const iocshFuncDef initFuncDef = {"ecAsynInit", 2, InitArgs};
-    static void initCallFunc(const iocshArgBuf * args)
+    static const iocshFuncDef InitFuncDef = {"ecAsynInit", 2, InitArgs};
+    static void InitCallFunc(const iocshArgBuf * args)
     {
         makePorts(args[0].sval, args[1].ival);
     }
+
+    static const iocshArg SamplerArg[] = { { "port",       iocshArgString },
+                                           { "channel",    iocshArgInt    },
+                                           { "sample",     iocshArgString },
+                                           { "cycle",      iocshArgString }};
+
+    static const iocshArg * const SamplerArgs[] = { &SamplerArg[0], 
+                                                    &SamplerArg[1], 
+                                                    &SamplerArg[2], 
+                                                    &SamplerArg[3] };
+    
+    static const iocshFuncDef SamplerFuncDef = {"ADC_Ethercat_Sampler", 4, SamplerArgs};
+    static void SamplerCallFunc(const iocshArgBuf * args)
+    {
+        Configure_Sampler(args[0].sval, args[1].ival, args[2].sval, args[3].sval);
+    }
+
     void ecAsynRegistrar(void)
     {
-        iocshRegister(&initFuncDef,initCallFunc);
+        ellInit(&sampler_configs);
+        iocshRegister(&InitFuncDef,InitCallFunc);
+        iocshRegister(&SamplerFuncDef,SamplerCallFunc);
     }
     epicsExportRegistrar(ecAsynRegistrar);
 }

@@ -1,8 +1,10 @@
 #!bin/linux-x86/scantest
 dbLoadDatabase("dbd/scantest.dbd")
 scantest_registerRecordDeviceDriver(pdbbase)
+
+ADC_Ethercat_Sampler("RF0", 1, "Ch1Sample.Ch1Value", "Ch1CycleCount.Ch1CycleCount")
+
 ecAsynInit("/tmp/socket", 1000000)
-# ecWaveformInit("WAVEPORT0")
 
 dbLoadRecords("../../db/MASTER.template", "DEVICE=JRECTEST:0,PORT=MASTER0,SCAN=I/O Intr")
 dbLoadRecords("../../db/EK1101.template", "DEVICE=JRECTEST:1,PORT=COUPLER0,SCAN=I/O Intr")
