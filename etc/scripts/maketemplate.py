@@ -3,36 +3,11 @@
 # need system python for libxml2 support with xpath
 
 import libxml2
-
-## reqs = set([(0x00000002, 0x044d2c52, 0x00110000),
-##             (0x00000002, 0x03ec3052, 0x00100000),
-##             (0x00000002, 0x05de3052, 0x00100000)])
+import sys
 
 reqs = set()
+verbose = False
 
-def parsePdoEntry(pdoname, entry, os):
-    # some pdo entries are just padding with no name, ignore
-    try:
-        name = entry.xpathEval("Name")[0].content
-    except:
-        return
-    index = parseInt(entry.xpathEval("Index")[0].content)
-    subindex = parseInt(entry.xpathEval("SubIndex")[0].content)
-    bitlen = parseInt(entry.xpathEval("BitLen")[0].content)
-    datatype = entry.xpathEval("DataType")[0].content
-    
-def parsePdo(pdo, d, os):
-    # some pdos don't have a sync manager assigment
-    # not supported by EtherLab driver
-    if not pdo.xpathEval("@Sm"):
-        return
-    name = pdo.xpathEval("Name")[0].content
-    name = name.replace(" ", "")
-    index = parseInt(pdo.xpathEval("Index")[0].content)
-    for entry in pdo.xpathEval("Entry"):
-        parsePdoEntry(name, entry, index in os)
-    return name
-    
 def parseInt(text):
     if text.startswith("#x") or text.startswith("0x"):
         return int(text.replace("#x", ""), 16)
@@ -56,29 +31,73 @@ record(longout, "$(DEVICE):%(name)s")
   field("OMSL", "supervisory")
 }
 """
+bi_text = """
+record(bi, "$(DEVICE):%(name)s")
+{
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))%(command)s")
+  field(SCAN, "$(SCAN)")
+  field(ZNAM, "Off")
+  field(ONAME, "On")
+}
+"""
+bo_text = """
+record(bi, "$(DEVICE):%(name)s")
+{
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))%(command)s")
+  field(SCAN, "$(SCAN)")
+  field(ZNAM, "Off")
+  field(ONAME, "On")
+}
+"""
 
-def makeTemplate(name, longin, longout):
-    f = file("%s.template" % name, "w")
+def makeTemplate(longin, longout, output):
+    print "Generating template file %s" % output
+    f = file(output, "w")
     for l in ["AL_STATE", "ERROR_FLAG"]:
-        print >> f, longin_text % {"name": l, "command": l}
+        recname = l.replace(".", ":")
+        print >> f,longin_text % {"name": recname, "command": l}
     for l in longin:
-        print >> f, longin_text % {"name": l, "command": l}
+        recname = l.replace(".", ":")
+        print >> f, longin_text % {"name": recname, "command": l}
     for l in longout:
-        print >> f, longout_text % {"name": l, "command": l}
+        recname = l.replace(".", ":")
+        print >> f, longout_text % {"name": recname, "command": l}
     f.close()
 
-def parseFile(filename):
+def getPdoName(node):
+    name = node.xpathEval("Name")[0].content
+    name = name.replace(" ", "")
+    return name
+
+def hasEntryName(node):
+    try:
+        name= node.xpathEval("Name")[0].content
+    except:
+        return False
+    return True
+
+def getEntryName(node):
+    name= node.xpathEval("Name")[0].content
+    name= name.replace(" ", "")
+    return name
+
+def parseFile(filename, output, list=False):
     doc = libxml2.parseFile(filename)
     vendor = parseInt(doc.xpathEval("//Vendor/Id")[0].content)
     for device in doc.xpathEval("//Device"):
         try:
-            name = device.xpathEval("Type")[0].content
+            devtype = device.xpathEval("Type")[0].content
             product = parseInt(device.xpathEval("Type/@ProductCode")[0].content)
             revision = parseInt(device.xpathEval("Type/@RevisionNo")[0].content)
         except:
             continue
         # key = (vendor, product, revision)
-        key = (name, revision)
+        key = (devtype, revision)
+        if list:
+            print "%s 0x%08x" % key
+            continue
 
         oversampling = set()
         
@@ -90,35 +109,106 @@ def parseFile(filename):
             for dcmode in device.xpathEval("Dc/OpMode/Sm/Pdo[@OSFac]"):
                 oversampling.add(parseInt(dcmode.content))
             for txpdo in device.xpathEval("TxPdo"):
-                longin.append(parsePdo(txpdo, 1, oversampling))
+                for entry in txpdo.xpathEval("Entry"):
+                    # some pdo entries are just padding with no name, ignore
+                    if hasEntryName(entry):
+                        longin.append(getPdoName(txpdo) + "." + getEntryName(entry) )
+                    elif verbose:
+                        print "Ignoring entry in pdo %s" % getPdoName(txpdo)
             for rxpdo in device.xpathEval("RxPdo"):
-                longout.append(parsePdo(rxpdo, 0, oversampling))
+                for entry in rxpdo.xpathEval("Entry"):
+                    # some pdo entries are just padding with no name, ignore
+                    if hasEntryName(entry):
+                        longout.append(getPdoName(rxpdo) + "." + getEntryName(entry) )
+                    elif verbose:
+                        print "Ignoring entry in pdo %s" % getPdoName(txpdo)
 
-            makeTemplate(name, longin, longout)
+            makeTemplate(longin, longout, output)
+
+def usage(progname):
+    print "%s: Make EPICS template for EtherCAT device" % progname
+    print "Usage:"
+    print "   %s -h  Shows this usage message" % progname
+    print "   %s -b <xml-base-dir> -l  Lists the devices in the database" % progname
+    print """
+   %s -b <xml-base-dir> -d <device-type> -r <rev-no> -o output-file
+       Generates a template in <output-file> for the given device and revision.
+       rev-no must be input as a hex number, e.g. 0x00100000
+       """ % progname
 
 if __name__ == "__main__":
-    import sys
-    assert(len(sys.argv) == 4)
-
-    base = sys.argv[1]
-    name = sys.argv[2]
-    revision = int(sys.argv[3], 16)
+    import getopt
+    base = None
+    devtype = None
+    revision = None
+    output = None
+    list = False
     
-    # chain = sys.argv[1]
-    # doc = libxml2.parseFile(chain)
-    # base = sys.argv[2]
+    try:
+        optlist, args = getopt.getopt(sys.argv[1:], 'hlb:d:r:o:v',
+                    ['help','list','base=','device-type=','rev-no=',
+                     'output=','verbose'])
+    except getopt.GetoptError, err:
+        print str(err)
+        usage(sys.argv[0])
+        sys.exit(2)
+    for o,a in optlist:
+        if o in ('-h', '--help'):
+            usage(sys.argv[0])
+            sys.exit()
+        elif o in ('-l', '--list'):
+            list = True
+        elif o in ('-b', '--base'):
+            base = a
+        elif o in ('-d','--device-type'):
+            devtype = a
+        elif o in ('-r','--rev-no'):
+            revision = int(a,16)
+        elif o in ('-v','--verbose'):
+            verbose = True
+        elif o in ('-o','--output'):
+            output = a
+        else:
+            usage(sys.argv[0])
+            sys.exit(1)
+    if not base:
+        print "No base specified"
+        usage(sys.argv[0])
+        sys.exit(1)
+    elif verbose:
+        print "base=%s" % base
+    if not list:
+        if not devtype :
+            print "No devtype specified"
+            usage(sys.argv[0])
+            sys.exit(1)
+        elif verbose:
+            print "devtype=%s" % devtype
+        if  not revision:
+            print "No revision specified"
+            usage(sys.argv[0])
+            sys.exit(1)
+        elif verbose:
+            print "revision=%s" % revision
+        if not output:
+            print "No output specified"
+            usage(sys.argv[0])
+            sys.exit(1)
+        elif verbose:
+            print "output=%s" % output
 
-##     for d in doc.xpathEval("//device"):
-##         name = d.xpathEval("@type_name")[0].content
-##         revision = parseInt(d.xpathEval("@revision")[0].content)
-    reqs.add((name, revision))
-        # reqs.add(name)
+        reqs.add((devtype, revision))
+        if verbose:
+            for obj in reqs:
+                print "Searching device %s, revision 0x%08x" % obj
 
     import os
     for f in os.listdir(base):
         if f.endswith("xml"):
             filename = os.path.join(base, f)
-            parseFile(filename)
+            if verbose:
+                print "Parsing %s" % filename
+            parseFile(filename, output, list)
 
 
 
