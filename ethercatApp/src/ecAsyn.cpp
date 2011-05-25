@@ -8,7 +8,6 @@
 #include <asynPortDriver.h>
 #include <ellLib.h>
 #include <iocsh.h>
-#include <exception>
 
 #include "classes.h"
 #include "parser.h"
@@ -35,7 +34,7 @@ static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * n
 }
 
 /* used in 99.9% of programs */
-char * format(const char *fmt, ...)
+static char * format(const char *fmt, ...)
 {
     char * buffer = NULL;
     va_list args;
