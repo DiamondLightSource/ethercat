@@ -15,42 +15,42 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longin, "$(DEVICE):Ch1CycleCount")
+record(longin, "$(DEVICE):Ch1CycleCount:Ch1CycleCount")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Ch1CycleCount")
+  field("INP",  "@asyn($(PORT))Ch1CycleCount.Ch1CycleCount")
   field("SCAN", "$(SCAN)")
 }
 
 
-record(longin, "$(DEVICE):Ch1Sample")
+record(longin, "$(DEVICE):Ch1Sample:Ch1Value")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Ch1Sample")
+  field("INP",  "@asyn($(PORT))Ch1Sample.Ch1Value")
   field("SCAN", "$(SCAN)")
 }
 
 
-record(longin, "$(DEVICE):Ch2CycleCount")
+record(longin, "$(DEVICE):Ch2CycleCount:Ch2CycleCount")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Ch2CycleCount")
+  field("INP",  "@asyn($(PORT))Ch2CycleCount.Ch2CycleCount")
   field("SCAN", "$(SCAN)")
 }
 
 
-record(longin, "$(DEVICE):Ch2Sample")
+record(longin, "$(DEVICE):Ch2Sample:Ch2Value")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Ch2Sample")
+  field("INP",  "@asyn($(PORT))Ch2Sample.Ch2Value")
   field("SCAN", "$(SCAN)")
 }
 
 
-record(longin, "$(DEVICE):NextSync1Time")
+record(longin, "$(DEVICE):NextSync1Time:StartTimeNextLatch")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))NextSync1Time")
+  field("INP",  "@asyn($(PORT))NextSync1Time.StartTimeNextLatch")
   field("SCAN", "$(SCAN)")
 }
 

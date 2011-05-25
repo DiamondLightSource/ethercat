@@ -2,7 +2,7 @@ function ectest
 
 while 1;
     % samples = lcaGet('JRO:RS');
-    samples = lcaGet('JRO:ADC1_WAVEFORM');
+    samples = lcaGet('JRECTEST:3:ADC1_WAVEFORM');
     if 0
     cyc = lcaGet('JRO:RC');
     cyc = [0 diff(cyc)];

@@ -15,10 +15,10 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longin, "$(DEVICE):ID")
+record(longin, "$(DEVICE):ID:ID")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))ID")
+  field("INP",  "@asyn($(PORT))ID.ID")
   field("SCAN", "$(SCAN)")
 }
 

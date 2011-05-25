@@ -1,0 +1,6 @@
+record(longin, "$(DEVICE):MISSED")
+{
+   field(DTYP, "asynInt32")
+   field(SCAN, "$(SCAN)")
+   field(INP,  "@asyn($(PORT))XFC$(CHANNEL)_MISSED")
+}

@@ -19,20 +19,6 @@
 #include "gadc.h"
 #include "ecAsyn.h"
 
-static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * name)
-{
-    for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
-    {
-        EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
-        char * pdoname = mapping->pdo_entry->parent->name;
-        if(strcmp(name, pdoname) == 0)
-        {
-            return mapping;
-        }
-    }
-    return NULL;
-}
-
 /* used in 99.9% of programs */
 static char * format(const char *fmt, ...)
 {
@@ -43,6 +29,38 @@ static char * format(const char *fmt, ...)
     assert(ret != -1);
     va_end(args);
     return buffer;
+}
+
+static char * makeParamName(EC_PDO_ENTRY_MAPPING * mapping)
+{
+    char * name = format("%s.%s", mapping->pdo_entry->parent->name, mapping->pdo_entry->name);
+    // remove spaces
+    int out = 0;
+    for(int n = 0; n < (int)strlen(name); n++)
+    {
+        if(name[n] != ' ')
+        {
+            name[out++] = name[n];
+        }
+    }
+    name[out] = '\0';
+    return name;
+}
+
+static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * name)
+{
+    for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
+    {
+        EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
+        char * entry_name = makeParamName(mapping);
+        int match = strcmp(name, entry_name) == 0;
+        free(entry_name);
+        if(match)
+        {
+            return mapping;
+        }
+    }
+    return NULL;
 }
 
 class Sampler
@@ -166,9 +184,24 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
     int n = 0;
     
     printf("device type %s\n", device->type_name);
+    
+
+    if(strcmp(device->type_name, "NI 9144") == 0)
+    {
+        for(int c = 0; c < 4; c++)
+        {
+            EC_PDO_ENTRY_MAPPING * mapping = mapping_by_name(device, format("Slot1-9215.IN1.%d", c + 1));
+            if(mapping)
+            {
+                Sampler * s = new Sampler(this, c + 1, mapping);
+                ellAdd(&samplers, &s->node.node);
+            }
+        }
+    }
+
     if(strcmp(device->type_name, "EL3702") == 0)
     {
-        EC_PDO_ENTRY_MAPPING * cycle_test = mapping_by_name(device, "Ch1CycleCount");
+        EC_PDO_ENTRY_MAPPING * cycle_test = mapping_by_name(device, "Ch1CycleCount.Ch1CycleCount");
         if(cycle_test != NULL)
         {
             Sampler * s = new Sampler(this, 99, cycle_test);
@@ -178,8 +211,10 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
         const int MAX_CHANNELS = 2;
         for(int c = 0; c < MAX_CHANNELS; c++)
         {
-            EC_PDO_ENTRY_MAPPING * sample = mapping_by_name(device, format("Ch%dSample", c + 1));
-            EC_PDO_ENTRY_MAPPING * cycle = mapping_by_name(device, format("Ch%dCycleCount", c + 1));
+            EC_PDO_ENTRY_MAPPING * sample = mapping_by_name(
+                device, format("Ch%dSample.Ch%dValue", c+1, c+1));
+            EC_PDO_ENTRY_MAPPING * cycle = mapping_by_name(
+                device, format("Ch%dCycleCount.Ch%dCycleCount", c+1, c+1));
             if(sample == NULL || cycle == NULL)
             {
                 continue;
@@ -193,7 +228,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
     for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
-        char * name = mapping->pdo_entry->parent->name;
+        char * name = makeParamName(mapping);
         printf("createParam %s\n", name);
         createParam(name, asynParamInt32, PdoParam + n);
         mapping->pdo_entry->parameter = PdoParam[n];

@@ -34,25 +34,25 @@ record(longout, "$(DEVICE):%(name)s")
 bi_text = """
 record(bi, "$(DEVICE):%(name)s")
 {
-  field(DTYP, "asynInt32")
-  field(INP,  "@asyn($(PORT))%(command)s")
-  field(SCAN, "$(SCAN)")
-  field(ZNAM, "Off")
-  field(ONAME, "On")
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))%(command)s")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
 }
 """
 bo_text = """
-record(bi, "$(DEVICE):%(name)s")
+record(bo, "$(DEVICE):%(name)s")
 {
-  field(DTYP, "asynInt32")
-  field(INP,  "@asyn($(PORT))%(command)s")
-  field(SCAN, "$(SCAN)")
-  field(ZNAM, "Off")
-  field(ONAME, "On")
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))%(command)s")
+  field("OMSL", "supervisory")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
 }
 """
 
-def makeTemplate(longin, longout, output):
+def makeTemplate(longin, longout, bi, bo, output):
     print "Generating template file %s" % output
     f = file(output, "w")
     for l in ["AL_STATE", "ERROR_FLAG"]:
@@ -61,9 +61,15 @@ def makeTemplate(longin, longout, output):
     for l in longin:
         recname = l.replace(".", ":")
         print >> f, longin_text % {"name": recname, "command": l}
+    for l in bi:
+        recname = l.replace(".", ":")
+        print >> f, bi_text % {"name": recname, "command": l}
     for l in longout:
         recname = l.replace(".", ":")
         print >> f, longout_text % {"name": recname, "command": l}
+    for l in bo:
+        recname = l.replace(".", ":")
+        print >> f, bo_text % {"name": recname, "command": l}
     f.close()
 
 def getPdoName(node):
@@ -105,6 +111,8 @@ def parseFile(filename, output, list=False):
 
             longin = []
             longout = []
+            bi = []
+            bo = []
             
             for dcmode in device.xpathEval("Dc/OpMode/Sm/Pdo[@OSFac]"):
                 oversampling.add(parseInt(dcmode.content))
@@ -112,18 +120,26 @@ def parseFile(filename, output, list=False):
                 for entry in txpdo.xpathEval("Entry"):
                     # some pdo entries are just padding with no name, ignore
                     if hasEntryName(entry):
-                        longin.append(getPdoName(txpdo) + "." + getEntryName(entry) )
+                        datatype = entry.xpathEval("DataType")[0].content
+                        if datatype == "BOOL":
+                            bi.append(getPdoName(txpdo) + "." + getEntryName(entry) )
+                        else:
+                            longin.append(getPdoName(txpdo) + "." + getEntryName(entry) )
                     elif verbose:
                         print "Ignoring entry in pdo %s" % getPdoName(txpdo)
             for rxpdo in device.xpathEval("RxPdo"):
                 for entry in rxpdo.xpathEval("Entry"):
                     # some pdo entries are just padding with no name, ignore
                     if hasEntryName(entry):
-                        longout.append(getPdoName(rxpdo) + "." + getEntryName(entry) )
+                        datatype = entry.xpathEval("DataType")[0].content
+                        if datatype == "BOOL":
+                            bo.append(getPdoName(rxpdo) + "." + getEntryName(entry) )
+                        else:
+                            longout.append(getPdoName(rxpdo) + "." + getEntryName(entry) )
                     elif verbose:
                         print "Ignoring entry in pdo %s" % getPdoName(txpdo)
 
-            makeTemplate(longin, longout, output)
+            makeTemplate(longin, longout, bi, bo, output)
 
 def usage(progname):
     print "%s: Make EPICS template for EtherCAT device" % progname

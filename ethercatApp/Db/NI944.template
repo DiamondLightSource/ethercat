@@ -15,42 +15,34 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(bi, "$(DEVICE):Channel1:Input")
+record(longin, "$(DEVICE):Slot1-9215:IN1:1")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Channel1.Input")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.1")
   field("SCAN", "$(SCAN)")
-  field("ZNAM", "OFF")
-  field("ONAM", "ON")
 }
 
 
-record(bi, "$(DEVICE):Channel2:Input")
+record(longin, "$(DEVICE):Slot1-9215:IN1:2")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Channel2.Input")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.2")
   field("SCAN", "$(SCAN)")
-  field("ZNAM", "OFF")
-  field("ONAM", "ON")
 }
 
 
-record(bi, "$(DEVICE):Channel3:Input")
+record(longin, "$(DEVICE):Slot1-9215:IN1:3")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Channel3.Input")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.3")
   field("SCAN", "$(SCAN)")
-  field("ZNAM", "OFF")
-  field("ONAM", "ON")
 }
 
 
-record(bi, "$(DEVICE):Channel4:Input")
+record(longin, "$(DEVICE):Slot1-9215:IN1:4")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Channel4.Input")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.4")
   field("SCAN", "$(SCAN)")
-  field("ZNAM", "OFF")
-  field("ONAM", "ON")
 }
 
