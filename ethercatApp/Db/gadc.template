@@ -4,7 +4,7 @@ record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF_INIT")
 {
    field(OUT,  "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF")
    field(FLNK, "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF")
-   field(DOL,  "1000000")
+   field(DOL,  "10000000")
    field(PINI, "YES")
 }
 
@@ -25,7 +25,7 @@ record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES_INIT")
 {
    field(OUT,  "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES")
    field(FLNK, "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES")
-   field(DOL,  "100840")
+   field(DOL,  "$(SAMPLES)")
    field(PINI, "YES")
 }
 
@@ -88,7 +88,7 @@ record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_AVERAGE")
 record(waveform, "$(DEVICE):ADC$(CHANNEL)_WAVEFORM")
 {
     field(DTYP, "asynInt32ArrayIn")
-    field(NELM, "100840")
+    field(NELM, "$(SAMPLES)")
     field(SCAN, "$(SCAN)")
     field(FTVL, "LONG")
     field(INP,  "@asyn($(PORT))ADC$(CHANNEL)_WAVEFORM")
