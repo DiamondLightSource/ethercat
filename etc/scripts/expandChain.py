@@ -28,7 +28,6 @@ def parsePdo(pdo, d, os):
     if not pdo.xpathEval("@Sm"):
         return
     name = pdo.xpathEval("Name")[0].content
-    name = name.replace(" ", "")
     index = parseInt(pdo.xpathEval("Index")[0].content)
     print '    <sync index="0" dir="0" watchdog="0">'
     print '    <pdo dir="%d" name="%s" index="0x%08x">' % (d, name, index)
