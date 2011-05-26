@@ -1,0 +1,6 @@
+<chain>
+<device type_name="NI 9144" revision="0x00000003" position="0" name="NI0" />
+<device type_name="EL3602" revision="0x00100000" position="2" name="ANAIN0" />
+<device type_name="EL3201" revision="0x00100000" position="3" name="RTDIN0" />
+</chain>
+

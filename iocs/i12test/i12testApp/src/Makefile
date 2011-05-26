@@ -46,6 +46,6 @@ DATA += scanner.xml
 
 include $(TOP)/configure/RULES
 
-scanner.xml:
+scanner.xml: ../chain.xml
 	$(ETHERCAT)/etc/scripts/expandChain.py $(ETHERCAT)/etc/xml ../chain.xml > scanner.xml
 
