@@ -1,9 +1,17 @@
 
-record(longin, "$(DEVICE):AL_STATE")
+record(mbbi, "$(DEVICE):AL_STATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AL_STATE")
   field("SCAN", "$(SCAN)")
+  field("ONVL", "1")
+  field("TWVL", "2")
+  field("THVL", "4")
+  field("FRVL", "8")
+  field("ONST", "INIT")
+  field("TWST", "PREOP")
+  field("THST", "SAFEOP")
+  field("FRST", "OP")
 }
 
 

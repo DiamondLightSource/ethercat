@@ -23,6 +23,23 @@ record(longin, "$(DEVICE):%(name)s")
 }
 """
 
+al_text = """
+record(mbbi, "$(DEVICE):%(name)s")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))%(command)s")
+  field("SCAN", "$(SCAN)")
+  field("ONVL", "1")
+  field("TWVL", "2")
+  field("THVL", "4")
+  field("FRVL", "8")
+  field("ONST", "INIT")
+  field("TWST", "PREOP")
+  field("THST", "SAFEOP")
+  field("FRST", "OP")
+}
+"""
+
 longout_text = """
 record(longout, "$(DEVICE):%(name)s")
 {
@@ -59,8 +76,10 @@ def fixname(name):
 def makeTemplate(longin, longout, bi, bo, output):
     print "Generating template file %s" % output
     f = file(output, "w")
-    for l in ["AL_STATE", "ERROR_FLAG"]:
-        print >> f,longin_text % {"name": fixname(l), "command": l}
+    for l in ["AL_STATE"]:
+        print >> f, al_text % {"name": fixname(l), "command": l}
+    for l in ["ERROR_FLAG"]:
+        print >> f, longin_text % {"name": fixname(l), "command": l}
     for l in longin:
         print >> f, longin_text % {"name": fixname(l), "command": l}
     for l in bi:

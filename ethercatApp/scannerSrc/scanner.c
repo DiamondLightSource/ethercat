@@ -428,8 +428,14 @@ int main(int argc, char ** argv)
         engine_start(client->engine);
     }
     
-    rtThreadCreate("cyclic", PRIO_HIGH, 0, cyclic_task, scanner);
-    new_timer(PERIOD_NS, scanner->workq, PRIO_HIGH, MSG_TICK);
+    int prio = PRIO_HIGH;
+    if(rtThreadCreate("cyclic", prio, 0, cyclic_task, scanner) == NULL)
+    {
+        printf("can't create high priority thread, fallback to low priority\n");
+        prio = PRIO_LOW;
+        assert(rtThreadCreate("cyclic", prio, 0, cyclic_task, scanner) != NULL);
+    }
+    new_timer(PERIOD_NS, scanner->workq, prio, MSG_TICK);
 
     int selftest = 1;
     if(selftest)

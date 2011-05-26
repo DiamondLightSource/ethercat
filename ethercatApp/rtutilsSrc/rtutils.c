@@ -62,9 +62,14 @@ rtThreadId rtThreadCreate (
     }
     thread->start = funptr;
     thread->usr = parm;
-    pthread_create(&thread->thread, &thread->attr, start_routine, thread);
-    /* RETURN CODES */
-    return thread;
+    if(pthread_create(&thread->thread, &thread->attr, start_routine, thread) == 0)
+    {
+        return thread;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 rtMessageQueueId rtMessageQueueCreate(
