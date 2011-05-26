@@ -15,7 +15,7 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longin, "$(DEVICE):Ch1CycleCount:Ch1CycleCount")
+record(longin, "$(DEVICE):CH1CYCLECOUNT:CH1CYCLECOUNT")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Ch1CycleCount.Ch1CycleCount")
@@ -23,7 +23,7 @@ record(longin, "$(DEVICE):Ch1CycleCount:Ch1CycleCount")
 }
 
 
-record(longin, "$(DEVICE):Ch1Sample:Ch1Value")
+record(longin, "$(DEVICE):CH1SAMPLE:CH1VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Ch1Sample.Ch1Value")
@@ -31,7 +31,7 @@ record(longin, "$(DEVICE):Ch1Sample:Ch1Value")
 }
 
 
-record(longin, "$(DEVICE):Ch2CycleCount:Ch2CycleCount")
+record(longin, "$(DEVICE):CH2CYCLECOUNT:CH2CYCLECOUNT")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Ch2CycleCount.Ch2CycleCount")
@@ -39,7 +39,7 @@ record(longin, "$(DEVICE):Ch2CycleCount:Ch2CycleCount")
 }
 
 
-record(longin, "$(DEVICE):Ch2Sample:Ch2Value")
+record(longin, "$(DEVICE):CH2SAMPLE:CH2VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))Ch2Sample.Ch2Value")
@@ -47,7 +47,7 @@ record(longin, "$(DEVICE):Ch2Sample:Ch2Value")
 }
 
 
-record(longin, "$(DEVICE):NextSync1Time:StartTimeNextLatch")
+record(longin, "$(DEVICE):NEXTSYNC1TIME:STARTTIMENEXTLATCH")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))NextSync1Time.StartTimeNextLatch")

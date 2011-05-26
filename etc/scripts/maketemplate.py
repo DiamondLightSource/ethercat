@@ -52,24 +52,23 @@ record(bo, "$(DEVICE):%(name)s")
 }
 """
 
+def fixname(name):
+    "make name conventional"
+    return name.replace(".", ":").upper()
+    
 def makeTemplate(longin, longout, bi, bo, output):
     print "Generating template file %s" % output
     f = file(output, "w")
     for l in ["AL_STATE", "ERROR_FLAG"]:
-        recname = l.replace(".", ":")
-        print >> f,longin_text % {"name": recname, "command": l}
+        print >> f,longin_text % {"name": fixname(l), "command": l}
     for l in longin:
-        recname = l.replace(".", ":")
-        print >> f, longin_text % {"name": recname, "command": l}
+        print >> f, longin_text % {"name": fixname(l), "command": l}
     for l in bi:
-        recname = l.replace(".", ":")
-        print >> f, bi_text % {"name": recname, "command": l}
+        print >> f, bi_text % {"name": fixname(l), "command": l}
     for l in longout:
-        recname = l.replace(".", ":")
-        print >> f, longout_text % {"name": recname, "command": l}
+        print >> f, longout_text % {"name": fixname(l), "command": l}
     for l in bo:
-        recname = l.replace(".", ":")
-        print >> f, bo_text % {"name": recname, "command": l}
+        print >> f, bo_text % {"name": fixname(l), "command": l}
     f.close()
 
 def getPdoName(node):

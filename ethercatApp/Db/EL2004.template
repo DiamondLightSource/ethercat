@@ -15,7 +15,7 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(bo, "$(DEVICE):Channel1:Output")
+record(bo, "$(DEVICE):CHANNEL1:OUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))Channel1.Output")
@@ -25,7 +25,7 @@ record(bo, "$(DEVICE):Channel1:Output")
 }
 
 
-record(bo, "$(DEVICE):Channel2:Output")
+record(bo, "$(DEVICE):CHANNEL2:OUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))Channel2.Output")
@@ -35,7 +35,7 @@ record(bo, "$(DEVICE):Channel2:Output")
 }
 
 
-record(bo, "$(DEVICE):Channel3:Output")
+record(bo, "$(DEVICE):CHANNEL3:OUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))Channel3.Output")
@@ -45,7 +45,7 @@ record(bo, "$(DEVICE):Channel3:Output")
 }
 
 
-record(bo, "$(DEVICE):Channel4:Output")
+record(bo, "$(DEVICE):CHANNEL4:OUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))Channel4.Output")
