@@ -1,0 +1,8 @@
+file MASTER.template
+{
+{DEVICE="RJQ35657-ECAT-01", PORT="MASTER0", SCAN="I/O Intr"}
+}
+file NI_9144.template
+{
+{DEVICE="RJQ35657-ECAT-02", PORT="NI0", SCAN="I/O Intr"}
+}

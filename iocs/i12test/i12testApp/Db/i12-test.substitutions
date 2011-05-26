@@ -1,14 +1,18 @@
-file el2624.db 
+file EL2624.template
 {
-pattern {P, S, CHANNEL, PORT}
-{"","BL12I-EA-ECAT-01", "0", "ECSCAN"}
+{DEVICE="RJQ35657-ECAT-01", PORT="RELAY0", SCAN="I/O Intr"}
 }
-file el1014.db
+file EL1004.template
 {
-{P="",S="BL12I-EA-ECAT-02",CHANNEL="1",PORT="ECSCAN"}
+pattern {DEVICE, PORT, SCAN}
+{"RJQ35657-ECAT-02", "DIGIN0", "I/O Intr"}
 }
 file toggle.db
 {
-{P="",S="BL12I-EA-TOGGL-01",OUTPV="BL12I-EA-ECAT-01:OUT1",PERIOD="1 second"}
-{P="",S="BL12I-EA-TOGGL-02",OUTPV="BL12I-EA-ECAT-01:OUT3",PERIOD="5 second"}
+{P="",S="RJQ35657-TOGGL-01",OUTPV="RJQ35657-ECAT-01:Channel1",PERIOD="1 second"}
+{P="",S="RJQ35657-TOGGL-02",OUTPV="RJQ35657-ECAT-01:Channel2",PERIOD="5 second"}
+}
+file MASTER.template
+{
+{DEVICE="RJQ35657-ECAT-03", PORT="MASTER0", SCAN="I/O Intr"}
 }

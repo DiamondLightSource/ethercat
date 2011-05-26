@@ -1,0 +1,48 @@
+
+record(longin, "$(DEVICE):AL_STATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))AL_STATE")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):ERROR_FLAG")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))ERROR_FLAG")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Slot1-9215:IN1:1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Slot1-9215:IN1:2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Slot1-9215:IN1:3")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.3")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):Slot1-9215:IN1:4")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Slot1-9215.IN1.4")
+  field("SCAN", "$(SCAN)")
+}
+

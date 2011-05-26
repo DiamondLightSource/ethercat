@@ -1,0 +1,2625 @@
+<?xml version="1.0"?>
+<EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
+	<Vendor>
+		<Id>2</Id>
+		<Name>Beckhoff Automation GmbH</Name>
+		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
+	</Vendor>
+	<Descriptions>
+		<Groups>
+			<Group>
+				<Type>EvaBoard</Type>
+				<Name LcId="1033">Eva Board (Interfaces)</Name>
+				<Image16x14>DEVICE</Image16x14>
+			</Group>
+			<Group>
+				<Type>EvaBoardDemo</Type>
+				<Name LcId="1033">Eva Board (Sample Source Demos)</Name>
+				<Image16x14>DEVICE</Image16x14>
+			</Group>
+		</Groups>
+		<Devices>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00020578">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 32 Ch. Dig. Output (DC, Build >= 21)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 32 K. Dig. Ausgang (DC, Build >= 21)]]></Name>
+				<Info>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<ExecutionUnit>
+						<Type>PRIMARY</Type>
+						<RxDelay>0</RxDelay>
+						<TxDelay>0</TxDelay>
+					</ExecutionUnit>
+				</Info>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x46" Enable="1">Outputs</Sm>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Dc UnknownFRMW="1" Unknown64Bit="0">
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0300</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>140100441027</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YYYY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00030578">EL9800 4Port</Type>
+				<Name LcId="1033"><![CDATA[EL9800 32 Ch. Dig. Output (4Port, DC)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 32 K. Dig. Ausgang (4Port, DC)]]></Name>
+				<Info>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<ExecutionUnit>
+						<Type>PRIMARY</Type>
+						<RxDelay>0</RxDelay>
+						<TxDelay>800</TxDelay>
+					</ExecutionUnit>
+				</Info>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x46" Enable="1">Outputs</Sm>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Dc UnknownFRMW="1" Unknown64Bit="0">
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0300</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>140100441027</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x000103e8">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 32 Ch. Dig. Input]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 32 K. Dig. Eingang]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1602</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1603</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>1001</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x000204b0">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16 Ch. Dig. In-/Output (Build >= 21)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 16 K. Dig. Ein-/Ausgang (Build >= 21)]]></Name>
+				<Info>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<RxDelay>3000</RxDelay>
+						<TxDelay>3000</TxDelay>
+					</Port>
+					<ExecutionUnit>
+						<Type>PRIMARY</Type>
+						<RxDelay>0</RxDelay>
+						<TxDelay>0</TxDelay>
+					</ExecutionUnit>
+				</Info>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x46" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="1" Sm="1">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="1">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc UnknownFRMW="1" Unknown64Bit="0">
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0300</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>120100441027</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x000101f4">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 SSI-Slave]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>05000300</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00010320">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16Bit µC (Busy:LA Int:LA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00010322">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16Bit µC (Busy:HA Int:LA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000200</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00010328">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16Bit µC (Busy:LA Int:HA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000800</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x0001032a">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16Bit µC (Busy:HA Int:HA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>08000a00</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00010384">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 8Bit µC (Busy:LA Int:LA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>09000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x00010386">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 8Bit µC (Busy:HA Int:LA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>09000200</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x0001038c">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 8Bit µC (Busy:LA Int:HA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>09000800</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x0001038e">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 8Bit µC (Busy:HA Int:HA)]]></Name>
+				<GroupType>EvaBoard</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>09000a00</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x03ea01f4">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 SPI-Demo]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 SPI-Demo ]]></Name>
+				<GroupType>EvaBoardDemo</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="128" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="128" StartAddress="#x1880" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Channel_1_Outputs_2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A00</Index>
+					<Name>Channel_1_Inputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A01</Index>
+					<Name>Channel_1_Inputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A02</Index>
+					<Name>Channel_1_Diag</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="0" PdoConfig="0"/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>05000300</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x03ea0320">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16 Bit MCI-Demo]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 16 Bit MCI-Demo ]]></Name>
+				<GroupType>EvaBoardDemo</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1602</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1603</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A00</Index>
+					<Name>Channel_1_Inputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A01</Index>
+					<Name>Channel_1_Inputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A02</Index>
+					<Name>Channel_1_Diag</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A03</Index>
+					<Name>Channel_2_Inputs_1</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A04</Index>
+					<Name>Channel_2_Inputs_2</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A05</Index>
+					<Name>Channel_2_Diag</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="0"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>080002000000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x044e0320">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16 Bit MCI-Demo with DC (Busy: HA)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 16 Bit MCI-Demo mit DC (Busy: HA)]]></Name>
+				<GroupType>EvaBoardDemo</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1602</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1603</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A00</Index>
+					<Name>Channel_1_Inputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A01</Index>
+					<Name>Channel_1_Inputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A02</Index>
+					<Name>Channel_1_Diag</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A03</Index>
+					<Name>Channel_2_Inputs_1</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A04</Index>
+					<Name>Channel_2_Inputs_2</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A05</Index>
+					<Name>Channel_2_Diag</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="0"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>080002880000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x044e0322">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 16 Bit MCI-Demo with DC (Busy: LA)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 16 Bit MCI-Demo mit DC (Busy: LA)]]></Name>
+				<GroupType>EvaBoardDemo</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1602</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1603</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A00</Index>
+					<Name>Channel_1_Inputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A01</Index>
+					<Name>Channel_1_Inputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A02</Index>
+					<Name>Channel_1_Diag</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A03</Index>
+					<Name>Channel_2_Inputs_1</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A04</Index>
+					<Name>Channel_2_Inputs_2</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A05</Index>
+					<Name>Channel_2_Diag</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="0"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>080000880000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x03ea0384">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 8 Bit MCI-Demo]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 8 Bit MCI-Demo ]]></Name>
+				<GroupType>EvaBoardDemo</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1602</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1603</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A00</Index>
+					<Name>Channel_1_Inputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A01</Index>
+					<Name>Channel_1_Inputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A02</Index>
+					<Name>Channel_1_Diag</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A03</Index>
+					<Name>Channel_2_Inputs_1</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A04</Index>
+					<Name>Channel_2_Inputs_2</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A05</Index>
+					<Name>Channel_2_Diag</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="0"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>090002000000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x26483052" RevisionNo="#x044e0384">EL9800</Type>
+				<Name LcId="1033"><![CDATA[EL9800 8 Bit MCI-Demo with DC]]></Name>
+				<Name LcId="1031"><![CDATA[EL9800 8 Bit MCI-Demo  mit DC]]></Name>
+				<GroupType>EvaBoardDemo</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1602</Index>
+					<Name>Channel_1_Outputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Control2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wOut3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1603</Index>
+					<Name>Channel_2_Outputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwOut2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A00</Index>
+					<Name>Channel_1_Inputs_1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A01</Index>
+					<Name>Channel_1_Inputs_2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A02</Index>
+					<Name>Channel_1_Diag</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A03</Index>
+					<Name>Channel_2_Inputs_1</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A04</Index>
+					<Name>Channel_2_Inputs_2</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>5</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wIn3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>6</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn1</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>7</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>dwIn2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="0" Sm="3">
+					<Index>#x1A05</Index>
+					<Name>Channel_2_Diag</Name>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>8</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>9</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>10</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag3</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>11</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag4</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>12</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag5</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>13</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag6</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>14</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag7</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x3102</Index>
+						<SubIndex>15</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>wDiag8</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="0"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>128</ByteSize>
+					<ConfigData>090002880000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
+		</Devices>
+	</Descriptions>
+</EtherCATInfo>

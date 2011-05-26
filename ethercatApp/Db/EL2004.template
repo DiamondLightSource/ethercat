@@ -1,0 +1,56 @@
+
+record(longin, "$(DEVICE):AL_STATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))AL_STATE")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):ERROR_FLAG")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))ERROR_FLAG")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(bo, "$(DEVICE):Channel1:Output")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel1.Output")
+  field("OMSL", "supervisory")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bo, "$(DEVICE):Channel2:Output")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel2.Output")
+  field("OMSL", "supervisory")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bo, "$(DEVICE):Channel3:Output")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel3.Output")
+  field("OMSL", "supervisory")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bo, "$(DEVICE):Channel4:Output")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))Channel4.Output")
+  field("OMSL", "supervisory")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+

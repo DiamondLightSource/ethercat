@@ -1,0 +1,472 @@
+<?xml version="1.0"?>
+<EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
+	<Vendor>
+		<Id>2</Id>
+		<Name>Beckhoff Automation GmbH</Name>
+		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
+	</Vendor>
+	<Descriptions>
+		<Groups>
+			<Group SortOrder="390">
+				<Type>System</Type>
+				<Name LcId="1033">System Terminals</Name>
+				<Name LcId="1031">System Klemmen</Name>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000FFFFC0C0C000FFFF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0FF0000C0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C00000FFC0C0C00000FF808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0008000C0C0C0008000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Group>
+			<Group SortOrder="392">
+				<Type>TermBk</Type>
+				<Name LcId="1033">Terminal Couplers (BK1xxx, ILxxxx-B110)</Name>
+				<Name LcId="1031">Klemmen Koppler (BK1xxx, ILxxxx-B110)</Name>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Group>
+		</Groups>
+		<Devices>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x00000000">BK1120</Type>
+				<HideType RevisionNo="#x27070000"/>
+				<HideType RevisionNo="#x270b0000"/>
+				<HideType RevisionNo="#x270c0000"/>
+				<HideType RevisionNo="#x270d0000"/>
+				<HideType RevisionNo="#x270e0000"/>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x00010000">BK1120</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x00100000">BK1120</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00010000"/>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x00110000">BK1120</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00010000"/>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="BK1120" ProductCode="#x04602c22" RevisionNo="#x00120000">BK1120</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
+				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>08020200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000C40E0000C40E0000100000001000000000000000FF0000000084000084848400C6C6C6000000FF00FF00FF0000FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0066333333333336666644444340403666664004434747366666405443444436666640044340403666664004434141366666400453444436666640042340403666664444444545366600044544444436660644454440403666004555554444366606444544424236660004454444443666</ImageData16x14>
+			</Device>
+			<Device Physics="K">
+				<Type TcSmClass="BK1120" ProductCode="#x04E22C22" RevisionNo="#x00000000">BK1250</Type>
+				<Name LcId="1033"><![CDATA[BK1250 Coupler between E-bus and K-bus Terminals]]></Name>
+				<Name LcId="1031"><![CDATA[BK1250 Koppler zwischen E-Bus- und K-Bus-Klemmen]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1250.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1250.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x64" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000120B0000120B00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0000C00000C00000C00000C00000C00000C00000C0FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C600FFFFC6C6C60000C0C6C6C600FFFF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6FF0000C6C6C60000C0C6C6C6FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C60000FFC6C6C60000C0C6C6C60000FF808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6008400C6C6C60000C0C6C6C6008400808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
+			<Device Physics="K">
+				<Type TcSmClass="BK1120" ProductCode="#x04E22C22" RevisionNo="#x00100000">BK1250</Type>
+				<HideType RevisionNo="#x00000000" ProductRevision="BK1250-0000-0000"/>
+				<Name LcId="1033"><![CDATA[BK1250 Coupler between E-bus and K-bus Terminals]]></Name>
+				<Name LcId="1031"><![CDATA[BK1250 Koppler zwischen E-Bus- und K-Bus-Klemmen]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1250.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1250.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x64" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000120B0000120B00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF0000C00000C00000C00000C00000C00000C00000C0FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C600FFFFC6C6C60000C0C6C6C600FFFF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6FF0000C6C6C60000C0C6C6C6FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C60000FFC6C6C60000C0C6C6C60000FF808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6000000C6C6C60000C0C6C6C6000000808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6008400C6C6C60000C0C6C6C6008400808080FF00FFFF00FFFF00FF007BFF007BFF007BFF007BFF007BFF007BFFC6C6C6C6C6C6C6C6C60000C0C6C6C6C6C6C6808080FF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FC3094" RevisionNo="#x00101B82">IL2300-B110</Type>
+				<Name LcId="1033"><![CDATA[IL2300-B110 EtherCAT IP link coupler]]></Name>
+				<Name LcId="1031"><![CDATA[IL2300-B110 EtherCAT IP Link Koppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDD9DD9DDDDDDDDDDDD9D999DDDDDDDDDDD9DD9DDDDDDDDDDD999D9DDDDDDDDDDDD9DD9D000000000000000007070707000000000A0A0A0A000000000000000000000770000000000000077007070707000000000A0A0A0A000000000000000000000000DDDDDDDDDDDDDDDD</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FC3094" RevisionNo="#x00111B82">IL2300-B110</Type>
+				<HideType RevisionNo="#x00101B82" ProductRevision="IL2300-B110-0016"/>
+				<Name LcId="1033"><![CDATA[IL2300-B110 EtherCAT IP link coupler]]></Name>
+				<Name LcId="1031"><![CDATA[IL2300-B110 EtherCAT IP Link Koppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDD9DD9DDDDDDDDDDDD9D999DDDDDDDDDDD9DD9DDDDDDDDDDD999D9DDDDDDDDDDDD9DD9D000000000000000007070707000000000A0A0A0A000000000000000000000770000000000000077007070707000000000A0A0A0A000000000000000000000000DDDDDDDDDDDDDDDD</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FD3094" RevisionNo="#x00101B82">IL2301-B110</Type>
+				<Name LcId="1033"><![CDATA[IL2301-B110 EtherCAT IP link coupler]]></Name>
+				<Name LcId="1031"><![CDATA[IL2301-B110 EtherCAT IP Link Koppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDD9DD9DDDDDDDDDDDD9D999DDDDDDDDDDD9DD9DDDDDDDDDDD999D9DDDDDDDDDDDD9DD9D000000000000000007070707000000000A0A0A0A000000000000000000000770000000000000077007070707000000000A0A0A0A000000000000000000000000DDDDDDDDDDDDDDDD</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FD3094" RevisionNo="#x00111B82">IL2301-B110</Type>
+				<HideType RevisionNo="#x00101B82" ProductRevision="IL2301-B110-0016"/>
+				<Name LcId="1033"><![CDATA[IL2301-B110 EtherCAT IP link coupler]]></Name>
+				<Name LcId="1031"><![CDATA[IL2301-B110 EtherCAT IP Link Koppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDD9DD9DDDDDDDDDDDD9D999DDDDDDDDDDD9DD9DDDDDDDDDDD999D9DDDDDDDDDDDD9DD9D000000000000000007070707000000000A0A0A0A000000000000000000000770000000000000077007070707000000000A0A0A0A000000000000000000000000DDDDDDDDDDDDDDDD</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FE3094" RevisionNo="#x00101B82">IL2302-B110</Type>
+				<Name LcId="1033"><![CDATA[IL2302-B110 EtherCAT IP link coupler]]></Name>
+				<Name LcId="1031"><![CDATA[IL2302-B110 EtherCAT IP Link Koppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>256</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDD9DD9DDDDDDDDDDDD9D999DDDDDDDDDDD9DD9DDDDDDDDDDD999D9DDDDDDDDDDDD9DD9D000000000000000007070707000000000A0A0A0A000000000000000000000770000000000000077007070707000000000A0A0A0A000000000000000000000000DDDDDDDDDDDDDDDD</ImageData16x14>
+			</Device>
+			<Device Physics="YY">
+				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FE3094" RevisionNo="#x00111B82">IL2302-B110</Type>
+				<HideType RevisionNo="#x00101B82" ProductRevision="IL2302-B110-0016"/>
+				<Name LcId="1033"><![CDATA[IL2302-B110 EtherCAT IP link coupler]]></Name>
+				<Name LcId="1031"><![CDATA[IL2302-B110 EtherCAT IP Link Koppler]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<Info>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>6000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+				</Info>
+				<GroupType>TermBk</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1c00" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="64" MaxSize="512" DefaultSize="136" StartAddress="#x1e00" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1600" ControlByte="#x00" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<AoE AdsRouter="true" GenerateOwnNetId="true"/>
+					<CoE SdoInfo="true" CompleteAccess="true" PdoUpload="true"/>
+					<FoE/>
+				</Mailbox>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>08000200</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDD9DD9DDDDDDDDDDDD9D999DDDDDDDDDDD9DD9DDDDDDDDDDD999D9DDDDDDDDDDDD9DD9D000000000000000007070707000000000A0A0A0A000000000000000000000770000000000000077007070707000000000A0A0A0A000000000000000000000000DDDDDDDDDDDDDDDD</ImageData16x14>
+			</Device>
+		</Devices>
+	</Descriptions>
+</EtherCATInfo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:simpleType name="hex-integer">
+  <xs:restriction base="xs:string">
+    <xs:pattern value="0x[0-9a-fA-F]+" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:element name="chain">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="device" maxOccurs="unbounded">
+        <xs:complexType>
+            <xs:attribute name="type_name" type="xs:string" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="position" type="xs:integer" use="required"/>
+            <xs:attribute name="revision" type="hex-integer" use="required"/>
+            <xs:attribute name="oversample" type="xs:integer" use="optional"/>   
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

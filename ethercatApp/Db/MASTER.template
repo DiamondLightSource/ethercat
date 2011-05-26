@@ -1,0 +1,20 @@
+record(longin, "$(DEVICE):Cycle")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Cycle")
+  field("SCAN", ".1 second")
+}
+
+record(longin, "$(DEVICE):WorkingCounter")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))WorkingCounter")
+  field("SCAN", "$(SCAN)")
+}
+
+record(longin, "$(DEVICE):WcState")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))WcState")
+  field("SCAN", "$(SCAN)")
+}

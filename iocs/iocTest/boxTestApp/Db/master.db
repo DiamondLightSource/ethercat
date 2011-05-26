@@ -1,0 +1,28 @@
+# master.db
+#% macro, P, Device Prefix
+#% macro, S, Device suffix
+#% macro, PORT, Asyn port for ethercat scanner
+#% macro, VADDR, Asyn address for "master" entry
+record(longin, "$(P)$(S):master:slaves")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(VADDR))slaves")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(P)$(S):master:alarm")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(VADDR))alarm")
+   field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(P)$(S):master:link")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(VADDR))link")
+   field(SCAN, "I/O Intr")
+}

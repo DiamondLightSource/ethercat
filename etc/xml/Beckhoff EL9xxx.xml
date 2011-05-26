@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
+	<Vendor>
+		<Id>2</Id>
+		<Name>Beckhoff Automation GmbH</Name>
+		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
+	</Vendor>
+	<Descriptions>
+		<Groups>
+			<Group SortOrder="390">
+				<Type>System</Type>
+				<Name LcId="1033">System Terminals</Name>
+				<Name LcId="1031">System Klemmen</Name>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000FFFFC0C0C000FFFF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0FF0000C0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C00000FFC0C0C00000FF808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0008000C0C0C0008000808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Group>
+		</Groups>
+		<Devices>
+			<Device Physics="K" Invisible="1">
+				<Type>EL9010</Type>
+				<Name LcId="1033"><![CDATA[EL9010 End Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EL9010 Endklemme]]></Name>
+				<GroupType>System</GroupType>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
+			<Device Physics="" Invisible="1">
+				<Type>EL9011</Type>
+				<Name LcId="1033"><![CDATA[EL9011 End Terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EL9011 Endklemme]]></Name>
+				<GroupType>System</GroupType>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9100</Type>
+				<Name LcId="1033"><![CDATA[EL9100 Power Supplier with LED (24V)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9100 Einspeiseklemme mit LED (24V)]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x23963052" RevisionNo="#x00100000">EL9110</Type>
+				<Name LcId="1033"><![CDATA[EL9110 Power Supplier with LED (24V, Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9110 Einspeiseklemme mit LED (24V, Diagnose)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>PowerOK</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9150</Type>
+				<Name LcId="1033"><![CDATA[EL9150 Power Supplier with LED(230V)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9150 Einspeiseklemme mit LED (230V)]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x23c83052" RevisionNo="#x00100000">EL9160</Type>
+				<Name LcId="1033"><![CDATA[EL9160 Power Supplier with LED (230V, Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9160 Einspeiseklemme mit LED (230V, Diagnose)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>PowerOK</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9180</Type>
+				<Name LcId="1033"><![CDATA[EL9180 Potential Connection, 2 x 24-230V, 2 x PE]]></Name>
+				<Name LcId="1031"><![CDATA[EL9180 Potentialverteilerklemme, 2 x 24-230V, 2 x PE]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9184</Type>
+				<Name LcId="1033"><![CDATA[EL9184 Potential Connection, 8 x 24V, 8 x Ground]]></Name>
+				<Name LcId="1031"><![CDATA[EL9184 Potentialverteilerklemme, 8 x 24V, 8 x Masse]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9185</Type>
+				<Name LcId="1033"><![CDATA[EL9185 Potential Connection, 4 x 24-230V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9185 Potentialverteilerklemme, 4 x 24-230V]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9186</Type>
+				<Name LcId="1033"><![CDATA[EL9186 Potential Connection, 8 x 24V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9186 Potentialverteilerklemme, 8 x 24V]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9187</Type>
+				<Name LcId="1033"><![CDATA[EL9187 Potential Connection, 8 x Ground]]></Name>
+				<Name LcId="1031"><![CDATA[EL9187 Potentialverteilerklemme, 8 x Masse]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9188</Type>
+				<Name LcId="1033"><![CDATA[EL9188 Potential Connection, 16 x 24V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9188 Potentialverteilerklemme, 16 x 24V]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9189</Type>
+				<Name LcId="1033"><![CDATA[EL9189 Potential Connection, 16 x Ground]]></Name>
+				<Name LcId="1031"><![CDATA[EL9189 Potentialverteilerklemme, 16 x Masse]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9190</Type>
+				<Name LcId="1033"><![CDATA[EL9190 Power Supplier]]></Name>
+				<Name LcId="1031"><![CDATA[EL9190 Einspeiseklemme]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9195</Type>
+				<Name LcId="1033"><![CDATA[EL9195 Potential Connection, 2 x Shield]]></Name>
+				<Name LcId="1031"><![CDATA[EL9195 Potentialverteilerklemme, 2x Schirm]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9200</Type>
+				<Name LcId="1033"><![CDATA[EL9200 Power Supplier with LED (24V, Fuse)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9200 Einspeiseklemme mit LED (24V, Sicherung)]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x23fa3052" RevisionNo="#x00100000">EL9210</Type>
+				<Name LcId="1033"><![CDATA[EL9210 Power Supplier with LED (24V, Fuse, Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9210 Einspeiseklemme mit LED (24V, Sicherung, Diagnose)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>PowerOK</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>PowerOK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>FuseError</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>FuseError</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9250</Type>
+				<Name LcId="1033"><![CDATA[EL9150 Power Supplier with LED(230V, Fuse)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9150 Einspeiseklemme mit LED (230V, Sicherung)]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x242c3052" RevisionNo="#x00100000">EL9260</Type>
+				<Name LcId="1033"><![CDATA[EL9260 Power Supplier with LED (230V, Fuse, Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9260 Einspeiseklemme mit LED (230V, Sicherung, Diagnose)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>PowerOK</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>PowerOK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>FuseError</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>FuseError</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9290</Type>
+				<Name LcId="1033"><![CDATA[EL9290 Power Supplier (Fuse)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9290 Einspeiseklemme (Sicherung)]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9400</Type>
+				<Name LcId="1033"><![CDATA[EL9400 E-Bus Power Supplier]]></Name>
+				<Name LcId="1031"><![CDATA[EL9400 E-Bus Netzteilklemme]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-2000</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x24c23052" RevisionNo="#x00100000">EL9410</Type>
+				<Name LcId="1033"><![CDATA[EL9410 E-Bus Power Supplier  (Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9410 E-Bus Netzteilklemme (Diagnose)]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-2000</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Us</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Undervoltage</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Status Up</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Undervoltage</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x25213052" RevisionNo="#x00100000">EL9505</Type>
+				<Name LcId="1033"><![CDATA[EL9505 Power supply terminal 5V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9505 Netzteilklemme 5V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x25243052" RevisionNo="#x00100000">EL9508</Type>
+				<Name LcId="1033"><![CDATA[EL9508 Power supply terminal 8V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9508 Netzteilklemme 8V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x25263052" RevisionNo="#x00100000">EL9510</Type>
+				<Name LcId="1033"><![CDATA[EL9510 Power supply terminal 10V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9510 Netzteilklemme 10V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x25283052" RevisionNo="#x00100000">EL9512</Type>
+				<Name LcId="1033"><![CDATA[EL9512 Power supply terminal 12V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9512 Netzteilklemme 12V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x252b3052" RevisionNo="#x00100000">EL9515</Type>
+				<Name LcId="1033"><![CDATA[EL9515 Power supply terminal 15V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9515 Netzteilklemme 15V]]></Name>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9570</Type>
+				<Name LcId="1033"><![CDATA[EL9570 Buffer capacitor terminal]]></Name>
+				<Name LcId="1031"><![CDATA[EL9570 Puffer-Kondensator Klemme]]></Name>
+				<GroupType>System</GroupType>
+			</Device>
+		</Devices>
+	</Descriptions>
+</EtherCATInfo>

@@ -1,0 +1,7 @@
+<chain>
+<device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" />
+<device type_name="EL2624" revision="0x00100000" position="1" name="RELAY0" />
+<device type_name="EL1004" revision="0x00100000" position="2" name="DIGIN0" />
+<device type_name="EL3201" revision="0x00100000" position="3" name="RTDIN0" />
+</chain>
+

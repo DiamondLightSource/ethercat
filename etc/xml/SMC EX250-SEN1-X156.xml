@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--  last modified 2010-06-24, SMC Corporation -->
+<EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
+  <Vendor>
+    <Id>276</Id>
+    <Name>SMC Corporation</Name>
+    <ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000EA0E0000EA0E000000000000000000000000000000008000008000000080800080000000800080008080000080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8C88FFFFFFFFFFF8C8C788C8C88C8C8C8C8C8C8CC77CC8C8C8C888C7C7CCCFFC8C8C8C8CC77CCFC8C8C8F7C8C88C8C8F8C8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</ImageData16x14>
+  </Vendor>
+  <Descriptions>
+    <Groups>
+      <Group>
+        <Type>EX250</Type>
+        <Name LcId="1033">EX250 Series SI Unit</Name>
+        <ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000EA0E0000EA0E000000000000000000000000000000008000008000000080800080000000800080008080000080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777F7F7F77F77F777FFF7F7F7FF77F77777F878F77F77F777FFF7F7FF7F7FF77777F7F7F77F77F77FFFFFFFFFFFFFFFFF8888888888888888877777777777777777887888888888777788786CCCCC66778788786CCCCC6677F78878666666687887FF7FFFFFFFFF7FF77777777777777</ImageData16x14>
+      </Group>
+    </Groups>
+    <Devices>
+      <Device Physics="YY">
+        <Type ProductCode="#x00fa6053" RevisionNo="#x00000000">EX250-SEN1-X156</Type>
+        <Name LcId="1033"><![CDATA[EX250-SEN1-X156 EtherCAT SI Unit]]></Name>
+        <GroupType>EX250</GroupType>
+        <Sm StartAddress="#x0f00" ControlByte="#x46" Enable="9" DefaultSize="0"></Sm>
+        <Sm StartAddress="#x1000" ControlByte="#x0" Enable="1" DefaultSize="0"></Sm>
+        <RxPdo Fixed="1" Mandatory="1" Sm="0">
+          <Index>#x1600</Index>
+          <Name>Outputs</Name>
+          <Entry>
+            <Index>#x7000</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte0</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x7000</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte1</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x7000</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte2</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x7000</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte3</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+        </RxPdo>
+        <TxPdo Sm="1" Fixed="1" Mandatory="1">
+          <Index>#x1a00</Index>
+          <Name>Inputs</Name>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte0</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte1</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte2</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Byte3</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>5</SubIndex>
+            <BitLen>8</BitLen>
+            <Name>Status</Name>
+            <DataType>UINT8</DataType>
+          </Entry>
+        </TxPdo>
+      </Device>
+    </Devices>
+  </Descriptions>
+</EtherCATInfo>

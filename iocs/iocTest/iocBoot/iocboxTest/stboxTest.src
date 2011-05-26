@@ -1,0 +1,23 @@
+#!$(INSTALL)/bin/$(ARCH)/boxTest
+cd "$(INSTALL)"
+
+## Register all support components
+dbLoadDatabase("dbd/boxTest.dbd")
+boxTest_registerRecordDeviceDriver(pdbbase)
+
+# ethercat scanner port (portname, socketname, monitor period, selftest)
+ecConfigure("ECAT0", "/tmp/scanner.sock", 1000, 0)
+
+# circular buffer port (portname, master, address, command, buffersize, triggerdelay, period)
+# address is (parameter,monitor period)
+accConfigure("ECAT1", "ECAT0", 200, "value1,10", 10000, 5000, 10000) 
+
+dbLoadRecords("db/boxTestApp.db")
+
+## Set this to see messages from mySub
+#mySubDebug 1
+
+iocInit()
+
+## Start any sequence programs
+#seq sncExample,"user=xxx"

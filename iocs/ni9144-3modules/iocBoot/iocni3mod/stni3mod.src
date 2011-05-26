@@ -1,0 +1,32 @@
+#!$(INSTALL)/bin/$(ARCH)/ni3mod
+
+## You may have to change ni3mod to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+# Load binaries on architectures that need to do so.
+# VXWORKS_ONLY, LINUX_ONLY and RTEMS_ONLY are macros that resolve
+# to a comment symbol on architectures that are not the current
+# build architecture, so they can be used liberally to do architecture
+# specific things. Alternatively, you can include an architecture
+# specific file.
+$(VXWORKS_ONLY)ld < bin/$(ARCH)/ni3mod.munch
+
+## This drvTS initializer is needed if the IOC has a hardware event system
+#TSinit
+
+## Register all support components
+dbLoadDatabase("dbd/ni3mod.dbd")
+ni3mod_registerRecordDeviceDriver(pdbbase)
+
+## Load record instances
+#dbLoadRecords("db/<filename>.db","<List of macros, e.g. user=xxx>")
+
+## Set this to see messages from mySub
+#mySubDebug 1
+
+iocInit()
+
+## Start any sequence programs
+#seq sncExample,"user=xxx"
