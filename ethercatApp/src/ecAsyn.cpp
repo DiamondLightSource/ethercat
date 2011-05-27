@@ -182,11 +182,13 @@ ecMaster::ecMaster(char * name) :
                    0, /* non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
-                   0) /* default stack size */
+                   0) /* default stack size */,
+    lastCycle(0), missed(0)
 {
     printf("create master %s\n", name);
     createParam("Cycle", asynParamInt32, &P_Cycle);
     createParam("WorkingCounter", asynParamInt32, &P_WorkingCounter);
+    createParam("Missed", asynParamInt32, &P_Missed);
     createParam("WcState", asynParamInt32, &P_WcState);
 }
 
@@ -260,22 +262,26 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
 void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
 {
     lock();
+    if(pdo->cycle != lastCycle + 1)
+    {
+        missed++;
+    }
+    lastCycle = pdo->cycle;
     setIntegerParam(P_Cycle, pdo->cycle);
     setIntegerParam(P_WorkingCounter, pdo->working_counter);
     setIntegerParam(P_WcState, pdo->wc_state);
-    unlock(); // unlock here?
+    setIntegerParam(P_Missed, missed & INT32_MAX);
     callParamCallbacks();
+    unlock();
 }
 
 void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 {
     lock();
-
     for(ELLNODE * node = ellFirst(&samplers); node; node = ellNext(node))
     {
         ((Sampler::Node *)node)->self->on_pdo_message(pdo, size);
     }
-
     for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
@@ -286,8 +292,8 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     assert(meta + 1 - pdo->buffer < size);
     setIntegerParam(P_AL_STATE, meta[0]);
     setIntegerParam(P_ERROR_FLAG, meta[1]);
-    unlock(); // unlock here?
     callParamCallbacks();
+    unlock();
 }
 
 asynStatus ecAsyn::readInt32Array(asynUser *pasynUser, epicsInt32 *value,

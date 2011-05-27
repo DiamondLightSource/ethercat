@@ -40,8 +40,11 @@ class ecMaster : public asynPortDriver
     int P_Cycle;
 #define FIRST_MASTER_COMMAND P_Cycle
     int P_WorkingCounter;
+    int P_Missed;
     int P_WcState;
 #define LAST_MASTER_COMMAND P_WcState
+    epicsInt32 lastCycle;
+    epicsInt32 missed;
 public:
     ecMaster(char * name);
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);

@@ -5,6 +5,13 @@ record(longin, "$(DEVICE):CYCLE")
   field("SCAN", ".1 second")
 }
 
+record(longin, "$(DEVICE):MISSED")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))Missed")
+  field("SCAN", "$(SCAN)")
+}
+
 record(longin, "$(DEVICE):WORKINGCOUNTER")
 {
   field("DTYP", "asynInt32")
