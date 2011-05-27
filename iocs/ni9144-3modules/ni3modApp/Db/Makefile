@@ -14,6 +14,7 @@ include $(TOP)/configure/CONFIG
 #DB += motor.template
 #DB += basic_motor.template
 DB += NI_9144.template
+DB += EL3201.template
 
 #----------------------------------------------------
 # In a Diamond IOC Application, build db files from
@@ -28,6 +29,13 @@ DB += ni3mod-test.db
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
+
+../O.Common/EL3201.template: ../EL3201.template
+	cp ../EL3201.template ../O.Common/EL3201.template 
+
+../EL3201.template:
+	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml \
+    -d "EL3201" -r 0x00100000 -o ../EL3201.template
 
 ../O.Common/NI_9144.template: ../NI_9144.template
 	cp ../NI_9144.template ../O.Common/NI_9144.template 
