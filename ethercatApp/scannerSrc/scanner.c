@@ -382,12 +382,13 @@ static int send_config_on_connect(ENGINE * server, int sock)
 
 int main(int argc, char ** argv)
 {
-    if(argc != 2)
+    if(argc != 3)
     {
-        fprintf(stderr, "usage: scanner scanner.xml\n");
+        fprintf(stderr, "usage: scanner scanner.xml socket_path\n");
         exit(1);
     }
     char * xml_filename = argv[1];
+    char * path = argv[2];
     // start scanner
     SCANNER * scanner = start_scanner(xml_filename);
     scanner->max_message = 1000000;
@@ -406,7 +407,7 @@ int main(int argc, char ** argv)
     scanner->workq = rtMessageQueueCreate(scanner->work_capacity, scanner->max_queue_message);
     scanner->clients = calloc(scanner->max_clients, sizeof(CLIENT *));
 
-    char * path = "/tmp/socket";
+    printf("socket path is %s\n", path);
     int sock = rtServerSockCreate(path);
     assert(sock);
     
