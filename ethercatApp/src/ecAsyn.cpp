@@ -403,15 +403,9 @@ static void readConfig(ENGINE_USER * usr)
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         int pdos = 0;
-        NODE * node1;
-        for(node1 = listFirst(&device->device_type->sync_managers); node1; node1 = node1->next)
+        for(NODE * node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
         {
-            EC_SYNC_MANAGER * sync = (EC_SYNC_MANAGER *)node1;
-            NODE * node2;
-            for(node2 = listFirst(&sync->pdos); node2; node2 = node2->next)
-            {
-                pdos++;
-            }
+            pdos++;
         }
         PORT_NODE * pn = (PORT_NODE *)calloc(1, sizeof(PORT_NODE));
         pn->port = new ecAsyn(device, pdos, usr->writeq, ndev);

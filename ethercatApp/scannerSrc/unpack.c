@@ -104,7 +104,16 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
         }
         break;
     default:
-        printf("unknown type\n");
+        if(mapping->pdo_entry->bits > 32)
+        {
+            printf("unknown type\n");
+        }
+        else
+        {
+            value = *(int32_t *)buffer;
+            value >>= mapping->bit_position;
+            value &= (1 << mapping->pdo_entry->bits)-1;
+        }
     }
     return value;        
 }

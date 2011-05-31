@@ -1,0 +1,98 @@
+
+record(mbbi, "$(DEVICE):AL_STATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))AL_STATE")
+  field("SCAN", "$(SCAN)")
+  field("ONVL", "1")
+  field("TWVL", "2")
+  field("THVL", "4")
+  field("FRVL", "8")
+  field("ONST", "INIT")
+  field("TWST", "PREOP")
+  field("THST", "SAFEOP")
+  field("FRST", "OP")
+}
+
+
+record(longin, "$(DEVICE):ERROR_FLAG")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))ERROR_FLAG")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):RTDINPUTS:LIMIT1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.Limit1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):RTDINPUTS:LIMIT2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.Limit2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):RTDINPUTS:VALUE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.Value")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(bi, "$(DEVICE):RTDINPUTS:UNDERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.Underrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):RTDINPUTS:OVERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.Overrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):RTDINPUTS:ERROR")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.Error")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):RTDINPUTS:TXPDOSTATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.TxPDOState")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):RTDINPUTS:TXPDOTOGGLE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))RTDInputs.TxPDOToggle")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
