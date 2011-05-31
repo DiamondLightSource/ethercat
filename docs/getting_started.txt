@@ -58,6 +58,19 @@ and their parameters:
 
 The "name" field is used later in the IOC to give each EtherCAT device an ASYN port name.
 
+The revision numbers can be read from the devices using the "ethercat" command line tool:
+
+/dls_sw/work/common/rt/ethercat/bin/ethercat slaves -v | less
+
+=== Master 0, Slave 0 ===
+State: OP
+Flag: +
+Identity:
+  Vendor Id:       0x00000002
+  Product code:    0x044d2c52
+  Revision number: 0x00110000
+  Serial number:   0x00000000...
+
 The script etc/scripts/expandChain.py is used to expand this configuration file using the
 XML description of each EtherCAT device stored in etc/xml
 
