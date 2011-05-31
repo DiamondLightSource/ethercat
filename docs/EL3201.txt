@@ -1,0 +1,19 @@
+The EL3201 uses the Service Data Object (SDO) dictionary to configure the device.
+Options include (see .chm help file for complete list)
+
+- connected device type (PT100, raw resistance etc.)
+- wiring (2, 3 or 4 wires)
+
+To configure the device for 4 wire operation, use SDO 0x8000:0x1a
+
+/dls_sw/work/common/rt/ethercat/bin/ethercat upload -p 2 --type uint16 0x8000 0x1a
+# 0 is 2 wire, 1 is 3 wire, 2 is 4 wire
+/dls_sw/work/common/rt/ethercat/bin/ethercat download -p 2 --type uint16 0x8000 0x1a 2
+
+The configuration is stored in flash. 
+All modules must be flashed correctly before being stored as spares.
+SDO support is not yet part of the EPICS driver
+(complete PDO and ASYN support is the priority)
+
+
+
