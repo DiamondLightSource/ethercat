@@ -19,6 +19,21 @@
 #include "gadc.h"
 #include "ecAsyn.h"
 
+enum 
+{ 
+    EC_WC_STATE_ZERO = 0, 
+    EC_WC_STATE_INCOMPLETE = 1, 
+    EC_WC_STATE_COMPLETE = 2 
+};
+
+enum 
+{ 
+    EC_AL_STATE_INIT = 1,
+    EC_AL_STATE_PREOP = 2,
+    EC_AL_STATE_SAFEOP = 4,
+    EC_AL_STATE_OP = 8
+};
+
 struct sampler_config_t
 {
     ELLNODE node;
@@ -256,6 +271,8 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
 
     createParam("AL_STATE", asynParamInt32, &P_AL_STATE);
     createParam("ERROR_FLAG", asynParamInt32, &P_ERROR_FLAG);
+    createParam("DISABLE", asynParamInt32, &P_DISABLE);
+    setIntegerParam(P_DISABLE, 1);
 
 }
 
@@ -278,6 +295,16 @@ void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
 void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 {
     lock();
+    char * meta = pdo->buffer + pdo->size + 2 * devid;
+    assert(meta + 1 - pdo->buffer < size);
+    epicsInt32 al_state = meta[0];
+    epicsInt32 error_flag = meta[1];
+    epicsInt32 disable = pdo->wc_state == EC_WC_STATE_ZERO || al_state != EC_AL_STATE_OP;
+    epicsInt32 lastDisable;
+    assert(getIntegerParam(P_DISABLE, &lastDisable) == asynSuccess); // can't fail
+    setIntegerParam(P_AL_STATE, al_state);
+    setIntegerParam(P_ERROR_FLAG, error_flag);
+    setIntegerParam(P_DISABLE, disable);
     for(ELLNODE * node = ellFirst(&samplers); node; node = ellNext(node))
     {
         ((Sampler::Node *)node)->self->on_pdo_message(pdo, size);
@@ -286,12 +313,32 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         int32_t val = cast_int32(mapping, pdo->buffer, 0);
-        setIntegerParam(mapping->pdo_entry->parameter, val);
+#if 0
+        if(disable != lastDisable)
+        {
+            // need this to trigger an I/O interrupt
+            // yes this is nasty, this is so that SDIS is activated
+            // until ASYN can return alarms through I/O interrupt
+            // see tech-talk 11 May 2011
+            setIntegerParam(mapping->pdo_entry->parameter, 0);
+            setIntegerParam(mapping->pdo_entry->parameter, 1);
+        }
+        else
+        {
+            setIntegerParam(mapping->pdo_entry->parameter, val);
+        }
+#endif
+        // can't make SDIS work with I/O intr (some values get lost)
+        // so using this for now
+        if(disable)
+        {
+            setIntegerParam(mapping->pdo_entry->parameter, INT32_MIN);
+        }
+        else
+        {
+            setIntegerParam(mapping->pdo_entry->parameter, val);
+        }
     }
-    char * meta = pdo->buffer + pdo->size + 2 * devid;
-    assert(meta + 1 - pdo->buffer < size);
-    setIntegerParam(P_AL_STATE, meta[0]);
-    setIntegerParam(P_ERROR_FLAG, meta[1]);
     callParamCallbacks();
     unlock();
 }

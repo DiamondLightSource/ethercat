@@ -27,6 +27,7 @@ class ecAsyn : public asynPortDriver, public pdo_listener
     EC_PDO_ENTRY_MAPPING ** mappings;
     int P_AL_STATE;
     int P_ERROR_FLAG;
+    int P_DISABLE;
     ELLLIST samplers;
 
 public:
