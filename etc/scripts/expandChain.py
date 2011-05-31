@@ -16,8 +16,12 @@ def parsePdoEntry(entry, os):
         name = entry.xpathEval("Name")[0].content
     except:
         return
+    try:
+        # or padding can have a name but no subindex
+        subindex = parseInt(entry.xpathEval("SubIndex")[0].content)
+    except:
+        return
     index = parseInt(entry.xpathEval("Index")[0].content)
-    subindex = parseInt(entry.xpathEval("SubIndex")[0].content)
     bitlen = parseInt(entry.xpathEval("BitLen")[0].content)
     datatype = entry.xpathEval("DataType")[0].content
     print '      <entry name="%s" index="0x%08x" subindex="0x%08x" bit_length="%d" datatype="%s" oversample="%d" />' % (name, index, subindex, bitlen, datatype, os)

@@ -1,0 +1,352 @@
+
+record(mbbi, "$(DEVICE):AL_STATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))AL_STATE")
+  field("SCAN", "$(SCAN)")
+  field("ONVL", "1")
+  field("TWVL", "2")
+  field("THVL", "4")
+  field("FRVL", "8")
+  field("ONST", "INIT")
+  field("TWST", "PREOP")
+  field("THST", "SAFEOP")
+  field("FRST", "OP")
+}
+
+
+record(longin, "$(DEVICE):ERROR_FLAG")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))ERROR_FLAG")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__LIMIT1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Limit1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__LIMIT2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Limit2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL1:VALUE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Value")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__LIMIT1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Limit1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__LIMIT2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Limit2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL2:VALUE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Value")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__LIMIT1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Limit1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__LIMIT2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Limit2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL3:VALUE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Value")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__LIMIT1")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Limit1")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__LIMIT2")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Limit2")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(longin, "$(DEVICE):TCINPUTSCHANNEL4:VALUE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Value")
+  field("SCAN", "$(SCAN)")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__UNDERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Underrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__OVERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Overrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__ERROR")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Error")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__TXPDOSTATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__TxPDOState")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__TXPDOTOGGLE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__TxPDOToggle")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__UNDERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Underrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__OVERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Overrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__ERROR")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Error")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__TXPDOSTATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__TxPDOState")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__TXPDOTOGGLE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__TxPDOToggle")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__UNDERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Underrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__OVERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Overrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__ERROR")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Error")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__TXPDOSTATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__TxPDOState")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__TXPDOTOGGLE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__TxPDOToggle")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__UNDERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Underrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__OVERRANGE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Overrange")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__ERROR")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Error")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__TXPDOSTATE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__TxPDOState")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__TXPDOTOGGLE")
+{
+  field("DTYP", "asynInt32")
+  field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__TxPDOToggle")
+  field("SCAN", "$(SCAN)")
+  field("ZNAM", "OFF")
+  field("ONAM", "ON")
+}
+
+
+record(longout, "$(DEVICE):TCOUTPUTSCHANNEL1:CJCOMPENSATION")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))TCOutputsChannel1.CJCompensation")
+  field("OMSL", "supervisory")
+}
+
+
+record(longout, "$(DEVICE):TCOUTPUTSCHANNEL2:CJCOMPENSATION")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))TCOutputsChannel2.CJCompensation")
+  field("OMSL", "supervisory")
+}
+
+
+record(longout, "$(DEVICE):TCOUTPUTSCHANNEL3:CJCOMPENSATION")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))TCOutputsChannel3.CJCompensation")
+  field("OMSL", "supervisory")
+}
+
+
+record(longout, "$(DEVICE):TCOUTPUTSCHANNEL4:CJCOMPENSATION")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))TCOutputsChannel4.CJCompensation")
+  field("OMSL", "supervisory")
+}
+

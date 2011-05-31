@@ -98,6 +98,7 @@ def getPdoName(node):
 def hasEntryName(node):
     try:
         name= node.xpathEval("Name")[0].content
+        subindex = node.xpathEval("SubIndex")[0].content
     except:
         return False
     return True

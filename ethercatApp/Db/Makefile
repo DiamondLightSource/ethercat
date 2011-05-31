@@ -18,6 +18,7 @@ DB += EK1101.template
 DB += EL2004.template
 DB += EL3702.template
 DB += EL3201.template
+DB += EL3314.template
 DB += NI944.template
 DB += MASTER.template
 DB += gadc.template
