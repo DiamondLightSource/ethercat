@@ -13,6 +13,7 @@ include $(TOP)/configure/CONFIG
 #
 DB += EL2624.template
 DB += EL1004.template
+DB += EL1014.template
 DB += EK1101.template
 DB += EL2004.template
 DB += EL3702.template
