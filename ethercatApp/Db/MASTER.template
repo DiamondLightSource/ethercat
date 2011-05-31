@@ -19,9 +19,18 @@ record(longin, "$(DEVICE):WORKINGCOUNTER")
   field("SCAN", "$(SCAN)")
 }
 
-record(longin, "$(DEVICE):WCSTATE")
+record(mbbi, "$(DEVICE):WCSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))WcState")
   field("SCAN", "$(SCAN)")
+  field("ZRVL", "0")
+  field("ONVL", "1")
+  field("TWVL", "2")
+  field("ZRSV", "MAJOR")
+  field("ONSV", "MAJOR")
+  field("TWSV", "NO_ALARM")
+  field("ZRST", "ZERO")
+  field("ONST", "INCOMPLETE")
+  field("TWST", "COMPLETE")
 }
