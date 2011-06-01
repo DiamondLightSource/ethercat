@@ -1,0 +1,16 @@
+#!$(INSTALL)/bin/$(ARCH)/ni3mod
+
+cd "$(INSTALL)"
+
+# Register all support components
+epicsEnvSet(EPICS_CA_MAX_ARRAY_BYTES,"10000000")
+dbLoadDatabase("dbd/ni3mod.dbd")
+ni3mod_registerRecordDeviceDriver(pdbbase)
+ADC_Ethercat_Sampler("NI0", 4, "Slot1-9215.IN1.4")
+ecAsynInit("/tmp/socket", 1000000)
+
+# Load record instances
+dbLoadRecords("db/ni3wave.db")
+
+iocInit()
+

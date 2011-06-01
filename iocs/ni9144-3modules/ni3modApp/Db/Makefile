@@ -15,6 +15,8 @@ include $(TOP)/configure/CONFIG
 #DB += basic_motor.template
 DB += NI_9144.template
 DB += EL3201.template
+DB += ni3wave.db
+DB += ni9234.db
 
 #----------------------------------------------------
 # In a Diamond IOC Application, build db files from

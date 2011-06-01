@@ -19,6 +19,7 @@ $(VXWORKS_ONLY)ld < bin/$(ARCH)/ni3mod.munch
 ## Register all support components
 dbLoadDatabase("dbd/ni3mod.dbd")
 ni3mod_registerRecordDeviceDriver(pdbbase)
+ADC_Ethercat_Sampler("NI0", 4, "Slot1-9215.IN1.4")
 ecAsynInit("/tmp/socket", 1000000)
 
 ## Load record instances
