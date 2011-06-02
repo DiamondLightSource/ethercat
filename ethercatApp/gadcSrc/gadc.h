@@ -38,25 +38,11 @@ typedef epicsInt32 GADC_DATA_t;
 struct gadc_t;
 typedef struct gadc_t gadc_t;
 
+typedef asynStatus (*setter_epicsInt32)(gadc_t *, epicsInt32);
+
 struct gadc_t
 {
-    ELLNODE node;
 
-    /* parameters */
-    epicsInt32 _capture;
-    epicsInt32 _mode;
-    epicsInt32 _samples;
-    epicsInt32 _offset;
-    epicsInt32 _average;
-    epicsInt32 _chanBuff;
-    epicsInt32 _enabled;
-    epicsInt32 _retrigger;
-    epicsInt32 _overflow;
-    epicsInt32 _averageOverflow;
-    epicsInt32 _bufferCount;
-    epicsInt32 _state;
-    epicsInt32 _support;
-    
     /* private */
     char * name;
     asynPortDriver * parent;
@@ -68,15 +54,35 @@ struct gadc_t
     int P_First;
     int P_Last;
     int channel;
+    
+    /* Parameters */
+    int P_Capture;
+    int P_Mode;
+    int P_Samples;
+    int P_Offset;
+    int P_Average;
+    int P_Chanbuff;
+    int P_Trigger;
+    int P_Enabled;
+    int P_Retrigger;
+    int P_Clear;
+    int P_Overflow;
+    int P_Averageoverflow;
+    int P_Buffercount;
+    int P_State;
+    int P_Support;
+    int P_Info;
+    int P_Putsample;
+    int P_Value;
+    int P_Interrupt;
+    int P_Waveform;
+    setter_epicsInt32 * setters;
 };
 
 gadc_t * gadc_new(asynPortDriver * parent, int channel);
-asynStatus gadc_readInt32(gadc_t * adc, int reason, epicsInt32 * value);
 asynStatus gadc_writeInt32(gadc_t * adc, int reason, epicsInt32 value);
-asynStatus gadc_readInt32Array(gadc_t * adc, int reason, epicsInt32 * value, size_t nElements, size_t * nIn);
-int gadc_has_parameter(gadc_t * adc, int reason);
-int gadc_find_parameter(gadc_t * adc, char * name);
 const char * gadc_parameter_name(gadc_t * adc, int reason);
-asynStatus gadc_writeInt32_name(gadc_t * adc, char * name, epicsInt32 value);
+
 int gadc_get_num_parameters();
 asynStatus gadc_put_sample(gadc_t * adc, GADC_DATA_t sample);
+setter_epicsInt32 gadc_get_write_function(gadc_t * adc, int reason);

@@ -12,7 +12,7 @@ DBD += ecAsyn.dbd
 
 # IOC
 
-PROD_IOC = ethercat
+PROD_IOC += ethercat
 ethercat_DBD += base.dbd ecAsyn.dbd
 ethercat_SRCS += ethercat_registerRecordDeviceDriver.cpp
 

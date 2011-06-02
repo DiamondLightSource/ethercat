@@ -100,3 +100,10 @@ record(longin, "$(DEVICE):CF:ADC$(CHANNEL)_VALUE")
    field(INP,  "@asyn($(PORT))ADC$(CHANNEL)_VALUE")
    field(SCAN, "$(SCAN)")
 }
+
+record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_INTERRUPT")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_INTERRUPT")
+   field(SCAN, ".1 second")
+}

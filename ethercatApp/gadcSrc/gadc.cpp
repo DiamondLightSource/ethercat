@@ -12,6 +12,8 @@ TDI-CTRL-REQ-015
 #include <asynPortDriver.h>
 #include "gadc.h"
 
+static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
+                                          size_t nElements, size_t * nIn);
 static asynStatus gadc_set_enabled(gadc_t * adc, epicsInt32 enabled);
 
 static int _max(int a, int b)
@@ -24,14 +26,28 @@ static int _min(int a, int b)
     return a < b ? a : b;
 }
 
+epicsInt32 getIntegerParam(gadc_t * adc, int param)
+{
+    epicsInt32 value;
+    if(adc->parent->getIntegerParam(param, &value) != asynSuccess)
+    {
+        value = 0;
+    }
+    return value;
+}
+
+#define INT(name) getIntegerParam(adc, adc->name)
+
 static asynStatus gadc_resize(gadc_t * adc)
 {
     free(adc->buffer);
     adc->bsize = 0;
     adc->bofs = 0;
-    int size = _max(adc->_samples, -adc->_offset);
-    if(size > adc->_chanBuff)
+    int size = _max(INT(P_Samples), -INT(P_Offset));
+    printf("resize %d\n", size);
+    if(size > INT(P_Chanbuff))
     {
+        printf("can't resize %d %d\n", size, INT(P_Chanbuff));
         return asynError;
     }
     adc->buffer = (GADC_DATA_t *)calloc(size, sizeof(GADC_DATA_t));
@@ -45,56 +61,21 @@ static asynStatus gadc_resize(gadc_t * adc)
 
 /* parameters */
 
-static asynStatus gadc_set_capture(gadc_t * adc, epicsInt32 capture)
-{
-    adc->_capture = capture;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_capture(gadc_t * adc, epicsInt32 * capture)
-{
-    *capture = adc->_capture;
-    return asynSuccess;
-}
-
-static asynStatus gadc_set_mode(gadc_t * adc, epicsInt32 mode)
-{
-    adc->_mode = mode;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_mode(gadc_t * adc, epicsInt32 * mode)
-{
-    *mode = adc->_mode;
-    return asynSuccess;
-}
-
 static asynStatus gadc_set_samples(gadc_t * adc, epicsInt32 samples)
 {
     if(samples < 0)
     {
         return asynError;
     }
-    else if(adc->_samples != samples)
-    {
-        adc->_samples = samples;
-        return gadc_resize(adc);
-    }
     else
     {
-        return asynSuccess;
+        return gadc_resize(adc);
     }
-}
-
-static asynStatus gadc_get_samples(gadc_t * adc, epicsInt32 * samples)
-{
-    *samples = adc->_samples;
-    return asynSuccess;
 }
 
 static asynStatus gadc_set_offset(gadc_t * adc, epicsInt32 offset)
 {
-    if(adc->_offset != offset)
+    if(INT(P_Offset) != offset)
     {
         return gadc_resize(adc);
     }
@@ -104,55 +85,31 @@ static asynStatus gadc_set_offset(gadc_t * adc, epicsInt32 offset)
     }
 }
 
-static asynStatus gadc_get_offset(gadc_t * adc, epicsInt32 * offset)
-{
-    *offset = adc->_offset;
-    return asynSuccess;
-}
-
-static asynStatus gadc_set_average(gadc_t * adc, epicsInt32 average)
-{
-    adc->_average = average;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_average(gadc_t * adc, epicsInt32 * average)
-{
-    *average = adc->_average;
-    return asynSuccess;
-}
 
 static asynStatus gadc_set_chanBuff(gadc_t * adc, epicsInt32 chanBuff)
 {
-    adc->_chanBuff = chanBuff;
     return gadc_resize(adc);
-}
-
-static asynStatus gadc_get_chanBuff(gadc_t * adc, epicsInt32 * chanBuff)
-{
-    *chanBuff = adc->_chanBuff;
-    return asynSuccess;
 }
 
 static void gadc_state_transition(gadc_t * adc, int event)
 {
     if(event == GADC_EVENT_RESET)
     {
-        adc->_state = GADC_STATE_WAITING;
+        adc->parent->setIntegerParam(adc->P_State, GADC_STATE_WAITING);
         adc->readcount = 0;
         adc->samplecount = 0;
     }
-    else if(adc->_state == GADC_STATE_WAITING &&
-            adc->_enabled && 
+    else if(INT(P_State) == GADC_STATE_WAITING &&
+            INT(P_Enabled) && 
             (event == GADC_EVENT_TRIGGER))
     {
-        adc->_state = GADC_STATE_TRIGGERED;
+        adc->parent->setIntegerParam(adc->P_State, GADC_STATE_TRIGGERED);
     }
-    else if(adc->_state == GADC_STATE_TRIGGERED &&
+    else if(INT(P_State) == GADC_STATE_TRIGGERED &&
             (event == GADC_EVENT_DONE))
     {
         gadc_set_enabled(adc, 0);
-        adc->_state = GADC_STATE_DONE;
+        adc->parent->setIntegerParam(adc->P_State, GADC_STATE_DONE);
     }
 }
 
@@ -165,29 +122,10 @@ static asynStatus gadc_set_trigger(gadc_t * adc, epicsInt32 trigger)
 
 static asynStatus gadc_set_enabled(gadc_t * adc, epicsInt32 enabled)
 {
-    adc->_enabled = enabled;
     if(enabled)
     {
         gadc_state_transition(adc, GADC_EVENT_RESET);
     }
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_enabled(gadc_t * adc, epicsInt32 * enabled)
-{
-    *enabled = adc->_enabled;
-    return asynSuccess;
-}
-
-static asynStatus gadc_set_retrigger(gadc_t * adc, epicsInt32 retrigger)
-{
-    adc->_retrigger = retrigger;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_retrigger(gadc_t * adc, epicsInt32 * retrigger)
-{
-    *retrigger = adc->_retrigger;
     return asynSuccess;
 }
 
@@ -201,46 +139,11 @@ static asynStatus gadc_set_clear(gadc_t * adc, epicsInt32 clear)
     return asynSuccess;
 }
 
-static asynStatus gadc_get_overflow(gadc_t * adc, epicsInt32 * overflow)
-{
-    *overflow = adc->_overflow;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_averageOverflow(gadc_t * adc, epicsInt32 * averageOverflow)
-{
-    *averageOverflow = adc->_averageOverflow;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_bufferCount(gadc_t * adc, epicsInt32 * bufferCount)
-{
-    *bufferCount = adc->_bufferCount;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_state(gadc_t * adc, epicsInt32 * state)
-{
-    *state = adc->_state;
-    return asynSuccess;
-}
-
-static asynStatus gadc_get_support(gadc_t * adc, epicsInt32 * support)
-{
-    *support = GADC_BIT_TRIGGER | GADC_BIT_NEGATIVE_OFFSET;
-    return asynSuccess;
-}
-
-static asynStatus gadc_set_info(gadc_t * adc, epicsInt32 info)
+static asynStatus gadc_set_info(gadc_t * adc, epicsInt32 dummy)
 {
     printf("gadc delegate: %s\n", adc->name);
-    epicsInt32 state, support, mode, samples;
-    gadc_get_mode(adc, &mode);
-    gadc_get_samples(adc, &samples);
-    gadc_get_state(adc, &state);
-    gadc_get_support(adc, &support);
     printf("state %d support 0x%x mode %d samples %d\n",
-           state, support, mode, samples);
+           INT(P_State), INT(P_Support), INT(P_Mode), INT(P_Samples));
     printf("buffer size %d\n", adc->bsize);
     return asynSuccess;
 }
@@ -251,43 +154,54 @@ static void gadc_push_back(gadc_t * adc, GADC_DATA_t sample)
     adc->bofs = (adc->bofs + 1) % adc->bsize;
 }
 
+// for SCAN emulation
+asynStatus gadc_set_interrupt(gadc_t * adc, epicsInt32 dummy)
+{
+    epicsInt32 * value = (epicsInt32 *)calloc(adc->bsize, sizeof(epicsInt32));
+    size_t nIn;
+    gadc_get_waveform_value(adc, value, adc->bsize, &nIn);
+    adc->parent->doCallbacksInt32Array(value, adc->bsize, adc->P_Last, 0);
+    free(value);
+    return asynSuccess;
+}
+
 asynStatus gadc_put_sample(gadc_t * adc, GADC_DATA_t sample)
 {
     if(adc->bsize == 0)
     {
         return asynError;
     }
-    if(!adc->_capture)
+    if(!INT(P_Capture))
     {
         return asynSuccess;
     }
-    if(adc->_mode == GADC_MODE_CONTINUOUS)
+    if(INT(P_Mode) == GADC_MODE_CONTINUOUS)
     {
         gadc_push_back(adc, sample);
         adc->samplecount++;
-        if(adc->samplecount == adc->_samples)
+        if(adc->samplecount == INT(P_Samples))
         {
             adc->samplecount = 0;
-            // I/O INTERRUPT
-            printf("I/O interrupt\n");
+            gadc_set_interrupt(adc, 1);
         }
     }
-    else if(adc->_mode == GADC_MODE_TRIGGERED)
+    else if(INT(P_Mode) == GADC_MODE_TRIGGERED)
     {
-        if(adc->_state == GADC_STATE_WAITING)
+        if(INT(P_State) == GADC_STATE_WAITING)
         {
             gadc_push_back(adc, sample);
         }
-        else if(adc->_state == GADC_STATE_TRIGGERED)
+        else if(INT(P_State) == GADC_STATE_TRIGGERED)
         {
             gadc_push_back(adc, sample);
             adc->samplecount++;
-            if(adc->samplecount >= adc->_samples + adc->_offset)
+            if(adc->samplecount >= INT(P_Samples) + INT(P_Offset))
             {
                 gadc_state_transition(adc, GADC_EVENT_DONE);
+                gadc_set_interrupt(adc, 1);
             }
         }
-        else if(adc->_state == GADC_STATE_DONE)
+        else if(INT(P_State) == GADC_STATE_DONE)
         {
             // discard sample, wait for enable
         }
@@ -296,6 +210,7 @@ asynStatus gadc_put_sample(gadc_t * adc, GADC_DATA_t sample)
     {
         return asynError;
     }
+    adc->parent->callParamCallbacks();
     return asynSuccess;
 }
 
@@ -306,7 +221,7 @@ static asynStatus gadc_get_value(gadc_t * adc, GADC_DATA_t * value)
         return asynError;
     }
     double sum = 0;
-    int size = _max(_min(adc->_samples, adc->_average), 1);
+    int size = _max(_min(INT(P_Samples), INT(P_Average)), 1);
     int ofs = adc->bofs;
     int n;
     for(n = 0; n < size; n++)
@@ -340,9 +255,9 @@ static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
     {
         return asynError;
     }
-    if(adc->_mode == GADC_MODE_CONTINUOUS)
+    if(INT(P_Mode) == GADC_MODE_CONTINUOUS)
     {
-        *nIn = _min(nElements, adc->_samples);
+        *nIn = _min(nElements, INT(P_Samples));
         int ofs = posmod(adc->bofs - *nIn, adc->bsize);
         int n;
         for(n = 0; n < (int)*nIn; n++)
@@ -355,12 +270,12 @@ static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
             }
         }
     }
-    else if(adc->_mode == GADC_MODE_TRIGGERED || adc->_mode == GADC_MODE_GATED)
+    else if(INT(P_Mode) == GADC_MODE_TRIGGERED || INT(P_Mode) == GADC_MODE_GATED)
     {
-        if(adc->_state == GADC_STATE_DONE)
+        if(INT(P_State) == GADC_STATE_DONE)
         {
-            *nIn = _min(nElements, adc->_samples - adc->readcount);
-            int ofs = posmod(adc->bofs - adc->_samples + adc->readcount, adc->bsize);
+            *nIn = _min(nElements, INT(P_Samples) - adc->readcount);
+            int ofs = posmod(adc->bofs - INT(P_Samples) + adc->readcount, adc->bsize);
             int n;
             for(n = 0; n < (int)*nIn; n++)
             {
@@ -372,7 +287,7 @@ static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
                 }
             }
             adc->readcount += *nIn;
-            if(adc->readcount == adc->_samples && adc->_retrigger)
+            if(adc->readcount == INT(P_Samples) && INT(P_Retrigger))
             {
                 gadc_set_enabled(adc, 1);
             }
@@ -380,7 +295,7 @@ static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
         else
         {
             /* return the intermediate result */
-            *nIn = _min(nElements, adc->_samples);
+            *nIn = _min(nElements, INT(P_Samples));
             int ofs = posmod(adc->bofs - *nIn, adc->bsize);
             int n;
             for(n = 0; n < (int)*nIn; n++)
@@ -397,39 +312,28 @@ static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
     return asynSuccess;
 }
 
-typedef asynStatus (*getter_int32_array_t)(gadc_t *, int *, size_t nElements, size_t * nIn);
-typedef asynStatus (*getter_epicsInt32)(gadc_t *, epicsInt32 *);
-typedef asynStatus (*setter_epicsInt32)(gadc_t *, epicsInt32);
-
-typedef struct
+static const char * gadc_command_names [] = 
 {
-    const char * name;
-    setter_epicsInt32 set;
-    getter_epicsInt32 get;
-    getter_int32_array_t getWave;
-} command_t;
-
-command_t gadc_commands[] =
-{
-    {"CAPTURE", gadc_set_capture, gadc_get_capture},
-    {"MODE", gadc_set_mode, gadc_get_mode},
-    {"SAMPLES", gadc_set_samples, gadc_get_samples},
-    {"OFFSET", gadc_set_offset, gadc_get_offset},
-    {"AVERAGE", gadc_set_average, gadc_get_average},
-    {"CHANBUFF", gadc_set_chanBuff, gadc_get_chanBuff},
-    {"TRIGGER", gadc_set_trigger, NULL},
-    {"ENABLED", gadc_set_enabled, gadc_get_enabled},
-    {"RETRIGGER", gadc_set_retrigger, gadc_get_retrigger},
-    {"CLEAR", gadc_set_clear, NULL},
-    {"OVERFLOW", NULL, gadc_get_overflow},
-    {"AVERAGEOVERFLOW", NULL, gadc_get_averageOverflow},
-    {"BUFFERCOUNT", NULL, gadc_get_bufferCount},
-    {"STATE", NULL, gadc_get_state},
-    {"SUPPORT", NULL, gadc_get_support},
-    {"INFO", gadc_set_info, NULL},
-    {"PUTSAMPLE", gadc_put_sample, NULL},
-    {"VALUE", NULL, gadc_get_value},
-    {"WAVEFORM", NULL, NULL, gadc_get_waveform_value}
+    "CAPTURE", 
+    "MODE", 
+    "SAMPLES",
+    "OFFSET",
+    "AVERAGE",
+    "CHANBUFF",
+    "TRIGGER",
+    "ENABLED",
+    "RETRIGGER",
+    "CLEAR",
+    "OVERFLOW",
+    "AVERAGEOVERFLOW",
+    "BUFFERCOUNT",
+    "STATE",
+    "SUPPORT",
+    "INFO",
+    "PUTSAMPLE",
+    "VALUE",
+    "INTERRUPT",
+    "WAVEFORM"
 };
 
 static char * format(const char *fmt, ...)
@@ -443,25 +347,46 @@ static char * format(const char *fmt, ...)
     return buffer;
 }
 
-static int gadc_connect_parameters(gadc_t * adc)
-{
-    adc->P_First = -1;
-    adc->P_Last = -1;
-    int size = sizeof(gadc_commands) / sizeof(gadc_commands[0]);
-    for(int n = 0; n < size; n++)
-    {
-        int P_Next;
-        char * name = format("ADC%d_%s", adc->channel, gadc_commands[n].name);
-        adc->parent->createParam(name, asynParamInt32, &P_Next);
-        if(adc->P_First == -1)
-        {
-            adc->P_First = P_Next;
-        }
-        assert(adc->P_Last == -1 || P_Next == adc->P_Last + 1);
-        adc->P_Last = P_Next;
-        printf("%s -> %d\n", name, P_Next);
+#define createParamN(name, param, type, setter) \
+    { \
+        char * pn = format("ADC%d_%s", adc->channel, name); \
+        assert(adc->parent->createParam(pn, type, &adc->param) == asynSuccess); \
+        adc->setters[adc->param] = setter; \
+        printf("made new param %s\n", pn); \
     }
-    return 0;
+
+static void gadc_make_parameters(gadc_t * adc)
+{
+    // FIXME make this generic to the parameter system
+    // need asynPortDriver subclass with overrides (classes or pointers?)
+    adc->setters = (setter_epicsInt32 *)calloc(1000, sizeof(setter_epicsInt32));
+    // create parameters with callbacks
+    createParamN("CAPTURE", P_Capture, asynParamInt32, NULL);
+    adc->P_First = adc->P_Capture;
+    createParamN("MODE", P_Mode, asynParamInt32, NULL);
+    createParamN("SAMPLES", P_Samples, asynParamInt32, gadc_set_samples);
+    createParamN("OFFSET", P_Offset, asynParamInt32, gadc_set_offset);
+    createParamN("AVERAGE", P_Average, asynParamInt32, NULL);
+    createParamN("CHANBUFF", P_Chanbuff, asynParamInt32, gadc_set_chanBuff);
+    createParamN("TRIGGER", P_Trigger, asynParamInt32, gadc_set_trigger);
+    createParamN("ENABLED", P_Enabled, asynParamInt32, gadc_set_enabled);
+    createParamN("RETRIGGER", P_Retrigger, asynParamInt32, NULL);
+    createParamN("CLEAR", P_Clear, asynParamInt32, gadc_set_clear);
+    createParamN("OVERFLOW", P_Overflow, asynParamInt32, NULL);
+    createParamN("AVERAGEOVERFLOW", P_Averageoverflow, asynParamInt32, NULL);
+    createParamN("BUFFERCOUNT", P_Buffercount, asynParamInt32, NULL);
+    createParamN("STATE", P_State, asynParamInt32, NULL);
+    createParamN("SUPPORT", P_Support, asynParamInt32, NULL);
+    createParamN("INFO", P_Info, asynParamInt32, gadc_set_info);
+    createParamN("PUTSAMPLE", P_Putsample, asynParamInt32, gadc_put_sample);
+    createParamN("VALUE", P_Value, asynParamInt32, NULL);
+    createParamN("INTERRUPT", P_Interrupt, asynParamInt32, gadc_set_interrupt);
+    createParamN("WAVEFORM", P_Waveform, asynParamInt32Array, NULL);
+    adc->P_Last = adc->P_Waveform;
+
+    adc->parent->setIntegerParam(adc->P_Support, GADC_BIT_TRIGGER | GADC_BIT_NEGATIVE_OFFSET);
+    adc->parent->setIntegerParam(adc->P_State, GADC_STATE_WAITING);
+    
 }
 
 /* public */
@@ -472,77 +397,37 @@ gadc_t * gadc_new(asynPortDriver * parent, int channel)
     adc->name = format("ADC%d", channel);
     adc->channel = channel;
     adc->parent = parent;
-    gadc_connect_parameters(adc);
+    gadc_make_parameters(adc);
     return adc;
 }
 
 int gadc_get_num_parameters()
 {
-    return sizeof(gadc_commands) / sizeof(gadc_commands[0]);
+    return sizeof(gadc_command_names) / sizeof(gadc_command_names[0]);
 }
 
-asynStatus gadc_writeInt32(gadc_t * adc, int reason, epicsInt32 value)
+setter_epicsInt32 gadc_get_write_function(gadc_t * adc, int reason)
 {
-    assert(gadc_has_parameter(adc, reason));
-    int cmd = reason - adc->P_First;
-    if(gadc_commands[cmd].set != NULL)
-    {
-        printf("gadc write %s %d\n", gadc_commands[cmd].name, value);
-        return gadc_commands[cmd].set(adc, value);
-    }
-    return asynError;
-}
-
-asynStatus gadc_readInt32(gadc_t * adc, int reason, epicsInt32 * value)
-{
-    assert(gadc_has_parameter(adc, reason));
-    int cmd = reason - adc->P_First;
-    if(gadc_commands[cmd].get != NULL)
-    {
-        return gadc_commands[cmd].get(adc, value);
-    }
-    return asynError;
-}
-
-asynStatus gadc_readInt32Array(gadc_t * adc, int reason, epicsInt32 * value, size_t nElements, size_t * nIn)
-{
-    assert(gadc_has_parameter(adc, reason));
-    int cmd = reason - adc->P_First;
-    if(gadc_commands[cmd].getWave != NULL)
-    {
-        return gadc_commands[cmd].getWave(adc, value, nElements, nIn);
-    }
-    return asynError;
-}
-
-
-int gadc_has_parameter(gadc_t * adc, int reason)
-{
-    return reason >= adc->P_First && reason <= adc->P_Last;
-}
-
-int gadc_find_parameter(gadc_t * adc, char * name)
-{
-    int size = sizeof(gadc_commands) / sizeof(gadc_commands[0]);
-    for(int n = 0; n < size; n++)
-    {
-        if(strcmp(gadc_commands[n].name, name) == 0)
-        {
-            return n + adc->P_First;
-        }
-    }
-    return -1;
+    return adc->setters[reason];
 }
 
 const char * gadc_parameter_name(gadc_t * adc, int reason)
 {
-    assert(gadc_has_parameter(adc, reason));
     int cmd = reason - adc->P_First;
-    return gadc_commands[cmd].name;
+    return gadc_command_names[cmd];
 }
 
-asynStatus gadc_writeInt32_name(gadc_t * adc, char * name, epicsInt32 value)
+asynStatus gadc_writeInt32(gadc_t * adc, int reason, epicsInt32 value)
 {
-    int reason = gadc_find_parameter(adc, name);
-    return gadc_writeInt32(adc, reason, value);
+    if(adc->setters[reason] != NULL)
+    {
+        if(reason != adc->P_Interrupt)
+        {
+            printf("ADC write param %s -> %d\n", gadc_parameter_name(adc, reason), value);
+        }
+        asynStatus status = adc->setters[reason](adc, value);
+        adc->parent->callParamCallbacks();
+        return status;
+    }
+    return asynError;
 }
