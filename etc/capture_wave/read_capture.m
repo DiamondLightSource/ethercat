@@ -31,11 +31,11 @@ capture.elem_size = fread(file, 1, 'int32');
 type = 'int32';
 switch capture.elem_size
     case 2
-        type = 'uint16';
+        type = 'int16';
     case 4
-        type = 'uint32';
+        type = 'int32';
     case 1
-        type = 'uint8';
+        type = 'int8';
     otherwise
         disp(sprintf('unexpected element size %d',capture.elem_size));
         return
