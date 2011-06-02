@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <time.h>
 
 #include "cadef.h"
 
@@ -24,22 +25,31 @@ typedef struct pv pv;
     assert( fwrite(element, size, 1, f) == 1)
 void dumpToFile(pv *data, char *output_file)
 {
-    char *title = "DATA DUMP FILE";
-    char *tail = "END DATA DUMP FILE";
+    char *head = "DATA DUMP FILE v1.0";
+    char *tail = "END DATA DUMP FILE v1.0";
+    time_t now = time(NULL);
+
     int len;
     int elem_size;
     FILE *f;
+    char * now_str = asctime(localtime(&now));
 
     assert(data);
     elem_size = dbr_size_n(data->dbrType,1);
     f = fopen(output_file, "w");
     assert(f);
-    len = strlen(title);
+    len = strlen(head);
     COPY(&len, sizeof(int) );
-    COPY(title, len);
+    COPY(head, strlen(head) );
+
+    len = strlen(now_str);
+    COPY(&len, sizeof(int) );
+    COPY(now_str, strlen(now_str) );
+    
     len = strlen(data->name);
     COPY(&len, sizeof(int) );
-    COPY(data->name, len );
+    COPY(data->name, strlen(data->name) );
+
     COPY(&data->dbfType, sizeof(long) );
     COPY(&data->dbrType, sizeof(long) );
     COPY(&data->nElems, sizeof(unsigned long) );
@@ -67,10 +77,6 @@ int main(int argc,char **argv)
         exit(2);
     }
 
-    /*
-    wave.name = "RJQ35657-ECAT-02:ADC4_WAVEFORM";
-    nelm.name = "RJQ35657-ECAT-02:ADC4_WAVEFORM.NELM";
-    */
     assert( asprintf( &wave.name, "%s", argv[1]) > 0 );
     assert( asprintf( &nelm.name, "%s.NELM", argv[1]) > 0 );
 

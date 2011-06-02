@@ -12,8 +12,8 @@ function capture = read_capture(fname)
 capture.data = [];
 capture.fname = fname;
 file = fopen(fname,'r');
-checks.header = 'DATA DUMP FILE';
-checks.tail = 'END DATA DUMP FILE';
+checks.header = 'DATA DUMP FILE v1.0';
+checks.tail = 'END DATA DUMP FILE v1.0';
 header = read_str(file);
 if (strcmp(header,checks.header))
     disp('header okay');
@@ -22,6 +22,7 @@ else
     fclose(file);
     return
 end
+capture.datetime = read_str(file);
 capture.pvname = read_str(file);
 capture.dbfType = fread(file, 1, 'int32');
 capture.dbrType = fread(file, 1, 'int32');
