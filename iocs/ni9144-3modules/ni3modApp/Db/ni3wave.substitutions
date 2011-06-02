@@ -10,5 +10,5 @@ file NI944.template
 file gadc.template
 {
 pattern {DEVICE, PORT, SCAN, SAMPLES, CHANNEL}
-{RJQ35657-ECAT-02, NI0, ".1 second", 1000000, 4}
+{RJQ35657-ECAT-02, NI0, ".1 second", 10000000, 4}
 }
