@@ -20,11 +20,10 @@
 #include "gadc.h"
 #include "ecAsyn.h"
 
-template <typename T> T * CastNode(ELLNODE * node)
+template <typename T> T * node_cast(ELLNODE * node)
 {
-    // check the cast from ELLNODE* to ListNode<T>*
-    assert(offsetof(ListNode<T>, node) == 0);
     // static_cast understands the object layout
+    // even in the presence of VTABLE etc.
     return static_cast<T *>((ListNode<T> *)node);
 }
 
@@ -117,32 +116,22 @@ static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * n
     return NULL;
 }
 
-class Sampler : public ListNode<Sampler>, public ProcessDataObserver
+class Sampler : public ProcessDataObserver
 {
 protected:
     ecAsyn * parent;
     EC_PDO_ENTRY_MAPPING * sample;
+    WaveformPort * wave;
 public:
-    gadc_t * adc;
     Sampler(ecAsyn * parent, int channel, 
-               EC_PDO_ENTRY_MAPPING * sample) : 
-        parent(parent), sample(sample),
-        adc(gadc_new(parent, channel)) 
-        {
-            for(int n = adc->P_First; n <= adc->P_Last; n++)
-            {
-                printf("reason %d write func %p\n", n, gadc_get_write_function(adc, n));
-                if(gadc_get_write_function(adc, n) != NULL)
-                {
-                    parent->write_delegates[n] = new GADCWriteObserver(adc);
-                }
-            }
-        }
+            EC_PDO_ENTRY_MAPPING * sample) : 
+        parent(parent), sample(sample), 
+        wave(new WaveformPort(format("%s_ADC%d", parent->portName, channel))) {}
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
         {
-            parent->lock();
-            gadc_put_sample(adc, cast_int32(sample, pdo->buffer, 0));
-            parent->unlock();
+            wave->lock();
+            wave->setPutsample(cast_int32(sample, pdo->buffer, 0));
+            wave->unlock();
         }
     virtual ~Sampler() {}
 };
@@ -151,16 +140,15 @@ class Oversampler : public Sampler
 {
     EC_PDO_ENTRY_MAPPING * cycle;
     int lastCycle;
+    XFCPort * xfc;
     int missed;
     int P_Missed;
+
 public:
     Oversampler(ecAsyn * parent, int channel, 
                EC_PDO_ENTRY_MAPPING * sample, EC_PDO_ENTRY_MAPPING * cycle) : 
-        Sampler(parent, channel, sample), cycle(cycle), lastCycle(0), missed(0) 
-        {
-            parent->createParam(format("XFC%d_MISSED", channel),
-                                asynParamInt32, &P_Missed);
-        }
+        Sampler(parent, channel, sample), cycle(cycle), lastCycle(0), 
+        xfc(new XFCPort(format("%s_XFC%d_MISSED", parent->portName, channel))) {}
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
         {
             int stride = parent->device->oversampling_rate;
@@ -170,18 +158,20 @@ public:
                 // skip duplicates
                 return;
             }
-            parent->lock();
             if((lastCycle + 1) % 65536 != cyc)
             {
-                parent->setIntegerParam(P_Missed, missed++ & INT32_MAX);
+                xfc->lock();
+                xfc->incMissed();
+                xfc->unlock();
             }
             lastCycle = cyc;
             int16_t * samples = (int16_t *)(pdo->buffer + sample->offset);
+            wave->lock();
             for(int s = 0; s < stride; s++)
             {
-                gadc_put_sample(adc, samples[s]);
+                wave->setPutsample(samples[s]);
             }
-            parent->unlock();
+            wave->unlock();
         }
 };
 
@@ -218,29 +208,23 @@ ecMaster::ecMaster(char * name) :
     createParam("WcState", asynParamInt32, &P_WcState);
 }
 
-ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid) :
+ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
-                   pdos + N_RESERVED_PARAMS + gadc_get_num_parameters() * 8, /* max parameters */
+                   NUM_SLAVE_PARAMS + pdos, /* max parameters */
                    asynInt32Mask | asynInt32ArrayMask | asynDrvUserMask, /* interface mask*/
                    asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
                    0, /* non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
                    0) /* default stack size */,
-    pdos(pdos), devid(devid), writeq(writeq), 
-    write_delegates(new WriteObserver * [pdos + N_RESERVED_PARAMS + gadc_get_num_parameters() * 8]),
+    pdos(pdos), 
+    devid(devid), 
+    writeq(usr->writeq), 
+    mappings(new EC_PDO_ENTRY_MAPPING * [pdos]),
     device(device)
-    
 {
-    ellInit(&samplers);
-    ellInit(&pdo_delegates);
-
-    printf("ecAsyn INIT %s PDOS %d\n", device->name, pdos);
-    int * PdoParam = new int[pdos]; /* leak */
-    int n = 0;
-    
-    printf("device type %s\n", device->type_name);
+    printf("ecAsyn INIT type %s name %s PDOS %d\n", device->type_name, device->name, pdos);
 
     for(ELLNODE * node = ellFirst(&sampler_configs); node; node = ellNext(node))
     {
@@ -266,20 +250,27 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid)
             }
             if(s != NULL)
             {
-                ellAdd(&samplers, &s->ListNode<Sampler>::node);
-                ellAdd(&pdo_delegates, &s->ListNode<ProcessDataObserver>::node);
+                ellAdd(&usr->ports, &s->node);
             }
         }
     }
     
+    int n = 0;
+    P_First_PDO = -1;
     for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * name = makeParamName(mapping);
         printf("createParam %s\n", name);
-        createParam(name, asynParamInt32, PdoParam + n);
-        mapping->pdo_entry->parameter = PdoParam[n];
-        write_delegates[PdoParam[n]] = new ProcessDataWriteObserver(writeq, mapping);
+        int param;
+        assert(createParam(name, asynParamInt32, &param) == asynSuccess);
+        if(P_First_PDO == -1)
+        {
+            P_First_PDO = param;
+        }
+        P_Last_PDO = param;
+        mapping->pdo_entry->parameter = param;
+        mappings[n] = mapping;
         n++;
     }
 
@@ -320,30 +311,10 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     setIntegerParam(P_ERROR_FLAG, error_flag);
     setIntegerParam(P_DISABLE, disable);
 
-    for(ELLNODE * node = ellFirst(&pdo_delegates); node; node = ellNext(node))
-    {
-        CastNode<ProcessDataObserver>(node)->on_pdo_message(pdo, size);
-    }
-
     for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         int32_t val = cast_int32(mapping, pdo->buffer, 0);
-#if 0
-        if(disable != lastDisable)
-        {
-            // need this to trigger an I/O interrupt
-            // yes this is nasty, this is so that SDIS is activated
-            // until ASYN can return alarms through I/O interrupt
-            // see tech-talk 11 May 2011
-            setIntegerParam(mapping->pdo_entry->parameter, 0);
-            setIntegerParam(mapping->pdo_entry->parameter, 1);
-        }
-        else
-        {
-            setIntegerParam(mapping->pdo_entry->parameter, val);
-        }
-#endif
         // can't make SDIS work with I/O intr (some values get lost)
         // so using this for now
         if(disable)
@@ -362,9 +333,22 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
     asynStatus status = asynPortDriver::writeInt32(pasynUser, value);
-    if(write_delegates[pasynUser->reason])
+    int cmd = pasynUser->reason;
+    printf("writing %d -> %d, first %d last %d\n", cmd, value, P_First_PDO, P_Last_PDO);
+    if(cmd >= P_First_PDO && cmd <= P_Last_PDO)
     {
-        return write_delegates[pasynUser->reason]->writeInt32(pasynUser, value);
+        int pdo = cmd - P_First_PDO;
+        assert(pdo >= 0 && pdo < pdos);
+        EC_PDO_ENTRY_MAPPING * mapping = mappings[pdo];
+        printf("pdo %d mapping %p\n", pdo, mapping);
+        WRITE_MESSAGE write;
+        write.tag = MSG_WRITE;
+        write.offset = mapping->offset;
+        write.bit_position = mapping->bit_position;
+        write.bits = mapping->pdo_entry->bits;
+        write.value = value;
+        rtMessageQueueSend(writeq, &write, sizeof(WRITE_MESSAGE));
+        return asynSuccess;
     }
     return status;
 }
@@ -416,7 +400,7 @@ static void readConfig(ENGINE_USER * usr)
         {
             pdos++;
         }
-        ecAsyn * port = new ecAsyn(device, pdos, usr->writeq, ndev);
+        ecAsyn * port = new ecAsyn(device, pdos, usr, ndev);
         ellAdd(&usr->ports, &port->node);
         ndev++;
     }
@@ -456,7 +440,7 @@ int pdo_data(ENGINE_USER * usr, char * buffer, int size)
     assert(msg->tag == MSG_PDO);
     for(ELLNODE * node = ellFirst(&usr->ports); node; node = ellNext(node))
     {
-        CastNode<ProcessDataObserver>(node)->on_pdo_message(&msg->pdo, size);
+        node_cast<ProcessDataObserver>(node)->on_pdo_message(&msg->pdo, size);
     }
     return 0;
 }
@@ -475,7 +459,7 @@ static int ioc_receive(ENGINE * server)
     return size;
 }
 
-void makePorts(char * path, int max_message)
+static void makePorts(char * path, int max_message)
 {
     ENGINE_USER * usr = (ENGINE_USER *)callocMustSucceed
         (1, sizeof(ENGINE_USER), "can't allocate socket engine private data");

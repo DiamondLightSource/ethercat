@@ -1,88 +1,70 @@
 # CAN'T use pini on asyn output records to set a default value
 # because they read the initial value from the device first
-record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF_INIT")
-{
-   field(OUT,  "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF")
-   field(FLNK, "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF")
-   field(DOL,  "10000000")
-   field(PINI, "YES")
-}
-
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_CHANBUFF")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_CHANBUFF")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))CHANBUFF")
+   field(DOL,  "10000000")
+   field(PINI, "YES")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_INFO")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_INFO")
-   field(PINI, "YES")
-}
-
-record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES_INIT")
-{
-   field(OUT,  "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES")
-   field(FLNK, "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES")
-   field(DOL,  "$(SAMPLES)")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))INFO")
    field(PINI, "YES")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_SAMPLES")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_SAMPLES")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))SAMPLES")
+   field(DOL,  "$(SAMPLES)")
+   field(PINI, "YES")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_OFFSET")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_OFFSET")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))OFFSET")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_MODE")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_MODE")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))MODE")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_TRIGGER")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_TRIGGER")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))TRIGGER")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_ENABLED")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_ENABLED")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))ENABLED")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_OFFSET")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_OFFSET")
-}
-
-record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_CAPTURE_INIT")
-{
-   field(OUT,  "$(DEVICE):CF:ADC$(CHANNEL)_CAPTURE")
-   field(FLNK, "$(DEVICE):CF:ADC$(CHANNEL)_CAPTURE")
-   field(DOL,  "1")
-   field(PINI, "YES")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))OFFSET")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_CAPTURE")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_CAPTURE")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))CAPTURE")
+   field(DOL,  "1")
+   field(PINI, "YES")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_AVERAGE")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_AVERAGE")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))AVERAGE")
 }
 
 record(waveform, "$(DEVICE):ADC$(CHANNEL)_WAVEFORM")
@@ -91,19 +73,18 @@ record(waveform, "$(DEVICE):ADC$(CHANNEL)_WAVEFORM")
     field(NELM, "$(SAMPLES)")
     field(SCAN, "$(SCAN)")
     field(FTVL, "LONG")
-    field(INP,  "@asyn($(PORT))ADC$(CHANNEL)_WAVEFORM")
+    field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))WAVEFORM")
 }
 
 record(longin, "$(DEVICE):CF:ADC$(CHANNEL)_VALUE")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT))ADC$(CHANNEL)_VALUE")
+   field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))VALUE")
    field(SCAN, "$(SCAN)")
 }
 
 record(longout, "$(DEVICE):CF:ADC$(CHANNEL)_INTERRUPT")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT))ADC$(CHANNEL)_INTERRUPT")
-   field(SCAN, ".1 second")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))INTERRUPT")
 }

@@ -1,13 +1,8 @@
+struct ENGINE_USER;
+
 template <class T> struct ListNode
 {
     ELLNODE node;
-};
-
-class WriteObserver : public ListNode<WriteObserver>
-{
-public:
-    virtual asynStatus writeInt32(asynUser * pasynUser, epicsInt32 value) = 0;
-    virtual ~WriteObserver() {}
 };
 
 class ProcessDataObserver : public ListNode<ProcessDataObserver>
@@ -17,34 +12,35 @@ public:
     virtual ~ProcessDataObserver() {}
 };
 
-class GADCWriteObserver : public WriteObserver
+class XFCPort : public asynPortDriver
 {
-    gadc_t * adc;
+    int P_Missed;
 public:
-    GADCWriteObserver(gadc_t * adc) : adc(adc) {}
-    virtual asynStatus writeInt32(asynUser * pasynUser, epicsInt32 value)
+    void incMissed()
     {
-        return gadc_writeInt32(adc, pasynUser->reason, value);
+        epicsInt32 value;
+        getIntegerParam(P_Missed, &value);
+        value = value + 1;
+        if(value == INT32_MAX)
+        {
+            value = 0;
+        }
+        setIntegerParam(P_Missed, value);
+        callParamCallbacks();
     }
-};
-
-class ProcessDataWriteObserver : public WriteObserver
-{
-    rtMessageQueueId writeq;
-    EC_PDO_ENTRY_MAPPING * mapping;
-public:
-    ProcessDataWriteObserver(rtMessageQueueId writeq, EC_PDO_ENTRY_MAPPING * mapping) : 
-        writeq(writeq), mapping(mapping) {}
-    virtual asynStatus writeInt32(asynUser * pasynUser, epicsInt32 value)
+    XFCPort(const char * name) : asynPortDriver(
+        name,
+        1, /* maxAddr */
+        1, /* max parameters */
+        asynInt32Mask | asynDrvUserMask, /* interface mask*/
+        asynInt32Mask, /* interrupt mask */
+        0, /* non-blocking, no addresses */
+        1, /* autoconnect */
+        0, /* default priority */
+        0) /* default stack size */
     {
-        WRITE_MESSAGE write;
-        write.tag = MSG_WRITE;
-        write.offset = mapping->offset;
-        write.bit_position = mapping->bit_position;
-        write.bits = mapping->pdo_entry->bits;
-        write.value = value;
-        rtMessageQueueSend(writeq, &write, sizeof(WRITE_MESSAGE));
-        return asynSuccess;
+        createParam("MISSED", asynParamInt32, &P_Missed);
+        setIntegerParam(P_Missed, 0);
     }
 };
 
@@ -54,17 +50,21 @@ class ecAsyn : public asynPortDriver, public ProcessDataObserver
     int pdos;
     int devid;
     rtMessageQueueId writeq;
+    EC_PDO_ENTRY_MAPPING ** mappings;
     int P_AL_STATE;
+#define FIRST_SLAVE_COMMAND P_AL_STATE
     int P_ERROR_FLAG;
     int P_DISABLE;
-    ELLLIST samplers;
-    ELLLIST pdo_delegates;
+#define LAST_SLAVE_COMMAND P_DISABLE
+    int P_First_PDO;
+    int P_Last_PDO;
 public:
-    WriteObserver ** write_delegates;
-    ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid);
+    ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid);
     EC_DEVICE * device;
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);
 };
+
+#define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)
 
 class ecMaster : public asynPortDriver, public ProcessDataObserver
 {
