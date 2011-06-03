@@ -6,6 +6,7 @@ cd "$(INSTALL)"
 epicsEnvSet(EPICS_CA_MAX_ARRAY_BYTES,"20000000")
 dbLoadDatabase("dbd/ni3mod.dbd")
 ni3mod_registerRecordDeviceDriver(pdbbase)
+ADC_Ethercat_Sampler("NI0", 1, "Slot1-9215.IN1.1")
 ADC_Ethercat_Sampler("NI0", 4, "Slot1-9215.IN1.4")
 ecAsynInit("/tmp/socket", 1000000)
 

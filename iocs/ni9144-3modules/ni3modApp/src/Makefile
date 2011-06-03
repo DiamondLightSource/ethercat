@@ -7,6 +7,9 @@ include $(TOP)/configure/CONFIG
 # ------------------------
 
 PROD_IOC = ni3mod
+#PROD_HOST += timeTest
+
+#timeTest_SRCS += test.c
 
 # ni3mod.dbd will be installed into <top>/dbd
 DBD += ni3mod.dbd
