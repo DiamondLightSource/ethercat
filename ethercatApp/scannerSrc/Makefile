@@ -19,7 +19,9 @@ scannerlib_SRCS += parser.c classes.c unpack.c
 
 PROD += scanner
 scanner_SRCS += scanner.c
-
 scanner_LIBS += rtutils scannerlib
+
+PROD += slaveinfo
+slaveinfo_SRCS += slaveinfo.c
 
 include $(TOP)/configure/RULES
