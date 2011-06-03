@@ -41,6 +41,10 @@ can scan the bus and display slave information:
 
 /dls_sw/work/common/rt/ethercat/bin/ethercat slaves
 
+There is also a diagnostics tool called "slaveinfo" that is built into the bin directory
+of the ethercat support module. It generates a template chain.xml which includes device
+names and revision numbers (see below):
+
 3) Scanner
 
 The Etherlab device driver is responsible for configuring the devices on the bus
