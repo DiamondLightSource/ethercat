@@ -12,6 +12,13 @@ PREEMPT-RT RHEL5 built from RedHat SRPMS
 etherlab.org kernel driver provided by the RPM ec_master-1.5-1dkms
 $SVN_ROOT/diamond/trunk/targetOS/drivers/ethercat
 
+You will need a working build environment (autoconf, gcc and make) to install this RPM
+as it uses DKMS and compiles against your Kernel at install time (or reboot)
+
+Your network card will need an IP address otherwise the link will not come up.
+eg. /sbin/ifconfig eth1 192.168.0.1 
+It may be possible to make the link come up without assigning an IP address on some machines.
+
 This creates /dev/EtherCAT0 and the "ethercat" service:
 
 [jr76@pc0053 driver]$ ls -l /dev/EtherCAT0 
