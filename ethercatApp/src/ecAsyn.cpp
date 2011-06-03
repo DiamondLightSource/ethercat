@@ -148,7 +148,7 @@ public:
     Oversampler(ecAsyn * parent, int channel, 
                EC_PDO_ENTRY_MAPPING * sample, EC_PDO_ENTRY_MAPPING * cycle) : 
         Sampler(parent, channel, sample), cycle(cycle), lastCycle(0), 
-        xfc(new XFCPort(format("%s_XFC%d_MISSED", parent->portName, channel))) {}
+        xfc(new XFCPort(format("%s_XFC%d", parent->portName, channel))) {}
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
         {
             int stride = parent->device->oversampling_rate;
