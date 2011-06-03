@@ -12,6 +12,7 @@ typedef struct EC_PDO_ENTRY_MAPPING EC_PDO_ENTRY_MAPPING;
 typedef struct NODE NODE;
 typedef struct LIST LIST;
 
+#ifndef INCellLibh
 struct NODE
 {
     NODE * next;
@@ -23,6 +24,12 @@ struct LIST
     int count;
     NODE node;
 };
+#else
+/*
+#define NODE ELLNODE
+#define LIST ELLLIST
+*/
+#endif
 
 NODE * listFirst(LIST * list);
 int listAdd(LIST * list, NODE * node);

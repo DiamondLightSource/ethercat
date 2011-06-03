@@ -102,7 +102,7 @@ static char * makeParamName(EC_PDO_ENTRY_MAPPING * mapping)
 
 static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * name)
 {
-    for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
+    for(NODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * entry_name = makeParamName(mapping);
@@ -257,7 +257,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     
     int n = 0;
     P_First_PDO = -1;
-    for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
+    for(NODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * name = makeParamName(mapping);
@@ -311,7 +311,7 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     setIntegerParam(P_ERROR_FLAG, error_flag);
     setIntegerParam(P_DISABLE, disable);
 
-    for(NODE * node = listFirst(&device->pdo_entry_mappings); node; node = node->next)
+    for(NODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         int32_t val = cast_int32(mapping, pdo->buffer, 0);
@@ -366,12 +366,12 @@ int init_unpack(ENGINE_USER * usr, char * buffer, int size)
     parseEntriesFromBuffer(buffer + ofs, mapping_config_size, cfg);
 
     NODE * node;
-    for(node = listFirst(&cfg->devices); node; node = node->next)
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         printf("%s\n", device->name);
         NODE * node1;
-        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             if(strcmp(mapping->pdo_entry->name, mapping->pdo_entry->parent->name) == 0)
@@ -392,11 +392,11 @@ static void readConfig(ENGINE_USER * usr)
     EC_CONFIG * cfg = usr->config;
     NODE * node;
     int ndev = 0;
-    for(node = listFirst(&cfg->devices); node; node = node->next)
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         int pdos = 0;
-        for(NODE * node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        for(NODE * node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             pdos++;
         }
