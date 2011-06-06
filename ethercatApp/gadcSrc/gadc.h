@@ -64,6 +64,7 @@ class WaveformPort : public asynPortDriver
     int bsize;
     int channel;
     asynStatus resize();
+    void reset();
     epicsInt32 IP(int param)
     {
         epicsInt32 value;
@@ -80,14 +81,15 @@ class WaveformPort : public asynPortDriver
         bofs = (bofs + 1) % bsize;
         assert(bofs >= 0 && bofs < bsize);
     }
+    int calcStartOffset(int size);
 public:
     WaveformPort(const char * name);
     virtual asynStatus writeInt32(asynUser * pasynUser, epicsInt32 value);
-    virtual asynStatus readInt32Array(asynUser *pasynUser, epicsInt32 *value,
-                                      size_t nElements, size_t *nIn);
-
-    virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 *value);
+    /* does NOT support SCAN */
+    asynStatus getArrayValue(asynUser *pasynUser, epicsInt32 *value,
+                             size_t nElements, size_t *nIn);
     asynStatus getValue(asynUser * pasynUser, epicsInt32 * value);
+    asynStatus setMode(epicsInt32 value);
     asynStatus setSamples(epicsInt32 value);
     asynStatus setOffset(epicsInt32 value);
     asynStatus setChanbuff(epicsInt32 value);

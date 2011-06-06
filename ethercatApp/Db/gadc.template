@@ -125,6 +125,16 @@ record(bo, "$(DEVICE):ADC$(CHANNEL)_ENABLED")
    field(VAL,  "0")
 }
 
+record(bo, "$(DEVICE):ADC$(CHANNEL)_RETRIGGER")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))RETRIGGER")
+   field(ZNAM, "DISABLED")
+   field(ONAM, "ENABLED")
+   field(PINI, "YES")
+   field(VAL,  "1")
+}
+
 record(longout, "$(DEVICE):ADC$(CHANNEL)_INTERRUPT")
 {
    field(DTYP, "asynInt32")

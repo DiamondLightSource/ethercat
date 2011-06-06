@@ -42,7 +42,11 @@ asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
     }
     int cmd = pasynUser->reason;
     // printf("write param %d %d\n", cmd, value);
-    if(cmd == P_Samples)
+    if(cmd == P_Mode)
+    {
+        return setMode(value);
+    }
+    else if(cmd == P_Samples)
     {
         return setSamples(value);
     }
@@ -81,12 +85,27 @@ asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
     return asynSuccess;
 }
 
+asynStatus WaveformPort::setMode(epicsInt32 value)
+{
+    reset();
+    callParamCallbacks();
+    return asynSuccess;
+}
+
+void WaveformPort::reset()
+{
+    setIntegerParam(P_Buffercount, 0);
+    setIntegerParam(P_State, GADC_STATE_WAITING);
+    callParamCallbacks();
+}
+
 asynStatus WaveformPort::resize()
 {
     free(buffer);
     free(outbuffer);
     bsize = 0;
     bofs = 0;
+    reset();
     int size = _max(IP(P_Samples), -IP(P_Offset));
     printf("resize %d\n", size);
     if(size > IP(P_Chanbuff))
@@ -142,9 +161,12 @@ asynStatus WaveformPort::setEnabled(epicsInt32 enabled)
 {
     if(enabled)
     {
-        setIntegerParam(P_Buffercount, 0);
         setIntegerParam(P_Enabled, 1);
-        setIntegerParam(P_State, GADC_STATE_WAITING);
+        reset();
+    }
+    else
+    {
+        setIntegerParam(P_Enabled, 0);
     }
     callParamCallbacks();
     return asynSuccess;
@@ -152,11 +174,12 @@ asynStatus WaveformPort::setEnabled(epicsInt32 enabled)
 
 asynStatus WaveformPort::setClear(epicsInt32 clear)
 {
-    /* value is ignored */
-    if(bsize != 0)
+    if(buffer != NULL)
     {
         memset(buffer, 0, bsize * sizeof(epicsInt32));
     }
+    reset();
+    callParamCallbacks();
     return asynSuccess;
 }
 
@@ -178,22 +201,34 @@ asynStatus WaveformPort::setInterrupt(epicsInt32 dummy)
     {
         setIntegerParam(P_Value, value);
     }
-    readInt32Array(pasynUserSelf, outbuffer, bsize, &nIn);
-    doCallbacksInt32Array(outbuffer, bsize, P_Waveform, 0);
+    getArrayValue(pasynUserSelf, outbuffer, bsize, &nIn);
+    doCallbacksInt32Array(outbuffer, nIn, P_Waveform, 0);
     callParamCallbacks();
     return asynSuccess;
 }
 
 asynStatus WaveformPort::setTrigger(epicsInt32 dummy)
 {
-    printf("triggered\n");
     if(IP(P_Enabled))
     {
-        setIntegerParam(P_Buffercount, IP(P_Offset));
+        setIntegerParam(P_Buffercount, -IP(P_Offset));
         setIntegerParam(P_State, GADC_STATE_TRIGGERED);
+        setEnabled(0);
     }
     callParamCallbacks();
     return asynSuccess;
+}
+
+int WaveformPort::calcStartOffset(int size)
+{
+    if(IP(P_Mode) == GADC_MODE_TRIGGERED)
+    {
+        return posmod(bofs - _max(-IP(P_Offset), size), bsize);
+    }
+    else
+    {
+        return posmod(bofs - size, bsize);
+    }
 }
 
 asynStatus WaveformPort::setPutsample(epicsInt32 sample)
@@ -206,56 +241,33 @@ asynStatus WaveformPort::setPutsample(epicsInt32 sample)
     {
         return asynSuccess;
     }
-    if(IP(P_Mode) == GADC_MODE_CONTINUOUS)
+    push_back(sample);
+    if((IP(P_Mode) == GADC_MODE_CONTINUOUS) || 
+       (IP(P_Mode) == GADC_MODE_TRIGGERED && IP(P_State) == GADC_STATE_TRIGGERED))
     {
-        push_back(sample);
         setIntegerParam(P_Buffercount, IP(P_Buffercount) + 1);
-        if(IP(P_Buffercount) == IP(P_Samples))
-        {
-            setIntegerParam(P_Buffercount, 0);
-            setInterrupt(1);
-        }
     }
-    else if(IP(P_State) == GADC_STATE_TRIGGERED)
+    if(IP(P_Buffercount) >= IP(P_Samples))
     {
-        if(IP(P_Buffercount) < IP(P_Samples))
-        {
-            push_back(sample);
-            setIntegerParam(P_Buffercount, IP(P_Buffercount) + 1);
-        }
-        else
-        {
-            setInterrupt(1);
-        }
+        setInterrupt(1);
+        setIntegerParam(P_Buffercount, 0);
     }
     callParamCallbacks();
     return asynSuccess;
 }
 
-asynStatus WaveformPort::readInt32(asynUser *pasynUser, epicsInt32 *value)
-{
-    if(pasynUser->reason == P_Value)
-    {
-        return getValue(pasynUser, value);
-    }
-    else
-    {
-        return asynPortDriver::readInt32(pasynUser, value);
-    }
-}
-
-asynStatus WaveformPort::readInt32Array(
+asynStatus WaveformPort::getArrayValue(
     asynUser * pasynUser, epicsInt32 * value, size_t nElements, size_t * nIn)
 {
     if(bsize == 0)
     {
         return asynError;
     }
-    // read most recent data
-    *nIn = _min(nElements, IP(P_Samples));
-    int ofs = posmod(bofs - *nIn, bsize);
+    int size = _min(nElements, IP(P_Samples));
+    *nIn = size;
+    int ofs = calcStartOffset(size);
     int n;
-    for(n = 0; n < (int)*nIn; n++)
+    for(n = 0; n < size; n++)
     {
         value[n] = buffer[ofs];
         ofs++;
@@ -287,18 +299,26 @@ asynStatus WaveformPort::getValue(asynUser * pasynUser, epicsInt32 * value)
     }
     double sum = 0;
     int size = _max(_min(IP(P_Samples), IP(P_Average)), 1);
-    int ofs = bofs;
+    int ofs = calcStartOffset(size);
     int n;
     for(n = 0; n < size; n++)
     {
-        ofs--;
-        if(ofs < 0)
-        {
-            ofs += bsize;
-        }
         sum += buffer[ofs];
+        ofs++;
+        if(ofs == bsize)
+        {
+            ofs = 0;
+        }
     }
     sum /= size;
     *value = (epicsInt32)sum;
     return asynSuccess;
 }
+
+/*
+offset
+zero          ................TDDDDDX...........
+positive      ................T...........DDDDDX
+negative      DDDDDDDDDDDDDDDDTDDDDDX...........
+very negative DDDDDDD.........TX................
+*/
