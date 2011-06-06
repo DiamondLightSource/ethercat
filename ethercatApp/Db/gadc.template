@@ -1,5 +1,3 @@
-# CAN'T use pini on asyn output records to set a default value
-# because they read the initial value from the device first
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CHANBUFF")
 {
    field(DTYP, "asynInt32")
