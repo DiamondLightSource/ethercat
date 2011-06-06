@@ -11,11 +11,13 @@ int main()
     for(int n = 0; n < 4; n++)
     {
         adc[n] = gadc_new(parent, n);
+        /*
         gadc_writeInt32_name(adc[n], "MODE", GADC_MODE_TRIGGERED);
         gadc_writeInt32_name(adc[n], "SAMPLES", 100000);
         gadc_writeInt32_name(adc[n], "CHANBUFF", 1000000);
         gadc_writeInt32_name(adc[n], "RETRIGGER", 1);
         gadc_writeInt32_name(adc[n], "INFO", 1);
+        */
     }
     return 0;
 }

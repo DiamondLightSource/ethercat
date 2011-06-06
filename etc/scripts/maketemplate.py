@@ -136,6 +136,9 @@ def parseFile(filename, output, list=False):
             for dcmode in device.xpathEval("Dc/OpMode/Sm/Pdo[@OSFac]"):
                 oversampling.add(parseInt(dcmode.content))
             for txpdo in device.xpathEval("TxPdo"):
+                # master does not support pdos without sync manager entries
+                if not txpdo.xpathEval("@Sm"):
+                    continue
                 for entry in txpdo.xpathEval("Entry"):
                     # some pdo entries are just padding with no name, ignore
                     if hasEntryName(entry):
@@ -147,6 +150,9 @@ def parseFile(filename, output, list=False):
                     elif verbose:
                         print "Ignoring entry in pdo %s" % getPdoName(txpdo)
             for rxpdo in device.xpathEval("RxPdo"):
+                # master does not support pdos without sync manager entries
+                if not rxpdo.xpathEval("@Sm"):
+                    continue
                 for entry in rxpdo.xpathEval("Entry"):
                     # some pdo entries are just padding with no name, ignore
                     if hasEntryName(entry):

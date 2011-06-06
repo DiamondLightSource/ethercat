@@ -1,42 +1,72 @@
-class pdo_listener
+struct ENGINE_USER;
+
+template <class T> struct ListNode
+{
+    ELLNODE node;
+};
+
+class ProcessDataObserver : public ListNode<ProcessDataObserver>
 {
 public:
     virtual void on_pdo_message(PDO_MESSAGE * message, int size) = 0;
-    virtual ~pdo_listener() {}
+    virtual ~ProcessDataObserver() {}
 };
 
-extern LIST * ethercat_pdo_listeners;
-
-struct PORT_NODE
+class XFCPort : public asynPortDriver
 {
-    NODE node;
-    pdo_listener * port;
+    int P_Missed;
+public:
+    void incMissed()
+    {
+        epicsInt32 value;
+        getIntegerParam(P_Missed, &value);
+        value = value + 1;
+        if(value == INT32_MAX)
+        {
+            value = 0;
+        }
+        setIntegerParam(P_Missed, value);
+        callParamCallbacks();
+    }
+    XFCPort(const char * name) : asynPortDriver(
+        name,
+        1, /* maxAddr */
+        1, /* max parameters */
+        asynInt32Mask | asynDrvUserMask, /* interface mask*/
+        asynInt32Mask, /* interrupt mask */
+        0, /* non-blocking, no addresses */
+        1, /* autoconnect */
+        0, /* default priority */
+        0) /* default stack size */
+    {
+        createParam("MISSED", asynParamInt32, &P_Missed);
+        setIntegerParam(P_Missed, 0);
+    }
 };
 
-class Ringbuffer;
-
-class ecAsyn : public asynPortDriver, public pdo_listener
+class ecAsyn : public asynPortDriver, public ProcessDataObserver
 {
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
-    virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 * value);
-    virtual asynStatus readInt32Array(asynUser *pasynUser, epicsInt32 *value,
-                                      size_t nElements, size_t *nIn);
     int pdos;
     int devid;
     rtMessageQueueId writeq;
     EC_PDO_ENTRY_MAPPING ** mappings;
     int P_AL_STATE;
+#define FIRST_SLAVE_COMMAND P_AL_STATE
     int P_ERROR_FLAG;
     int P_DISABLE;
-    ELLLIST samplers;
-
+#define LAST_SLAVE_COMMAND P_DISABLE
+    int P_First_PDO;
+    int P_Last_PDO;
 public:
-    ecAsyn(EC_DEVICE * device, int pdos, rtMessageQueueId writeq, int devid);
+    ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid);
     EC_DEVICE * device;
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);
 };
 
-class ecMaster : public asynPortDriver
+#define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)
+
+class ecMaster : public asynPortDriver, public ProcessDataObserver
 {
     int P_Cycle;
 #define FIRST_MASTER_COMMAND P_Cycle

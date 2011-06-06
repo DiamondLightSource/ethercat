@@ -12,9 +12,9 @@ gadc_LIBS += asyn
 INC += gadc.h
 # IOC
 
-PROD_IOC = gadctest
+# PROD_IOC = gadctest
 # ethercat_DBD += base.dbd ecAsyn.dbd
-gadctest_SRCS += gadctest.cpp
+# gadctest_SRCS += gadctest.cpp
 
 # These two lines are needed for non-vxWorks builds, such as Linux
 # ethercat_SRCS_DEFAULT += ethercatMain.cpp

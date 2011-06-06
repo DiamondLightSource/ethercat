@@ -8,6 +8,7 @@
 #include <sys/socket.h>
 
 #include <ecrt.h>
+#include <ellLib.h>
 
 #include "rtutils.h"
 #include "msgsock.h"
@@ -67,8 +68,8 @@ void cyclic_task(void * usr)
     ec_domain_state_t domain_state;
 
     int nslaves = 0;
-    NODE * node;
-    for(node = listFirst(&scanner->config->devices); node; node = node->next)
+    ELLNODE * node;
+    for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
     {
         nslaves++;
     }
@@ -160,9 +161,9 @@ void cyclic_task(void * usr)
             int msg_size = (msg->pdo.buffer + msg->pdo.size + nslaves * 2 * sizeof(char)) - (char *)msg;
 
             /* master sends FPRD datagrams every cycle to get this slave info */
-            NODE * node;
+            ELLNODE * node;
             int ofs = msg->pdo.size;
-            for(node = listFirst(&scanner->config->devices); node; node = node->next)
+            for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
             {
                 EC_DEVICE * device = (EC_DEVICE *)node;
                 ec_slave_info_t slave_info;
@@ -208,24 +209,24 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         device->device_type->product_id);
     assert(sc);
 
-    NODE * node0;
-    for(node0 = listFirst(&device->device_type->sync_managers); node0; node0 = node0->next)
+    ELLNODE * node0;
+    for(node0 = ellFirst(&device->device_type->sync_managers); node0; node0 = ellNext(node0))
     {
         EC_SYNC_MANAGER * sync_manager = (EC_SYNC_MANAGER *)node0;
         if(debug)
         {
             printf("SYNC MANAGER: dir %d watchdog %d\n", sync_manager->direction, sync_manager->watchdog);
         }
-        NODE * node1;
-        for(node1 = listFirst(&sync_manager->pdos); node1; node1 = node1->next)
+        ELLNODE * node1;
+        for(node1 = ellFirst(&sync_manager->pdos); node1; node1 = ellNext(node1))
         {
             EC_PDO * pdo = (EC_PDO *)node1;
             if(debug)
             {
                 printf("PDO:          index %x\n", pdo->index);
             }
-            NODE * node2;
-            for(node2 = listFirst(&pdo->pdo_entries); node2; node2 = node2->next)
+            ELLNODE * node2;
+            for(node2 = ellFirst(&pdo->pdo_entries); node2; node2 = ellNext(node2))
             {
                 int n;
                 EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
@@ -253,15 +254,15 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
     }
     
     /* second pass, assign mappings */
-    for(node0 = listFirst(&device->device_type->sync_managers); node0; node0 = node0->next)
+    for(node0 = ellFirst(&device->device_type->sync_managers); node0; node0 = ellNext(node0))
     {
         EC_SYNC_MANAGER * sync_manager = (EC_SYNC_MANAGER *)node0;
-        NODE * node1;
-        for(node1 = listFirst(&sync_manager->pdos); node1; node1 = node1->next)
+        ELLNODE * node1;
+        for(node1 = ellFirst(&sync_manager->pdos); node1; node1 = ellNext(node1))
         {
             EC_PDO * pdo = (EC_PDO *)node1;
-            NODE * node2;
-            for(node2 = listFirst(&pdo->pdo_entries); node2; node2 = node2->next)
+            ELLNODE * node2;
+            for(node2 = ellFirst(&pdo->pdo_entries); node2; node2 = ellNext(node2))
             {
                 int n;
                 EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
@@ -289,7 +290,7 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                 }
                 pdo_entry_mapping->index = pdo_entry->index;
                 pdo_entry_mapping->sub_index = pdo_entry->sub_index;
-                listAdd(&device->pdo_entry_mappings, &pdo_entry_mapping->node);
+                ellAdd(&device->pdo_entry_mappings, &pdo_entry_mapping->node);
             }
         }
     }
@@ -323,8 +324,8 @@ void pack_string(char * buffer, int * ofs, char * str)
 
 int ethercat_init(SCANNER * scanner)
 {
-    NODE * node;
-    for(node = listFirst(&scanner->config->devices); node; node = node->next)
+    ELLNODE * node;
+    for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         assert(device->device_type);
@@ -344,7 +345,17 @@ SCANNER * start_scanner(char * filename)
     assert(scanner->config_buffer);
     read_config2(scanner->config_buffer, strlen(scanner->config_buffer), scanner->config);
     scanner->master = ecrt_request_master(0);
+    if(scanner->master == NULL)
+    {
+        fprintf(stderr, "error: can't create EtherCAT master - scanner already running?\n");
+        exit(1);
+    }
     scanner->domain = ecrt_master_create_domain(scanner->master);
+    if(scanner->domain == NULL)
+    {
+        fprintf(stderr, "error: can't create EtherCAT domain\n");
+        exit(1);
+    }
     ethercat_init(scanner);
     return scanner;
 }

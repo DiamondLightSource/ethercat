@@ -10,7 +10,14 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include <ellLib.h>
 #include "classes.h"
+
+int ellAddOK(ELLLIST * pList, ELLNODE * pNode)
+{
+    ellAdd(pList, pNode);
+    return 1;
+}
 
 typedef struct CONTEXT CONTEXT;
 struct CONTEXT
@@ -131,7 +138,7 @@ int parsePdoEntry(xmlNode * node, CONTEXT * ctx)
         getStr(node, "datatype", &ctx->pdo_entry->datatype) &&
         getInt(node, "oversample", &ctx->pdo_entry->oversampling, 1) &&
         (ctx->pdo_entry->parent = ctx->pdo) && 
-        listAdd(&ctx->pdo->pdo_entries, &ctx->pdo_entry->node);
+        ellAddOK(&ctx->pdo->pdo_entries, &ctx->pdo_entry->node);
 }
 
 int parsePdo(xmlNode * node, CONTEXT * ctx)
@@ -142,7 +149,7 @@ int parsePdo(xmlNode * node, CONTEXT * ctx)
         getInt(node, "index", &ctx->pdo->index, 1) &&
         parseChildren(node, ctx, "entry", parsePdoEntry) &&
         (ctx->pdo->parent = ctx->sync_manager) && 
-        listAdd(&ctx->sync_manager->pdos, &ctx->pdo->node);
+        ellAddOK(&ctx->sync_manager->pdos, &ctx->pdo->node);
 }
              
 int parseSync(xmlNode * node, CONTEXT * ctx)
@@ -154,7 +161,7 @@ int parseSync(xmlNode * node, CONTEXT * ctx)
         getInt(node, "watchdog", &ctx->sync_manager->watchdog, 1) &&
         parseChildren(node, ctx, "pdo", parsePdo) &&
         (ctx->sync_manager->parent = ctx->device_type) && 
-        listAdd(&ctx->device_type->sync_managers, &ctx->sync_manager->node);
+        ellAddOK(&ctx->device_type->sync_managers, &ctx->sync_manager->node);
 }
 
 int parseDeviceType(xmlNode * node, CONTEXT * ctx)
@@ -166,7 +173,7 @@ int parseDeviceType(xmlNode * node, CONTEXT * ctx)
         getInt(node, "vendor", &ctx->device_type->vendor_id, 1) &&
         getInt(node, "product", &ctx->device_type->product_id, 1) &&
         parseChildren(node, ctx, "sync", parseSync) &&
-        listAdd(&ctx->config->device_types, &ctx->device_type->node);
+        ellAddOK(&ctx->config->device_types, &ctx->device_type->node);
 }
 
 int parseTypes(xmlNode * node, CONTEXT * ctx)
@@ -191,7 +198,7 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
         getStr(node, "type_name", &ctx->device->type_name) &&
         getInt(node, "position", &ctx->device->position, 1) &&
         joinDevice(ctx->config, ctx->device) &&
-        listAdd(&ctx->config->devices, &ctx->device->node);
+        ellAddOK(&ctx->config->devices, &ctx->device->node);
 }
 
 int parseChain(xmlNode * node, CONTEXT * ctx)
@@ -211,7 +218,7 @@ int joinPdoEntryMapping(EC_CONFIG * cfg, EC_PDO_ENTRY_MAPPING * mapping)
     {
         return 0;
     }
-    listAdd(&mapping->parent->pdo_entry_mappings, &mapping->node);
+    ellAddOK(&mapping->parent->pdo_entry_mappings, &mapping->node);
     return 1;
 }
 
@@ -261,15 +268,15 @@ int dump(xmlNode * node, CONTEXT * ctx)
 void show(CONTEXT * ctx)
 {
     printf("device types %d\n", ctx->config->device_types.count);
-    NODE * node;
-    for(node = listFirst(&ctx->config->device_types); node; node = node->next)
+    ELLNODE * node;
+    for(node = ellFirst(&ctx->config->device_types); node; node = ellNext(node))
     {
         EC_DEVICE_TYPE * device_type = 
             (EC_DEVICE_TYPE *)node;
         printf("sync managers %d\n", device_type->sync_managers.count);
     }
     printf("device instances %d\n", ctx->config->devices.count);
-    for(node = listFirst(&ctx->config->devices); node; node = node->next)
+    for(node = ellFirst(&ctx->config->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = 
             (EC_DEVICE *)node;
@@ -364,12 +371,12 @@ char * serialize_config(EC_CONFIG * cfg)
     int scount = 1024*1024;
     char * sbuf = calloc(scount, sizeof(char));
     strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
-    NODE * node;
-    for(node = listFirst(&cfg->devices); node; node = node->next)
+    ELLNODE * node;
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        NODE * node1;
-        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        ELLNODE * node1;
+        for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             char line[1024];

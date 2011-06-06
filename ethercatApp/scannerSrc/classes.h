@@ -9,27 +9,10 @@ typedef struct EC_SYNC_MANAGER EC_SYNC_MANAGER;
 typedef struct EC_DEVICE_TYPE EC_DEVICE_TYPE;
 typedef struct EC_DEVICE EC_DEVICE;
 typedef struct EC_PDO_ENTRY_MAPPING EC_PDO_ENTRY_MAPPING;
-typedef struct NODE NODE;
-typedef struct LIST LIST;
-
-struct NODE
-{
-    NODE * next;
-    NODE * previous;
-};
-
-struct LIST
-{
-    int count;
-    NODE node;
-};
-
-NODE * listFirst(LIST * list);
-int listAdd(LIST * list, NODE * node);
 
 struct EC_PDO_ENTRY
 {
-    NODE node;
+    ELLNODE node;
     char * name;
     int index;
     int sub_index;
@@ -42,41 +25,41 @@ struct EC_PDO_ENTRY
 
 struct EC_PDO
 {
-    NODE node;
+    ELLNODE node;
     char * name;
     int index;
     EC_SYNC_MANAGER * parent;
-    LIST pdo_entries;
+    ELLLIST pdo_entries;
 };
 
 struct EC_SYNC_MANAGER
 {
-    NODE node;
+    ELLNODE node;
     int index;
     int direction;
     int watchdog;
     EC_DEVICE_TYPE * parent;
-    LIST pdos;
+    ELLLIST pdos;
 };
 
 struct EC_DEVICE_TYPE
 {
-    NODE node;
+    ELLNODE node;
     char * name;
     int vendor_id;
     int product_id;
     int oversampling_activate;
-    LIST sync_managers;
+    ELLLIST sync_managers;
 };
 
 struct EC_DEVICE
 {
-    NODE node;
+    ELLNODE node;
     char * name;
     char * type_name;
     int position;
     int oversampling_rate;
-    LIST pdo_entry_mappings;
+    ELLLIST pdo_entry_mappings;
     // lookup device type by name
     EC_DEVICE_TYPE * device_type;
 };
@@ -84,7 +67,7 @@ struct EC_DEVICE
 // binary
 struct EC_PDO_ENTRY_MAPPING
 {
-    NODE node;
+    ELLNODE node;
     int offset;
     int bit_position;
     EC_PDO_ENTRY * pdo_entry;
@@ -96,9 +79,9 @@ struct EC_PDO_ENTRY_MAPPING
 
 struct EC_CONFIG
 {
-    LIST device_types;
-    LIST devices;
-    LIST pdo_entry_mappings;
+    ELLLIST device_types;
+    ELLLIST devices;
+    ELLLIST pdo_entry_mappings;
 };
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);

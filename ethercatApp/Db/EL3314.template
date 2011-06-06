@@ -318,35 +318,3 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__TXPDOTOGGLE")
   field("ONAM", "ON")
 }
 
-
-record(longout, "$(DEVICE):TCOUTPUTSCHANNEL1:CJCOMPENSATION")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))TCOutputsChannel1.CJCompensation")
-  field("OMSL", "supervisory")
-}
-
-
-record(longout, "$(DEVICE):TCOUTPUTSCHANNEL2:CJCOMPENSATION")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))TCOutputsChannel2.CJCompensation")
-  field("OMSL", "supervisory")
-}
-
-
-record(longout, "$(DEVICE):TCOUTPUTSCHANNEL3:CJCOMPENSATION")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))TCOutputsChannel3.CJCompensation")
-  field("OMSL", "supervisory")
-}
-
-
-record(longout, "$(DEVICE):TCOUTPUTSCHANNEL4:CJCOMPENSATION")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))TCOutputsChannel4.CJCompensation")
-  field("OMSL", "supervisory")
-}
-
