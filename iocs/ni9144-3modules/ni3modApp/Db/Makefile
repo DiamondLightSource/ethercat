@@ -43,7 +43,7 @@ include $(TOP)/configure/RULES
 	cp ../NI_9144.template ../O.Common/NI_9144.template 
 
 ../NI_9144.template:
-	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "NI 9144" -r 0x00000003 -o ../NI_9144.template
+	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "NI 9144" -r 0x00000001 -o ../NI_9144.template
 
 
 

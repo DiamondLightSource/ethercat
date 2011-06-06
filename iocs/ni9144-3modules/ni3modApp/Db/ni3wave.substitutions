@@ -3,13 +3,12 @@ file MASTER.template
 {
 {DEVICE="RJQ35657-ECAT-01", PORT="MASTER0", SCAN="I/O Intr"}
 }
-file NI944.template
+file NI_9144.template
 {
 {DEVICE="RJQ35657-ECAT-02", PORT="NI0", SCAN=".1 second"}
 }
 file gadc.template
 {
 pattern {DEVICE, PORT, SCAN, SAMPLES, CHANNEL}
-{RJQ35657-ECAT-02, NI0, ".1 second", 10000000, 1}
-{RJQ35657-ECAT-02, NI0, ".1 second", 10000000, 4}
+{RJQ35657-ECAT-02, NI0, ".1 second", 10000000, 2}
 }
