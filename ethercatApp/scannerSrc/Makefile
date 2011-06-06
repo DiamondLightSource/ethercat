@@ -7,6 +7,7 @@ include $(TOP)/configure/CONFIG
 SHARED_LIBRARIES=NO
 STATIC_BUILD=YES
 
+USR_INCLUDES += -I$(ETHERLAB)/master
 USR_INCLUDES += -I$(ETHERLAB)/include
 USR_LDFLAGS += -L$(ETHERLAB)/lib -Wl,-rpath=$(ETHERLAB)/lib
 USR_INCLUDES += -I/usr/include/libxml2
