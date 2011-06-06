@@ -7,6 +7,35 @@ TDI-CTRL-REQ-015
 
 class WaveformPort : public asynPortDriver
 {
+
+    enum
+    {
+        GADC_EVENT_TRIGGER = 0,
+        GADC_EVENT_DONE = 1,
+        GADC_EVENT_RESET = 2
+    };
+    
+    enum
+    {
+        GADC_MODE_CONTINUOUS = 0,
+        GADC_MODE_TRIGGERED = 1,
+        GADC_MODE_GATED = 2
+    };
+    
+    enum
+    {
+        GADC_STATE_WAITING = 0,
+        GADC_STATE_TRIGGERED = 1,
+        GADC_STATE_DONE = 2
+    };
+    
+    enum
+    {
+        GADC_BIT_GATE = 0x01,
+        GADC_BIT_TRIGGER = 0x02,
+        GADC_BIT_NEGATIVE_OFFSET = 0x04
+    };
+
     int P_Capture;
 #define FIRST_WAVEFORM_COMMAND P_Capture
     int P_Mode;
@@ -33,8 +62,6 @@ class WaveformPort : public asynPortDriver
     epicsInt32 * outbuffer;
     int bofs;
     int bsize;
-    int samplecount;
-    int readcount;
     int channel;
     asynStatus resize();
     epicsInt32 IP(int param)
@@ -58,11 +85,14 @@ public:
     virtual asynStatus writeInt32(asynUser * pasynUser, epicsInt32 value);
     virtual asynStatus readInt32Array(asynUser *pasynUser, epicsInt32 *value,
                                       size_t nElements, size_t *nIn);
+
+    virtual asynStatus readInt32(asynUser *pasynUser, epicsInt32 *value);
+    asynStatus getValue(asynUser * pasynUser, epicsInt32 * value);
     asynStatus setSamples(epicsInt32 value);
-    asynStatus setOffset(epicsInt32 value) {return asynSuccess;}
+    asynStatus setOffset(epicsInt32 value);
     asynStatus setChanbuff(epicsInt32 value);
-    asynStatus setTrigger(epicsInt32 value) {return asynSuccess;}
-    asynStatus setEnabled(epicsInt32 value) {return asynSuccess;}
+    asynStatus setTrigger(epicsInt32 value);
+    asynStatus setEnabled(epicsInt32 value);
     asynStatus setClear(epicsInt32 value);
     asynStatus setInfo(epicsInt32 value);
     asynStatus setInterrupt(epicsInt32 value);
@@ -102,36 +132,11 @@ WaveformPort::WaveformPort(const char * name) : asynPortDriver(
     createParam("VALUE", asynParamInt32, &P_Value);
     createParam("INTERRUPT", asynParamInt32, &P_Interrupt);
     createParam("WAVEFORM", asynParamInt32Array, &P_Waveform);
+    setIntegerParam(P_State, GADC_STATE_WAITING);
+    setIntegerParam(P_Support, GADC_BIT_TRIGGER | GADC_BIT_NEGATIVE_OFFSET);
 }
 
 #undef FIRST_WAVEFORM_COMMMAND
 #undef LAST_WAVEFORM_COMMAND
 #undef NUM_WAVEFORM_PARAMS
 
-enum
-{
-    GADC_EVENT_TRIGGER = 0,
-    GADC_EVENT_DONE = 1,
-    GADC_EVENT_RESET = 2
-};
-
-enum
-{
-    GADC_MODE_CONTINUOUS = 0,
-    GADC_MODE_TRIGGERED = 1,
-    GADC_MODE_GATED = 2
-};
-
-enum
-{
-    GADC_STATE_WAITING = 0,
-    GADC_STATE_TRIGGERED = 1,
-    GADC_STATE_DONE = 2
-};
-
-enum
-{
-    GADC_BIT_GATE = 0x01,
-    GADC_BIT_TRIGGER = 0x02,
-    GADC_BIT_NEGATIVE_OFFSET = 0x04
-};

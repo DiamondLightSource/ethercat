@@ -102,7 +102,7 @@ static char * makeParamName(EC_PDO_ENTRY_MAPPING * mapping)
 
 static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * name)
 {
-    for(NODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
+    for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * entry_name = makeParamName(mapping);
@@ -187,8 +187,6 @@ struct ENGINE_USER
     int config_size;
 };
 
-static const int N_RESERVED_PARAMS = 10;
-
 ecMaster::ecMaster(char * name) :
     asynPortDriver(name,
                    1, /* maxAddr */
@@ -257,7 +255,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     
     int n = 0;
     P_First_PDO = -1;
-    for(NODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
+    for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * name = makeParamName(mapping);
@@ -311,7 +309,7 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     setIntegerParam(P_ERROR_FLAG, error_flag);
     setIntegerParam(P_DISABLE, disable);
 
-    for(NODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
+    for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         int32_t val = cast_int32(mapping, pdo->buffer, 0);
@@ -353,7 +351,7 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return status;
 }
 
-int init_unpack(ENGINE_USER * usr, char * buffer, int size)
+static int init_unpack(ENGINE_USER * usr, char * buffer, int size)
 {
     EC_CONFIG * cfg = usr->config;
     int ofs = 0;
@@ -365,12 +363,12 @@ int init_unpack(ENGINE_USER * usr, char * buffer, int size)
     int mapping_config_size = unpack_int(buffer, &ofs);
     parseEntriesFromBuffer(buffer + ofs, mapping_config_size, cfg);
 
-    NODE * node;
+    ELLNODE * node;
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         printf("%s\n", device->name);
-        NODE * node1;
+        ELLNODE * node1;
         for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node1;
@@ -390,13 +388,13 @@ int init_unpack(ENGINE_USER * usr, char * buffer, int size)
 static void readConfig(ENGINE_USER * usr)
 {
     EC_CONFIG * cfg = usr->config;
-    NODE * node;
+    ELLNODE * node;
     int ndev = 0;
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         int pdos = 0;
-        for(NODE * node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
+        for(ELLNODE * node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             pdos++;
         }
@@ -434,7 +432,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
     return size > 0;
 }
 
-int pdo_data(ENGINE_USER * usr, char * buffer, int size)
+static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
 {
     EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
     assert(msg->tag == MSG_PDO);

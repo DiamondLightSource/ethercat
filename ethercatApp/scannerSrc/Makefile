@@ -20,6 +20,6 @@ scannerlib_SRCS += parser.c classes.c unpack.c
 PROD += scanner
 scanner_SRCS += scanner.c
 
-scanner_LIBS += rtutils scannerlib
+scanner_LIBS += rtutils scannerlib Com
 
 include $(TOP)/configure/RULES

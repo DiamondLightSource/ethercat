@@ -41,6 +41,7 @@ asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
         return result;
     }
     int cmd = pasynUser->reason;
+    // printf("write param %d %d\n", cmd, value);
     if(cmd == P_Samples)
     {
         return setSamples(value);
@@ -119,63 +120,35 @@ asynStatus WaveformPort::setSamples(epicsInt32 samples)
     }
 }
 
-/*
-static asynStatus gadc_set_offset(gadc_t * adc, epicsInt32 offset)
+
+asynStatus WaveformPort::setOffset(epicsInt32 offset)
 {
-    if(INT(P_Offset) != offset)
+    if(IP(P_Offset) != offset)
     {
-        return gadc_resize(adc);
+        return resize();
     }
     else
     {
         return asynSuccess;
     }
 }
-*/
 
 asynStatus WaveformPort::setChanbuff(epicsInt32 chanBuff)
 {
     return resize();
 }
 
-/*
-static void gadc_state_transition(gadc_t * adc, int event)
-{
-    if(event == GADC_EVENT_RESET)
-    {
-        adc->parent->setIntegerParam(adc->P_State, GADC_STATE_WAITING);
-        adc->readcount = 0;
-        adc->samplecount = 0;
-    }
-    else if(INT(P_State) == GADC_STATE_WAITING &&
-            INT(P_Enabled) && 
-            (event == GADC_EVENT_TRIGGER))
-    {
-        adc->parent->setIntegerParam(adc->P_State, GADC_STATE_TRIGGERED);
-    }
-    else if(INT(P_State) == GADC_STATE_TRIGGERED &&
-            (event == GADC_EVENT_DONE))
-    {
-        gadc_set_enabled(adc, 0);
-        adc->parent->setIntegerParam(adc->P_State, GADC_STATE_DONE);
-    }
-}
-
-static asynStatus gadc_set_trigger(gadc_t * adc, epicsInt32 trigger)
-{
-    gadc_state_transition(adc, GADC_EVENT_TRIGGER);
-    return asynSuccess;
-}
-
-static asynStatus gadc_set_enabled(gadc_t * adc, epicsInt32 enabled)
+asynStatus WaveformPort::setEnabled(epicsInt32 enabled)
 {
     if(enabled)
     {
-        gadc_state_transition(adc, GADC_EVENT_RESET);
+        setIntegerParam(P_Buffercount, 0);
+        setIntegerParam(P_Enabled, 1);
+        setIntegerParam(P_State, GADC_STATE_WAITING);
     }
+    callParamCallbacks();
     return asynSuccess;
 }
-*/
 
 asynStatus WaveformPort::setClear(epicsInt32 clear)
 {
@@ -200,8 +173,26 @@ asynStatus WaveformPort::setInfo(epicsInt32 dummy)
 asynStatus WaveformPort::setInterrupt(epicsInt32 dummy)
 {
     size_t nIn;
-    readInt32Array(NULL, outbuffer, bsize, &nIn);
+    epicsInt32 value;
+    if(getValue(pasynUserSelf, &value) == asynSuccess)
+    {
+        setIntegerParam(P_Value, value);
+    }
+    readInt32Array(pasynUserSelf, outbuffer, bsize, &nIn);
     doCallbacksInt32Array(outbuffer, bsize, P_Waveform, 0);
+    callParamCallbacks();
+    return asynSuccess;
+}
+
+asynStatus WaveformPort::setTrigger(epicsInt32 dummy)
+{
+    printf("triggered\n");
+    if(IP(P_Enabled))
+    {
+        setIntegerParam(P_Buffercount, IP(P_Offset));
+        setIntegerParam(P_State, GADC_STATE_TRIGGERED);
+    }
+    callParamCallbacks();
     return asynSuccess;
 }
 
@@ -211,190 +202,103 @@ asynStatus WaveformPort::setPutsample(epicsInt32 sample)
     {
         return asynError;
     }
-    /*
     if(!IP(P_Capture))
     {
         return asynSuccess;
     }
-    */
-    push_back(sample);
-    samplecount++; // TODO: BUFFERCOUNT?
-    if(samplecount == IP(P_Samples))
+    if(IP(P_Mode) == GADC_MODE_CONTINUOUS)
     {
-        samplecount = 0;
-        setInterrupt(1);
+        push_back(sample);
+        setIntegerParam(P_Buffercount, IP(P_Buffercount) + 1);
+        if(IP(P_Buffercount) == IP(P_Samples))
+        {
+            setIntegerParam(P_Buffercount, 0);
+            setInterrupt(1);
+        }
     }
+    else if(IP(P_State) == GADC_STATE_TRIGGERED)
+    {
+        if(IP(P_Buffercount) < IP(P_Samples))
+        {
+            push_back(sample);
+            setIntegerParam(P_Buffercount, IP(P_Buffercount) + 1);
+        }
+        else
+        {
+            setInterrupt(1);
+        }
+    }
+    callParamCallbacks();
     return asynSuccess;
 }
 
-/*
-asynStatus gadc_put_sample(gadc_t * adc, GADC_DATA_t sample)
+asynStatus WaveformPort::readInt32(asynUser *pasynUser, epicsInt32 *value)
 {
-    if(adc->bsize == 0)
+    if(pasynUser->reason == P_Value)
     {
-        return asynError;
-    }
-    if(!INT(P_Capture))
-    {
-        return asynSuccess;
-    }
-    if(INT(P_Mode) == GADC_MODE_CONTINUOUS)
-    {
-        gadc_push_back(adc, sample);
-        adc->samplecount++;
-        if(adc->samplecount == INT(P_Samples))
-        {
-            adc->samplecount = 0;
-            gadc_set_interrupt(adc, 1);
-        }
-    }
-    else if(INT(P_Mode) == GADC_MODE_TRIGGERED)
-    {
-        if(INT(P_State) == GADC_STATE_WAITING)
-        {
-            gadc_push_back(adc, sample);
-        }
-        else if(INT(P_State) == GADC_STATE_TRIGGERED)
-        {
-            gadc_push_back(adc, sample);
-            adc->samplecount++;
-            if(adc->samplecount >= INT(P_Samples) + INT(P_Offset))
-            {
-                gadc_state_transition(adc, GADC_EVENT_DONE);
-                gadc_set_interrupt(adc, 1);
-            }
-        }
-        else if(INT(P_State) == GADC_STATE_DONE)
-        {
-            // discard sample, wait for enable
-        }
+        return getValue(pasynUser, value);
     }
     else
     {
+        return asynPortDriver::readInt32(pasynUser, value);
+    }
+}
+
+asynStatus WaveformPort::readInt32Array(
+    asynUser * pasynUser, epicsInt32 * value, size_t nElements, size_t * nIn)
+{
+    if(bsize == 0)
+    {
         return asynError;
     }
-    adc->parent->callParamCallbacks();
+    // read most recent data
+    *nIn = _min(nElements, IP(P_Samples));
+    int ofs = posmod(bofs - *nIn, bsize);
+    int n;
+    for(n = 0; n < (int)*nIn; n++)
+    {
+        value[n] = buffer[ofs];
+        ofs++;
+        if(ofs == bsize)
+        {
+            ofs = 0;
+        }
+    }
+    if(IP(P_Mode) == GADC_MODE_TRIGGERED)
+    {
+        if(IP(P_Retrigger))
+        {
+            setEnabled(1);
+        }
+        else
+        {
+            setIntegerParam(P_State, GADC_STATE_DONE);
+        }
+    }
+    callParamCallbacks();
     return asynSuccess;
 }
-*/
 
- /*
-static asynStatus gadc_get_value(gadc_t * adc, GADC_DATA_t * value)
+asynStatus WaveformPort::getValue(asynUser * pasynUser, epicsInt32 * value)
 {
-    if(adc->bsize == 0)
+    if(bsize == 0)
     {
         return asynError;
     }
     double sum = 0;
-    int size = _max(_min(INT(P_Samples), INT(P_Average)), 1);
-    int ofs = adc->bofs;
+    int size = _max(_min(IP(P_Samples), IP(P_Average)), 1);
+    int ofs = bofs;
     int n;
     for(n = 0; n < size; n++)
     {
         ofs--;
         if(ofs < 0)
         {
-            ofs += adc->bsize;
+            ofs += bsize;
         }
-        sum += adc->buffer[ofs];
+        sum += buffer[ofs];
     }
     sum /= size;
-    *value = (GADC_DATA_t)sum;
+    *value = (epicsInt32)sum;
     return asynSuccess;
 }
-
- */
-
-asynStatus WaveformPort::readInt32Array(
-    asynUser * pasynUser, epicsInt32 * value, size_t nElements, size_t * nIn)
-{
-    if(pasynUser == NULL)
-    {
-        // this is ok, we are calling from setInterrupt
-    }
-    if(bsize == 0)
-    {
-        return asynError;
-    }
-    if(IP(P_Mode) == GADC_MODE_CONTINUOUS)
-    {
-        *nIn = _min(nElements, IP(P_Samples));
-        int ofs = posmod(bofs - *nIn, bsize);
-        int n;
-        for(n = 0; n < (int)*nIn; n++)
-        {
-            value[n] = buffer[ofs];
-            ofs++;
-            if(ofs == bsize)
-            {
-                ofs = 0;
-            }
-        }
-    }
-    return asynSuccess;
-}
-
-/*
-static asynStatus gadc_get_waveform_value(gadc_t * adc, GADC_DATA_t * value,
-                                          size_t nElements, size_t * nIn)
-{
-    if(adc->bsize == 0)
-    {
-        return asynError;
-    }
-    if(INT(P_Mode) == GADC_MODE_CONTINUOUS)
-    {
-        *nIn = _min(nElements, INT(P_Samples));
-        int ofs = posmod(adc->bofs - *nIn, adc->bsize);
-        int n;
-        for(n = 0; n < (int)*nIn; n++)
-        {
-            value[n] = adc->buffer[ofs];
-            ofs++;
-            if(ofs == adc->bsize)
-            {
-                ofs = 0;
-            }
-        }
-    }
-    else if(INT(P_Mode) == GADC_MODE_TRIGGERED || INT(P_Mode) == GADC_MODE_GATED)
-    {
-        if(INT(P_State) == GADC_STATE_DONE)
-        {
-            *nIn = _min(nElements, INT(P_Samples) - adc->readcount);
-            int ofs = posmod(adc->bofs - INT(P_Samples) + adc->readcount, adc->bsize);
-            int n;
-            for(n = 0; n < (int)*nIn; n++)
-            {
-                value[n] = adc->buffer[ofs];
-                ofs++;
-                if(ofs == adc->bsize)
-                {
-                    ofs = 0;
-                }
-            }
-            adc->readcount += *nIn;
-            if(adc->readcount == INT(P_Samples) && INT(P_Retrigger))
-            {
-                gadc_set_enabled(adc, 1);
-            }
-        }
-        else
-        {
-            *nIn = _min(nElements, INT(P_Samples));
-            int ofs = posmod(adc->bofs - *nIn, adc->bsize);
-            int n;
-            for(n = 0; n < (int)*nIn; n++)
-            {
-                value[n] = adc->buffer[ofs];
-                ofs++;
-                if(ofs == adc->bsize)
-                {
-                    ofs = 0;
-                }
-            }
-        }
-    }
-    return asynSuccess;
-}
-*/

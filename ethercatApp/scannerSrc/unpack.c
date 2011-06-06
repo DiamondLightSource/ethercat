@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <assert.h>
 
+#include <ellLib.h>
+
 #include "classes.h"
 #include "parser.h"
 #include "rtutils.h"
@@ -134,13 +136,13 @@ int pdo_data(char * buffer, int size)
     printf("\n");
     printf("bys cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
            msg->pdo.wc_state);
-    NODE * node;
-    for(node = listFirst(&cfg->devices); node; node = node->next)
+    ELLNODE * node;
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         printf("%s\n", device->name);
-        NODE * node1;
-        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        ELLNODE * node1;
+        for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node1;
 
@@ -182,13 +184,13 @@ int init_unpack(char * buffer, int size)
     int mapping_config_size = unpack_int(buffer, &ofs);
     parseEntriesFromBuffer(buffer + ofs, mapping_config_size, cfg);
 
-    NODE * node;
-    for(node = listFirst(&cfg->devices); node; node = node->next)
+    ELLNODE * node;
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         printf("%s\n", device->name);
-        NODE * node1;
-        for(node1 = listFirst(&device->pdo_entry_mappings); node1; node1 = node1->next)
+        ELLNODE * node1;
+        for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             if(strcmp(mapping->pdo_entry->name, mapping->pdo_entry->parent->name) == 0)
