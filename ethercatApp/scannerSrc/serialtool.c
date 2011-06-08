@@ -2,21 +2,28 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
 #include <sys/ioctl.h>
 
 // IOCTL API exposes some features not present in the C API
 #include "ioctl.h"
 
-char * usage = "usage: %s --read|(--write base_serial_decimal)\n";
+enum { READ_ACTION = 0, WRITE_ACTION = 1 };
 
-int writeserial(int dowrite, int base)
+char * usage = 
+    "Usage: %s [OPTION]...\n"
+    "EtherCAT Serial Number Display Tool\n\n"
+    "-w BASE      write increasing serial numbers starting from BASE\n"
+    "-p POS       program one slave at POS (default is all slaves after coupler)\n";
+
+int writeserial(int action, int base, int pos)
 {
     char * devname = "/dev/EtherCAT0";
     int fd;
-    if(dowrite)
+    if(action == WRITE_ACTION)
     {
         fd = open(devname, O_RDWR);
     }
@@ -73,24 +80,32 @@ int writeserial(int dowrite, int base)
             perror("EC_IOCTL_SLAVE_SII_READ");
             exit(1);
         }
+
         printf("slave:   %d\n", n);
         printf("name:    %s\n", slave.name);
         printf("vendor:  0x%08x\n", slave.vendor_id);
         printf("product: 0x%08x\n", slave.product_code);
         uint32_t * serial = (uint32_t *)sii.words;
         printf("serial:  %d\n", serial[0]);
-        printf("\n");
-
-        *serial = base + n;
         
-        if(dowrite)
+        if(((n == pos) || (pos == -1 && n > 0)) && (action == WRITE_ACTION))
         {
+            if(pos == -1)
+            {
+                *serial = base + n - 1;
+            }
+            else
+            {
+                *serial = base;
+            }
             if(ioctl(fd, EC_IOCTL_SLAVE_SII_WRITE, &sii) < 0)
             {
                 perror("EC_IOCTL_SLAVE_SII_WRITE");
                 exit(1);
             }
+            printf("WRITE:   %d\n", *serial);
         }
+        printf("\n");
         
         free(sii.words);
     }
@@ -100,18 +115,35 @@ int writeserial(int dowrite, int base)
 
 int main(int argc, char ** argv)
 {
-    if(argc == 2 && strcmp(argv[1], "--read") == 0)
+    int pos = -1;
+    int base = 0;
+    int action = READ_ACTION;
+    while(1)
     {
-        writeserial(0, 0);
+        int c = getopt(argc, argv, "w:p:");
+        if(c == -1)
+        {
+            break;
+        }
+        switch(c)
+        {
+        case 'p':
+            pos = atoi(optarg);
+            break;
+        case 'w':
+            action = WRITE_ACTION;
+            base = atoi(optarg);
+            break;
+        default:
+            fprintf(stderr, usage, argv[0]);
+            exit(1);
+        }
     }
-    else if(argc == 3 && strcmp(argv[1], "--write") == 0)
-    {
-        writeserial(1, atoi(argv[2]));
-    }
-    else
+    if(optind < argc)
     {
         fprintf(stderr, usage, argv[0]);
         exit(1);
     }
+    writeserial(action, base, pos);
     return 0;
 }

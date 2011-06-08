@@ -22,8 +22,8 @@ PROD += scanner
 scanner_SRCS += scanner.c
 scanner_LIBS += rtutils scannerlib Com
 
-PROD += writeserial
-writeserial_SRCS += writeserial.c
+PROD += serialtool
+serialtool_SRCS += serialtool.c
 
 PROD += slaveinfo
 slaveinfo_SRCS += slaveinfo.c
