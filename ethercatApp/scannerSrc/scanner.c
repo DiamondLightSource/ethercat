@@ -17,11 +17,18 @@
 #include "parser.h"
 #include "unpack.h"
 
+int debug = 1;
+int selftest = 1;
+// latency histogram for test only
+int dumplatency = 0;
+
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
 
 struct CLIENT;
 typedef struct CLIENT CLIENT;
+
+enum { HISTBUCKETS = 2000 };
 
 typedef struct
 {
@@ -40,6 +47,8 @@ typedef struct
     int client_capacity;
     int work_capacity;
     rtMessageQueueId workq;
+    int buckets[HISTBUCKETS];
+    int max_latency;
 } SCANNER;
 
 struct CLIENT
@@ -51,6 +60,27 @@ struct CLIENT
 };
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
+
+void dump_latency_task(void * usr)
+{
+    SCANNER * scanner = (SCANNER *)usr;
+    char filename[1024];
+    int d = 0;
+    while(1)
+    {
+        snprintf(filename, sizeof(filename)-1, "/tmp/scanlat%d.txt", d++);
+        usleep(10000000);
+        FILE * f = fopen(filename, "w");
+        assert(f);
+        fprintf(f, "-1 %d\n", scanner->max_latency);
+        int n;
+        for(n = 0; n < HISTBUCKETS; n++)
+        {
+            fprintf(f, "%d %d\n", n, scanner->buckets[n]);
+        }
+        fclose(f);
+    }
+}
 
 void cyclic_task(void * usr)
 {
@@ -136,6 +166,8 @@ void cyclic_task(void * usr)
             ecrt_master_sync_reference_clock(master);
             ecrt_master_sync_slave_clocks(master);
             
+            // gets reply to LRW frame sent last cycle
+            // from network card buffer
             ecrt_master_receive(master);
             ecrt_domain_process(domain);
 
@@ -150,8 +182,32 @@ void cyclic_task(void * usr)
             }
             memset(write_mask, 0, scanner->pdo_size);
             
+            // check latency
             clock_gettime(CLOCK_MONOTONIC, &msg->pdo.ts);
-            //msg->pdo.ts = wakeupTime;
+            
+            struct timespec latency = timespec_sub(msg->pdo.ts, wakeupTime);
+            
+            int lat_us = (int)(1e6 * (latency.tv_sec + latency.tv_nsec * 1e-9));
+            if(lat_us < 0)
+            {
+                lat_us = 0;
+            }
+
+            if(lat_us > scanner->max_latency)
+            {
+                scanner->max_latency = lat_us;
+            }
+            
+            if(lat_us > HISTBUCKETS - 1)
+            {
+                lat_us = HISTBUCKETS - 1;
+            }
+            
+            if(dumplatency)
+            {
+                scanner->buckets[lat_us]++;
+            }
+            
             msg->pdo.working_counter = domain_state.working_counter;
             msg->pdo.wc_state = domain_state.wc_state;
             msg->pdo.tag = MSG_PDO;
@@ -180,6 +236,7 @@ void cyclic_task(void * usr)
             }
             
             ecrt_domain_queue(domain);
+            // sends LRW frame to be received next cycle
             ecrt_master_send(master);
             
             tick++;
@@ -199,8 +256,6 @@ void adjust_pdo_size(SCANNER * scanner, int offset, int bits)
         scanner->pdo_size = top;
     }
 }
-
-int debug = 1;
 
 int device_initialize(SCANNER * scanner, EC_DEVICE * device)
 {
@@ -449,7 +504,11 @@ int main(int argc, char ** argv)
     }
     new_timer(PERIOD_NS, scanner->workq, prio, MSG_TICK);
 
-    int selftest = 1;
+    if(dumplatency)
+    {
+        rtThreadCreate("dump", PRIO_LOW, 0, dump_latency_task, scanner);
+    }
+
     if(selftest)
     {
         test_ioc_client(path, scanner->max_message);
