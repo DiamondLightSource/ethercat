@@ -1,3 +1,10 @@
+# ethercat gadc.template
+# % macro, DEVICE, EtherCAT slave
+# % macro, CHANNEL, ADC channel
+# % macro, PORT, asyn port for EtherCAT slave
+# % macro, SAMPLES, number of samples in waveform
+# % macro, SCAN, polling period
+
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CHANBUFF")
 {
    field(DTYP, "asynInt32")
@@ -80,7 +87,7 @@ record(longin, "$(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT")
 {
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))BUFFERCOUNT")
-   field(SCAN, "$(SCAN)")
+   field(SCAN, "1 second")
 }
 
 record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
