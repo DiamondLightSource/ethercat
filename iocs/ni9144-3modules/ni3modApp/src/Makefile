@@ -38,10 +38,15 @@ ni3mod_LIBS += asyn
 ni3mod_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 DATA += scanner.xml
+DATA += scanner-analog-output.xml
 
 include $(TOP)/configure/RULES
 
 scanner.xml: ../chain.xml
 	echo "Executing rule to create scanner.xml"
-	$(ETHERCAT)/etc/scripts/expandChain.py $(ETHERCAT)/etc/xml ../chain.xml > scanner.xml
+	$(ETHERCAT)/etc/scripts/expandChain.py $(ETHERCAT)/etc/xml $< > $@
+
+scanner-analog-output.xml: ../chain-analog-output.xml
+	echo "Executing rule to create scanner-analog-output.xml"
+	$(ETHERCAT)/etc/scripts/expandChain.py $(ETHERCAT)/etc/xml ../chain-analog-output.xml > $@
 

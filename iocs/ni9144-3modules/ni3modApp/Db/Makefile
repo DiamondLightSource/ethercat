@@ -7,14 +7,8 @@ include $(TOP)/configure/CONFIG
 #  Optimization of db files using dbst (DEFAULT: NO)
 #DB_OPT = YES
 
-#----------------------------------------------------
-# In a Diamond Support Module, install
-# templates like this
-#
-#DB += motor.template
-#DB += basic_motor.template
-DB += NI_9144.template
-DB += EL3201.template
+DB += NI_9144r1.template
+DB += NI_9144r3.template
 DB += ni3wave.db
 DB += ni9234.db
 
@@ -22,7 +16,6 @@ DB += ni9234.db
 # In a Diamond IOC Application, build db files from
 # template files like this
 #
-#DB += BL06I-MO-IOC-01.db
 DB += ni3mod-test.db
 
 #USES_TEMPLATE += $(MOTOR)/db/motor.template
@@ -32,18 +25,17 @@ include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
 
-../O.Common/EL3201.template: ../EL3201.template
-	cp ../EL3201.template ../O.Common/EL3201.template 
+../O.Common/%.template: ../%.template
+	cp $< $@
 
-../EL3201.template:
-	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml \
-    -d "EL3201" -r 0x00100000 -o ../EL3201.template
+../NI_9144r1.template:
+	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "NI 9144" -r 0x00000001 -o $@
 
-../O.Common/NI_9144.template: ../NI_9144.template
-	cp ../NI_9144.template ../O.Common/NI_9144.template 
+../NI_9144r3.template:
+	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "NI 9144" -r 0x00000003 -o $@
 
-../NI_9144.template:
-	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "NI 9144" -r 0x00000001 -o ../NI_9144.template
+../EL4732.template:
+	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "EL4732" -r 0x00030000 -o $@ 
 
-
-
+../EL4134.template:
+	$(ETHERCAT)/etc/scripts/maketemplate.py -b $(ETHERCAT)/etc/xml -d "EL4134" -r 0x03f80000 -o $@ 
