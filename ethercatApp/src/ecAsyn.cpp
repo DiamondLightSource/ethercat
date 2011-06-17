@@ -332,13 +332,13 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
     asynStatus status = asynPortDriver::writeInt32(pasynUser, value);
     int cmd = pasynUser->reason;
-    printf("writing %d -> %d, first %d last %d\n", cmd, value, P_First_PDO, P_Last_PDO);
+    /* printf("writing %d -> %d, first %d last %d\n", cmd, value, P_First_PDO, P_Last_PDO); */
     if(cmd >= P_First_PDO && cmd <= P_Last_PDO)
     {
         int pdo = cmd - P_First_PDO;
         assert(pdo >= 0 && pdo < pdos);
         EC_PDO_ENTRY_MAPPING * mapping = mappings[pdo];
-        printf("pdo %d mapping %p\n", pdo, mapping);
+        /* printf("pdo %d mapping %p\n", pdo, mapping); */
         WRITE_MESSAGE write;
         write.tag = MSG_WRITE;
         write.offset = mapping->offset;
