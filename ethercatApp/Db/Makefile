@@ -22,6 +22,7 @@ DB += EL3314.template
 DB += NI9144.template
 DB += MASTER.template
 DB += gadc.template
+DB += gadc-periodic.template
 DB += xfc.template
 
 # DB += basic_motor.template

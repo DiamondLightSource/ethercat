@@ -1,3 +1,7 @@
+# ethercat gadc-periodic.template
+# % macro, DEVICE, EtherCAT Master
+# % macro, PORT, asyn port for EtherCAT master
+# % macro, SCAN, poll period
 record(longin, "$(DEVICE):CYCLE")
 {
   field("DTYP", "asynInt32")

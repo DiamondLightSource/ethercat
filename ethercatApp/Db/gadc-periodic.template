@@ -1,0 +1,14 @@
+# ethercat gadc-periodic.template
+# % macro, DEVICE, EtherCAT slave
+# % macro, CHANNEL, ADC channel
+# % macro, PORT, asyn port for EtherCAT slave
+record(longout, "$(DEVICE):ADC$(CHANNEL)_INTERRUPT")
+{
+    field(SCAN, "$(SCAN)")
+}
+
+record(longin, "$(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT")
+{
+    field(SCAN, "1 second")
+}
+
