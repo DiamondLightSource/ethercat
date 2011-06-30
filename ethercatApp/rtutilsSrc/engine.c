@@ -29,13 +29,24 @@ int client_connect(ENGINE * client)
     return rtSockCreate(client->path);
 }
 
+enum { CTRL_SHUTDOWN = -100, CTRL_IDLE = -200 };
+
 static void write_thread(void * usr)
 {
     ENGINE * server = (ENGINE *)usr;
     while(1)
     {
+        int msg;
         int sock;
-        rtMessageQueueReceive(server->writectrl, &sock, sizeof(int));
+        while(1)
+        {
+            // discard any shutdown messages from previous connection
+            rtMessageQueueReceive(server->writectrl, &sock, sizeof(int));
+            if(sock >= 0)
+            {
+                break;
+            }
+        }
         while(1)
         {
             int size = server->receive_message(server);
@@ -43,12 +54,21 @@ static void write_thread(void * usr)
             int status = rtSockSend(sock, server->send_buffer, size);
             if(status != 0)
             {
+                printf("socket send failed %d\n", server->id);
+                msg = CTRL_SHUTDOWN;
+                rtMessageQueueSend(server->readctrl, &msg, sizeof(int));
+                break;
+            }
+            int failed = rtMessageQueueTryReceive(server->writectrl, &msg, sizeof(int));
+            if(failed > 0)
+            {
+                printf("writer interrupted %d\n", server->id);
                 break;
             }
         }
-        shutdown(sock, SHUT_RDWR);
-        int ack = 0;
-        rtMessageQueueSend(server->readctrl, &ack, sizeof(int));
+        // enter idle state and signal
+        msg = CTRL_IDLE;
+        rtMessageQueueSend(server->readctrl, &msg, sizeof(int));
     }
 }
 
@@ -57,22 +77,61 @@ static void read_thread(void * usr)
     ENGINE * server = (ENGINE *)usr;
     while(1)
     {
-        int sock = server->connect(server);
-        server->on_connect(server, sock);
+        int msg;
+        int sock;
+        // connect phase
+        while(1)
+        {
+            sock = server->connect(server);
+            if(sock < 0)
+            {
+                printf("connect failed\n");
+                usleep(1000000);
+            }
+            else
+            {
+                break;
+            }
+        }
+        // handshake phase
+        if(server->on_connect(server, sock) != 0)
+        {
+            printf("handshake failed\n");
+            close(sock);
+            usleep(1000000);
+            continue;
+        }
+        // streaming phase
         rtMessageQueueSend(server->writectrl, &sock, sizeof(int));
         while(1)
         {
             int size = rtSockReceive(sock, server->receive_buffer, server->max_message);
             if(size <= 0)
             {
+                printf("socket receive failed %d\n", server->id);
+                msg = CTRL_SHUTDOWN;
+                rtMessageQueueSend(server->writectrl, &msg, sizeof(int));
                 break;
             }
             server->send_message(server, size);
+            int failed = rtMessageQueueTryReceive(server->readctrl, &msg, sizeof(int));
+            if(failed > 0)
+            {
+                printf("reader interrupted %d\n", server->id);
+                break;
+            }
         }
+        // wait for writer to enter idle state before closing socket
+        while(1)
+        {
+            rtMessageQueueReceive(server->readctrl, &msg, sizeof(int));
+            if(msg == CTRL_IDLE)
+            {
+                break;
+            }
+        }
+        printf("closing socket %d\n", server->id);
         close(sock);
-        int ack;
-        rtMessageQueueReceive(server->readctrl, &ack, sizeof(int));
-        printf("CLOSED %d %d\n", sock, server->id);
         usleep(1000000);
     }
 }
@@ -90,8 +149,8 @@ ENGINE * new_engine(int max_message)
     server->max_message = max_message;
     server->send_buffer = calloc(1, server->max_message);
     server->receive_buffer = calloc(1, server->max_message);
-    server->readctrl = rtMessageQueueCreate(1, sizeof(int));
-    server->writectrl = rtMessageQueueCreate(1, sizeof(int));
+    server->readctrl = rtMessageQueueCreate(10, sizeof(int));
+    server->writectrl = rtMessageQueueCreate(10, sizeof(int));
     return server;
 }
 

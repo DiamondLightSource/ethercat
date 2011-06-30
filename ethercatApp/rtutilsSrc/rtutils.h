@@ -42,6 +42,11 @@ int rtMessageQueueReceive(
     void *message,
     unsigned int size);
 
+int rtMessageQueueTryReceive(
+    rtMessageQueueId id,
+    void *message,
+    unsigned int size);
+
 struct rtThreadOSD;
 typedef struct rtThreadOSD *rtThreadId;
 typedef void (*rtTHREADFUNC)(void *parm);

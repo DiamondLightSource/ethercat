@@ -429,7 +429,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
                    memcmp(usr->config_buffer, engine->receive_buffer, size) == 0);
         }
     }
-    return size > 0;
+    return !(size > 0);
 }
 
 static int pdo_data(ENGINE_USER * usr, char * buffer, int size)

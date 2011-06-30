@@ -117,6 +117,30 @@ int rtMessageQueueReceive(
     return size;
 }
 
+int rtMessageQueueTryReceive(
+    rtMessageQueueId q,
+    void *data,
+    unsigned int size)
+{
+    pthread_mutex_lock(&q->mutex);
+    while(q->length == 0)
+    {
+        pthread_mutex_unlock(&q->mutex);
+        return -1;
+    }
+    unsigned int * slot = TAILPTR(q);
+    if(*slot < size)
+    {
+        size = *slot;
+    }
+    memcpy(data, slot + 1, size);
+    q->tail = (q->tail + 1) % q->capacity;
+    q->length--;
+    pthread_cond_broadcast(&q->notfull);
+    pthread_mutex_unlock(&q->mutex);
+    return size;
+}
+
 static int msgq_put_(rtMessageQueueId msgq, void * data, int size, int nowait)
 {
     if(size > msgq->maximumMessageSize)

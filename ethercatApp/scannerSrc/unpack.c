@@ -27,7 +27,8 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
     {
         init_unpack(engine->receive_buffer, size);
     }
-    return size > 0;
+    // zero is success code
+    return !(size > 0);
 }
 
 static int ioc_send(ENGINE * server, int size)
