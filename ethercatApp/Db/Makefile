@@ -24,6 +24,7 @@ DB += MASTER.template
 DB += gadc.template
 DB += gadc-periodic.template
 DB += xfc.template
+DB += EL3162.template
 
 # DB += basic_motor.template
 
