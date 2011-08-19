@@ -19,6 +19,8 @@
 				<Type ProductCode="#xfa13052" RevisionNo="#x00100000">EL4001</Type>
 				<Name LcId="1033">EL4001 1Ch. Ana. Output 0-10V, 12bit</Name>
 				<Name LcId="1031">EL4001 1K. Ana. Ausgang 0-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4001]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4001]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -1555,6 +1557,8 @@
 				<Type ProductCode="#xfa23052" RevisionNo="#x00100000">EL4002</Type>
 				<Name LcId="1033">EL4002 2Ch. Ana. Output 0-10V, 12bit</Name>
 				<Name LcId="1031">EL4002 2K. Ana. Ausgang 0-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4002]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4002]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -3266,6 +3270,8 @@
 				<Type ProductCode="#xfa43052" RevisionNo="#x00100000">EL4004</Type>
 				<Name LcId="1033">EL4004 4Ch. Ana. Output 0-10V, 12bit</Name>
 				<Name LcId="1031">EL4004 4K. Ana. Ausgang 0-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4004]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -5327,6 +5333,8 @@
 				<Type ProductCode="#xfa83052" RevisionNo="#x00100000">EL4008</Type>
 				<Name LcId="1033">EL4008 8Ch. Ana. Output 0-10V, 12bit</Name>
 				<Name LcId="1031">EL4008 8K. Ana. Ausgang 0-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4008]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4008]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -8088,6 +8096,8 @@
 				<Type ProductCode="#xfab3052" RevisionNo="#x00100000">EL4011</Type>
 				<Name LcId="1033">EL4011 1Ch. Ana. Output 0-20mA, 12bit</Name>
 				<Name LcId="1031">EL4011 1K. Ana. Ausgang 0-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4011]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4011]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -9624,6 +9634,8 @@
 				<Type ProductCode="#xfac3052" RevisionNo="#x00100000">EL4012</Type>
 				<Name LcId="1033">EL4012 2Ch. Ana. Output 0-20mA, 12bit</Name>
 				<Name LcId="1031">EL4012 2K. Ana. Ausgang 0-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4012]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4012]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -11335,6 +11347,8 @@
 				<Type ProductCode="#xfae3052" RevisionNo="#x00100000">EL4014</Type>
 				<Name LcId="1033">EL4014 4Ch. Ana. Output 0-20mA, 12bit</Name>
 				<Name LcId="1031">EL4014 4K. Ana. Ausgang 0-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4014]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -13396,6 +13410,8 @@
 				<Type ProductCode="#xfb23052" RevisionNo="#x00100000">EL4018</Type>
 				<Name LcId="1033">EL4018 8Ch. Ana. Output 0-20mA, 12bit</Name>
 				<Name LcId="1031">EL4018 8K. Ana. Ausgang 0-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4018]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4018]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -16157,6 +16173,8 @@
 				<Type ProductCode="#xfb53052" RevisionNo="#x00100000">EL4021</Type>
 				<Name LcId="1033">EL4021 1Ch. Ana. Output 4-20mA, 12bit</Name>
 				<Name LcId="1031">EL4021 1K. Ana. Ausgang 4-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4021]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4021]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -17693,6 +17711,8 @@
 				<Type ProductCode="#xfb63052" RevisionNo="#x00100000">EL4022</Type>
 				<Name LcId="1033">EL4022 2Ch. Ana. Output 4-20mA, 12bit</Name>
 				<Name LcId="1031">EL4022 2K. Ana. Ausgang 4-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4022]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4022]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -19404,6 +19424,8 @@
 				<Type ProductCode="#xfb83052" RevisionNo="#x00100000">EL4024</Type>
 				<Name LcId="1033">EL4024 4Ch. Ana. Output 4-20mA, 12bit</Name>
 				<Name LcId="1031">EL4024 4K. Ana. Ausgang 4-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4024]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4024]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -21465,6 +21487,8 @@
 				<Type ProductCode="#xfbc3052" RevisionNo="#x00100000">EL4028</Type>
 				<Name LcId="1033">EL4028 8Ch. Ana. Output 4-20mA, 12bit</Name>
 				<Name LcId="1031">EL4028 8K. Ana. Ausgang 4-20mA, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4028]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4028]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -24226,6 +24250,8 @@
 				<Type ProductCode="#xfbf3052" RevisionNo="#x00100000">EL4031</Type>
 				<Name LcId="1033">EL4031 1Ch. Ana. Output +/-10V, 12bit</Name>
 				<Name LcId="1031">EL4031 1K. Ana. Ausgang +/-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4031]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4031]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -25764,6 +25790,8 @@
 				<Type ProductCode="#xfc03052" RevisionNo="#x00100000">EL4032</Type>
 				<Name LcId="1033">EL4032 2Ch. Ana. Output +/-10V, 12bit</Name>
 				<Name LcId="1031">EL4032 2K. Ana. Ausgang +/-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4032]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4032]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -27479,6 +27507,8 @@
 				<Type ProductCode="#xfc23052" RevisionNo="#x00100000">EL4034</Type>
 				<Name LcId="1033">EL4034 4Ch. Ana. Output +/-10V, 12bit</Name>
 				<Name LcId="1031">EL4034 4K. Ana. Ausgang +/-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4034]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4034]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
@@ -29548,6 +29578,8 @@
 				<Type ProductCode="#xfc63052" RevisionNo="#x00100000">EL4038</Type>
 				<Name LcId="1033">EL4038 8Ch. Ana. Output +/-10V, 12bit</Name>
 				<Name LcId="1031">EL4038 8K. Ana. Ausgang +/-10V, 12bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4038]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4038]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -32326,6 +32358,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL4102-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL4102 2Ch. Ana. Output 0-10V]]></Name>
 				<Name LcId="1031"><![CDATA[EL4102 2K. Ana. Ausgang 0-10V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>180</EBusCurrent>
@@ -32380,6 +32414,8 @@
 				<AlternativeType RevisionNo="#x45d0000"/>
 				<Name LcId="1033">EL4102 2Ch. Ana. Output  0-10V, 16bit</Name>
 				<Name LcId="1031">EL4102 2K. Ana. Ausgang 0-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>210</EBusCurrent>
@@ -34904,6 +34940,8 @@
 				<AlternativeType RevisionNo="#x45e0000"/>
 				<Name LcId="1033">EL4102 2Ch. Ana. Output  0-10V, 16bit</Name>
 				<Name LcId="1031">EL4102 2K. Ana. Ausgang 0-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>210</EBusCurrent>
@@ -37428,6 +37466,8 @@
 				<AlternativeType RevisionNo="#x45f0000"/>
 				<Name LcId="1033">EL4102 2Ch. Ana. Output  0-10V, 16bit</Name>
 				<Name LcId="1031">EL4102 2K. Ana. Ausgang 0-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>210</EBusCurrent>
@@ -39961,6 +40001,8 @@
 				<Type ProductCode="#x10083052" RevisionNo="#x03F80000">EL4104</Type>
 				<Name LcId="1033">EL4104 4Ch. Ana. Output 0-10V, 16bit</Name>
 				<Name LcId="1031">EL4104 4Ch. Ana. Ausgang 0-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4104]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4104]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -42004,6 +42046,8 @@
 				<HideType RevisionNo="#x03F80000" ProductRevision="EL4104-0000-1016"/>
 				<Name LcId="1033">EL4104 4Ch. Ana. Output 0-10V, 16bit</Name>
 				<Name LcId="1031">EL4104 4Ch. Ana. Ausgang 0-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4104]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4104]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -42953,7 +42997,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10010070</DefaultData>
+											<DefaultData>10110070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -42977,7 +43021,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10011070</DefaultData>
+											<DefaultData>10111070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -43001,7 +43045,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10012070</DefaultData>
+											<DefaultData>10112070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -43025,7 +43069,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10013070</DefaultData>
+											<DefaultData>10113070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -44047,6 +44091,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL4112-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL4112 2Ch. Ana. Output 0-20mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL4112 2K. Ana. Ausgang 0-20mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>180</EBusCurrent>
@@ -44101,6 +44147,8 @@
 				<AlternativeType RevisionNo="#x45d0000"/>
 				<Name LcId="1033">EL4112 2Ch. Ana. Output  0-20mA, 16bit</Name>
 				<Name LcId="1031">EL4112 2K. Ana. Ausgang 0-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -46625,6 +46673,8 @@
 				<AlternativeType RevisionNo="#x45e0000"/>
 				<Name LcId="1033">EL4112 2Ch. Ana. Output  0-20mA, 16bit</Name>
 				<Name LcId="1031">EL4112 2K. Ana. Ausgang 0-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -49149,6 +49199,8 @@
 				<AlternativeType RevisionNo="#x45f0000"/>
 				<Name LcId="1033">EL4112 2Ch. Ana. Output  0-20mA, 16bit</Name>
 				<Name LcId="1031">EL4112 2K. Ana. Ausgang 0-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>160</EBusCurrent>
@@ -51682,6 +51734,8 @@
 				<Type ProductCode="#x10103052" RevisionNo="#x0000000a">EL4112-0010</Type>
 				<Name LcId="1033"><![CDATA[EL4112-0010 2Ch. Ana. Output +/-10mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL4112-0010 2K. Ana. Ausgang +/-10mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>180</EBusCurrent>
@@ -51735,6 +51789,8 @@
 				<HideType RevisionNo="#x0000000a" ProductRevision="EL4112-0010-0000"/>
 				<Name LcId="1033">EL4112-0010 2Ch. Ana. Output +/-10mA, 16bit</Name>
 				<Name LcId="1031">EL4112-0010 2K. Ana. Ausgang +/-10mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>150</EBusCurrent>
@@ -54258,6 +54314,8 @@
 				<HideType RevisionNo="#x03f8000a" ProductRevision="EL4112-0010-1016"/>
 				<Name LcId="1033">EL4112-0010 2Ch. Ana. Output +/-10mA, 16bit</Name>
 				<Name LcId="1031">EL4112-0010 2K. Ana. Ausgang +/-10mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>150</EBusCurrent>
@@ -56781,6 +56839,8 @@
 				<HideType RevisionNo="#x03f9000a" ProductRevision="EL4112-0010-1017"/>
 				<Name LcId="1033">EL4112-0010 2Ch. Ana. Output +/-10mA, 16bit</Name>
 				<Name LcId="1031">EL4112-0010 2K. Ana. Ausgang +/-10mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>150</EBusCurrent>
@@ -59314,6 +59374,8 @@
 				<Type ProductCode="#x10123052" RevisionNo="#x03F80000">EL4114</Type>
 				<Name LcId="1033">EL4114 4Ch. Ana. Output 0-20mA, 16bit</Name>
 				<Name LcId="1031">EL4114 4K. Ana. Ausgang 0-20mA. 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4114]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4114]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>265</EBusCurrent>
@@ -61357,6 +61419,8 @@
 				<HideType RevisionNo="#x03f80000" ProductRevision="EL4114-0000-1017"/>
 				<Name LcId="1033">EL4114 4Ch. Ana. Output 0-20mA, 16bit</Name>
 				<Name LcId="1031">EL4114 4K. Ana. Ausgang 0-20mA. 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4114]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4114]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>265</EBusCurrent>
@@ -62306,7 +62370,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10010070</DefaultData>
+											<DefaultData>10110070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -62330,7 +62394,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10011070</DefaultData>
+											<DefaultData>10111070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -62354,7 +62418,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10012070</DefaultData>
+											<DefaultData>10112070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -62378,7 +62442,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10013070</DefaultData>
+											<DefaultData>10113070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -63400,6 +63464,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL4122-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL4122 2Ch. Ana. Output 4-20mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL4122 2K. Ana. Ausgang 4-20mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>180</EBusCurrent>
@@ -63454,6 +63520,8 @@
 				<AlternativeType RevisionNo="#x45d0000"/>
 				<Name LcId="1033">EL4122 2Ch. Ana. Output  4-20mA, 16bit</Name>
 				<Name LcId="1031">EL4122 2K. Ana. Ausgang 4-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -65978,6 +66046,8 @@
 				<AlternativeType RevisionNo="#x45e0000"/>
 				<Name LcId="1033">EL4122 2Ch. Ana. Output  4-20mA, 16bit</Name>
 				<Name LcId="1031">EL4122 2K. Ana. Ausgang 4-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -68502,6 +68572,8 @@
 				<AlternativeType RevisionNo="#x45f0000"/>
 				<Name LcId="1033">EL4122 2Ch. Ana. Output  4-20mA, 16bit</Name>
 				<Name LcId="1031">EL4122 2K. Ana. Ausgang 4-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>160</EBusCurrent>
@@ -71035,6 +71107,8 @@
 				<Type ProductCode="#x101C3052" RevisionNo="#x03F80000">EL4124</Type>
 				<Name LcId="1033">EL4124 4Ch. Ana. Output 4-20mA, 16bit</Name>
 				<Name LcId="1031">EL4124 4Ch. Ana. Output 4-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4124]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4124]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -73078,6 +73152,8 @@
 				<HideType RevisionNo="#x03F80000" ProductRevision="EL4124-0000-1016"/>
 				<Name LcId="1033">EL4124 4Ch. Ana. Output 4-20mA, 16bit</Name>
 				<Name LcId="1031">EL4124 4Ch. Ana. Output 4-20mA, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4124]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4124]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
@@ -74027,7 +74103,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10010070</DefaultData>
+											<DefaultData>10110070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -74051,7 +74127,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10011070</DefaultData>
+											<DefaultData>10111070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -74075,7 +74151,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10012070</DefaultData>
+											<DefaultData>10112070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -74099,7 +74175,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10013070</DefaultData>
+											<DefaultData>10113070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -75122,6 +75198,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL4132-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL4132 2Ch. Ana. Output +/-10V]]></Name>
 				<Name LcId="1031"><![CDATA[EL4132 2K. Ana. Ausgang +/-10V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4132]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4132]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>180</EBusCurrent>
@@ -76459,6 +76537,8 @@
 				<AlternativeType RevisionNo="#x045d0000"/>
 				<Name LcId="1033">EL4132 2Ch. Ana. Output +/-10V, 16bit</Name>
 				<Name LcId="1031">EL4132 2Ch. Ana. Ausgang +/-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4132]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4132]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>210</EBusCurrent>
@@ -78983,6 +79063,8 @@
 				<AlternativeType RevisionNo="#x045e0000"/>
 				<Name LcId="1033">EL4132 2Ch. Ana. Output +/-10V, 16bit</Name>
 				<Name LcId="1031">EL4132 2Ch. Ana. Ausgang +/-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4132]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4132]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>210</EBusCurrent>
@@ -81507,6 +81589,8 @@
 				<AlternativeType RevisionNo="#x045f0000"/>
 				<Name LcId="1033">EL4132 2Ch. Ana. Output +/-10V, 16bit</Name>
 				<Name LcId="1031">EL4132 2Ch. Ana. Ausgang +/-10V, 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4132]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4132]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>210</EBusCurrent>
@@ -84040,6 +84124,8 @@
 				<Type ProductCode="#x10263052" RevisionNo="#x03F80000">EL4134</Type>
 				<Name LcId="1033">EL4134 4Ch. Ana. Output -10/+10V, 16bit</Name>
 				<Name LcId="1031">EL4134 4K. Ana. Ausgang -10/+10V. 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4134]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4134]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>265</EBusCurrent>
@@ -86083,6 +86169,8 @@
 				<HideType RevisionNo="#x3f80000" ProductRevision="EL4134-0000-1016"/>
 				<Name LcId="1033">EL4134 4Ch. Ana. Output -10/+10V, 16bit</Name>
 				<Name LcId="1031">EL4134 4K. Ana. Ausgang -10/+10V. 16bit</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4134]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4134]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>265</EBusCurrent>
@@ -87032,7 +87120,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10010070</DefaultData>
+											<DefaultData>10110070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -87056,7 +87144,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10011070</DefaultData>
+											<DefaultData>10111070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -87080,7 +87168,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10012070</DefaultData>
+											<DefaultData>10112070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>
@@ -87104,7 +87192,7 @@
 									<SubItem>
 										<Name>SubIndex 001</Name>
 										<Info>
-											<DefaultData>10013070</DefaultData>
+											<DefaultData>10113070</DefaultData>
 										</Info>
 									</SubItem>
 								</Info>

@@ -683,7 +683,7 @@
 				</Info>
 				<GroupType>Measuring</GroupType>
 				<Fmmu>Inputs</Fmmu>
-				<Fmmu>MBoxState</Fmmu>				
+				<Fmmu>MBoxState</Fmmu>
 				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
 				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
 				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
@@ -708,7 +708,7 @@
 				</Info>
 				<GroupType>Measuring</GroupType>
 				<Fmmu>Inputs</Fmmu>
-				<Fmmu>MBoxState</Fmmu>				
+				<Fmmu>MBoxState</Fmmu>
 				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
 				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
 				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
@@ -801,24 +801,6 @@
 					<ByteSize>128</ByteSize>
 					<ConfigData>0500</ConfigData>
 				</Eeprom>
-			</Device>
-			<Device Physics="YY">
-				<Type ProductCode="#x13893462" RevisionNo="#x270b0000">FM5001</Type>
-				<Name LcId="1033"><![CDATA[FM5001-B100 Encoder]]></Name>
-				<Name LcId="1031"><![CDATA[FM5001-B100 Encoder]]></Name>
-				<GroupType>Misc</GroupType>
-				<Fmmu>MBoxState</Fmmu>
-				<Fmmu>Inputs</Fmmu>
-				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x1800" ControlByte="#x26" Enable="1">MBoxOut</Sm>
-				<Sm MinSize="40" MaxSize="1486" DefaultSize="246" StartAddress="#x18f6" ControlByte="#x22" Enable="1">MBoxIn</Sm>
-				<Sm StartAddress="#x1000" ControlByte="#x24" Enable="1">Outputs</Sm>
-				<Sm StartAddress="#x1100" ControlByte="#x20" Enable="1">Inputs</Sm>
-				<TxPdo Ref="TxEL5xx1" Chn="0" Fixed="1" Sm="3"/>
-				<Eeprom>
-					<ByteSize>128</ByteSize>
-					<ConfigData>0500</ConfigData>
-				</Eeprom>
-				<Image16x14>ENCODER</Image16x14>
 			</Device>
 			<Device>
 				<Type UseLrdLwr="1" ProductCode="#x17713052" RevisionNo="#x270b0000">EL6001</Type>

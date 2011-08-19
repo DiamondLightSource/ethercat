@@ -257,10 +257,15 @@ B = E-Bus cable</xs:documentation>
 					<xs:documentation>optional URL to additional device information on the web</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="Info" type="InfoType" minOccurs="0">
+			<xs:element name="Info" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>additional information for the device</xs:documentation>
 				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="InfoType"/>
+					</xs:complexContent>
+				</xs:complexType>
 			</xs:element>
 			<xs:element name="GroupType" type="xs:string">
 				<xs:annotation>
@@ -1267,13 +1272,20 @@ B = E-Bus cable</xs:documentation>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="IdentificationAdo" type="HexDecValue" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Identification information of the device. Element defines the memory address where the Identification ID is stored.
+			<xs:choice>
+				<xs:element name="IdentificationAdo" type="HexDecValue" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Identification information of the device. Element defines the memory address where the Identification ID is stored.
 EXAMPLE: If IdenficationAdo is 0x0012 the register "Configured Station Alias" is used
 If IdentificationAdo is 0x1000 IO Data are used</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="IdentificationReg134" type="xs:boolean" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>AL Status Code register 0x0134 is used for device identification. This is the recommended way for identifying a slave with application microcontroller and ID selector.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
 			<xs:element name="DeviceFeature" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>The allowed device features  are defined in the device description specification</xs:documentation>

@@ -19,6 +19,8 @@
 				<Type ProductCode="#x07FA3452" RevisionNo="#x00100000">EM2042</Type>
 				<Name LcId="1033"><![CDATA[EM2042 16Ch. Dig. Output 24V, 0.5A, D-Sub connection]]></Name>
 				<Name LcId="1031"><![CDATA[EM2042 16K. Dig. Ausgang 24V, 0.5A, D-Sub-Anschluss]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EM2042]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EM2042]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>115</EBusCurrent>

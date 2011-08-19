@@ -22,6 +22,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL1002-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL1002 2Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1002 2K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1002]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1002]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -62,6 +64,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="EL1002-0000-0000"/>
 				<Name LcId="1033"><![CDATA[EL1002 2Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1002 2K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1002]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1002]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -105,6 +109,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL1004-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -167,6 +173,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="EL1004-0000-0000"/>
 				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -229,6 +237,8 @@
 				<Type ProductCode="#x03EC3052" RevisionNo="#x0000000A">EL1004-0010</Type>
 				<Name LcId="1033"><![CDATA[EL1004-0010 4Ch. Dig. Input 24V, isolated, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004-0010 4K. Dig. Eingang 24V, galv. getrennt, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -291,6 +301,8 @@
 				<HideType RevisionNo="#x0000000A" ProductRevision="EL1004-0010-0000"/>
 				<Name LcId="1033"><![CDATA[EL1004-0010 4Ch. Dig. Input 24V, isolated, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004-0010 4K. Dig. Eingang 24V, galv. getrennt, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -353,6 +365,8 @@
 				<Type ProductCode="#x03f03052" RevisionNo="#x00100000">EL1008</Type>
 				<Name LcId="1033"><![CDATA[EL1008 8Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1008 8K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1008]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1008]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -462,6 +476,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL1012-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL1012 2Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1012 2K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1012]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1012]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -502,6 +518,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="EL1012-0000-0000"/>
 				<Name LcId="1033"><![CDATA[EL1012 2Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1012 2K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1012]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1012]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -545,6 +563,8 @@
 				<HideType RevisionNo="#x270b0000" ProductRevision="EL1014-0000-9995"/>
 				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -607,6 +627,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="EL1014-0000-0000"/>
 				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -669,6 +691,8 @@
 				<Type ProductCode="#x03F63052" RevisionNo="#x0000000A">EL1014-0010</Type>
 				<Name LcId="1033"><![CDATA[EL1014-0010 4Ch. Dig. Input 24V, isolated, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014-0010 4K. Dig. Eingang 24V, galv. getrennt, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -731,6 +755,8 @@
 				<HideType RevisionNo="#x0000000A" ProductRevision="EL1014-0010-0000"/>
 				<Name LcId="1033"><![CDATA[EL1014-0010 4Ch. Dig. Input 24V, isolated, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014-0010 4K. Dig. Eingang 24V, galv. getrennt, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -793,6 +819,8 @@
 				<Type ProductCode="#x03fa3052" RevisionNo="#x00100000">EL1018</Type>
 				<Name LcId="1033"><![CDATA[EL1018 8Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1018 8K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1018]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1018]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -899,6 +927,8 @@
 				<Type ProductCode="#x04003052" RevisionNo="#x00100000">EL1024</Type>
 				<Name LcId="1033"><![CDATA[EL1024 4Ch. Dig. Input 24V, Type 2, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1024 4K. Dig. Eingang 24V, Typ-2, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1024]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1024]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -961,6 +991,8 @@
 				<Type ProductCode="#x040a3052" RevisionNo="#x00100000">EL1034</Type>
 				<Name LcId="1033"><![CDATA[EL1034 4Ch. Dig. Input 24V, potential-free, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1034 4K. Dig. Eingang 24V, potenzialfrei, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1034]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1034]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1023,6 +1055,8 @@
 				<Type ProductCode="#x043c3052" RevisionNo="#x00100000">EL1084</Type>
 				<Name LcId="1033"><![CDATA[EL1084 4Ch. Dig. Input 24V, 3ms, negative]]></Name>
 				<Name LcId="1031"><![CDATA[EL1084 4K. Dig. Eingang 24V, 3ms, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1084]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1084]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1085,6 +1119,8 @@
 				<Type ProductCode="#x04403052" RevisionNo="#x00100000">EL1088</Type>
 				<Name LcId="1033"><![CDATA[EL1088 8Ch. Dig. Input 24V, 3ms, negative]]></Name>
 				<Name LcId="1031"><![CDATA[EL1088 8K. Dig. Eingang 24V, 3ms, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1088]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1088]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1191,6 +1227,8 @@
 				<Type ProductCode="#x04463052" RevisionNo="#x00100000">EL1094</Type>
 				<Name LcId="1033"><![CDATA[EL1094 4Ch. Dig. Input 24V, 10µs, negative]]></Name>
 				<Name LcId="1031"><![CDATA[EL1094 4K. Dig. Eingang 24V, 10µs, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1094]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1094]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1253,6 +1291,8 @@
 				<Type ProductCode="#x044a3052" RevisionNo="#x00100000">EL1098</Type>
 				<Name LcId="1033"><![CDATA[EL1098 8Ch. Dig. Input 24V, 10µs, negative]]></Name>
 				<Name LcId="1031"><![CDATA[EL1098 8K. Dig. Eingang 24V, 10µs, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1098]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1098]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1359,6 +1399,8 @@
 				<Type ProductCode="#x04503052" RevisionNo="#x00100000">EL1104</Type>
 				<Name LcId="1033"><![CDATA[EL1104 4Ch. Dig. Input 24V, 3ms, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1104 4K. Dig. Eingang 24V, 3ms, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1104]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1104]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1421,6 +1463,8 @@
 				<Type ProductCode="#x045a3052" RevisionNo="#x00100000">EL1114</Type>
 				<Name LcId="1033"><![CDATA[EL1114 4Ch. Dig. Input 24V, 10µs, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1114 4K. Dig. Eingang 24V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1114]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1114]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1483,6 +1527,8 @@
 				<Type ProductCode="#x04643052" RevisionNo="#x00100000">EL1124</Type>
 				<Name LcId="1033"><![CDATA[EL1124 4Ch. Dig. Input 5V, 10µs, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1124 4K. Dig. Eingang 5V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1124]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1124]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1545,6 +1591,8 @@
 				<Type ProductCode="#x046e3052" RevisionNo="#x00100000">EL1134</Type>
 				<Name LcId="1033"><![CDATA[EL1134 4Ch. Dig. Input 48V, 10µs, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1134 4K. Dig. Eingang 48V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1134]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1134]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1607,6 +1655,8 @@
 				<Type ProductCode="#x04783052" RevisionNo="#x00100000">EL1144</Type>
 				<Name LcId="1033"><![CDATA[EL1144 4Ch. Dig. Input 12V, 10µs, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1144 4K. Dig. Eingang 12V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1144]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1144]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -1670,6 +1720,8 @@
 				<AlternativeType RevisionNo="#x00100064"/>
 				<Name LcId="1033"><![CDATA[EL1202 2Ch. Fast Dig. Input 24V, 1µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1202 2K. Fast Dig. Eingang 24V, 1µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1202]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1202]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -1711,6 +1763,8 @@
 				<AlternativeType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1202-0100 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
 				<Name LcId="1031"><![CDATA[EL1202-0100 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1202]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1202]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -1797,6 +1851,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="EL1252-0000-0000"/>
 				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
 				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -2012,6 +2068,8 @@
 				<HideType RevisionNo="#x00110000" ProductRevision="EL1252-0000-0011"/>
 				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
 				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
@@ -2298,9 +2356,304 @@
 				</VendorSpecific>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x04E43052" RevisionNo="#x00130000">EL1252</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<HideType RevisionNo="#x00120000"/>
+				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+					<VendorSpecific>
+						<TwinCAT>
+							<AlternativeSmMapping Default="1">
+								<Name>Standard (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a13</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+							<AlternativeSmMapping>
+								<Name>Line Motion (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a16</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+						</TwinCAT>
+					</VendorSpecific>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>125</AddInfo>
+					<ChannelCount>2</ChannelCount>
+				</Profile>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Fmmu Sm="2" Su="2">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x09ae" Virtual="true">Inputs</Sm>
+				<Sm StartAddress="#x0910" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a12</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true" Sm="1">
+					<Index>#x1a13</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a14</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a15</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>SysTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a15</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a14</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>SysTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a16</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>16</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch Settings</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="0">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x04EE3052" RevisionNo="#x00020000">EL1262</Type>
 				<Name LcId="1033"><![CDATA[EL1262 2Ch. Dig. Input 24V, 1µs, DC Oversample]]></Name>
 				<Name LcId="1031"><![CDATA[EL1262 2K. Dig. Eingang 24V, 1µs, DC Oversample]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1262]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1262]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>070</EBusCurrent>
@@ -2952,6 +3305,8 @@
 				<Type ProductCode="#x06a63052" RevisionNo="#x00100000">EL1702</Type>
 				<Name LcId="1033"><![CDATA[EL1702 2Ch. Dig. Input 120V/230V AC, 10ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1702 2K. Dig. Eingang 120V/230V AC, 10ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1702]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1702]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -2992,6 +3347,8 @@
 				<Type ProductCode="#x06b03052" RevisionNo="#x00100000">EL1712</Type>
 				<Name LcId="1033"><![CDATA[EL1712 2Ch. Dig. Input 120V AC/DC, 10ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1712 2K. Dig. Eingang 120V AC/DC, 10ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1712]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1712]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -3032,6 +3389,8 @@
 				<Type ProductCode="#x06ba3052" RevisionNo="#x00100000">EL1722</Type>
 				<Name LcId="1033"><![CDATA[EL1722 2Ch. Dig. Input 120V/230V AC, 10ms, no power contacts]]></Name>
 				<Name LcId="1031"><![CDATA[EL1722 2K. Dig. Eingang  120V/230V AC, 10ms, keine Powerkontakte]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1722]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1722]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -3072,6 +3431,8 @@
 				<Type ProductCode="#x070C3052" RevisionNo="#x00100000">EL1804</Type>
 				<Name LcId="1033"><![CDATA[EL1804 4Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1804 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1804]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1804]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -3134,6 +3495,8 @@
 				<Type ProductCode="#x07103052" RevisionNo="#x00100000">EL1808</Type>
 				<Name LcId="1033"><![CDATA[EL1808 8Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1808 8K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1808]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1808]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -3240,6 +3603,8 @@
 				<Type ProductCode="#x07113052" RevisionNo="#x00100000">EL1809</Type>
 				<Name LcId="1033"><![CDATA[EL1809 16Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1809 16K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1809]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1809]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -3434,6 +3799,8 @@
 				<Type ProductCode="#x07163052" RevisionNo="#x00100000">EL1814</Type>
 				<Name LcId="1033"><![CDATA[EL1814 4Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1814 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1814]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1814]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -3496,6 +3863,8 @@
 				<Type ProductCode="#x071b3052" RevisionNo="#x00100000">EL1819</Type>
 				<Name LcId="1033"><![CDATA[EL1819 16Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1819 16K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1819]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1819]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -3690,6 +4059,8 @@
 				<Type ProductCode="#x07433052" RevisionNo="#x00100000">EL1859</Type>
 				<Name LcId="1033"><![CDATA[EL1859 8Ch. Dig. Input 24V, 3ms, 8Ch. Dig. Output 24V, 0.5A]]></Name>
 				<Name LcId="1031"><![CDATA[EL1859 8K. Dig. Eingang 24V, 3ms, 8K. Dig. Ausgang 24V, 0.5A]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1859]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1859]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -3886,6 +4257,8 @@
 				<Type ProductCode="#x07463052" RevisionNo="#x00100000">EL1862</Type>
 				<Name LcId="1033"><![CDATA[EL1862 16Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1862 16K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1862]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1862]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -4080,6 +4453,8 @@
 				<Type ProductCode="#x07463052" RevisionNo="#x0010000A">EL1862-0010</Type>
 				<Name LcId="1033"><![CDATA[EL1862-0010 16Ch. Dig. Input 24V, 3ms, negativ]]></Name>
 				<Name LcId="1031"><![CDATA[EL1862-0010 16K. Dig. Eingang 24V, 3ms, negative]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1862]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1862]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -4274,6 +4649,8 @@
 				<Type ProductCode="#x07503052" RevisionNo="#x00100000">EL1872</Type>
 				<Name LcId="1033"><![CDATA[EL1872 16Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1872 16K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1872]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1872]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>100</EBusCurrent>
@@ -4468,6 +4845,8 @@
 				<Type ProductCode="#x07613052" RevisionNo="#x00100000">EL1889</Type>
 				<Name LcId="1033"><![CDATA[EL1889 16Ch. Dig. Input 24V, 3ms, negative]]></Name>
 				<Name LcId="1031"><![CDATA[EL1889 16K. Dig. Eingang 24V, 3ms, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1889]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1889]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>

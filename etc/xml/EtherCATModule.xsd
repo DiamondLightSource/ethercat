@@ -16,7 +16,15 @@
 				<xs:element name="Modules">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="Module" type="ModuleType" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="Module" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ModuleType">
+											<xs:attribute name="Crc32"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

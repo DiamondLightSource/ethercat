@@ -32,6 +32,13 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="UnitTypeType">
+		<xs:sequence>
+			<xs:element name="Index" type="HexDecValue"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Symbol" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="PropertyType">
 		<xs:sequence>
 			<xs:element name="Name" type="xs:string"/>
@@ -152,6 +159,13 @@
 	</xs:complexType>
 	<xs:complexType name="DictionaryType">
 		<xs:sequence>
+			<xs:element name="UnitTypes" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="UnitType" type="UnitTypeType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
 			<xs:element name="DataTypes" minOccurs="0">
 				<xs:complexType>
 					<xs:sequence>
@@ -296,6 +310,8 @@
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
+						<xs:element name="Backup" type="xs:int" minOccurs="0"/>
+						<xs:element name="Setting" type="xs:int" minOccurs="0"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -316,19 +332,19 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ObjectInfoType">
-		<xs:choice minOccurs="0">
-			<xs:element name="DefaultString" type="xs:string" minOccurs="0"/>
-			<xs:sequence minOccurs="0">
-				<xs:element name="MinData" type="xs:hexBinary" minOccurs="0"/>
-				<xs:element name="MaxData" type="xs:hexBinary" minOccurs="0"/>
-				<xs:element name="DefaultData" type="xs:hexBinary" minOccurs="0"/>
-			</xs:sequence>
-			<xs:sequence minOccurs="0">
-				<xs:element name="MinValue" type="HexDecValue" minOccurs="0"/>
-				<xs:element name="MaxValue" type="HexDecValue" minOccurs="0"/>
-				<xs:element name="DefaultValue" type="HexDecValue" minOccurs="0"/>
-			</xs:sequence>
-			<xs:sequence minOccurs="0">
+		<xs:sequence minOccurs="0">
+			<xs:choice>
+				<xs:element name="DefaultString" type="xs:string" minOccurs="0"/>
+				<xs:sequence minOccurs="0">
+					<xs:element name="MinData" type="xs:hexBinary" minOccurs="0"/>
+					<xs:element name="MaxData" type="xs:hexBinary" minOccurs="0"/>
+					<xs:element name="DefaultData" type="xs:hexBinary" minOccurs="0"/>
+				</xs:sequence>
+				<xs:sequence minOccurs="0">
+					<xs:element name="MinValue" type="HexDecValue" minOccurs="0"/>
+					<xs:element name="MaxValue" type="HexDecValue" minOccurs="0"/>
+					<xs:element name="DefaultValue" type="HexDecValue" minOccurs="0"/>
+				</xs:sequence>
 				<xs:element name="SubItem" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
@@ -337,8 +353,9 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-			</xs:sequence>
-		</xs:choice>
+			</xs:choice>
+			<xs:element name="Unit" type="HexDecValue" minOccurs="0"/>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="EntryType">
 		<xs:sequence>
@@ -529,6 +546,110 @@
 			<xs:any namespace="##any" processContents="skip" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="DiagnosticsType">
+		<xs:annotation>
+			<xs:documentation>Internal Version 0.1</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DiagReset" type="EnumInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>0: Reset not possible, fatal hardware error; 1: Coldstart required; 2: Trigger device reset; 10: State change to Init required; 11: State change to PreOp required; State change to SafeOp required</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DiagReaction" type="EnumInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Define different diag reaction. E.g. TorqueOff, ClosedLoopRamp, ... </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DiagType" type="EnumInfoType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Define different diag types. E.g. runtime error, parameter error, …</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DiagMessage" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TextId" type="HexDecValue">
+							<xs:annotation>
+								<xs:documentation>Entry point to find the diag description.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="MessageText" type="NameType" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>A short description.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Description" type="NameType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Detailed description.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Flags" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>See defined flags! </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DiagClass" minOccurs="0">
+										<xs:simpleType>
+											<xs:restriction base="xs:NMTOKEN">
+												<xs:enumeration value="error"/>
+												<xs:enumeration value="warning"/>
+												<xs:enumeration value="information"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="DiagReset" type="xs:int" minOccurs="0"/>
+									<xs:element name="DiagReaction" type="xs:int" minOccurs="0"/>
+									<xs:element name="DiagType" type="xs:int" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CauseRemedy" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Possible pairs of cause and remedy for the diag object.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Cause" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="NameType"/>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Remedy" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="NameType"/>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="Idx" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Info" type="NameType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Used to mention the wrong parameters.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Hint" type="NameType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>General information around the diag object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="URL" type="NameType" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Optional URL to additional information on the web</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DiagSource"/>
+	</xs:complexType>
 	<xs:complexType name="ProfileType">
 		<xs:sequence>
 			<xs:element name="ProfileNo" minOccurs="0"/>
@@ -567,20 +688,20 @@
 					</xs:key>
 				</xs:element>
 			</xs:choice>
-			<xs:element name="DiagMessages" minOccurs="0">
-				<xs:complexType>
-					<xs:sequence>
-						<xs:element name="DiagMessage" maxOccurs="unbounded">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="TextId" type="HexDecValue"/>
-									<xs:element name="MessageText" type="NameType" maxOccurs="unbounded"/>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-				</xs:complexType>
-			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:element name="DiagFile" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>path to a diagnostic file corresponding to "EtherCATDiag.xsd"</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DiagMessages" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="DiagnosticsType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
 			<xs:element name="VendorSpecific" type="VendorSpecificType" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>

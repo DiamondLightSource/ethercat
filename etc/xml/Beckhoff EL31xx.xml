@@ -19,6 +19,8 @@
 				<Type ProductCode="#xc1d3052" RevisionNo="#x00100000">EL3101</Type>
 				<Name LcId="1033">EL3101 1Ch. Ana. Input +/-10V Diff.</Name>
 				<Name LcId="1031">EL3101 1K.Ana. Eingang  +/-10V Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3101]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3101]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -2187,6 +2189,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL3102 2Ch. Ana. Input +/-10V, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3102 2K. Ana. Eingang +/-10V, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -2293,6 +2297,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033"><![CDATA[EL3102 2Ch. Ana. Input +/-10V, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3102 2K. Ana. Eingang +/-10V, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -5815,6 +5821,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL3102 2Ch. Ana. Input +/-10V, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3102 2K. Ana. Eingang +/-10V, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3102]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3102]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -9426,6 +9434,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c203052" RevisionNo="#x00100000">EL3104</Type>
 				<Name LcId="1033">EL3104 4Ch. Ana. Input +/-10V Diff.</Name>
 				<Name LcId="1031">EL3104 4K. Ana. Eingang  +/-10V Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3104]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3104]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -13065,6 +13075,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c273052" RevisionNo="#x00100000">EL3111</Type>
 				<Name LcId="1033">EL3111 1Ch. Ana. Input 0-20mA, Diff.</Name>
 				<Name LcId="1031">EL3111 1K.Ana. Eingang  0-20mA, Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3111]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3111]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -15206,6 +15218,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL3112 2Ch. Ana. Input 0-20mA, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3112 2K. Ana. Eingang 0-20mA, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -15296,6 +15310,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033">EL3112 2Ch. Ana Input 0-20mA, Diff.</Name>
 				<Name LcId="1031">EL3112 2K. Ana. Eingang 0-20mA, Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -18863,6 +18879,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL3112 2Ch. Ana Input 0-20mA, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3112 2K. Ana. Eingang 0-20mA, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3112]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3112]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -22474,6 +22492,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c2a3052" RevisionNo="#x00100000">EL3114</Type>
 				<Name LcId="1033">EL3114 4Ch. Ana. Input 0-20mA, Diff.</Name>
 				<Name LcId="1031">EL3114 4K. Ana. Eingang  0-20mA, Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3114]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3114]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -26041,6 +26061,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033">EL3114 4Ch. Ana. Input 0-20mA Diff.</Name>
 				<Name LcId="1031">EL3114 4K. Ana. Eingang  0-20mA Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3114]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3114]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -29680,6 +29702,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c313052" RevisionNo="#x00100000">EL3121</Type>
 				<Name LcId="1033">EL3121 1Ch. Ana. Input 4-20mA Diff.</Name>
 				<Name LcId="1031">EL3121 1K.Ana. Eingang  4-20mA Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3121]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3121]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -31847,6 +31871,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL3122 2Ch. Ana. Input 4-20mA, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3122 2K. Ana. Eingang 4-20mA, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -31937,6 +31963,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033">EL3122 2Ch. Ana Input 4-20mA, Diff.</Name>
 				<Name LcId="1031">EL3122 2K. Ana. Eingang 4-20mA, Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -35504,6 +35532,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL3122 2Ch. Ana Input 4-20mA, Diff.]]></Name>
 				<Name LcId="1031"><![CDATA[EL3122 2K. Ana. Eingang 4-20mA, Diff.]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3122]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -39115,6 +39145,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c343052" RevisionNo="#x00100000">EL3124</Type>
 				<Name LcId="1033">EL3124 4Ch. Ana. Input 4-20mA Diff.</Name>
 				<Name LcId="1031">EL3124 4K. Ana. Eingang  4-20mA Diff.</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3124]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3124]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -42754,6 +42786,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c453052" RevisionNo="#x00100000">EL3141</Type>
 				<Name LcId="1033">EL3141 1Ch. Ana. Input 0-20mA</Name>
 				<Name LcId="1031">EL3141 1K.Ana. Eingang  0-20mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3141]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3141]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -44922,6 +44956,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x270c0000" ProductRevision="EL3142-0000-9996"/>
 				<Name LcId="1033"><![CDATA[EL3142 2Ch. Ana. Input 0-20mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL3142 2K. Ana. Eingang 0-20mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3142]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3142]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -45013,6 +45049,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033">EL3142 2Ch. Ana Input 0-20mA</Name>
 				<Name LcId="1031">EL3142 2K. Ana. Eingang 0-20mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3142]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3142]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -48580,6 +48618,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL3142 2Ch. Ana Input 0-20mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL3142 2K. Ana. Eingang 0-20mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3142]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3142]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -52191,6 +52231,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c463052" RevisionNo="#x0000000A">EL3142-0010</Type>
 				<Name LcId="1033"><![CDATA[EL3142-0010 2Ch. Ana. Input +/-10mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL3142-0010 2K. Ana. Eingang +/-10mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3142]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3142]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -52280,6 +52322,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x0000000A"/>
 				<Name LcId="1033">EL3142-0010 2Ch. Ana Input +/-10mA</Name>
 				<Name LcId="1031">EL3142-0010 2K. Ana. Eingang +/-10mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3142]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3142]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -55845,6 +55889,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x0010000A"/>
 				<Name LcId="1033"><![CDATA[EL3142-0010 2Ch. Ana Input +/-10mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL3142-0010 2K. Ana. Eingang +/-10mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3142]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3142]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -59456,6 +59502,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c483052" RevisionNo="#x00100000">EL3144</Type>
 				<Name LcId="1033">EL3144 4Ch. Ana. Input 0-20mA</Name>
 				<Name LcId="1031">EL3144 4K. Ana. Eingang  0-20mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3144]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3144]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -63095,6 +63143,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c4f3052" RevisionNo="#x00100000">EL3151</Type>
 				<Name LcId="1033">EL3151 1Ch. Ana. Input 4-20mA</Name>
 				<Name LcId="1031">EL3151 1K.Ana. Eingang  4-20mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3151]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3151]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -65260,6 +65310,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL3152 2Ch. Ana. Input 4-20mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL3152 2K. Ana. Eingang 4-20mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3152]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3152]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -65350,6 +65402,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033">EL3152 2Ch. Ana Input 4-20mA</Name>
 				<Name LcId="1031">EL3152 2K. Ana. Eingang 4-20mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3152]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3152]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -68917,6 +68971,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL3152 2Ch. Ana Input 4-20mA]]></Name>
 				<Name LcId="1031"><![CDATA[EL3152 2K. Ana. Eingang 4-20mA]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3152]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3152]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -72528,6 +72584,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c523052" RevisionNo="#x00100000">EL3154</Type>
 				<Name LcId="1033">EL3154 4Ch. Ana. Input 4-20mA</Name>
 				<Name LcId="1031">EL3154 4K. Ana. Eingang  4-20mA</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3154]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3154]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -76167,6 +76225,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c593052" RevisionNo="#x00100000">EL3161</Type>
 				<Name LcId="1033">EL3161 1Ch. Ana. Input 0-10V</Name>
 				<Name LcId="1031">EL3161 1K.Ana. Eingang 0-10V</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3161]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3161]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -78335,6 +78395,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL3162 2Ch. Ana. Input 0-10V]]></Name>
 				<Name LcId="1031"><![CDATA[EL3162 2K. Ana. Eingang 0-10V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3162]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3162]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
@@ -78426,6 +78488,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033">EL3162 2Ch. Ana Input 0-10V</Name>
 				<Name LcId="1031">EL3162 2K. Ana. Eingang 0-10V</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3162]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3162]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -81993,6 +82057,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL3162 2Ch. Ana. Input 0-10V]]></Name>
 				<Name LcId="1031"><![CDATA[EL3162 2K. Ana. Eingang 0-10V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3162]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3162]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>170</EBusCurrent>
@@ -85604,6 +85670,8 @@ Bit1: Value smaller than Limit2</Comment>
 				<Type ProductCode="#x0c5c3052" RevisionNo="#x00100000">EL3164</Type>
 				<Name LcId="1033">EL3164 4Ch. Ana. Input 0-10V</Name>
 				<Name LcId="1031">EL3164 4K. Ana. Eingang 0-10V</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3164]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3164]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>

@@ -19,6 +19,8 @@
 				<Type>EL9010</Type>
 				<Name LcId="1033"><![CDATA[EL9010 End Terminal]]></Name>
 				<Name LcId="1031"><![CDATA[EL9010 Endklemme]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9010]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9010]]></URL>
 				<GroupType>System</GroupType>
 				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
 			</Device>
@@ -26,6 +28,8 @@
 				<Type>EL9011</Type>
 				<Name LcId="1033"><![CDATA[EL9011 End Terminal]]></Name>
 				<Name LcId="1031"><![CDATA[EL9011 Endklemme]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9011]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9011]]></URL>
 				<GroupType>System</GroupType>
 				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
 			</Device>
@@ -33,12 +37,16 @@
 				<Type>EL9100</Type>
 				<Name LcId="1033"><![CDATA[EL9100 Power Supplier with LED (24V)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9100 Einspeiseklemme mit LED (24V)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9100]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9100]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x23963052" RevisionNo="#x00100000">EL9110</Type>
 				<Name LcId="1033"><![CDATA[EL9110 Power Supplier with LED (24V, Diagnostics)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9110 Einspeiseklemme mit LED (24V, Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9110]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9110]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -68,12 +76,16 @@
 				<Type>EL9150</Type>
 				<Name LcId="1033"><![CDATA[EL9150 Power Supplier with LED(230V)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9150 Einspeiseklemme mit LED (230V)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9150]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9150]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x23c83052" RevisionNo="#x00100000">EL9160</Type>
 				<Name LcId="1033"><![CDATA[EL9160 Power Supplier with LED (230V, Diagnostics)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9160 Einspeiseklemme mit LED (230V, Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9160]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9160]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -103,66 +115,130 @@
 				<Type>EL9180</Type>
 				<Name LcId="1033"><![CDATA[EL9180 Potential Connection, 2 x 24-230V, 2 x PE]]></Name>
 				<Name LcId="1031"><![CDATA[EL9180 Potentialverteilerklemme, 2 x 24-230V, 2 x PE]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9180]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9180]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9184</Type>
 				<Name LcId="1033"><![CDATA[EL9184 Potential Connection, 8 x 24V, 8 x Ground]]></Name>
 				<Name LcId="1031"><![CDATA[EL9184 Potentialverteilerklemme, 8 x 24V, 8 x Masse]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9184]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9184]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9185</Type>
 				<Name LcId="1033"><![CDATA[EL9185 Potential Connection, 4 x 24-230V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9185 Potentialverteilerklemme, 4 x 24-230V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9185]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9185]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9186</Type>
 				<Name LcId="1033"><![CDATA[EL9186 Potential Connection, 8 x 24V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9186 Potentialverteilerklemme, 8 x 24V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9186]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9186]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9187</Type>
 				<Name LcId="1033"><![CDATA[EL9187 Potential Connection, 8 x Ground]]></Name>
 				<Name LcId="1031"><![CDATA[EL9187 Potentialverteilerklemme, 8 x Masse]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9187]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9187]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9188</Type>
 				<Name LcId="1033"><![CDATA[EL9188 Potential Connection, 16 x 24V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9188 Potentialverteilerklemme, 16 x 24V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9188]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9188]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9189</Type>
 				<Name LcId="1033"><![CDATA[EL9189 Potential Connection, 16 x Ground]]></Name>
 				<Name LcId="1031"><![CDATA[EL9189 Potentialverteilerklemme, 16 x Masse]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9189]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9189]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9190</Type>
 				<Name LcId="1033"><![CDATA[EL9190 Power Supplier]]></Name>
 				<Name LcId="1031"><![CDATA[EL9190 Einspeiseklemme]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9190]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9190]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9195</Type>
 				<Name LcId="1033"><![CDATA[EL9195 Potential Connection, 2 x Shield]]></Name>
 				<Name LcId="1031"><![CDATA[EL9195 Potentialverteilerklemme, 2x Schirm]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9195]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9195]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9200</Type>
 				<Name LcId="1033"><![CDATA[EL9200 Power Supplier with LED (24V, Fuse)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9200 Einspeiseklemme mit LED (24V, Sicherung)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9200]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9200]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x23fa3052" RevisionNo="#x00100000">EL9210</Type>
 				<Name LcId="1033"><![CDATA[EL9210 Power Supplier with LED (24V, Fuse, Diagnostics)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9210 Einspeiseklemme mit LED (24V, Sicherung, Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9210]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9210]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>PowerOK</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>PowerOK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>FuseError</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>FuseError</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x23fa3052" RevisionNo="#x00100014">EL9210-0020</Type>
+				<Name LcId="1033"><![CDATA[EL9210-0020 Power Supplier with LED (24V, Fuse 2A, Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9210-0020 Einspeiseklemme mit LED (24V, Sicherung 2A, Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9210]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9210]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -203,12 +279,16 @@
 				<Type>EL9250</Type>
 				<Name LcId="1033"><![CDATA[EL9150 Power Supplier with LED(230V, Fuse)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9150 Einspeiseklemme mit LED (230V, Sicherung)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9250]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9250]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x242c3052" RevisionNo="#x00100000">EL9260</Type>
 				<Name LcId="1033"><![CDATA[EL9260 Power Supplier with LED (230V, Fuse, Diagnostics)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9260 Einspeiseklemme mit LED (230V, Sicherung, Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9260]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9260]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -249,12 +329,16 @@
 				<Type>EL9290</Type>
 				<Name LcId="1033"><![CDATA[EL9290 Power Supplier (Fuse)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9290 Einspeiseklemme (Sicherung)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9290]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9290]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9400</Type>
 				<Name LcId="1033"><![CDATA[EL9400 E-Bus Power Supplier]]></Name>
 				<Name LcId="1031"><![CDATA[EL9400 E-Bus Netzteilklemme]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9400]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9400]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
@@ -266,6 +350,8 @@
 				<Type ProductCode="#x24c23052" RevisionNo="#x00100000">EL9410</Type>
 				<Name LcId="1033"><![CDATA[EL9410 E-Bus Power Supplier  (Diagnostics)]]></Name>
 				<Name LcId="1031"><![CDATA[EL9410 E-Bus Netzteilklemme (Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9410]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9410]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
@@ -306,6 +392,8 @@
 				<Type ProductCode="#x25213052" RevisionNo="#x00100000">EL9505</Type>
 				<Name LcId="1033"><![CDATA[EL9505 Power supply terminal 5V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9505 Netzteilklemme 5V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9505]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9505]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -342,6 +430,8 @@
 				<Type ProductCode="#x25243052" RevisionNo="#x00100000">EL9508</Type>
 				<Name LcId="1033"><![CDATA[EL9508 Power supply terminal 8V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9508 Netzteilklemme 8V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9508]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9508]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -378,6 +468,8 @@
 				<Type ProductCode="#x25263052" RevisionNo="#x00100000">EL9510</Type>
 				<Name LcId="1033"><![CDATA[EL9510 Power supply terminal 10V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9510 Netzteilklemme 10V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9510]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9510]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -414,6 +506,8 @@
 				<Type ProductCode="#x25283052" RevisionNo="#x00100000">EL9512</Type>
 				<Name LcId="1033"><![CDATA[EL9512 Power supply terminal 12V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9512 Netzteilklemme 12V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9512]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9512]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -450,6 +544,8 @@
 				<Type ProductCode="#x252b3052" RevisionNo="#x00100000">EL9515</Type>
 				<Name LcId="1033"><![CDATA[EL9515 Power supply terminal 15V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9515 Netzteilklemme 15V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9515]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9515]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>90</EBusCurrent>
@@ -486,6 +582,8 @@
 				<Type>EL9570</Type>
 				<Name LcId="1033"><![CDATA[EL9570 Buffer capacitor terminal]]></Name>
 				<Name LcId="1031"><![CDATA[EL9570 Puffer-Kondensator Klemme]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9570]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9570]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 		</Devices>

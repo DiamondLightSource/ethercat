@@ -20,6 +20,8 @@
 				<HideType RevisionNo="#x00010000" ProductRevision="EL3702-0000-0001"/>
 				<Name LcId="1033">EL3702 2Ch. Ana. Input +/-10V, DIFF, Oversample</Name>
 				<Name LcId="1031">EL3702 2K. Ana. Eingang +/-10V, DIFF, Oversample</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3702]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3702]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>200</EBusCurrent>
@@ -618,6 +620,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="EL3742-0000-0000"/>
 				<Name LcId="1033">EL3742 2Ch. Ana. Input 0-20mA, 16bit, DIFF, Oversample</Name>
 				<Name LcId="1031">EL3742 2K. Ana. Eingang 0-20mA, 16bit, DIFF, Oversample</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3742]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3742]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>200</EBusCurrent>
@@ -1125,6 +1129,8 @@
 				<HideType RevisionNo="#x00010000" ProductRevision="EL3742-0000-0001"/>
 				<Name LcId="1033">EL3742 2Ch. Ana. Input 0-20mA, 16bit, DIFF, Oversample</Name>
 				<Name LcId="1031">EL3742 2K. Ana. Eingang 0-20mA, 16bit, DIFF, Oversample</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL3742]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL3742]]></URL>
 				<Info>
 					<Electrical>
 						<EBusCurrent>200</EBusCurrent>

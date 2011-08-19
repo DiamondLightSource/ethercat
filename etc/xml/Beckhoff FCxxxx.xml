@@ -18,6 +18,8 @@
 				<Type ProductCode="#x44C0C62" RevisionNo="#x00100000" TcSmClass="FC1100">FC1100 EtherCAT PCI slave card</Type>
 				<Name LcId="1033">FC1100 EtherCAT PCI slave card</Name>
 				<Name LcId="1031">FC1100 EtherCAT PCI slave card</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FC1100]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FC1100]]></URL>
 				<GroupType>FCcard</GroupType>
 				<Fmmu>Outputs</Fmmu>
 				<Fmmu>Inputs</Fmmu>

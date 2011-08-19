@@ -30,8 +30,8 @@
 				<HideType RevisionNo="#x270e0000"/>
 				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
 				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1120]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1120]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -63,8 +63,8 @@
 				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
 				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1120]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1120]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -98,8 +98,8 @@
 				<HideType RevisionNo="#x00010000"/>
 				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
 				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1120]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1120]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -134,8 +134,8 @@
 				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
 				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1120]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1120]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -168,8 +168,8 @@
 				<HideType RevisionNo="#x00110000"/>
 				<Name LcId="1033"><![CDATA[BK1120 EtherCAT Fieldbus coupler]]></Name>
 				<Name LcId="1031"><![CDATA[BK1120 EtherCAT Buskoppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1120.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1120.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1120]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1120]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -201,8 +201,8 @@
 				<Type TcSmClass="BK1120" ProductCode="#x04E22C22" RevisionNo="#x00000000">BK1250</Type>
 				<Name LcId="1033"><![CDATA[BK1250 Coupler between E-bus and K-bus Terminals]]></Name>
 				<Name LcId="1031"><![CDATA[BK1250 Koppler zwischen E-Bus- und K-Bus-Klemmen]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1250.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1250.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1250]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1250]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -236,8 +236,8 @@
 				<HideType RevisionNo="#x00000000" ProductRevision="BK1250-0000-0000"/>
 				<Name LcId="1033"><![CDATA[BK1250 Coupler between E-bus and K-bus Terminals]]></Name>
 				<Name LcId="1031"><![CDATA[BK1250 Koppler zwischen E-Bus- und K-Bus-Klemmen]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/default.htm?busterm/bk1250.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.com/german/default.htm?busterm/bk1250.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/BK1250]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/BK1250]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -270,8 +270,8 @@
 				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FC3094" RevisionNo="#x00101B82">IL2300-B110</Type>
 				<Name LcId="1033"><![CDATA[IL2300-B110 EtherCAT IP link coupler]]></Name>
 				<Name LcId="1031"><![CDATA[IL2300-B110 EtherCAT IP Link Koppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/IL2300]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/IL2300]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -304,8 +304,8 @@
 				<HideType RevisionNo="#x00101B82" ProductRevision="IL2300-B110-0016"/>
 				<Name LcId="1033"><![CDATA[IL2300-B110 EtherCAT IP link coupler]]></Name>
 				<Name LcId="1031"><![CDATA[IL2300-B110 EtherCAT IP Link Koppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/IL2300]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/IL2300]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -337,8 +337,8 @@
 				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FD3094" RevisionNo="#x00101B82">IL2301-B110</Type>
 				<Name LcId="1033"><![CDATA[IL2301-B110 EtherCAT IP link coupler]]></Name>
 				<Name LcId="1031"><![CDATA[IL2301-B110 EtherCAT IP Link Koppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/IL2301]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/IL2301]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -371,8 +371,8 @@
 				<HideType RevisionNo="#x00101B82" ProductRevision="IL2301-B110-0016"/>
 				<Name LcId="1033"><![CDATA[IL2301-B110 EtherCAT IP link coupler]]></Name>
 				<Name LcId="1031"><![CDATA[IL2301-B110 EtherCAT IP Link Koppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/IL2301]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/IL2301]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -404,8 +404,8 @@
 				<Type TcSmClass="ILxxxx-B110" ProductCode="#x08FE3094" RevisionNo="#x00101B82">IL2302-B110</Type>
 				<Name LcId="1033"><![CDATA[IL2302-B110 EtherCAT IP link coupler]]></Name>
 				<Name LcId="1031"><![CDATA[IL2302-B110 EtherCAT IP Link Koppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/IL2302]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/IL2302]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
@@ -438,8 +438,8 @@
 				<HideType RevisionNo="#x00101B82" ProductRevision="IL2302-B110-0016"/>
 				<Name LcId="1033"><![CDATA[IL2302-B110 EtherCAT IP link coupler]]></Name>
 				<Name LcId="1031"><![CDATA[IL2302-B110 EtherCAT IP Link Koppler]]></Name>
-				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/english/fieldbusbox/b100.htm]]></URL>
-				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/german/fieldbusbox/b100.htm]]></URL>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/IL2302]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/IL2302]]></URL>
 				<Info>
 					<Mailbox>
 						<Timeout>
