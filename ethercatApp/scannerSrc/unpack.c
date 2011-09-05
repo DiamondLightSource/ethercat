@@ -93,6 +93,12 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
             value = *(uint16_t *)buffer;
         }
         break;
+    case 24:
+        value = *(int32_t *)buffer;
+        value &= 0x00ffffff;
+        if (value & 0x800000)
+            value |= 0xff000000; 
+        break;
     case 32:
         if(is_signed)
         {
