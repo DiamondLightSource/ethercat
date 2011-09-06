@@ -13,11 +13,11 @@ cd "$(INSTALL)"
 # specific file.
 $(VXWORKS_ONLY)ld < bin/$(ARCH)/niRev4.munch
 
-
 ## Register all support components
 dbLoadDatabase("dbd/niRev4.dbd")
 niRev4_registerRecordDeviceDriver(pdbbase)
 
+ADC_Ethercat_Sampler("NI0", 1, "Slot1-9239.IN1.1")
 ecAsynInit("/tmp/scanner", 1000000)
 
 ## Load record instances
