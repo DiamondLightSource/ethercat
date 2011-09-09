@@ -7,10 +7,10 @@ file $(ETHERCAT)/db/MASTER.template
 file $(ETHERCAT)/db/NI9144-rev4.template
 {
   pattern {DEVICE, SCAN, PORT}
-  {NI9144-REV-04, "I/O Intr", NI0}
+  {NI9144-REV-04, ".1 second", NI0}
 }
 file $(ETHERCAT)/db/gadc.template
 {
-  pattern {DEVICE, SCAN, PORT, SAMPLES, CHANNEL}
-  {NI9144-REV-04,"I/O Intr", NI0, 10000, 1}
+  pattern {DEVICE, SCAN, PORT, SAMPLES, CHANNEL, INTSCAN}
+  {NI9144-REV-04,"I/O Intr", NI0, 10000, 1, "Passive"}
 }
