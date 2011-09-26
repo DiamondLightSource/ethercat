@@ -33,7 +33,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
 
 static int ioc_send(ENGINE * server, int size)
 {
-    if(count % 1000 == 0)
+    if(count % 100 == 0)
     {
         pdo_data(server->receive_buffer, size);
     }

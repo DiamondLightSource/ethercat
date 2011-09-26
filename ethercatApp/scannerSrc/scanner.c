@@ -22,7 +22,7 @@ int selftest = 1;
 // latency histogram for test only
 int dumplatency = 0;
 
-enum { PERIOD_NS = 100000 };
+enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
 
 struct CLIENT;
@@ -392,14 +392,14 @@ int ethercat_init(SCANNER * scanner)
     return 0;
 }
 
-SCANNER * start_scanner(char * filename, unsigned int master_index)
+SCANNER * start_scanner(char * filename)
 {
     SCANNER * scanner = calloc(1, sizeof(SCANNER));
     scanner->config = calloc(1, sizeof(EC_CONFIG));
     scanner->config_buffer = load_config(filename);
     assert(scanner->config_buffer);
     read_config2(scanner->config_buffer, strlen(scanner->config_buffer), scanner->config);
-    scanner->master = ecrt_request_master(master_index);
+    scanner->master = ecrt_request_master(0);
     if(scanner->master == NULL)
     {
         fprintf(stderr, "error: can't create EtherCAT master - scanner already running?\n");
@@ -448,17 +448,15 @@ static int send_config_on_connect(ENGINE * server, int sock)
 
 int main(int argc, char ** argv)
 {
-    if(argc != 4)
+    if(argc != 3)
     {
-        fprintf(stderr, "usage: scanner <master-index> <scanner.xml> <socket_path>\n"
-                        "                where <master-index> can be 0 or 1\n");
+        fprintf(stderr, "usage: scanner scanner.xml socket_path\n");
         exit(1);
     }
-    char * xml_filename = argv[2];
-    char * path = argv[3];
-    unsigned int master_index = atoi(argv[1]);
+    char * xml_filename = argv[1];
+    char * path = argv[2];
     // start scanner
-    SCANNER * scanner = start_scanner(xml_filename, master_index);
+    SCANNER * scanner = start_scanner(xml_filename);
     scanner->max_message = 1000000;
     scanner->max_queue_message = 10000;
     scanner->max_clients = 10;
