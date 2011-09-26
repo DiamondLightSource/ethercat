@@ -40,9 +40,6 @@ niRev4_LIBS += asyn
 niRev4_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 # ---------------------------------------------------
-
-include $(TOP)/configure/RULES
-
 DATA += scanner.xml
 
 include $(TOP)/configure/RULES
