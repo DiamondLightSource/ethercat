@@ -87,7 +87,7 @@ def makeTemplate(longin, longout, bi, bo, output, base, devtype, revision):
     f = file(output, "w")
     print >> f, macro_header % { "base":        base , 
                                  "devtype":     devtype, 
-                                 "revision":    revision}
+                                 "revision":    hex(revision)}
     for l in ["AL_STATE"]:
         print >> f, al_text % {"name": fixname(l), "command": l}
     for l in ["ERROR_FLAG"]:

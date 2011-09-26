@@ -13,4 +13,5 @@ file $(ETHERCAT)/db/gadc.template
 {
   pattern {DEVICE, SCAN, PORT, SAMPLES, CHANNEL, INTSCAN}
   {NI9144-REV-04,"I/O Intr", NI0, 10000, 1, "Passive"}
+  {NI9144-REV-04,"I/O Intr", NI0, 10000, 2, "Passive"}
 }

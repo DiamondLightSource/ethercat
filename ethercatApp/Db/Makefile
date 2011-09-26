@@ -21,6 +21,7 @@ DB += EL3201.template
 DB += EL3314.template
 DB += NI9144-rev4.template
 DB += NI9144.template
+DB += EL3602.template
 DB += MASTER.template
 DB += gadc.template
 DB += gadc-periodic.template
