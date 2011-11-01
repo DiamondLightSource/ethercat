@@ -7,6 +7,10 @@ include $(TOP)/configure/CONFIG
 SHARED_LIBRARIES=NO
 STATIC_BUILD=YES
 
+# work-around for ioc builder's benefit:
+# the symbol below moved from $(TOP)/configure/RELEASE
+ETHERLAB=/dls_sw/work/common/rt/ethercat
+
 USR_INCLUDES += -I$(ETHERLAB)/master
 USR_INCLUDES += -I$(ETHERLAB)/include
 USR_LDFLAGS += -L$(ETHERLAB)/lib -Wl,-rpath=$(ETHERLAB)/lib
