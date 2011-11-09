@@ -26,7 +26,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 IOCBUILDER = /dls_sw/prod/common/python/iocbuilder/3-9
 PYTHON = dls-python2.6
-ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-14
+ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-17
 
 
 # EPICS_BASE usually appears last so other apps can override stuff:
