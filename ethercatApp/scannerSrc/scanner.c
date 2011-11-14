@@ -183,10 +183,11 @@ void cyclic_task(void * usr)
             memset(write_mask, 0, scanner->pdo_size);
             
             // check latency
-            clock_gettime(CLOCK_MONOTONIC, &msg->pdo.ts);
-            
-            struct timespec latency = timespec_sub(msg->pdo.ts, wakeupTime);
-            
+            struct timespec ts;
+            clock_gettime(CLOCK_MONOTONIC, &ts);
+            msg->pdo.tv_sec = ts.tv_sec;
+            msg->pdo.tv_nsec = ts.tv_nsec;
+            struct timespec latency = timespec_sub(ts, wakeupTime);
             int lat_us = (int)(1e6 * (latency.tv_sec + latency.tv_nsec * 1e-9));
             if(lat_us < 0)
             {

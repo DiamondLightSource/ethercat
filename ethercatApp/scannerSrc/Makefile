@@ -14,6 +14,7 @@ ETHERLAB=/dls_sw/work/common/rt/ethercat
 USR_INCLUDES += -I$(ETHERLAB)/master
 USR_INCLUDES += -I$(ETHERLAB)/include
 USR_LDFLAGS += -L$(ETHERLAB)/lib -Wl,-rpath=$(ETHERLAB)/lib
+USR_LDFLAGS += -L$(ETHERLAB)/lib64 -Wl,-rpath=$(ETHERLAB)/lib64
 USR_INCLUDES += -I/usr/include/libxml2
 USR_SYS_LIBS += ethercat xml2
 

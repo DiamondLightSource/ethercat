@@ -125,7 +125,7 @@ int rtServerSockCreate(const char * socket_name)
 int rtServerSockAccept(int sock)
 {
     struct sockaddr_un address;
-    size_t address_length = sizeof(address);
+    socklen_t address_length = sizeof(address);
     return accept(
         sock, (struct sockaddr *) &address, &address_length);
 }

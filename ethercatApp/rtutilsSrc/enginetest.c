@@ -21,7 +21,7 @@ static int send_config_message(ENGINE * server, int sock)
 
 static int receive_config_message(ENGINE * client, int sock)
 {
-    int size = rtSockReceive(sock, client->receive_buffer, client->max_message);
+    rtSockReceive(sock, client->receive_buffer, client->max_message);
     int * words = (int *)client->receive_buffer;
     printf("got config %d\n", words[0]);
     return 0;
