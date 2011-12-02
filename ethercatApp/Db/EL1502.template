@@ -40,7 +40,7 @@ record(longin, "$(DEVICE):CNTINPUTS:COUNTERVALUE")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__OUTPUTFUNCTIONSENABLED")
+record(bi, "$(DEVICE):CNTINPUTS:ENABLED")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__Outputfunctionsenabled")
@@ -50,7 +50,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__OUTPUTFUNCTIONSENABLED")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__STATUSOFOUTPUT")
+record(bi, "$(DEVICE):CNTINPUTS:SOUTPUT")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__Statusofoutput")
@@ -60,7 +60,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__STATUSOFOUTPUT")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__SETCOUNTERDONE")
+record(bi, "$(DEVICE):CNTINPUTS:DONE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__Setcounterdone")
@@ -70,7 +70,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__SETCOUNTERDONE")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__COUNTERINHIBITED")
+record(bi, "$(DEVICE):CNTINPUTS:INHIBITED")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__Counterinhibited")
@@ -80,7 +80,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__COUNTERINHIBITED")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__STATUSOFINPUTUD")
+record(bi, "$(DEVICE):CNTINPUTS:SINPUTUD")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__StatusofinputUD")
@@ -90,7 +90,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__STATUSOFINPUTUD")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__STATUSOFINPUTCLOCK")
+record(bi, "$(DEVICE):CNTINPUTS:SINPUTCLOCK")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__Statusofinputclock")
@@ -100,7 +100,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__STATUSOFINPUTCLOCK")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__SYNCERROR")
+record(bi, "$(DEVICE):CNTINPUTS:SSYNCERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__Syncerror")
@@ -110,7 +110,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__SYNCERROR")
 }
 
 
-record(bi, "$(DEVICE):CNTINPUTS:STATUS__TXPDOTOGGLE")
+record(bi, "$(DEVICE):CNTINPUTS:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))CNTInputs.Status__TxPDOToggle")
@@ -120,7 +120,7 @@ record(bi, "$(DEVICE):CNTINPUTS:STATUS__TXPDOTOGGLE")
 }
 
 
-record(longout, "$(DEVICE):CNTOUTPUTS:SETCOUNTERVALUE")
+record(longout, "$(DEVICE):CNTOUTPUTS:SET")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))CNTOutputs.Setcountervalue")
@@ -128,7 +128,7 @@ record(longout, "$(DEVICE):CNTOUTPUTS:SETCOUNTERVALUE")
 }
 
 
-record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__ENABLEOUTPUTFUNCTIONS")
+record(bo, "$(DEVICE):CNTOUTPUTS:ENABLE")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))CNTOutputs.Control__Enableoutputfunctions")
@@ -138,7 +138,7 @@ record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__ENABLEOUTPUTFUNCTIONS")
 }
 
 
-record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__SETOUTPUT")
+record(bo, "$(DEVICE):CNTOUTPUTS:CSETOUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))CNTOutputs.Control__Setoutput")
@@ -148,7 +148,7 @@ record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__SETOUTPUT")
 }
 
 
-record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__SETCOUNTER")
+record(bo, "$(DEVICE):CNTOUTPUTS:CSETCOUNTER")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))CNTOutputs.Control__Setcounter")
@@ -158,7 +158,7 @@ record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__SETCOUNTER")
 }
 
 
-record(bo, "$(DEVICE):CNTOUTPUTS:CONTROL__INHIBITCOUNTER")
+record(bo, "$(DEVICE):CNTOUTPUTS:INHIBIT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))CNTOutputs.Control__Inhibitcounter")

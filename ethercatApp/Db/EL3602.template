@@ -32,7 +32,7 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longin, "$(DEVICE):AIINPUTSCHANNEL1:LIMIT1")
+record(longin, "$(DEVICE):INPUT1:LIMIT1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.Limit1")
@@ -40,7 +40,7 @@ record(longin, "$(DEVICE):AIINPUTSCHANNEL1:LIMIT1")
 }
 
 
-record(longin, "$(DEVICE):AIINPUTSCHANNEL1:LIMIT2")
+record(longin, "$(DEVICE):INPUT1:LIMIT2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.Limit2")
@@ -48,7 +48,7 @@ record(longin, "$(DEVICE):AIINPUTSCHANNEL1:LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):AIINPUTSCHANNEL1:VALUE")
+record(longin, "$(DEVICE):INPUT1:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.Value")
@@ -56,7 +56,7 @@ record(longin, "$(DEVICE):AIINPUTSCHANNEL1:VALUE")
 }
 
 
-record(longin, "$(DEVICE):AIINPUTSCHANNEL2:LIMIT1")
+record(longin, "$(DEVICE):INPUT2:LIMIT1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Limit1")
@@ -64,7 +64,7 @@ record(longin, "$(DEVICE):AIINPUTSCHANNEL2:LIMIT1")
 }
 
 
-record(longin, "$(DEVICE):AIINPUTSCHANNEL2:LIMIT2")
+record(longin, "$(DEVICE):INPUT2:LIMIT2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Limit2")
@@ -72,7 +72,7 @@ record(longin, "$(DEVICE):AIINPUTSCHANNEL2:LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):AIINPUTSCHANNEL2:VALUE")
+record(longin, "$(DEVICE):INPUT2:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Value")
@@ -80,7 +80,7 @@ record(longin, "$(DEVICE):AIINPUTSCHANNEL2:VALUE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL1:UNDERRANGE")
+record(bi, "$(DEVICE):INPUT1:UNDERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.Underrange")
@@ -90,7 +90,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL1:UNDERRANGE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL1:OVERRANGE")
+record(bi, "$(DEVICE):INPUT1:OVERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.Overrange")
@@ -100,7 +100,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL1:OVERRANGE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL1:ERROR")
+record(bi, "$(DEVICE):INPUT1:ERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.Error")
@@ -110,7 +110,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL1:ERROR")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL1:TXPDOSTATE")
+record(bi, "$(DEVICE):INPUT1:TXPDOSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.TxPDOState")
@@ -120,7 +120,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL1:TXPDOSTATE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL1:TXPDOTOGGLE")
+record(bi, "$(DEVICE):INPUT1:TXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel1.TxPDOToggle")
@@ -130,7 +130,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL1:TXPDOTOGGLE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL2:UNDERRANGE")
+record(bi, "$(DEVICE):INPUT2:UNDERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Underrange")
@@ -140,7 +140,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL2:UNDERRANGE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL2:OVERRANGE")
+record(bi, "$(DEVICE):INPUT2:OVERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Overrange")
@@ -150,7 +150,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL2:OVERRANGE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL2:ERROR")
+record(bi, "$(DEVICE):INPUT2:ERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Error")
@@ -160,7 +160,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL2:ERROR")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL2:TXPDOSTATE")
+record(bi, "$(DEVICE):INPUT2:TXPDOSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.TxPDOState")
@@ -170,7 +170,7 @@ record(bi, "$(DEVICE):AIINPUTSCHANNEL2:TXPDOSTATE")
 }
 
 
-record(bi, "$(DEVICE):AIINPUTSCHANNEL2:TXPDOTOGGLE")
+record(bi, "$(DEVICE):INPUT2:TXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.TxPDOToggle")

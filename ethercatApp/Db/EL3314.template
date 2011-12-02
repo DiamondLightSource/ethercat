@@ -32,7 +32,7 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__LIMIT1")
+record(longin, "$(DEVICE):INPUT1:SLIMIT1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Limit1")
@@ -40,7 +40,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__LIMIT1")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__LIMIT2")
+record(longin, "$(DEVICE):INPUT1:SLIMIT2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Limit2")
@@ -48,7 +48,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL1:VALUE")
+record(longin, "$(DEVICE):INPUT1:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Value")
@@ -56,7 +56,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL1:VALUE")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__LIMIT1")
+record(longin, "$(DEVICE):INPUT2:SLIMIT1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Limit1")
@@ -64,7 +64,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__LIMIT1")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__LIMIT2")
+record(longin, "$(DEVICE):INPUT2:SLIMIT2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Limit2")
@@ -72,7 +72,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL2:VALUE")
+record(longin, "$(DEVICE):INPUT2:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Value")
@@ -80,7 +80,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL2:VALUE")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__LIMIT1")
+record(longin, "$(DEVICE):INPUT3:SLIMIT1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Limit1")
@@ -88,7 +88,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__LIMIT1")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__LIMIT2")
+record(longin, "$(DEVICE):INPUT3:SLIMIT2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Limit2")
@@ -96,7 +96,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL3:VALUE")
+record(longin, "$(DEVICE):INPUT3:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Value")
@@ -104,7 +104,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL3:VALUE")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__LIMIT1")
+record(longin, "$(DEVICE):INPUT4:SLIMIT1")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Limit1")
@@ -112,7 +112,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__LIMIT1")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__LIMIT2")
+record(longin, "$(DEVICE):INPUT4:SLIMIT2")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Limit2")
@@ -120,7 +120,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):TCINPUTSCHANNEL4:VALUE")
+record(longin, "$(DEVICE):INPUT4:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Value")
@@ -128,7 +128,7 @@ record(longin, "$(DEVICE):TCINPUTSCHANNEL4:VALUE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__UNDERRANGE")
+record(bi, "$(DEVICE):INPUT1:SUNDERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Underrange")
@@ -138,7 +138,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__UNDERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__OVERRANGE")
+record(bi, "$(DEVICE):INPUT1:SOVERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Overrange")
@@ -148,7 +148,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__OVERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__ERROR")
+record(bi, "$(DEVICE):INPUT1:SERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__Error")
@@ -158,7 +158,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__ERROR")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__TXPDOSTATE")
+record(bi, "$(DEVICE):INPUT1:STXPDOSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__TxPDOState")
@@ -168,7 +168,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__TXPDOSTATE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__TXPDOTOGGLE")
+record(bi, "$(DEVICE):INPUT1:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel1.Status__TxPDOToggle")
@@ -178,7 +178,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL1:STATUS__TXPDOTOGGLE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__UNDERRANGE")
+record(bi, "$(DEVICE):INPUT2:SUNDERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Underrange")
@@ -188,7 +188,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__UNDERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__OVERRANGE")
+record(bi, "$(DEVICE):INPUT2:SOVERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Overrange")
@@ -198,7 +198,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__OVERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__ERROR")
+record(bi, "$(DEVICE):INPUT2:SERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__Error")
@@ -208,7 +208,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__ERROR")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__TXPDOSTATE")
+record(bi, "$(DEVICE):INPUT2:STXPDOSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__TxPDOState")
@@ -218,7 +218,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__TXPDOSTATE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__TXPDOTOGGLE")
+record(bi, "$(DEVICE):INPUT2:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel2.Status__TxPDOToggle")
@@ -228,7 +228,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL2:STATUS__TXPDOTOGGLE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__UNDERRANGE")
+record(bi, "$(DEVICE):INPUT3:SUNDERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Underrange")
@@ -238,7 +238,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__UNDERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__OVERRANGE")
+record(bi, "$(DEVICE):INPUT3:SOVERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Overrange")
@@ -248,7 +248,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__OVERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__ERROR")
+record(bi, "$(DEVICE):INPUT3:SERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__Error")
@@ -258,7 +258,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__ERROR")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__TXPDOSTATE")
+record(bi, "$(DEVICE):INPUT3:STXPDOSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__TxPDOState")
@@ -268,7 +268,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__TXPDOSTATE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__TXPDOTOGGLE")
+record(bi, "$(DEVICE):INPUT3:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel3.Status__TxPDOToggle")
@@ -278,7 +278,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL3:STATUS__TXPDOTOGGLE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__UNDERRANGE")
+record(bi, "$(DEVICE):INPUT4:SUNDERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Underrange")
@@ -288,7 +288,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__UNDERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__OVERRANGE")
+record(bi, "$(DEVICE):INPUT4:SOVERRANGE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Overrange")
@@ -298,7 +298,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__OVERRANGE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__ERROR")
+record(bi, "$(DEVICE):INPUT4:SERROR")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__Error")
@@ -308,7 +308,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__ERROR")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__TXPDOSTATE")
+record(bi, "$(DEVICE):INPUT4:STXPDOSTATE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__TxPDOState")
@@ -318,7 +318,7 @@ record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__TXPDOSTATE")
 }
 
 
-record(bi, "$(DEVICE):TCINPUTSCHANNEL4:STATUS__TXPDOTOGGLE")
+record(bi, "$(DEVICE):INPUT4:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCInputsChannel4.Status__TxPDOToggle")
