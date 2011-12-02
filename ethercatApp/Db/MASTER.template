@@ -1,4 +1,4 @@
-# ethercat gadc-periodic.template
+# ethercat MASTER.template
 # % macro, DEVICE, EtherCAT Master
 # % macro, PORT, asyn port for EtherCAT master
 # % macro, SCAN, poll period
