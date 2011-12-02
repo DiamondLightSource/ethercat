@@ -344,6 +344,7 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                         adjust_pdo_size(scanner, ofs, pdo_entry->bits);
                     }
                 }
+                pdo_entry_mapping->pdo_entry = pdo_entry;
                 pdo_entry_mapping->index = pdo_entry->index;
                 pdo_entry_mapping->sub_index = pdo_entry->sub_index;
                 ellAdd(&device->pdo_entry_mappings, &pdo_entry_mapping->node);

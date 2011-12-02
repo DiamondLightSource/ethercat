@@ -206,14 +206,15 @@ int parseChain(xmlNode * node, CONTEXT * ctx)
     return parseChildren(node, ctx, "device", parseDevice);
 }
 
-int joinPdoEntryMapping(EC_CONFIG * cfg, EC_PDO_ENTRY_MAPPING * mapping)
+int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * mapping)
 {
     mapping->parent = find_device(cfg, mapping->device_position);
     if(mapping->parent == NULL)
     {
         return 0;
     }
-    mapping->pdo_entry = find_pdo_entry(mapping->parent, mapping->index, mapping->sub_index);
+    mapping->pdo_entry = find_pdo_entry(mapping->parent, pdo_index, 
+                                       mapping->index, mapping->sub_index);
     if(mapping->pdo_entry == NULL)
     {
         return 0;
@@ -224,6 +225,7 @@ int joinPdoEntryMapping(EC_CONFIG * cfg, EC_PDO_ENTRY_MAPPING * mapping)
 
 int parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
 {
+    int pdo_index = 0;
     ctx->pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
     return 
         getInt(node, "index", &ctx->pdo_entry_mapping->index, 1) &&
@@ -231,7 +233,8 @@ int parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
         getInt(node, "device_position", &ctx->pdo_entry_mapping->device_position, 1) &&
         getInt(node, "offset", &ctx->pdo_entry_mapping->offset, 1) &&
         getInt(node, "bit", &ctx->pdo_entry_mapping->bit_position, 1) &&
-        joinPdoEntryMapping(ctx->config, ctx->pdo_entry_mapping);
+        getInt(node, "pdo_index", &pdo_index, 1) &&
+        joinPdoEntryMapping(ctx->config, pdo_index, ctx->pdo_entry_mapping);
 }
 
 int parseEntriesFromBuffer(char * text, int size, EC_CONFIG * cfg)
@@ -379,9 +382,11 @@ char * serialize_config(EC_CONFIG * cfg)
         for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
         {
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
+            assert( pdo_entry_mapping->pdo_entry );
             char line[1024];
-            snprintf(line, sizeof(line), "<entry device_position=\"%d\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
-                     device->position, pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
+            snprintf(line, sizeof(line), "<entry device_position=\"%d\" pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
+                     device->position, pdo_entry_mapping->pdo_entry->parent->index, 
+                     pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
                      pdo_entry_mapping->bit_position);
             strncat(sbuf, line, scount-strlen(sbuf)-1);
         }

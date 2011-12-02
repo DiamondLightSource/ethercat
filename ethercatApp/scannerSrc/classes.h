@@ -85,7 +85,7 @@ struct EC_CONFIG
 };
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
-EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int index, int sub_index);
+EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int sub_index);
 EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name);
 
 #ifdef __cplusplus

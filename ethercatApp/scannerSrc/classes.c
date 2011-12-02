@@ -17,7 +17,7 @@ EC_DEVICE * find_device(EC_CONFIG * cfg, int position)
     return NULL;
 }
 
-EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int index, int sub_index)
+EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int sub_index)
 {
     ELLNODE * node0;
     for(node0 = ellFirst(&device->device_type->sync_managers); node0; node0 = ellNext(node0))
@@ -27,6 +27,8 @@ EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int index, int sub_index)
         for(node1 = ellFirst(&sync_manager->pdos); node1; node1 = ellNext(node1))
         {
             EC_PDO * pdo = (EC_PDO *)node1;
+            if(pdo->index != pdo_index)
+                continue;
             ELLNODE * node2;
             for(node2 = ellFirst(&pdo->pdo_entries); node2; node2 = ellNext(node2))
             {
