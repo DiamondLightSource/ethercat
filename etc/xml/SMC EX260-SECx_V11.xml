@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!--  last modified 2010-06-24, SMC Corporation -->
+<EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
+	<Vendor>
+		<Id>276</Id>
+		<Name>SMC Corporation</Name>
+		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000EA0E0000EA0E000000000000000000000000000000008000008000000080800080000000800080008080000080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8C88FFFFFFFFFFF8C8C788C8C88C8C8C8C8C8C8CC77CC8C8C8C888C7C7CCCFFC8C8C8C8CC77CCFC8C8C8F7C8C88C8C8F8C8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</ImageData16x14>
+	</Vendor>
+	<Descriptions>
+		<Groups>
+			<Group>
+				<Type>EX260</Type>
+				<Name LcId="1033">EX260 Series SI Unit</Name>
+				<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000EA0E0000EA0E000000000000000000000000000000008000008000000080800080000000800080008080000080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00777F7F7F77F77F777FFF7F7F7FF77F77777F878F77F77F777FFF7F7FF7F7FF77777F7F7F77F77F77FFFFFFFFFFFFFFFFF8888888888888888877777777777777777887888888888777788786CCCCC66778788786CCCCC6677F78878666666687887FF7FFFFFFFFF7FF77777777777777</ImageData16x14>
+			</Group>
+		</Groups>
+		<Devices>
+			<Device Physics="YY">
+				<Type ProductCode="#x01000001" RevisionNo="#x00010002">EX260-SEC1</Type>
+				<Name LcId="1033"><![CDATA[EX260-SEC1 EtherCAT SI Unit (32DO_PNP) Rev1.2]]></Name>
+				<GroupType>EX260</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f01" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f02" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f03" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="0">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="1">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="2">
+					<Index>#x1602</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="3">
+					<Index>#x1603</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000FFFF</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x01000002" RevisionNo="#x00010002">EX260-SEC2</Type>
+				<Name LcId="1033"><![CDATA[EX260-SEC2 EtherCAT SI Unit (32DO_NPN) Rev1.2]]></Name>
+				<GroupType>EX260</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f01" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f02" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f03" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="0">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="1">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="2">
+					<Index>#x1602</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="3">
+					<Index>#x1603</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000FFFF</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x01000003" RevisionNo="#x00010002">EX260-SEC3</Type>
+				<Name LcId="1033"><![CDATA[EX260-SEC3 EtherCAT SI Unit (16DO_PNP) Rev1.2]]></Name>
+				<GroupType>EX260</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f01" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="0">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="1">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000FFFF</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x01000004" RevisionNo="#x00010002">EX260-SEC4</Type>
+				<Name LcId="1033"><![CDATA[EX260-SEC4 EtherCAT SI Unit (16DO_NPN) Rev1.2]]></Name>
+				<GroupType>EX260</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x0f01" ControlByte="#x44" Enable="1">Outputs</Sm>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="0">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1"  Sm="1">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000FFFF</ConfigData>
+				</Eeprom>
+			</Device>
+		</Devices>
+	</Descriptions>
+</EtherCATInfo>
