@@ -133,7 +133,7 @@ def parseFile(filename, output, list):
         # key = (vendor, product, revision)
         key = (devtype, revision)
         if list:
-            print "%s 0x%08x" % key
+            print "%s 0x%08x (product = 0x%08x)" % (  devtype, revision, product)
             continue
 
         oversampling = set()
