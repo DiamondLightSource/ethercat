@@ -9,6 +9,7 @@
 
 #include <ecrt.h>
 #include <ellLib.h>
+#include <iocsh.h>
 
 #include "rtutils.h"
 #include "msgsock.h"
@@ -450,13 +451,33 @@ static int send_config_on_connect(ENGINE * server, int sock)
 
 int main(int argc, char ** argv)
 {
-    if(argc != 3)
+    opterr = 0;
+    while (1)
     {
-        fprintf(stderr, "usage: scanner scanner.xml socket_path\n");
+        int cmd = getopt (argc, argv, "q");
+        if(cmd == -1)
+        {
+            break;
+        }
+        switch(cmd)
+        {
+        case 'q':
+            selftest = 0;
+            break;
+        }
+    }
+    
+    if(argc - optind < 2)
+    {
+        fprintf(stderr, "usage: scanner [-q] scanner.xml socket_path\n");
         exit(1);
     }
-    char * xml_filename = argv[1];
-    char * path = argv[2];
+    
+    char * xml_filename = argv[optind++];
+    char * path = argv[optind++];
+
+    fprintf(stderr, "Scanner xml(%s) socket(%s) PDO display(%d)\n", xml_filename, path, selftest);
+
     // start scanner
     SCANNER * scanner = start_scanner(xml_filename);
     scanner->max_message = 1000000;
@@ -470,14 +491,22 @@ int main(int argc, char ** argv)
     // activate master
     ecrt_master_activate(scanner->master);
     scanner->pd = ecrt_domain_data(scanner->domain);
-    assert(scanner->pd);
+    if(scanner->pd == NULL)
+    {
+        fprintf(stderr, "%s %d: Scanner can't get domain data - check your configuration matches the devices on the bus.\n", __FILE__, __LINE__);
+        exit(1);
+    }
 
     scanner->workq = rtMessageQueueCreate(scanner->work_capacity, scanner->max_queue_message);
     scanner->clients = calloc(scanner->max_clients, sizeof(CLIENT *));
 
     printf("socket path is %s\n", path);
     int sock = rtServerSockCreate(path);
-    assert(sock);
+    if(sock == 0)
+    {
+        fprintf(stderr, "%s %d: Scanner can't create the UNIX socket - delete old sockets.\n", __FILE__, __LINE__);
+        exit(1);
+    }
     
     int c;
     for(c = 0; c < scanner->max_clients; c++)
@@ -515,14 +544,8 @@ int main(int argc, char ** argv)
     {
         test_ioc_client(path, scanner->max_message);
     }
-    pause();
+
+    iocsh(NULL);
     
     return 0;
 }
-
-/*
-TODO
-1) unpack PDO into ASYN parameters -> need to read the device types and create the port parameters
-Make test code that mocks up the server by parsing the config file and sending it... OK
-2) proper logging macros
-*/
