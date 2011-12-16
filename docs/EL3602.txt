@@ -1,0 +1,33 @@
+Configuration for the ES3602 2 channel 24-bit ADC module
+
+The filter settings of the unit can be configured using the SDO register
+0x8000:0x15. The information below was extracted from Beckhoffs .chm file
+
+Read filter setting (upload SDO parameter)
+==========================================
+
+/dls_sw/work/common/rt/ethercat/bin/ethercat -m 0 upload -p 1 --type uint16 0x8000 0x15 
+
+Write filter setting (download SDO parameter)
+=============================================
+
+/dls_sw/work/common/rt/ethercat/bin/ethercat -m 0 download -p 1 --type uing16 0x8000 0x15 <value>
+
+the possible settings are
+0 ..... 50 Hz
+1 ..... 60 Hz
+2 ..... 100 Hz
+3 ..... 500 Hz
+4 ..... 1000 Hz
+5 ..... 2000 Hz
+6 ..... 3750 Hz
+7 ..... 7500 Hz
+8 ..... 15000 Hz
+9 ..... 30000 Hz
+10 .....5 Hz
+11 .....10 Hz
+
+For example, to set the filter to 5 Hz
+/dls_sw/work/common/rt/ethercat/bin/ethercat -m 0 download -p 1 --type uing16 0x8000 0x15 0x0a
+
+
