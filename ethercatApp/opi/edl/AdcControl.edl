@@ -1,0 +1,713 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 913
+y 110
+w 447
+h 544
+font "arial-bold-r-14.0"
+ctlFont "arial-bold-r-14.0"
+btnFont "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 14
+ctlBgColor1 index 3
+ctlBgColor2 index 3
+topShadowColor index 1
+botShadowColor index 11
+title "$(DEVICE) ADC Control"
+showGrid
+snapToGrid
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 450
+h 55
+lineColor index 61
+fill
+fillColor index 61
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 350
+y 500
+w 90
+h 30
+fgColor index 46
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "EXIT"
+font "arial-medium-r-18.0"
+3d
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 290
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_AVERAGE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 240
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_SAMPLES"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 290
+w 59
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Average"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 80
+w 39
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Mode"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 240
+w 63
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Samples"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 140
+w 69
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Re-trigger"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 110
+w 49
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Enable"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 270
+w 43
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Offset"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 270
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_OFFSET"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 200
+w 64
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Soft Trig."
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 70
+y 10
+w 221
+h 40
+font "arial-bold-r-18.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "$(DEVICE) - ADC Control"
+  "Channel $(CHANNEL)"
+}
+autoSize
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 90
+y 80
+w 120
+h 20
+fgColor index 25
+fgAlarm
+bgColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):ADC$(CHANNEL)_MODE"
+indicatorPv "$(DEVICE):ADC$(CHANNEL)_MODE"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 90
+y 110
+w 120
+h 20
+fgColor index 25
+fgAlarm
+bgColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):ADC$(CHANNEL)_ENABLED"
+indicatorPv "$(DEVICE):ADC$(CHANNEL)_ENABLED_R"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 90
+y 140
+w 120
+h 20
+fgColor index 25
+fgAlarm
+bgColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):ADC$(CHANNEL)_RETRIGGER"
+indicatorPv "$(DEVICE):ADC$(CHANNEL)_RETRIGGER"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 90
+y 210
+w 90
+h 20
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):ADC$(CHANNEL)_TRIGGER"
+pressValue "1"
+onLabel "START"
+offLabel "START"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 190
+y 210
+w 20
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_TRIGGER"
+lineColor index 14
+onColor index 15
+offColor index 10
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 310
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 310
+w 91
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Buffer Count"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 340
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_CHANBUFF"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 340
+w 107
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Channel Buffer"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 400
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_CAPTURE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 400
+w 56
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Capture"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 430
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_VALUE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 430
+w 75
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ADC value"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 460
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_STATE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 460
+w 71
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ADC state"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 140
+y 490
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_INTERRUPT"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 490
+w 96
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ADC Interrupt"
+}
+autoSize
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 270
+y 250
+w 90
+h 20
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):ADC$(CHANNEL)_CLEAR"
+pressValue "1"
+onLabel "CLEAR"
+offLabel "CLEAR"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+

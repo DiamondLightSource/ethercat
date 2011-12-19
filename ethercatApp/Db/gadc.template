@@ -146,3 +146,9 @@ record(longout, "$(DEVICE):ADC$(CHANNEL)_INTERRUPT")
    field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))INTERRUPT")
    field(SCAN, "$(INTSCAN)")
 }
+
+record(longout, "$(DEVICE):ADC$(CHANNEL)_CLEAR")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))CLEAR")
+}
