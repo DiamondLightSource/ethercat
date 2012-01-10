@@ -328,6 +328,12 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                     ecrt_slave_config_reg_pdo_entry(
                         sc, pdo_entry->index, pdo_entry->sub_index,
                         scanner->domain, (unsigned int *)&pdo_entry_mapping->bit_position);
+                if(pdo_entry_mapping->offset < 0)
+                {
+                    fprintf(stderr, "Scanner: Failed to register PDO entry %s on Device %s type %s at position %d\n", 
+                            pdo_entry->name, device->name, device->type_name, device->position);
+                    exit(1);
+                }
                 adjust_pdo_size(scanner, pdo_entry_mapping->offset, pdo_entry->bits);
                 if(pdo_entry->oversampling)
                 {
