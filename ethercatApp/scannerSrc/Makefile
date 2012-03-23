@@ -9,12 +9,13 @@ STATIC_BUILD=YES
 
 # work-around for ioc builder's benefit:
 # the symbol below moved from $(TOP)/configure/RELEASE
-ETHERLAB=/dls_sw/work/common/rt/ethercat
+ETHERLAB=/dls_sw/prod/R3.14.11/support/etherlab/1-5-pre
+ETHERLABPREFIX=$(ETHERLAB)/opt/$(EPICS_HOST_ARCH)/etherlab
 
-USR_INCLUDES += -I$(ETHERLAB)/master
-USR_INCLUDES += -I$(ETHERLAB)/include
-USR_LDFLAGS += -L$(ETHERLAB)/lib -Wl,-rpath=$(ETHERLAB)/lib
-USR_LDFLAGS += -L$(ETHERLAB)/lib64 -Wl,-rpath=$(ETHERLAB)/lib64
+# need private header files for the serial number write IOCTL
+USR_INCLUDES += -I$(ETHERLAB)/src/ethercat-1.5-r1977/master
+USR_INCLUDES += -I$(ETHERLABPREFIX)/include
+USR_LDFLAGS += -L$(ETHERLABPREFIX)/lib -Wl,-rpath=$(ETHERLABPREFIX)/lib
 USR_INCLUDES += -I/usr/include/libxml2
 USR_SYS_LIBS += ethercat xml2
 

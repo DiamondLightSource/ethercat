@@ -34,7 +34,7 @@ EPICS_BASE=/dls_sw/epics/R3.14.11/base
 
 # ugly work-around for ioc builder's benefit:
 # the symbol below moved to ethercatApp/scannerSrc/Makefile
-#ETHERLAB=/dls_sw/work/common/rt/ethercat
+#ETHERLAB=/dls_sw/prod/R3.14.11/support/etherlab/1-5-pre
 
 
 # Set RULES here if you want to take build rules from somewhere
