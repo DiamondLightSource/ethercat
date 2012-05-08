@@ -312,11 +312,12 @@ int simulation_init(EC_DEVICE * device)
         st_simspec *simspec = (st_simspec *) node;
         EC_PDO_ENTRY_MAPPING *pdo_entry_mapping = 
             find_mapping(device, simspec->signal_no, simspec->bit_length);
+        assert( pdo_entry_mapping );
         assert( pdo_entry_mapping->sim_signal == NULL);
         pdo_entry_mapping->sim_signal = calloc(1, sizeof(st_signal));
         pdo_entry_mapping->sim_signal->signalspec = simspec;
     }
-    
+    return 0;
 }
 
 int device_initialize(SCANNER * scanner, EC_DEVICE * device)

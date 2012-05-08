@@ -41,8 +41,8 @@ typedef union st_param {
     struct stp_ramp pramp;
 } st_param;
 typedef struct st_simspec {
-   EC_DEVICE * parent;
    ELLNODE node;
+   EC_DEVICE * parent;
    int signal_no;
    int bit_length;
    enum st_type type;
@@ -51,6 +51,7 @@ typedef struct st_simspec {
 typedef struct st_signal {
    st_simspec *signalspec;
    void *perioddata;
+   int no_samples;
    int index;
    int start_index;
 } st_signal;

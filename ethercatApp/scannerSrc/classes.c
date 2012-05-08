@@ -45,12 +45,12 @@ EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int 
 
 EC_PDO_ENTRY * find_signal(EC_DEVICE * device, int signal_no, int bit_length)
 {
+    int count = 0;
     ELLNODE * node = ellFirst(&device->device_type->sync_managers);
     for ( ; node; node = ellNext(node))
     {
         EC_SYNC_MANAGER * sync_manager = (EC_SYNC_MANAGER * ) node;
         ELLNODE * node1 = ellFirst(&sync_manager->pdos);
-        int count = 0;
         for ( ; node1; node1 = ellNext(node1) )
         {
             EC_PDO * pdo = (EC_PDO *)node1;
@@ -82,6 +82,7 @@ EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
         if (pdo_entry_mapping->pdo_entry == pdo_entry)
         {
             return pdo_entry_mapping;
+
         }
     }
     return NULL;

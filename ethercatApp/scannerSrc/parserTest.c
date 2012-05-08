@@ -2,6 +2,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include <string.h>
 #include <assert.h>
 #include <ellLib.h>
 #include "classes.h"
