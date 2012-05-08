@@ -304,6 +304,21 @@ int adjust_sim_pdo_size(SCANNER *scanner, int bits, unsigned int *bit_position)
     return (scanner->sim_aligned_bit - bits ) / 8;
 }
 
+int simulation_init(EC_DEVICE * device)
+{
+    ELLNODE * node = ellFirst(&device->simspecs);
+    for (; node ; node = ellNext(node) )
+    {
+        st_simspec *simspec = (st_simspec *) node;
+        EC_PDO_ENTRY_MAPPING *pdo_entry_mapping = 
+            find_mapping(device, simspec->signal_no, simspec->bit_length);
+        assert( pdo_entry_mapping->sim_signal == NULL);
+        pdo_entry_mapping->sim_signal = calloc(1, sizeof(st_signal));
+        pdo_entry_mapping->sim_signal->signalspec = simspec;
+    }
+    
+}
+
 int device_initialize(SCANNER * scanner, EC_DEVICE * device)
 {
     int simulation_data_size = 0;
@@ -462,6 +477,8 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         }
     }
 
+    if (scanner->simulation)
+        simulation_init(device);
     return 0;
 }
 
@@ -484,8 +501,8 @@ void pack_string(char * buffer, int * ofs, char * str)
 
 int ethercat_init(SCANNER * scanner)
 {
-    ELLNODE * node;
-    for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
+    ELLNODE * node = ellFirst(&scanner->config->devices);
+    for(; node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         assert(device->device_type);

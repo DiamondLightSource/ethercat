@@ -28,8 +28,16 @@ PROD += scanner
 scanner_SRCS += scanner.c
 scanner_LIBS += rtutils scannerlib Com
 
+#PROD += expand
+#expand_SRCS += expand.c
+#expnad_LIBS += scannerlib
+
 PROD += serialtool
 serialtool_SRCS += serialtool.c
+
+PROD += parserTest
+parserTest_SRCS += parserTest.c 
+parserTest_LIBS += scannerlib Com
 
 PROD += slaveinfo
 slaveinfo_SRCS += slaveinfo.c
