@@ -141,7 +141,7 @@ void copy_sim_data(st_signal * signal, EC_PDO_ENTRY_MAPPING * pdo_entry_mapping,
                     uint8_t * pd)
 {
     assert(signal && signal->signalspec);
-    assert(!signal->perioddata);
+    assert(signal->perioddata);
     assert(signal->signalspec->type != ST_INVALID);
     
     int bit_length = signal->signalspec->bit_length;
