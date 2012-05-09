@@ -97,19 +97,24 @@ void dump_latency_task(void * usr)
 
 void simulate_input(SCANNER * scanner)
 {
-    ELLNODE * node = ellFirst(&scanner->config->pdo_entry_mappings);
+    ELLNODE * node = ellFirst(&scanner->config->devices);
     for( ; node ; node = ellNext(node) )
     {
-        EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = 
-                                ( EC_PDO_ENTRY_MAPPING *) node;
-        if (!pdo_entry_mapping->sim_signal)
-            continue;
-        st_signal *sim_signal = pdo_entry_mapping->sim_signal;
-        assert (sim_signal->signalspec && sim_signal->perioddata);
-        copy_sim_data(sim_signal, pdo_entry_mapping, scanner->pd);
-        sim_signal->index++;
-        if (sim_signal->index >= sim_signal->no_samples)
-            sim_signal->index = 0;
+        EC_DEVICE * device = (EC_DEVICE *)node;
+        ELLNODE * node1 = ellFirst(&device->pdo_entry_mappings);
+        for ( ; node1; node1 = ellNext(node1) )
+        {
+            EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = 
+                                    ( EC_PDO_ENTRY_MAPPING *) node1;
+            if (!pdo_entry_mapping->sim_signal)
+                continue;
+            st_signal *sim_signal = pdo_entry_mapping->sim_signal;
+            assert (sim_signal->signalspec && sim_signal->perioddata);
+            copy_sim_data(sim_signal, pdo_entry_mapping, scanner->pd);
+            sim_signal->index++;
+            if (sim_signal->index >= sim_signal->no_samples)
+                sim_signal->index = 0;
+        }
     }
 }
 
@@ -128,6 +133,11 @@ void cyclic_task(void * usr)
     uint8_t * write_mask = calloc(scanner->pdo_size, sizeof(char));
 
     ec_domain_state_t domain_state;
+    if (simulation) 
+    {
+        domain_state.working_counter = scanner->config->devices.count;
+        domain_state.wc_state = EC_WC_COMPLETE;
+    }
 
     int nslaves = 0;
     ELLNODE * node;
@@ -269,7 +279,7 @@ void cyclic_task(void * usr)
                 }
                 else
                 {
-                    msg->pdo.buffer[ofs++] = 0;
+                    msg->pdo.buffer[ofs++] = EC_AL_STATE_OP;
                     msg->pdo.buffer[ofs++] = 0;
                 }
             }
