@@ -303,13 +303,11 @@ int parseSimspec(xmlNode * node, CONTEXT * ctx)
 int parseDevice(xmlNode * node, CONTEXT * ctx)
 {
     ctx->device = calloc(1, sizeof(EC_DEVICE));
-    int r1, r2, r3, r4;
-    r1 = getStr(node, "name", &ctx->device->name);
-    r2 = getInt(node, "oversample", &ctx->device->oversampling_rate, 0);
-    r3 = getStr(node, "type_name", &ctx->device->type_name);
-    r4 = getInt(node, "position", &ctx->device->position, 1);
     return 
-        r1 && r2 && r3 && r4 &&
+        getStr(node, "name", &ctx->device->name) &&
+        getInt(node, "oversample", &ctx->device->oversampling_rate, 0) &&
+        getStr(node, "type_name", &ctx->device->type_name) &&
+        getInt(node, "position", &ctx->device->position, 1) &&
         joinDevice(ctx->config, ctx->device) &&
         parseSimspec(node, ctx) &&
         ellAddOK(&ctx->config->devices, &ctx->device->node);
@@ -451,7 +449,9 @@ char * serialize_config(EC_CONFIG * cfg)
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             assert( pdo_entry_mapping->pdo_entry );
             char line[1024];
-            snprintf(line, sizeof(line), "<entry device_position=\"%d\" pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
+            snprintf(line, sizeof(line), "<entry device_position=\"%d\" "
+                      "pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" "
+                      "offset=\"%d\" bit=\"%d\" />\n", 
                      device->position, pdo_entry_mapping->pdo_entry->parent->index, 
                      pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
                      pdo_entry_mapping->bit_position);
