@@ -1,4 +1,13 @@
 <chain>
 <device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" />
-<device type_name="EL1014" revision="0x00100000" position="1" name="DIGIN0" />
+<device type_name="EL1014" revision="0x00100000" position="1" name="DIGIN0" >
+    <simulation signal_no="1" bit_length="1"
+            signal_type="square_wave" low_value="0" high_value="1" period_ms="10000"/>
+    <simulation signal_no="2" bit_length="1" 
+            signal_type="square_wave" low_value="1" high_value="0" period_ms="10000"/>
+    <simulation signal_no="3" bit_length="1" 
+            signal_type="square_wave" low_value="0" high_value="1" period_ms="10000"/>
+    <simulation signal_no="4" bit_length="1" 
+            signal_type="square_wave" low_value="1" high_value="0" period_ms="10000"/>
+</device>
 </chain>

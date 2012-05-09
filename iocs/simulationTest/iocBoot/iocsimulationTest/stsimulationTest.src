@@ -21,7 +21,7 @@ simulationTest_registerRecordDeviceDriver(pdbbase)
 ecAsynInit("/tmp/scanner", 1000000)
 
 ## Load record instances
-#dbLoadRecords("db/<filename>.db","<List of macros, e.g. user=xxx>")
+dbLoadRecords("db/simulation_test.db")
 
 ## Set this to see messages from mySub
 #mySubDebug 1

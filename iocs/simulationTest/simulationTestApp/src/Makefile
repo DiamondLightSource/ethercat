@@ -30,6 +30,7 @@ simulationTest_SRCS_vxWorks += -nil-
 simulationTest_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
 simulationTest_LIBS += ecAsyn
+simulationTest_LIBS += asyn
 
 # We need to link this IOC Application against the EPICS Base libraries
 simulationTest_LIBS += $(EPICS_BASE_IOC_LIBS)

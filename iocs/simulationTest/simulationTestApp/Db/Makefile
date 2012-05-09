@@ -1,5 +1,6 @@
 TOP=../..
 include $(TOP)/configure/CONFIG
+
 #----------------------------------------
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 
@@ -14,12 +15,7 @@ include $(TOP)/configure/CONFIG
 #DB += motor.template
 #DB += basic_motor.template
 
-#----------------------------------------------------
-# In a Diamond IOC Application, build db files from
-# template files like this
-#
-#DB += BL06I-MO-IOC-01.db
-#DB += BL06I-MO-IOC-01_sim.db
+DB += simulation_test.db
 
 #USES_TEMPLATE += $(MOTOR)/db/motor.template
 #USES_TEMPLATE += $(MOTOR)/db/basic_motor.template
