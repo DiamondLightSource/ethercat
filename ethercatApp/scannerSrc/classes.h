@@ -53,7 +53,6 @@ typedef struct st_signal {
    void *perioddata;
    int no_samples;
    int index;
-   int start_index;
 } st_signal;
 
 struct EC_PDO_ENTRY

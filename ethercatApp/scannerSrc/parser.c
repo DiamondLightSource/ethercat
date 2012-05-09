@@ -33,6 +33,35 @@ struct CONTEXT
     st_simspec * simspec;
 };
 
+void show(CONTEXT * ctx)
+{
+    printf("== show == \n");
+    printf("device types %d\n", ctx->config->device_types.count);
+    ELLNODE * node;
+    for(node = ellFirst(&ctx->config->device_types); node; node = ellNext(node))
+    {
+        EC_DEVICE_TYPE * device_type = 
+            (EC_DEVICE_TYPE *)node;
+        printf("sync managers %d\n", device_type->sync_managers.count);
+    }
+    printf("device instances %d\n", ctx->config->devices.count);
+    for(node = ellFirst(&ctx->config->devices); node; node = ellNext(node))
+    {
+        EC_DEVICE * device = 
+            (EC_DEVICE *)node;
+        printf("name %s position %d\n", device->name, device->position);
+        printf("simulation specs %d\n", device->simspecs.count);
+        ELLNODE * node1 = ellFirst(&device->simspecs);
+        for (;node1; node1 = ellNext(node1) )
+        {
+            st_simspec * simspec = (st_simspec *) node1;
+            printf("simspec signal_no %d type %d bit_length %d\n", 
+                  simspec->signal_no, simspec->type, simspec->bit_length);
+        }
+    
+    }
+}
+
 int expectNode(xmlNode * node, char * name)
 {
     if((node->type == XML_ELEMENT_NODE) &&
@@ -103,6 +132,7 @@ int getDouble(xmlNode * node, char * name, double * value)
         if ( *end_str == 0 )
             return 1;
     }
+    printf("getDouble: Could not find parameter %s\n", name);
     return 0;
 }
 
@@ -229,16 +259,16 @@ int parseParams(xmlNode * node, st_simspec * spec)
         case ST_CONSTANT: 
             return getDouble(node, "value", &spec->params.pconst.value);
         case ST_SINEWAVE: 
-            return getDouble(node, "low", &spec->params.psine.low) &&
-                getDouble(node, "high", &spec->params.psine.high) &&
+            return getDouble(node, "low_value", &spec->params.psine.low) &&
+                getDouble(node, "high_value", &spec->params.psine.high) &&
                 getDouble(node, "period_ms", &spec->params.psine.period_ms);
         case ST_SQUAREWAVE:
-            return getDouble(node, "low", &spec->params.psquare.low) &&
-                getDouble(node, "high", &spec->params.psquare.high) &&
+            return getDouble(node, "low_value", &spec->params.psquare.low) &&
+                getDouble(node, "high_value", &spec->params.psquare.high) &&
                 getDouble(node, "period_ms", &spec->params.psquare.period_ms);
         case ST_RAMP:
-            return getDouble(node, "low", &spec->params.pramp.low) &&
-                getDouble(node, "high", &spec->params.pramp.high) &&
+            return getDouble(node, "low_value", &spec->params.pramp.low) &&
+                getDouble(node, "high_value", &spec->params.pramp.high) &&
                 getDouble(node, "period_ms", &spec->params.pramp.period_ms) &&
                 getDouble(node, "symmetry", &spec->params.pramp.symmetry);
         case ST_INVALID:
@@ -273,11 +303,13 @@ int parseSimspec(xmlNode * node, CONTEXT * ctx)
 int parseDevice(xmlNode * node, CONTEXT * ctx)
 {
     ctx->device = calloc(1, sizeof(EC_DEVICE));
+    int r1, r2, r3, r4;
+    r1 = getStr(node, "name", &ctx->device->name);
+    r2 = getInt(node, "oversample", &ctx->device->oversampling_rate, 0);
+    r3 = getStr(node, "type_name", &ctx->device->type_name);
+    r4 = getInt(node, "position", &ctx->device->position, 1);
     return 
-        getStr(node, "name", &ctx->device->name) &&
-        getInt(node, "oversample", &ctx->device->oversampling_rate, 0) &&
-        getStr(node, "type_name", &ctx->device->type_name) &&
-        getInt(node, "position", &ctx->device->position, 1) &&
+        r1 && r2 && r3 && r4 &&
         joinDevice(ctx->config, ctx->device) &&
         parseSimspec(node, ctx) &&
         ellAddOK(&ctx->config->devices, &ctx->device->node);
@@ -285,7 +317,9 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
 
 int parseChain(xmlNode * node, CONTEXT * ctx)
 {
-    return parseChildren(node, ctx, "device", parseDevice);
+    int r = parseChildren(node, ctx, "device", parseDevice);
+    show(ctx);
+    return r;
 }
 
 int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * mapping)
@@ -350,33 +384,6 @@ int dump(xmlNode * node, CONTEXT * ctx)
     return 1;
 }
 
-void show(CONTEXT * ctx)
-{
-    printf("device types %d\n", ctx->config->device_types.count);
-    ELLNODE * node;
-    for(node = ellFirst(&ctx->config->device_types); node; node = ellNext(node))
-    {
-        EC_DEVICE_TYPE * device_type = 
-            (EC_DEVICE_TYPE *)node;
-        printf("sync managers %d\n", device_type->sync_managers.count);
-    }
-    printf("device instances %d\n", ctx->config->devices.count);
-    for(node = ellFirst(&ctx->config->devices); node; node = ellNext(node))
-    {
-        EC_DEVICE * device = 
-            (EC_DEVICE *)node;
-        printf("name %s position %d\n", device->name, device->position);
-        printf("simulation specs %d\n", device->simspecs.count);
-        ELLNODE * node1 = ellFirst(&device->simspecs);
-        for (;node1; node1 = ellNext(node1) )
-        {
-            st_simspec * simspec = (st_simspec *) node1;
-            printf("simspec signal_no %d type %d bit_length %d\n", 
-                  simspec->signal_no, simspec->type, simspec->bit_length);
-        }
-    
-    }
-}
 
 
 int read_config2(char * config, int size, EC_CONFIG * cfg)

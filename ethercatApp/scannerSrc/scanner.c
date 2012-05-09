@@ -17,6 +17,7 @@
 #include "classes.h"
 #include "parser.h"
 #include "unpack.h"
+#include "simulation.h"
 
 int debug = 1;
 int selftest = 1;
@@ -96,7 +97,20 @@ void dump_latency_task(void * usr)
 
 void simulate_input(SCANNER * scanner)
 {
-    
+    ELLNODE * node = ellFirst(&scanner->config->pdo_entry_mappings);
+    for( ; node ; node = ellNext(node) )
+    {
+        EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = 
+                                ( EC_PDO_ENTRY_MAPPING *) node;
+        if (!pdo_entry_mapping->sim_signal)
+            continue;
+        st_signal *sim_signal = pdo_entry_mapping->sim_signal;
+        assert (sim_signal->signalspec && sim_signal->perioddata);
+        copy_sim_data(sim_signal, pdo_entry_mapping, scanner->pd);
+        sim_signal->index++;
+        if (sim_signal->index >= sim_signal->no_samples)
+            sim_signal->index = 0;
+    }
 }
 
 void cyclic_task(void * usr)
@@ -316,6 +330,7 @@ int simulation_init(EC_DEVICE * device)
         assert( pdo_entry_mapping->sim_signal == NULL);
         pdo_entry_mapping->sim_signal = calloc(1, sizeof(st_signal));
         pdo_entry_mapping->sim_signal->signalspec = simspec;
+        simulation_fill(pdo_entry_mapping->sim_signal);
     }
     return 0;
 }

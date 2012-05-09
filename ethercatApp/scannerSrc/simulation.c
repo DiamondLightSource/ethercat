@@ -24,6 +24,25 @@ void fill_in(int bytes, double value, void *start, int index)
             break;
     }
 }
+
+void copy_in(int bytes, void *start, int index, 
+             uint8_t *pd, int offset, int bit_position)
+{
+    assert(bytes == 1 || bytes == 2 ||  bytes == 4);
+    switch(bytes)
+    {
+        case 1:
+            * (uint8_t *)(pd + offset) = *( (uint8_t *) start + index);
+            break;
+        case 2:
+            * (uint16_t *)(pd + offset) = *( (uint16_t *) start + index);
+            break;
+        case 4:
+            * (uint32_t *)(pd + offset) = *( (uint32_t *) start + index);
+            break;
+    }
+}
+
 void fill_in_constant(st_signal * signal, int bytes)
 {
     signal->no_samples = 1;
@@ -118,4 +137,19 @@ void simulation_fill(st_signal * signal)
     // assume low and high are given in integer values
 }
 
+void copy_sim_data(st_signal * signal, EC_PDO_ENTRY_MAPPING * pdo_entry_mapping,
+                    uint8_t * pd)
+{
+    assert(signal && signal->signalspec);
+    assert(!signal->perioddata);
+    assert(signal->signalspec->type != ST_INVALID);
+    
+    int bit_length = signal->signalspec->bit_length;
+    int bytes = (int) ( ( bit_length - 1) / 8 ) + 1;
+    assert( bytes <= 4);
+    if (bytes == 3)
+        bytes = 4;
+    copy_in(bytes, signal->perioddata, signal->index, pd, 
+        pdo_entry_mapping->offset, pdo_entry_mapping->bit_position );
+}
 

@@ -26,13 +26,13 @@
 </device>
 <device type_name="EL3162" revision="0x00110000" position="6" name="AI2">
       <simulation signal_no="1" bit_length="16"
-            signal_type="square_wave" low_value="0" high_value="1" period_ms="1000"/>
+            signal_type="square_wave" low_value="0" high_value="32000" period_ms="10000"/>
       <simulation signal_no="2" bit_length="16"
-            signal_type="sine_wave" low_value="0" high_value="1" period_ms="1000"/>
+            signal_type="sine_wave" low_value="0" high_value="60000" period_ms="21000"/>
 </device>
 <device type_name="EL3162" revision="0x00110000" position="7" name="AI3">
-      <simulation signal_no="1" bit_length="16" signal_type="ramp" low_value="0" high_value="1" period_ms="1000" simmetry="100"/>
-      <simulation signal_no="2" bit_length="16" signal_type="ramp" low_value="0" high_value="1" period_ms="1000" simmetry="0"/>
+      <simulation signal_no="1" bit_length="16" signal_type="ramp" low_value="0" high_value="16000" period_ms="7000" symmetry="100"/>
+      <simulation signal_no="2" bit_length="16" signal_type="ramp" low_value="0" high_value="32000" period_ms="6000" symmetry="0"/>
 </device>
 </chain>
 </scanner>
