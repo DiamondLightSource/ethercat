@@ -17,3 +17,10 @@ pattern {  DEVICE     , PORT   , SCAN     }
         { rjq35657:M1 , DIGIN0 , "I/O Intr" } 
 }
 
+file $(ETHERCAT)/db/EL3162.template
+{
+    pattern { DEVICE, PORT, SCAN}
+    { rjq35657:AI1, AI1, "I/O Intr" }
+    { rjq35657:AI2, AI2, "I/O Intr" }
+    { rjq35657:AI3, AI3, "I/O Intr" }
+}
