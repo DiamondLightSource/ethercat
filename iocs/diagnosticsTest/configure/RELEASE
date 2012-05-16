@@ -21,8 +21,10 @@
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
-# If using the sequencer, point SNCSEQ at its top directory:
-#SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
+SUPPORT=/dls_sw/prod/R3.14.11/support
+
+ETHERCAT= /home/rjq35657/R3.14.11/support/ethercat
+ASYN=     $(SUPPORT)/asyn/4-17
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/dls_sw/epics/R3.14.11/base
@@ -30,3 +32,4 @@ EPICS_BASE=/dls_sw/epics/R3.14.11/base
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
 #RULES=/path/to/epics/support/module/rules/x-y
+
