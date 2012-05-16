@@ -137,8 +137,8 @@ void simulation_fill(st_signal * signal)
     // assume low and high are given in integer values
 }
 
-void copy_sim_data(st_signal * signal, EC_PDO_ENTRY_MAPPING * pdo_entry_mapping,
-                    uint8_t * pd)
+void copy_sim_data2(st_signal * signal, EC_PDO_ENTRY_MAPPING * pdo_entry_mapping,
+                    uint8_t * pd, int index)
 {
     assert(signal && signal->signalspec);
     assert(signal->perioddata);
@@ -150,6 +150,12 @@ void copy_sim_data(st_signal * signal, EC_PDO_ENTRY_MAPPING * pdo_entry_mapping,
     if (bytes == 3)
         bytes = 4;
     copy_in(bytes, signal->perioddata, signal->index, pd, 
-        pdo_entry_mapping->offset, pdo_entry_mapping->bit_position );
+        pdo_entry_mapping->offset + bytes * index, pdo_entry_mapping->bit_position );
+}
+
+void copy_sim_data(st_signal * signal, EC_PDO_ENTRY_MAPPING * pdo_entry_mapping,
+                    uint8_t * pd)
+{
+    copy_sim_data2(signal, pdo_entry_mapping, pd, 0);
 }
 

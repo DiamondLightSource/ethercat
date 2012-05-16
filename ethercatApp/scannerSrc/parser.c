@@ -278,6 +278,20 @@ int parseParams(xmlNode * node, st_simspec * spec)
     return 0;
 }
 
+int find_duplicate(CONTEXT * ctx, int signal_no)
+{
+    ELLNODE * node = ellFirst(&ctx->device->simspecs);
+    for ( ; node; node = ellNext(node) )
+    {
+        st_simspec * simspec = (st_simspec *)node;
+        if (simspec->signal_no == signal_no)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 int parseSimulation(xmlNode * node, CONTEXT * ctx)
 {
     ctx->simspec = calloc(1, sizeof(st_simspec));
@@ -286,6 +300,13 @@ int parseSimulation(xmlNode * node, CONTEXT * ctx)
             && getInt(node, "signal_no", &ctx->simspec->signal_no, 1) 
             && getInt(node, "bit_length", &ctx->simspec->bit_length, 1) )
     {
+        if ( find_duplicate(ctx, ctx->simspec->signal_no) )
+        {
+            printf("Duplicate signal number %d for device %s (position %d)\n", 
+                ctx->simspec->signal_no, ctx->device->name, 
+                ctx->device->position);
+            assert(0);
+        }
         ctx->simspec->type = parseStType(type_str);
         return parseParams(node, ctx->simspec)
                 && ( ctx->simspec->parent = ctx->device )

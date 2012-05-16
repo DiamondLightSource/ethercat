@@ -95,8 +95,15 @@ void dump_latency_task(void * usr)
     }
 }
 
+void advance_sim_signal(st_signal *sim_signal)
+{
+    sim_signal->index++;
+    if (sim_signal->index >= sim_signal->no_samples)
+       sim_signal->index = 0;
+}
 void simulate_input(SCANNER * scanner)
 {
+    int n;
     ELLNODE * node = ellFirst(&scanner->config->devices);
     for( ; node ; node = ellNext(node) )
     {
@@ -111,9 +118,18 @@ void simulate_input(SCANNER * scanner)
             st_signal *sim_signal = pdo_entry_mapping->sim_signal;
             assert (sim_signal->signalspec && sim_signal->perioddata);
             copy_sim_data(sim_signal, pdo_entry_mapping, scanner->pd);
-            sim_signal->index++;
-            if (sim_signal->index >= sim_signal->no_samples)
-                sim_signal->index = 0;
+            advance_sim_signal(sim_signal);
+            assert(pdo_entry_mapping->pdo_entry);
+            EC_PDO_ENTRY * pdo_entry = pdo_entry_mapping->pdo_entry;
+            if(pdo_entry->oversampling)
+            {
+                for(n = 1; n < device->oversampling_rate; n++)
+                {
+                    copy_sim_data2(sim_signal, pdo_entry_mapping, scanner->pd, 
+                                   n);
+                    advance_sim_signal(sim_signal);
+                }
+            }
         }
     }
 }
