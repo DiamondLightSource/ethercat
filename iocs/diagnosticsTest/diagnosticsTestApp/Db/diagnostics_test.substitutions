@@ -16,9 +16,9 @@ pattern {   DEVICE    , PORT ,     SCAN   }
 file $(ETHERCAT)/db/gadc.template
 {
 pattern { DEVICE, CHANNEL, PORT, SAMPLES, SCAN , INTSCAN}
-{RJQ35657-AMP-01:CHANNELA, 1, AI1, 1000, "1 second", "Passive" }
-{RJQ35657-AMP-01:CHANNELB, 2, AI1, 1000, "1 second", "Passive" }
-{RJQ35657-AMP-01:CHANNELC, 1, AI2, 1000, "1 second", "Passive" }
-{RJQ35657-AMP-01:CHANNELD, 2, AI2, 1000, "1 second", "Passive" }
+{RJQ35657-AMP-01:CHANNELA, 1, AI1, 1000, "I/O Intr", "Passive" }
+{RJQ35657-AMP-01:CHANNELB, 2, AI1, 1000, "I/O Intr", "Passive" }
+{RJQ35657-AMP-01:CHANNELC, 1, AI2, 1000, "I/O Intr", "Passive" }
+{RJQ35657-AMP-01:CHANNELD, 2, AI2, 1000, "I/O Intr", "Passive" }
 
 }

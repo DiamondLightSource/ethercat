@@ -2,15 +2,15 @@
 <device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" />
 <device type_name="EL3104" revision="0x00100000" position="1" name="AI1" >
     <simulation signal_no="1" bit_length="1"
-            signal_type="square_wave" low_value="0" high_value="1" period_ms="10000"/>
+            signal_type="ramp" low_value="0" high_value="1" period_ms="10000" symmetry="100"/>
     <simulation signal_no="2" bit_length="1" 
-            signal_type="square_wave" low_value="1" high_value="0" period_ms="10000"/>
+            signal_type="ramp" low_value="1" high_value="0" period_ms="10000" symmetry="100"/>
 </device>
 <device type_name="EL3104" revision="0x00100000" position="2" name="AI2" >
     <simulation signal_no="1" bit_length="1"
-            signal_type="square_wave" low_value="0" high_value="1" period_ms="10000"/>
+            signal_type="ramp" low_value="0" high_value="1" period_ms="10000" symmetry="100"/>
     <simulation signal_no="2" bit_length="1" 
-            signal_type="square_wave" low_value="1" high_value="0" period_ms="10000"/>
+            signal_type="ramp" low_value="1" high_value="0" period_ms="10000" symmetry="100"/>
 </device>
 </chain>
 
