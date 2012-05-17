@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4
+#!/usr/bin/env dls-python2.6
 
 # need system python for libxml2 support with xpath
 

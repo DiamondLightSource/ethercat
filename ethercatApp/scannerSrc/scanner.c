@@ -161,11 +161,11 @@ void cyclic_task(void * usr)
         else if(msg->tag == MSG_TICK)
         {
             wakeupTime = msg->timer.ts;
-            ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
+            //ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
             
             // do this how often?
-            ecrt_master_sync_reference_clock(master);
-            ecrt_master_sync_slave_clocks(master);
+            //ecrt_master_sync_reference_clock(master);
+            //ecrt_master_sync_slave_clocks(master);
             
             // gets reply to LRW frame sent last cycle
             // from network card buffer
