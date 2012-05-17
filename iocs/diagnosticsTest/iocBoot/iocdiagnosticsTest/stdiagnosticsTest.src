@@ -11,9 +11,9 @@ diagnosticsTest_registerRecordDeviceDriver(pdbbase)
 
 #ADC_Ethercat_Sampler(<port>,<channel>,<sample> [ ,<cycle> ]  )
 ADC_Ethercat_Sampler("AI1",1, "AIStandardChannel1.Value")
-ADC_Ethercat_Sampler("AI1",2, "AIStandardChannel2.Value")
-ADC_Ethercat_Sampler("AI2",1, "AIStandardChannel1.Value")
-ADC_Ethercat_Sampler("AI2",2, "AIStandardChannel2.Value")
+#ADC_Ethercat_Sampler("AI1",2, "AIStandardChannel2.Value")
+#ADC_Ethercat_Sampler("AI2",1, "AIStandardChannel1.Value")
+#ADC_Ethercat_Sampler("AI2",2, "AIStandardChannel2.Value")
 
 ecAsynInit("/tmp/scanner", 1000000)
 
