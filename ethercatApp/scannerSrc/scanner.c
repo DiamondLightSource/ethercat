@@ -346,6 +346,7 @@ int adjust_sim_pdo_size(SCANNER *scanner, int bits, unsigned int *bit_position)
 
 int simulation_init(EC_DEVICE * device)
 {
+    printf("Simulation init for device at position %d\n", device->position);
     ELLNODE * node = ellFirst(&device->simspecs);
     for (; node ; node = ellNext(node) )
     {
@@ -356,6 +357,9 @@ int simulation_init(EC_DEVICE * device)
         assert( pdo_entry_mapping->sim_signal == NULL);
         pdo_entry_mapping->sim_signal = calloc(1, sizeof(st_signal));
         pdo_entry_mapping->sim_signal->signalspec = simspec;
+        printf("pdo entry name %s signal_no %d bit_length %d \n",
+               pdo_entry_mapping->pdo_entry->name, simspec->signal_no,
+               simspec->bit_length);
         simulation_fill(pdo_entry_mapping->sim_signal);
     }
     return 0;
