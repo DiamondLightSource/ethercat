@@ -30,7 +30,37 @@ struct CONTEXT
     EC_SYNC_MANAGER * sync_manager;
     EC_DEVICE * device;
     EC_PDO_ENTRY_MAPPING * pdo_entry_mapping;
+    st_simspec * simspec;
 };
+
+void show(CONTEXT * ctx)
+{
+    printf("== show == \n");
+    printf("device types %d\n", ctx->config->device_types.count);
+    ELLNODE * node;
+    for(node = ellFirst(&ctx->config->device_types); node; node = ellNext(node))
+    {
+        EC_DEVICE_TYPE * device_type = 
+            (EC_DEVICE_TYPE *)node;
+        printf("sync managers %d\n", device_type->sync_managers.count);
+    }
+    printf("device instances %d\n", ctx->config->devices.count);
+    for(node = ellFirst(&ctx->config->devices); node; node = ellNext(node))
+    {
+        EC_DEVICE * device = 
+            (EC_DEVICE *)node;
+        printf("name %s position %d\n", device->name, device->position);
+        printf("simulation specs %d\n", device->simspecs.count);
+        ELLNODE * node1 = ellFirst(&device->simspecs);
+        for (;node1; node1 = ellNext(node1) )
+        {
+            st_simspec * simspec = (st_simspec *) node1;
+            printf("simspec signal_no %d type %d bit_length %d\n", 
+                  simspec->signal_no, simspec->type, simspec->bit_length);
+        }
+    
+    }
+}
 
 int expectNode(xmlNode * node, char * name)
 {
@@ -89,6 +119,20 @@ int isOctal(char * attr)
             break;
         }
     }
+    return 0;
+}
+
+int getDouble(xmlNode * node, char * name, double * value)
+{
+    char * text = (char *) xmlGetProp(node, (unsigned char *)name);
+    char * end_str;
+    if (text != NULL)
+    {
+        *value = strtod(text, &end_str);
+        if ( *end_str == 0 )
+            return 1;
+    }
+    printf("getDouble: Could not find parameter %s\n", name);
     return 0;
 }
 
@@ -181,12 +225,100 @@ int parseTypes(xmlNode * node, CONTEXT * ctx)
     return parseChildren(node, ctx, "device", parseDeviceType);
 }
 
-// chain parser
+/* chain parser */
 
 int joinDevice(EC_CONFIG * cfg, EC_DEVICE * device)
 {
     device->device_type = find_device_type(cfg, device->type_name);
     return (device->device_type != NULL);
+}
+
+
+enum st_type parseStType(char * type_str)
+{
+    char *parseStrings[4] = {
+     "constant", 
+     "square_wave", 
+     "sine_wave", 
+     "ramp" 
+    };
+    int i = (int) ST_CONSTANT;
+    while ( i < (int) ST_INVALID )
+    {
+        if ( strcmp(parseStrings[i], type_str) == 0 )
+            return (enum st_type) i;
+        i++;
+    }
+    return ST_INVALID;
+}
+
+int parseParams(xmlNode * node, st_simspec * spec)
+{
+    switch ( spec->type )
+    {
+        case ST_CONSTANT: 
+            return getDouble(node, "value", &spec->params.pconst.value);
+        case ST_SINEWAVE: 
+            return getDouble(node, "low_value", &spec->params.psine.low) &&
+                getDouble(node, "high_value", &spec->params.psine.high) &&
+                getDouble(node, "period_ms", &spec->params.psine.period_ms);
+        case ST_SQUAREWAVE:
+            return getDouble(node, "low_value", &spec->params.psquare.low) &&
+                getDouble(node, "high_value", &spec->params.psquare.high) &&
+                getDouble(node, "period_ms", &spec->params.psquare.period_ms);
+        case ST_RAMP:
+            return getDouble(node, "low_value", &spec->params.pramp.low) &&
+                getDouble(node, "high_value", &spec->params.pramp.high) &&
+                getDouble(node, "period_ms", &spec->params.pramp.period_ms) &&
+                getDouble(node, "symmetry", &spec->params.pramp.symmetry);
+        case ST_INVALID:
+        default:
+            return 0;
+    }
+    return 0;
+}
+
+int find_duplicate(CONTEXT * ctx, int signal_no, int bit_length)
+{
+    ELLNODE * node = ellFirst(&ctx->device->simspecs);
+    for ( ; node; node = ellNext(node) )
+    {
+        st_simspec * simspec = (st_simspec *)node;
+        if ( (simspec->signal_no == signal_no) && (simspec->bit_length == bit_length) )
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int parseSimulation(xmlNode * node, CONTEXT * ctx)
+{
+    ctx->simspec = calloc(1, sizeof(st_simspec));
+    char *type_str;
+    if ( getStr(node, "signal_type", &type_str) 
+            && getInt(node, "signal_no", &ctx->simspec->signal_no, 1) 
+            && getInt(node, "bit_length", &ctx->simspec->bit_length, 1) )
+    {
+        if ( find_duplicate(ctx, ctx->simspec->signal_no, ctx->simspec->bit_length) )
+        {
+            printf("Duplicate signal number %d (bit_length %d) for device %s (position %d)\n", 
+                ctx->simspec->signal_no, ctx->simspec->bit_length,
+                ctx->device->name, ctx->device->position);
+            assert(0);
+        }
+        ctx->simspec->type = parseStType(type_str);
+        return parseParams(node, ctx->simspec)
+                && ( ctx->simspec->parent = ctx->device )
+                && ellAddOK(&ctx->device->simspecs, &ctx->simspec->node);
+    }
+    else
+        return 0;
+}
+
+int parseSimspec(xmlNode * node, CONTEXT * ctx)
+{
+    return parseChildren(node, ctx, "simulation", parseSimulation);
 }
 
 int parseDevice(xmlNode * node, CONTEXT * ctx)
@@ -198,12 +330,15 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
         getStr(node, "type_name", &ctx->device->type_name) &&
         getInt(node, "position", &ctx->device->position, 1) &&
         joinDevice(ctx->config, ctx->device) &&
+        parseSimspec(node, ctx) &&
         ellAddOK(&ctx->config->devices, &ctx->device->node);
 }
 
 int parseChain(xmlNode * node, CONTEXT * ctx)
 {
-    return parseChildren(node, ctx, "device", parseDevice);
+    int r = parseChildren(node, ctx, "device", parseDevice);
+    show(ctx);
+    return r;
 }
 
 int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * mapping)
@@ -268,24 +403,7 @@ int dump(xmlNode * node, CONTEXT * ctx)
     return 1;
 }
 
-void show(CONTEXT * ctx)
-{
-    printf("device types %d\n", ctx->config->device_types.count);
-    ELLNODE * node;
-    for(node = ellFirst(&ctx->config->device_types); node; node = ellNext(node))
-    {
-        EC_DEVICE_TYPE * device_type = 
-            (EC_DEVICE_TYPE *)node;
-        printf("sync managers %d\n", device_type->sync_managers.count);
-    }
-    printf("device instances %d\n", ctx->config->devices.count);
-    for(node = ellFirst(&ctx->config->devices); node; node = ellNext(node))
-    {
-        EC_DEVICE * device = 
-            (EC_DEVICE *)node;
-        printf("name %s position %d\n", device->name, device->position);
-    }
-}
+
 
 int read_config2(char * config, int size, EC_CONFIG * cfg)
 {
@@ -312,38 +430,6 @@ int read_config2(char * config, int size, EC_CONFIG * cfg)
             parseChain(c, &ctx);
         }
     }
-    return 0;
-}
-
-int read_config(char * config, char * chain, EC_CONFIG * cfg)
-{
-    LIBXML_TEST_VERSION;
-    xmlDoc * doc = xmlReadFile(config, NULL, 0);
-    assert(doc);
-    CONTEXT ctx;
-    ctx.config = cfg;
-    if(parseTypes(xmlDocGetRootElement(doc), &ctx))
-    {
-        //show(&ctx);
-    }
-    else
-    {
-        printf("parse error\n");
-    }
-    xmlFreeDoc(doc);
-
-    doc = xmlReadFile(chain, NULL, 0);
-    assert(doc);
-    if(parseChain(xmlDocGetRootElement(doc), &ctx))
-    {
-        //show(&ctx);
-    }
-    else
-    {
-        printf("chain parse error\n");
-    }
-    xmlFreeDoc(doc);
-    xmlCleanupParser();
     return 0;
 }
 
@@ -384,7 +470,9 @@ char * serialize_config(EC_CONFIG * cfg)
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             assert( pdo_entry_mapping->pdo_entry );
             char line[1024];
-            snprintf(line, sizeof(line), "<entry device_position=\"%d\" pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" offset=\"%d\" bit=\"%d\" />\n", 
+            snprintf(line, sizeof(line), "<entry device_position=\"%d\" "
+                      "pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" "
+                      "offset=\"%d\" bit=\"%d\" />\n", 
                      device->position, pdo_entry_mapping->pdo_entry->parent->index, 
                      pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
                      pdo_entry_mapping->bit_position);
@@ -395,13 +483,3 @@ char * serialize_config(EC_CONFIG * cfg)
     return sbuf;
 }
 
-int main_TEST_PARSER(int argc, char ** argv)
-{
-    LIBXML_TEST_VERSION;
-    /*
-    assert(argc > 1);
-    EC_CONFIG * cfg = calloc(1, sizeof(EC_CONFIG));
-    read_config2(argv[1], cfg);
-    */
-    return 0;
-}

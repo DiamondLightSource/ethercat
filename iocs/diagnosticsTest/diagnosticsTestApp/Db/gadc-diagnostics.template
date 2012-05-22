@@ -1,0 +1,14 @@
+# ethercat gadc-diagnostics.template
+# % macro, DEVICE, EtherCAT slave
+# % macro, CHANNEL, ADC channel
+# % macro, PORT, asyn port for EtherCAT slave
+# % macro, SAMPLES, number of samples in waveform
+
+record(longout, "$(DEVICE):ADC$(CHANNEL)_AVERAGE")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))AVERAGE")
+   field(DOL, "$(SAMPLES)")
+   field(PINI, "YES")
+  
+}

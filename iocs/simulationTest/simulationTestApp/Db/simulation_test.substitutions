@@ -1,0 +1,26 @@
+
+# EtherCAT Master
+
+file $(ETHERCAT)/db/MASTER.template
+{   
+pattern {       DEVICE , PORT    , SCAN     }
+        { rjq35657:sim , MASTER0 , "I/O Intr" } 
+}
+
+#
+# EL1014:
+# 4 channel 24V digital input
+#
+file $(ETHERCAT)/db/EL1014.template
+{   
+pattern {  DEVICE     , PORT   , SCAN     }
+        { rjq35657:M1 , DIGIN0 , "I/O Intr" } 
+}
+
+file $(ETHERCAT)/db/EL3162.template
+{
+    pattern { DEVICE, PORT, SCAN}
+    { rjq35657:AI1, AI1, "I/O Intr" }
+    { rjq35657:AI2, AI2, "I/O Intr" }
+    { rjq35657:AI3, AI3, "I/O Intr" }
+}

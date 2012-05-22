@@ -2,7 +2,8 @@ EtherCAT support consists of 4 components
 1) OPTIONAL Realtime Linux Kernel
 2) Etherlab device driver
 3) Scanner
-4) IOCs
+4) Simulation
+5) IOCs
 
 1) Realtime Linux
 PREEMPT-RT RHEL5 built from RedHat SRPMS
@@ -99,7 +100,37 @@ These XML files contain the list of named registers that each device supports. T
 information is also stored in a PROM in each device for auto-discovery but the etherlab master
 does not support this fully and some devices may (NI) may not provide the information.
 
-4) IOCs
+4) Simulation
+
+The scanner supports a simulation mode with the '-s' command switch.
+The configuration file supports extra elements to specify the simulated
+signals as in the example below.
+
+[rjq35657@pc0074 ethercat]$ cat iocs/diagnosticsTest/etc/diagnostics-test-chain.xml 
+<chain>
+<device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" />
+<device type_name="EL3104" revision="0x00100000" position="1" name="AI1" >
+    <simulation signal_no="1" bit_length="16"
+            signal_type="sine_wave" low_value="-32768" high_value="32767" period_ms="10000" />
+    <simulation signal_no="2" bit_length="16" 
+            signal_type="ramp" low_value="-32768" high_value="32767" period_ms="10000" symmetry="100"/>
+    <simulation signal_no="3" bit_length="16" signal_type="constant" value="20000" />
+</device>
+</chain>
+
+The allocation follows the parameter "signal_no" combined with "bit_length",
+thus there's several signals with signal_no "1" depending on the signal bit-lengths.
+
+The supported types are "sine_wave", "ramp", "square_wave" and "constant".
+The limits for low_value and high_value are:
+bit_length .....  low_value ... high_value
+1-bit                   0         1
+8-bit                   0         255
+16-bit             -32768         32767
+24-bit           -8388608         8388607
+
+
+5) IOCs
 
 IOCs connect to the scanner using a unix domain socket. The configuration information is first
 sent over the socket and the ASYN ports are created. Then the Scanner distributes the 

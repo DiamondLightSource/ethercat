@@ -4,6 +4,8 @@
 # % macro, PORT, asyn port for EtherCAT slave
 # % macro, SAMPLES, number of samples in waveform
 # % macro, SCAN, polling period
+# % macro, INTSCAN, polling period for the INTERRUPT parameter
+
 
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CHANBUFF")
 {
@@ -54,12 +56,6 @@ record(longout, "$(DEVICE):ADC$(CHANNEL)_TRIGGER")
    field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))TRIGGER")
 }
 
-record(longout, "$(DEVICE):ADC$(CHANNEL)_OFFSET")
-{
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))OFFSET")
-}
-
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CAPTURE")
 {
    field(DTYP, "asynInt32")
@@ -78,7 +74,7 @@ record(waveform, "$(DEVICE):ADC$(CHANNEL)_WAVEFORM")
 {
     field(DTYP, "asynInt32ArrayIn")
     field(NELM, "$(SAMPLES)")
-    field(SCAN, "$(SCAN)")
+    field(SCAN, "I/O Intr")
     field(FTVL, "LONG")
     field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))WAVEFORM")
 }

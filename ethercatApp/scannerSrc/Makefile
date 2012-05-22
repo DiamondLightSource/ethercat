@@ -25,7 +25,7 @@ LIBRARY += scannerlib
 scannerlib_SRCS += parser.c classes.c unpack.c
 
 PROD += scanner
-scanner_SRCS += scanner.c
+scanner_SRCS += scanner.c simulation.c
 scanner_LIBS += rtutils scannerlib Com
 
 PROD += serialtool

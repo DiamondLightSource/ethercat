@@ -1,0 +1,32 @@
+#!$(INSTALL)/bin/$(ARCH)/simulationTest
+
+## You may have to change simulationTest to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+# Load binaries on architectures that need to do so.
+# VXWORKS_ONLY, LINUX_ONLY and RTEMS_ONLY are macros that resolve
+# to a comment symbol on architectures that are not the current
+# build architecture, so they can be used liberally to do architecture
+# specific things. Alternatively, you can include an architecture
+# specific file.
+$(VXWORKS_ONLY)ld < bin/$(ARCH)/simulationTest.munch
+
+
+## Register all support components
+dbLoadDatabase("dbd/simulationTest.dbd")
+simulationTest_registerRecordDeviceDriver(pdbbase)
+
+ecAsynInit("/tmp/scanner", 1000000)
+
+## Load record instances
+dbLoadRecords("db/simulation_test.db")
+
+## Set this to see messages from mySub
+#mySubDebug 1
+
+iocInit()
+
+## Start any sequence programs
+#seq sncExample,"user=xxx"

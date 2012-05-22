@@ -1,0 +1,23 @@
+#!$(INSTALL)/bin/$(ARCH)/diagnosticsTest
+
+## You may have to change diagnosticsTest to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+## Register all support components
+dbLoadDatabase("dbd/diagnosticsTest.dbd")
+diagnosticsTest_registerRecordDeviceDriver(pdbbase)
+
+#ADC_Ethercat_Sampler(<port>,<channel>,<sample> [ ,<cycle> ]  )
+ADC_Ethercat_Sampler("AI1",1, "AIStandardChannel1.Value")
+#ADC_Ethercat_Sampler("AI1",2, "AIStandardChannel2.Value")
+#ADC_Ethercat_Sampler("AI2",1, "AIStandardChannel1.Value")
+#ADC_Ethercat_Sampler("AI2",2, "AIStandardChannel2.Value")
+
+ecAsynInit("/tmp/scanner", 1000000)
+
+dbLoadRecords("db/diagnostics_test.db")
+
+iocInit()
+

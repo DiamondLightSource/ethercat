@@ -1,0 +1,27 @@
+<chain>
+<device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" />
+<device type_name="EL1014" revision="0x00100000" position="1" name="DIGIN0" >
+    <simulation signal_no="1" bit_length="1"
+            signal_type="square_wave" low_value="0" high_value="1" period_ms="10000"/>
+    <simulation signal_no="2" bit_length="1" 
+            signal_type="square_wave" low_value="1" high_value="0" period_ms="10000"/>
+    <simulation signal_no="3" bit_length="1" 
+            signal_type="square_wave" low_value="0" high_value="1" period_ms="10000"/>
+    <simulation signal_no="4" bit_length="1" 
+            signal_type="square_wave" low_value="1" high_value="0" period_ms="10000"/>
+</device>
+<device type_name="EL3162" revision="0x00110000" position="2" name="AI1">
+     <simulation signal_no="1" bit_length="16" signal_type="constant" value="1"/>
+     <simulation signal_no="2" bit_length="16" signal_type="constant" value="0"/>
+</device>
+<device type_name="EL3162" revision="0x00110000" position="3" name="AI2">
+     <simulation signal_no="1" bit_length="16"
+            signal_type="square_wave" low_value="0" high_value="32767" period_ms="10000"/>
+     <simulation signal_no="2" bit_length="16"
+            signal_type="sine_wave" low_value="-32768" high_value="32768" period_ms="21000"/>
+</device>
+<device type_name="EL3162" revision="0x00110000" position="4" name="AI3">
+    <simulation signal_no="1" bit_length="16" signal_type="ramp" low_value="100" high_value="-100" period_ms="7000" symmetry="50"/>
+    <simulation signal_no="2" bit_length="16" signal_type="ramp" low_value="-32768" high_value="32767" period_ms="6000" symmetry="0"/>
+</device>
+</chain>

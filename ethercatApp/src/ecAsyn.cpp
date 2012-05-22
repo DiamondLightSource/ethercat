@@ -52,7 +52,12 @@ struct sampler_config_t
 };
 
 static ELLLIST sampler_configs;
+static int showPdosEnabled = 0;
 
+static void showPdos(int enable)
+{
+    showPdosEnabled = enable;    
+}
 static void Configure_Sampler(char * port, int channel, char * sample, char * cycle)
 {
     sampler_config_t * conf = (sampler_config_t *)callocMustSucceed
@@ -393,12 +398,7 @@ static void readConfig(ENGINE_USER * usr)
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        int pdos = 0;
-        for(ELLNODE * node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
-        {
-            pdos++;
-        }
-        ecAsyn * port = new ecAsyn(device, pdos, usr, ndev);
+        ecAsyn * port = new ecAsyn(device, device->pdo_entry_mappings.count, usr, ndev);
         ellAdd(&usr->ports, &port->node);
         ndev++;
     }
@@ -432,13 +432,76 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
     return !(size > 0);
 }
 
+int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
+{
+    EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
+    assert(msg->tag == MSG_PDO);
+    int n;
+    for(n = 0; n < size; n++)
+    {
+        printf("%02x ", (unsigned char)buffer[n]);
+        if((n % 8) == 15)
+        {
+            printf("\n");
+        }
+    }
+    printf("\n");
+    printf("bys cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
+           msg->pdo.wc_state);
+    ELLNODE * node;
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
+    {
+        EC_DEVICE * device = (EC_DEVICE *)node;
+        printf("%s\n", device->name);
+        ELLNODE * node1;
+        for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
+        {
+            EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node1;
+
+            printf(" %s ", mapping->pdo_entry->parent->name);
+            printf( "%s ", mapping->pdo_entry->datatype);
+
+            if(mapping->pdo_entry->oversampling)
+            {
+                for(n = 0; n < mapping->parent->oversampling_rate; n++)
+                {
+                    printf("%d ", cast_int32(mapping, msg->pdo.buffer, n));
+                }
+                printf("\n");
+            }
+            else
+            {
+                int32_t val = cast_int32(mapping, msg->pdo.buffer, 0);
+                printf("%d\n", val);
+            }
+
+        }
+    }
+    printf("\n");
+
+    // store these in the ASYN int32 attributes for this device
+
+    return 0;
+}
+
 static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
 {
     EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
     assert(msg->tag == MSG_PDO);
+    static int c = 0;
+    //#endif
     for(ELLNODE * node = ellFirst(&usr->ports); node; node = ellNext(node))
     {
         node_cast<ProcessDataObserver>(node)->on_pdo_message(&msg->pdo, size);
+    }
+    if (showPdosEnabled)
+    {
+        if ( c % 1000 == 0 )
+        {
+            c = 0;
+            show_pdo_data(buffer, size, usr->config);
+        }
+        c++;
     }
     return 0;
 }
@@ -515,11 +578,19 @@ extern "C"
         Configure_Sampler(args[0].sval, args[1].ival, args[2].sval, args[3].sval);
     }
 
+    static const iocshArg showPdoArg[] = { {"enable", iocshArgInt}};
+    static const iocshArg * const showPdoArgs[] = { &showPdoArg[0] };
+    static const iocshFuncDef showPdoFuncDef = { "showPdo", 1, showPdoArgs};
+    static void showPdoCallFunc(const iocshArgBuf * args)
+    {
+        showPdos(args[0].ival);
+    }
     void ecAsynRegistrar(void)
     {
         ellInit(&sampler_configs);
         iocshRegister(&InitFuncDef,InitCallFunc);
         iocshRegister(&SamplerFuncDef,SamplerCallFunc);
+        iocshRegister(&showPdoFuncDef,showPdoCallFunc);
     }
     epicsExportRegistrar(ecAsynRegistrar);
 }
