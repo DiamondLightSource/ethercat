@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<components arch="linux-x86">
+	<ethercat.EthercatMaster name="Master0" socket="/tmp/scanner"/>
+	<ethercat.MasterTemplate DEVICE="RJQ35657:MASTER" PORT="MASTER0" SCAN="1 second"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE0" position="0" type_rev="EK1100 rev 0x00010000"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE1" position="1" type_rev="EL9512 rev 0x00100000"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE2" position="2" type_rev="EL3104 rev 0x00100000"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE3" position="3" type_rev="EL3104 rev 0x00100000"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE4" position="4" type_rev="EL2024-0010 rev 0x0010000a"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE5" position="5" type_rev="EL2024-0010 rev 0x0010000a"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE6" position="6" type_rev="EL2024-0010 rev 0x0010000a"/>
+	<ethercat.EthercatSlave master="Master0" name="SLAVE7" position="7" type_rev="EL2024-0010 rev 0x0010000a"/>
+	<ethercat.auto_EL3104 DEVICE="RJQ35657:ADC1" PORT="SLAVE2" SCAN="1 second"/>
+	<ethercat.auto_EL3104 DEVICE="RJQ35657:ADC2" PORT="SLAVE3" SCAN="1 second"/>
+	<ethercat.auto_EL2024_0010 DEVICE="RJQ35657:DO1" PORT="SLAVE4" SCAN="1 second"/>
+	<ethercat.auto_EL2024_0010 DEVICE="RJQ35657:DO2" PORT="SLAVE5" SCAN="1 second"/>
+	<ethercat.auto_EL2024_0010 DEVICE="RJQ35657:DO3" PORT="SLAVE6" SCAN="1 second"/>
+	<ethercat.auto_EL2024_0010 DEVICE="RJQ35657:DO4" PORT="SLAVE7" SCAN="1 second"/>
+	<ethercat.GenericADC channel="1" name="GADC1" pdoentry="AIStandardChannel1.Value : EL3104 rev 0x00100000" slave="SLAVE2"/>
+	<ethercat.GenericADC channel="2" name="GADC2" pdoentry="AIStandardChannel2.Value : EL3104 rev 0x00100000" slave="SLAVE2"/>
+	<ethercat.GenericADC channel="3" name="GADC3" pdoentry="AIStandardChannel3.Value : EL3104 rev 0x00100000" slave="SLAVE2"/>
+	<ethercat.GenericADC channel="4" name="GADC4" pdoentry="AIStandardChannel4.Value : EL3104 rev 0x00100000" slave="SLAVE2"/>
+	<ethercat.GenericADC channel="5" name="GADC5" pdoentry="AIStandardChannel1.Value : EL3104 rev 0x00100000" slave="SLAVE3"/>
+	<ethercat.GenericADC channel="6" name="GADC6" pdoentry="AIStandardChannel2.Value : EL3104 rev 0x00100000" slave="SLAVE3"/>
+	<ethercat.GenericADC channel="7" name="GADC7" pdoentry="AIStandardChannel3.Value : EL3104 rev 0x00100000" slave="SLAVE3"/>
+	<ethercat.GenericADC channel="8" name="GADC8" pdoentry="AIStandardChannel4.Value : EL3104 rev 0x00100000" slave="SLAVE3"/>
+</components>
