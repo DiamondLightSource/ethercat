@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EtherCATInfo Version="0.1">
+  <Vendor>
+    <Id>505</Id>
+    <Name>National Instruments</Name>
+    <ImageData16x14>424df60000000000000076000000280000000e00000010000000010004000000000080000000c21e0000c21e000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffff00fff8ffffffffff00ff8c8fffffffff00ff8cc8ffffffff00ff8ccc8fffffff00ff8ccc8888ffff00fff8ccfccc8fff00fff8cfccccc8ff00fff8fcccccc8ff00fff8ccccccf8ff00ff8ccccccfc8ff00f8ccccccfffc8f008ccccccfc8fc8f00f8cccc8f8cccc800ff8888fff8888f00ffffffffffffff00</ImageData16x14>
+  </Vendor>
+  <Descriptions>
+    <Groups>
+      <Group>
+        <Type>Fixed</Type>
+        <Name>NI 9144 EtherCAT Slave</Name>
+        <ImageData16x14>424df60000000000000076000000280000000e00000010000000010004000000000080000000c21e0000c21e000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00ffffffffffffff00fff8ffffffffff00ff8c8fffffffff00ff8cc8ffffffff00ff8ccc8fffffff00ff8ccc8888ffff00fff8ccfccc8fff00fff8cfccccc8ff00fff8fcccccc8ff00fff8ccccccf8ff00ff8ccccccfc8ff00f8ccccccfffc8f008ccccccfc8fc8f00f8cccc8f8cccc800ff8888fff8888f00ffffffffffffff00</ImageData16x14>
+      </Group>
+    </Groups>
+    <Devices>
+      <Device Physics="YY">
+        <Type ProductCode="#x23B8" RevisionNo="1">NI 9144</Type>
+        <Name LcId="1033">NI 9144</Name>
+        <Name LcId="1031">NI 9144</Name>
+        <GroupType>Fixed</GroupType>
+        <Fmmu Sm="2">Outputs</Fmmu>
+        <Fmmu Sm="3">Inputs</Fmmu>
+        <Sm StartAddress="#x1F00" DefaultSize="#x100" MinSize="#x40" MaxSize="#x100" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+        <Sm StartAddress="#x1C00" DefaultSize="#x300" MinSize="#x40" MaxSize="#x300" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+        <Sm StartAddress="#x1000" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x64" Enable="1">Outputs</Sm>
+        <Sm StartAddress="#x1600" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x20" Enable="1">Inputs</Sm>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A00</Index>
+          <Name>Slot 1 - 9215</Name>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.1</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.2</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.3</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.4</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+        </TxPdo>
+        <Mailbox>
+          <AoE AdsRouter="1" GenerateOwnNetId="1" />
+          <CoE SdoInfo="1" CompleteAccess="1" PdoAssign="1" PdoConfig="0" PdoUpload="0" />
+          <FoE />
+        </Mailbox>
+        <Dc>
+          <OpMode>
+            <Name>DcOff</Name>
+            <Desc>Free-Run Mode</Desc>
+            <AssignActivate>#x0000</AssignActivate>
+          </OpMode>
+          <OpMode>
+            <Name>DcSync</Name>
+            <Desc>Synchronized Mode</Desc>
+            <AssignActivate>#x0300</AssignActivate>
+            <CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+            <ShiftTimeSync0>0</ShiftTimeSync0>
+          </OpMode>
+        </Dc>
+        <Eeprom>
+          <ByteSize>2048</ByteSize>
+          <ConfigData>0800006600010000</ConfigData>
+          <BootStrap>001C000400180004</BootStrap>
+        </Eeprom>
+      </Device>
+      <Device Physics="YY">
+        <Type ProductCode="#x23B8" RevisionNo="2">NI 9144</Type>
+        <Name LcId="1033">NI 9144</Name>
+        <Name LcId="1031">NI 9144</Name>
+        <GroupType>Fixed</GroupType>
+        <Fmmu Sm="2">Outputs</Fmmu>
+        <Fmmu Sm="3">Inputs</Fmmu>
+        <Sm StartAddress="#x1F00" DefaultSize="#x100" MinSize="#x40" MaxSize="#x100" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+        <Sm StartAddress="#x1C00" DefaultSize="#x300" MinSize="#x40" MaxSize="#x300" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+        <Sm StartAddress="#x1000" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x64" Enable="1">Outputs</Sm>
+        <Sm StartAddress="#x1600" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x20" Enable="1">Inputs</Sm>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A00</Index>
+          <Name>Slot 1 - 9215</Name>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.1</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.2</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.3</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.4</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+        </TxPdo>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A01</Index>
+          <Name>Slot 2 - 9215</Name>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 2.1</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 2.2</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 2.3</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 2.4</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+        </TxPdo>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A02</Index>
+          <Name>Slot 3 - 9215</Name>
+          <Entry>
+            <Index>#x6020</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 3.1</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6020</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 3.2</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6020</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 3.3</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6020</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 3.4</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+        </TxPdo>
+        <Mailbox>
+          <AoE AdsRouter="1" GenerateOwnNetId="1"/>
+          <CoE SdoInfo="1" CompleteAccess="1" PdoAssign="1" PdoConfig="0" PdoUpload="0"/>
+          <FoE/>
+        </Mailbox>
+        <Dc>
+          <OpMode>
+            <Name>DcOff</Name>
+            <Desc>Free-Run Mode</Desc>
+            <AssignActivate>#x0000</AssignActivate>
+          </OpMode>
+          <OpMode>
+            <Name>DcSync</Name>
+            <Desc>Synchronized Mode</Desc>
+            <AssignActivate>#x0300</AssignActivate>
+            <CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+            <ShiftTimeSync0>0</ShiftTimeSync0>
+          </OpMode>
+        </Dc>
+        <Eeprom>
+          <ByteSize>2048</ByteSize>
+          <ConfigData>0800006600010000</ConfigData>
+          <BootStrap>001C000400180004</BootStrap>
+        </Eeprom>
+      </Device>
+      <Device Physics="YY">
+        <Type ProductCode="#x23B8" RevisionNo="3">NI 9144</Type>
+        <Name LcId="1033">NI 9144</Name>
+        <Name LcId="1031">NI 9144</Name>
+        <GroupType>Fixed</GroupType>
+        <Fmmu Sm="2">Outputs</Fmmu>
+        <Fmmu Sm="3">Inputs</Fmmu>
+        <Sm StartAddress="#x1F00" DefaultSize="#x100" MinSize="#x40" MaxSize="#x100" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+        <Sm StartAddress="#x1C00" DefaultSize="#x300" MinSize="#x40" MaxSize="#x300" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+        <Sm StartAddress="#x1000" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x64" Enable="1">Outputs</Sm>
+        <Sm StartAddress="#x1600" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x20" Enable="1">Inputs</Sm>
+        <RxPdo Fixed="1" Sm="2">
+          <Index>#x1602</Index>
+          <Name>Slot 3 - 9263</Name>
+          <Entry>
+            <Index>#x7020</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>OUT 3.1</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x7020</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>OUT 3.2</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x7020</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>OUT 3.3</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x7020</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>OUT 3.4</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+        </RxPdo>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A00</Index>
+          <Name>Slot 1 - 9215</Name>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.1</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.2</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.3</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>16</BitLen>
+            <Name>IN 1.4</Name>
+            <DataType>WORD</DataType>
+          </Entry>
+        </TxPdo>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A01</Index>
+          <Name>Slot 2 - 9234</Name>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 2.1</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 2.2</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 2.3</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6010</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 2.4</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+        </TxPdo>
+        <Mailbox>
+          <AoE AdsRouter="1" GenerateOwnNetId="1"/>
+          <CoE SdoInfo="1" CompleteAccess="1" PdoAssign="1" PdoConfig="0" PdoUpload="0"/>
+          <FoE/>
+        </Mailbox>
+        <Dc>
+          <OpMode>
+            <Name>DcOff</Name>
+            <Desc>Free-Run Mode</Desc>
+            <AssignActivate>#x0000</AssignActivate>
+          </OpMode>
+          <OpMode>
+            <Name>DcSync</Name>
+            <Desc>Synchronized Mode</Desc>
+            <AssignActivate>#x0300</AssignActivate>
+            <CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+            <ShiftTimeSync0>0</ShiftTimeSync0>
+          </OpMode>
+        </Dc>
+        <Eeprom>
+          <ByteSize>2048</ByteSize>
+          <ConfigData>0800006600010000</ConfigData>
+          <BootStrap>001C000400180004</BootStrap>
+        </Eeprom>
+      </Device>
+      <Device Physics="YY">
+        <Type ProductCode="#x23B8" RevisionNo="4">NI 9144</Type>
+        <Name LcId="1033">NI 9144</Name>
+        <Name LcId="1031">NI 9144</Name>
+        <GroupType>Fixed</GroupType>
+        <Fmmu Sm="2">Outputs</Fmmu>
+        <Fmmu Sm="3">Inputs</Fmmu>
+        <Sm StartAddress="#x1F00" DefaultSize="#x100" MinSize="#x40" MaxSize="#x100" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+        <Sm StartAddress="#x1C00" DefaultSize="#x300" MinSize="#x40" MaxSize="#x300" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+        <Sm StartAddress="#x1000" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x64" Enable="1">Outputs</Sm>
+        <Sm StartAddress="#x1600" DefaultSize="#x200" MinSize="#x0" MaxSize="#x200" ControlByte="#x20" Enable="1">Inputs</Sm>
+        <TxPdo Fixed="1" Sm="3">
+          <Index>#x1A00</Index>
+          <Name>Slot 1 - 9239</Name>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>1</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 1.1</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>2</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 1.2</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>3</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 1.3</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+          <Entry>
+            <Index>#x6000</Index>
+            <SubIndex>4</SubIndex>
+            <BitLen>24</BitLen>
+            <Name>IN 1.4</Name>
+            <DataType>INT24</DataType>
+          </Entry>
+        </TxPdo>
+        <Mailbox>
+          <AoE AdsRouter="1" GenerateOwnNetId="1" />
+          <CoE SdoInfo="1" CompleteAccess="1" PdoAssign="1" PdoConfig="0" PdoUpload="0" />
+          <FoE />
+        </Mailbox>
+        <Dc>
+          <OpMode>
+            <Name>DcOff</Name>
+            <Desc>Free-Run Mode</Desc>
+            <AssignActivate>#x0000</AssignActivate>
+          </OpMode>
+          <OpMode>
+            <Name>DcSync</Name>
+            <Desc>Synchronized Mode</Desc>
+            <AssignActivate>#x0300</AssignActivate>
+            <CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+            <ShiftTimeSync0>0</ShiftTimeSync0>
+          </OpMode>
+        </Dc>
+        <Eeprom>
+          <ByteSize>2048</ByteSize>
+          <ConfigData>0800006600010000</ConfigData>
+          <BootStrap>001C000400180004</BootStrap>
+        </Eeprom>
+      </Device>
+    </Devices>
+  </Descriptions>
+</EtherCATInfo>
