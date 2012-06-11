@@ -1,8 +1,6 @@
 #!/bin/env python2.6
 #
-# script to list ethercat device types supported at 
-# DLS, filtered according to the entries in 
-# http://www.cs.diamond.ac.uk/cgi-bin/wiki.cgi/SupportedEtherCATModules
+# script to list ethercat device types available in one file
 
 from pkg_resources import require
 require("iocbuilder==3.24")
@@ -20,35 +18,45 @@ iocbuilder.ModuleVersion('ethercat',home=os.path.realpath(module_home))
 from iocbuilder.modules import ethercat
 
 def usage():
-    print """diamond_types.py: print names valid for ethercat slaves
+    print """examine_file.py: print device descriptions in file
 
 Usage:
-         %s [-a]
+         %s [-a] file.xml [ file2.xml file3.xml ... ]
 
 Names returned are filtered to reflect only devices supported at DLS
 Options:
-    -a  Shows all devices, does not filter for DLS supported devices""" % __file__
+    -a  Shows all devices, does not filter for DLS supported devices
+
+Example:
+      %s ../xml/NI9144.xml 
+""" % __file__
     sys.exit(1)
 
 doFilter = True
-
-def getDiamondDeviceSet():
-    '''return list of devices filtered according to diamondFilter'''
-    if doFilter:
-        return ethercat.EthercatSlave._types_dict
-    else:
-        return ethercat.EthercatSlave._all_types_dict
 
 def keyRepr(key):
     ( typename, revision ) = key
     return "%s %d" % (typename, revision)
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) >= 2:
         if sys.argv[1] == "-a":
+            sys.argv.pop(1)
             doFilter = False
         if sys.argv[1] == "-h":
             usage()
-    dev_set = getDiamondDeviceSet()
-    for k in sorted(dev_set.keys(), key=keyRepr):
-        print "%s rev 0x%08x" % k
+    else:
+        usage()
+    while len(sys.argv) > 1:
+        dev_set = ethercat.getDescriptions(sys.argv[1])
+        # filtered set
+        fset = dev_set
+        if doFilter:
+            fset = ethercat.filteredDescriptions(dev_set)
+        print """File: %(name)s
+Number of entries: %(count)d (Filter: %(filtered)s)
+""" % dict(name = sys.argv[1], count = len(fset), filtered=doFilter)
+        for k in sorted(fset.keys(), key=keyRepr):
+            print "%s rev 0x%08x" % k
+        sys.argv.pop(1)
+
