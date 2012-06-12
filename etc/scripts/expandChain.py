@@ -5,13 +5,13 @@ require("iocbuilder==3.24")
 import iocbuilder
 import os, sys
 
-scripts_dir = os.path.realpath(os.path.dirname(__file__))
-assert scripts_dir.endswith("/ethercat/etc/scripts"), \
-        "Unexpected module name - should be 'ethercat'"
-module_home = os.path.join(scripts_dir, '../../..')
+#scripts_dir = os.path.realpath(os.path.dirname(__file__))
+#assert scripts_dir.endswith("/ethercat/etc/scripts"), \
+#        "Unexpected module name - should be 'ethercat'"
+#module_home = os.path.join(scripts_dir, '../../..')
 iocbuilder.ConfigureIOC(architecture = 'linux-x86')
 iocbuilder.ModuleVersion('asyn','4-17')
-iocbuilder.ModuleVersion('ethercat',home=os.path.realpath(module_home))
+iocbuilder.ModuleVersion('ethercat','1-5-5')
 from iocbuilder.modules import ethercat
 from iocbuilder.modules.ethercat import parseInt, EthercatSlave, EthercatMaster
 
