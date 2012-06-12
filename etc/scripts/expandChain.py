@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/dls_sw/prod/tools/RHEL5/bin/dls-python2.6
 
 from pkg_resources import require
 require("iocbuilder==3.24")

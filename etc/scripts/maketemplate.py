@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4
+#!/dls_sw/prod/tools/RHEL5/bin/dls-python2.6
 
 # need system python for libxml2 support with xpath
 
