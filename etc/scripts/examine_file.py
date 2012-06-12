@@ -7,13 +7,21 @@ require("iocbuilder==3.24")
 import iocbuilder
 import os, sys
 
-scripts_dir = os.path.realpath(os.path.dirname(__file__))
-assert scripts_dir.endswith("/ethercat/etc/scripts"), \
-        "Unexpected module name - should be 'ethercat'"
-module_home = os.path.join(scripts_dir, '../../..')
 iocbuilder.ConfigureIOC(architecture = 'linux-x86')
 iocbuilder.ModuleVersion('asyn','4-17')    
-iocbuilder.ModuleVersion('ethercat',home=os.path.realpath(module_home))
+
+# work-around to import $(TOP)/etc/builder.py whether in prod or work
+scripts_dir = os.path.realpath(os.path.dirname(__file__))
+top_dir = os.path.realpath(os.path.join(scripts_dir, '../..'))
+module_top, release_num= os.path.split(top_dir)
+if module_top.endswith("/ethercat"):
+    #released version of ethercat module
+    iocbuilder.ModuleVersion('ethercat',release_num)
+else:
+    modules_home, module_name = os.path.split(top_dir)
+    assert module_name == "ethercat", \
+            "Unexpected module name - should be 'ethercat'"
+    iocbuilder.ModuleVersion(module_name, home=modules_home)
 
 from iocbuilder.modules import ethercat
 
@@ -21,15 +29,15 @@ def usage():
     print """examine_file.py: print device descriptions in file
 
 Usage:
-         %s [-a] file.xml [ file2.xml file3.xml ... ]
+         %(scriptname)s [-a] file.xml [ file2.xml file3.xml ... ]
 
 Names returned are filtered to reflect only devices supported at DLS
 Options:
     -a  Shows all devices, does not filter for DLS supported devices
 
 Example:
-      %s ../xml/NI9144.xml 
-""" % __file__
+      %(scriptname)s ../xml/NI9144.xml 
+""" % dict(scriptname=__file__)
     sys.exit(1)
 
 doFilter = True
