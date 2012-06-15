@@ -9,13 +9,21 @@ require("iocbuilder==3.24")
 import iocbuilder
 import os, sys
 
-scripts_dir = os.path.realpath(os.path.dirname(__file__))
-assert scripts_dir.endswith("/ethercat/etc/scripts"), \
-        "Unexpected module name - should be 'ethercat'"
-module_home = os.path.join(scripts_dir, '../../..')
 iocbuilder.ConfigureIOC(architecture = 'linux-x86')
-iocbuilder.ModuleVersion('asyn','4-17')    
-iocbuilder.ModuleVersion('ethercat',home=os.path.realpath(module_home))
+iocbuilder.ModuleVersion('asyn','4-17')
+
+# work-around to import $(TOP)/etc/builder.py whether in prod or work
+scripts_dir = os.path.realpath(os.path.dirname(__file__))
+top_dir = os.path.realpath(os.path.join(scripts_dir, '../..'))
+module_top, release_num= os.path.split(top_dir)
+if module_top.endswith("/ethercat"):
+    #released version of ethercat module
+    iocbuilder.ModuleVersion('ethercat',release_num)
+else:
+    modules_home, module_name = os.path.split(top_dir)
+    assert module_name == "ethercat", \
+            "Unexpected module name - should be 'ethercat'"
+    iocbuilder.ModuleVersion(module_name, home=modules_home)
 
 from iocbuilder.modules import ethercat
 
