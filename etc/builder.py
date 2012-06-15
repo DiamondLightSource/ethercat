@@ -113,7 +113,7 @@ class EthercatDevice:
         o = o + 'product="0x%(product)08x" ' % self.__dict__
         o = o + 'revision="0x%(revision)08x"' % self.__dict__
         if self.assign_activate:
-            o = o + 'dcactivate="0x%(assign_activate)08x"' % self.__dict__
+            o = o + ' dcactivate="0x%(assign_activate)08x"' % self.__dict__
         o = o + ">\n"
         for pdo in self.txpdos:
             o = o + pdo.generatePdoXml()
@@ -404,20 +404,21 @@ class GenericADC(Device):
         self.channel = channel
         self.sample = pdoentry.split(" : ")[0]
         self.cycle = cycle
-        self.name = slave.name
+        self.slave_name = slave.name
+        print "slave name is %s" % self.slave_name
         assert( self.sample in self.slave.getAllSignals() )
 
-    def Initialise(self):
+    def Initialise_FIRST(self):
         if self.cycle:
-            print 'ADC_Ethercat_Sampler("%(name)s",'\
-                  + '%(channel)d,"%(sample)s",%(cycle)d)' % self.__dict__
+            print 'ADC_Ethercat_Sampler("%(slave_name)s",' % self.__dict__ \
+                  + '%(channel)d,"%(sample)s","%(cycle)s")' % self.__dict__
         else:
-            print 'ADC_Ethercat_Sampler("%(name)s",%(channel)d,"%(sample)s")' \
+            print 'ADC_Ethercat_Sampler("%(slave_name)s",%(channel)d,"%(sample)s")' \
                   % self.__dict__
     ArgInfo = makeArgInfo(__init__, 
         slave = Ident("ethercat slave", EthercatSlave),
         channel = Simple("channel id number", int),
         pdoentry = Choice("parameter in the form pdo_name.entry_name", _PdoEntryChoices),
-        cycle = Simple("oversampling rate", int)
+        cycle = Simple("cycle parameter in the form pdo_name.entry_name", str)
         )
 
