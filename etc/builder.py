@@ -405,7 +405,6 @@ class GenericADC(Device):
         self.sample = pdoentry.split(" : ")[0]
         self.cycle = cycle
         self.slave_name = slave.name
-        print "slave name is %s" % self.slave_name
         assert( self.sample in self.slave.getAllSignals() )
 
     def Initialise_FIRST(self):
