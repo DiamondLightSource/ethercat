@@ -394,9 +394,6 @@ def getPdoEntryChoices():
 
 class GenericADC(Device):
     ''' A generic ADC signal'''
-    Dependencies = (  )
-    LibFileList = [  ]
-    DbdFileList = [  ]
     _PdoEntryChoices = ["%s : %s rev 0x%08x" % k for k in getPdoEntryChoices() ] 
     def __init__(self, slave, channel, pdoentry, cycle=None):
         self.__super.__init__()
