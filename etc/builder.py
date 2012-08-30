@@ -181,7 +181,7 @@ def parsePdo(pdoNode, d, os):
 # script for scanner start-up, used in EthercatMaster.writeScannerStartup
 SCANNER_STARTUP_TEXT ="""#!/bin/sh
 cd "$(dirname $0)"
-%(scanner)s %(expanded_chain)s %(socket_path)s
+%(scanner)s -q %(expanded_chain)s %(socket_path)s
 """
 
 class EthercatMaster(Device):
