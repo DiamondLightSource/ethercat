@@ -9,8 +9,8 @@ NI9144 rev 2 ..........ni_9144_rev_2.bin
 
 
         slot 1  slot 2  slot 3  slot4   slot5   slot6   slot7   slot8
-rev 1   NI9125                          
-rev 2   NI9125  NI9125  NI9125                  
+rev 1   NI9215                          
+rev 2   NI9215  NI9215  NI9215                  
 rev 3   NI9215  NI9234  NI9263                  
 rev 4   NI9239                          
 
