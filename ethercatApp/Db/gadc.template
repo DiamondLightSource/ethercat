@@ -5,6 +5,7 @@
 # % macro, SAMPLES, number of samples in waveform
 # % macro, SCAN, polling period
 # % macro, INTSCAN, polling period for the INTERRUPT parameter
+# % gui, $(name=), edm, AdcControl.edl, DEVICE=$(DEVICE),CHANNEL=$(CHANNEL)
 
 
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CHANBUFF")
