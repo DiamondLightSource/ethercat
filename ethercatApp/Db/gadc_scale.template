@@ -1,0 +1,12 @@
+# ethercat gadc_scale.template
+# % macro, DEVICE, EtherCAT slave
+# % macro, CHANNEL, ADC channel
+
+record(ai, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
+{
+    field(INP, "(DEVICE):ADC$(CHANNEL)_VALUE")
+    field(EGUF, "10")
+    field(EGUL, "-10")
+    field(LINR, "LINEAR")
+    field(EGU, "V")
+}
