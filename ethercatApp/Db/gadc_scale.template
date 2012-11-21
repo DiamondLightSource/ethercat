@@ -2,11 +2,19 @@
 # % macro, DEVICE, EtherCAT slave
 # % macro, CHANNEL, ADC channel
 
+# scaling hardcoded to 2^15 raw ADC value == 10 V
+
 record(ai, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
 {
-    field(INP, "(DEVICE):ADC$(CHANNEL)_VALUE")
-    field(EGUF, "10")
-    field(EGUL, "-10")
+    field(DTYP, "Raw Soft Channel")
+    field(INP,  "$(DEVICE):ADC$(CHANNEL)_VALUE")
+    field(ESLO, "3.051758125E-4")
+    field(EOFF, "0")
     field(LINR, "LINEAR")
     field(EGU, "V")
+}
+
+record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
+{
+    field(FLNK, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
 }
