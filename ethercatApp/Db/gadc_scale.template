@@ -4,6 +4,7 @@
 
 # scaling hardcoded to 2^15 raw ADC value == 10 V
 
+# % archiver 10 Monitor
 record(ai, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
 {
     field(DTYP, "Raw Soft Channel")

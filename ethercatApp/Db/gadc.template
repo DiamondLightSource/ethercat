@@ -5,6 +5,7 @@
 # % macro, SAMPLES, number of samples in waveform
 # % macro, SCAN, polling period
 # % macro, INTSCAN, polling period for the INTERRUPT parameter
+# % macro, name, name for gui element
 # % gui, $(name=), edm, AdcControl.edl, DEVICE=$(DEVICE),CHANNEL=$(CHANNEL)
 
 
@@ -87,6 +88,7 @@ record(longin, "$(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT")
    field(SCAN, "1 second")
 }
 
+# % archiver 10 Monitor
 record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
 {
    field(DTYP, "asynInt32")
