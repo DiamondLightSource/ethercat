@@ -72,6 +72,38 @@
 					<ConfigData>0401000000000000</ConfigData>
 				</Eeprom>
 			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x23963052" RevisionNo="#x00110000">EL9110</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL9110 Power Supplier with LED (24V, Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9110 Einspeiseklemme mit LED (24V, Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9110]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9110]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>PowerOK</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
 			<Device Physics="KK" Invisible="1">
 				<Type>EL9150</Type>
 				<Name LcId="1033"><![CDATA[EL9150 Power Supplier with LED(230V)]]></Name>
@@ -117,6 +149,30 @@
 				<Name LcId="1031"><![CDATA[EL9180 Potentialverteilerklemme, 2 x 24-230V, 2 x PE]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9180]]></URL>
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9180]]></URL>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9181</Type>
+				<Name LcId="1033"><![CDATA[EL9181 Potential Connection, 2 x 8 contacts]]></Name>
+				<Name LcId="1031"><![CDATA[EL9181 Potentialverteilerklemme, 2 x 8 Kontakte]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9181]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9181]]></URL>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9182</Type>
+				<Name LcId="1033"><![CDATA[EL9182 Potential Connection, 8 x 2 contacts]]></Name>
+				<Name LcId="1031"><![CDATA[EL9182 Potentialverteilerklemme, 8 x 2 Kontakte]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9182]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9182]]></URL>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9183</Type>
+				<Name LcId="1033"><![CDATA[EL9183 Potential Connection, 1 x 16 contacts]]></Name>
+				<Name LcId="1031"><![CDATA[EL9183 Potentialverteilerklemme, 1 x 16 Kontakte]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9183]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9183]]></URL>
 				<GroupType>System</GroupType>
 			</Device>
 			<Device Physics="KK" Invisible="1">
@@ -389,6 +445,49 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x24c23052" RevisionNo="#x00110000">EL9410</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL9410 E-Bus Power Supplier  (Diagnostics)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9410 E-Bus Netzteilklemme (Diagnose)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9410]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9410]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-2000</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Us</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Undervoltage</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Status Up</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Undervoltage</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x25213052" RevisionNo="#x00100000">EL9505</Type>
 				<Name LcId="1033"><![CDATA[EL9505 Power supply terminal 5V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9505 Netzteilklemme 5V]]></Name>
@@ -465,7 +564,85 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x25243052" RevisionNo="#x00110000">EL9508</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL9508 Power supply terminal 8V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9508 Netzteilklemme 8V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9508]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9508]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x25263052" RevisionNo="#x00100000">EL9510</Type>
+				<Name LcId="1033"><![CDATA[EL9510 Power supply terminal 10V]]></Name>
+				<Name LcId="1031"><![CDATA[EL9510 Netzteilklemme 10V]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9510]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9510]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x25263052" RevisionNo="#x00110000">EL9510</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL9510 Power supply terminal 10V]]></Name>
 				<Name LcId="1031"><![CDATA[EL9510 Netzteilklemme 10V]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9510]]></URL>
@@ -570,6 +747,64 @@
 						<SubIndex>2</SubIndex>
 						<BitLen>1</BitLen>
 						<Name>Overload</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9540</Type>
+				<Name LcId="1033"><![CDATA[EL9540 Surge/Overvoltagefilter (Power supply)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9540 Surge/Überspannungsfilter (Feldversorgung)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9540]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9540]]></URL>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK" Invisible="1">
+				<Type>EL9550</Type>
+				<Name LcId="1033"><![CDATA[EL9550 Surge/Overvoltagefilter (Power and system supply)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9550 Surge/Überspannungsfilter (Feld- und Systemversorgung)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9550]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9550]]></URL>
+				<GroupType>System</GroupType>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x25583052" RevisionNo="#x00100000">EL9560</Type>
+				<Name LcId="1033"><![CDATA[EL9560 Power supply terminal 24V DC/DC (0.1A, isolated)]]></Name>
+				<Name LcId="1031"><![CDATA[EL9560 Netzteilklemme 24V DC/DC (0.1A, galv. getrennt)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL9560]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL9560]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>System</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Us</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Status Uo</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Power OK</Name>
 						<DataType>BOOL</DataType>
 					</Entry>
 				</TxPdo>

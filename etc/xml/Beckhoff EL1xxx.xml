@@ -17,9 +17,9 @@
 		<Devices>
 			<Device Physics="KK">
 				<Type ProductCode="#x03ea3052" RevisionNo="#x00000000">EL1002</Type>
-				<HideType RevisionNo="#x27070000" ProductRevision="EL1002-0000-9991"/>
-				<HideType RevisionNo="#x27080000" ProductRevision="EL1002-0000-9992"/>
-				<HideType RevisionNo="#x270b0000" ProductRevision="EL1002-0000-9995"/>
+				<HideType RevisionNo="#x27070000"/>
+				<HideType RevisionNo="#x27080000"/>
+				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL1002 2Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1002 2K. Dig. Eingang 24V, 3ms]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1002]]></URL>
@@ -61,7 +61,51 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03ea3052" RevisionNo="#x00100000">EL1002</Type>
-				<HideType RevisionNo="#x00000000" ProductRevision="EL1002-0000-0000"/>
+				<HideType RevisionNo="#x00000000"/>
+				<Name LcId="1033"><![CDATA[EL1002 2Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1002 2K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1002]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1002]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03ea3052" RevisionNo="#x00110000">EL1002</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1002 2Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1002 2K. Dig. Eingang 24V, 3ms]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1002]]></URL>
@@ -104,9 +148,9 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03ec3052" RevisionNo="#x00000000">EL1004</Type>
-				<HideType RevisionNo="#x27070000" ProductRevision="EL1004-0000-9991"/>
-				<HideType RevisionNo="#x27080000" ProductRevision="EL1004-0000-9992"/>
-				<HideType RevisionNo="#x270b0000" ProductRevision="EL1004-0000-9995"/>
+				<HideType RevisionNo="#x27070000"/>
+				<HideType RevisionNo="#x27080000"/>
+				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
@@ -170,7 +214,140 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03ec3052" RevisionNo="#x00100000">EL1004</Type>
-				<HideType RevisionNo="#x00000000" ProductRevision="EL1004-0000-0000"/>
+				<HideType RevisionNo="#x00000000"/>
+				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03ec3052" RevisionNo="#x00110000" CheckRevisionNo="LW_EQ">EL1004</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03ec3052" RevisionNo="#x00120000" CheckRevisionNo="LW_EQ">EL1004</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00100000"/>
+				<HideType RevisionNo="#x00110000"/>
 				<Name LcId="1033"><![CDATA[EL1004 4Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004 4K. Dig. Eingang 24V, 3ms]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
@@ -298,7 +475,73 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03EC3052" RevisionNo="#x0010000A">EL1004-0010</Type>
-				<HideType RevisionNo="#x0000000A" ProductRevision="EL1004-0010-0000"/>
+				<HideType RevisionNo="#x0000000A"/>
+				<Name LcId="1033"><![CDATA[EL1004-0010 4Ch. Dig. Input 24V, isolated, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1004-0010 4K. Dig. Eingang 24V, galv. getrennt, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1004]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03EC3052" RevisionNo="#x0011000A" CheckRevisionNo="LW_EQ">EL1004-0010</Type>
+				<HideType RevisionNo="#x0000000A"/>
+				<HideType RevisionNo="#x0010000A"/>
 				<Name LcId="1033"><![CDATA[EL1004-0010 4Ch. Dig. Input 24V, isolated, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1004-0010 4K. Dig. Eingang 24V, galv. getrennt, 3ms]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1004]]></URL>
@@ -470,10 +713,119 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x03f03052" RevisionNo="#x00110000">EL1008</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1008 8Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1008 8K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1008]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1008]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x03f43052" RevisionNo="#x00000000">EL1012</Type>
-				<HideType RevisionNo="#x27070000" ProductRevision="EL1012-0000-9991"/>
-				<HideType RevisionNo="#x27080000" ProductRevision="EL1012-0000-9992"/>
-				<HideType RevisionNo="#x270b0000" ProductRevision="EL1012-0000-9995"/>
+				<HideType RevisionNo="#x27070000"/>
+				<HideType RevisionNo="#x27080000"/>
+				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL1012 2Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1012 2K. Dig. Eingang 24V, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1012]]></URL>
@@ -515,7 +867,51 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03f43052" RevisionNo="#x00100000">EL1012</Type>
-				<HideType RevisionNo="#x00000000" ProductRevision="EL1012-0000-0000"/>
+				<HideType RevisionNo="#x00000000"/>
+				<Name LcId="1033"><![CDATA[EL1012 2Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1012 2K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1012]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1012]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03f43052" RevisionNo="#x00110000">EL1012</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1012 2Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1012 2K. Dig. Eingang 24V, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1012]]></URL>
@@ -558,9 +954,9 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03f63052" RevisionNo="#x00000000">EL1014</Type>
-				<HideType RevisionNo="#x27070000" ProductRevision="EL1014-0000-9991"/>
-				<HideType RevisionNo="#x27080000" ProductRevision="EL1014-0000-9992"/>
-				<HideType RevisionNo="#x270b0000" ProductRevision="EL1014-0000-9995"/>
+				<HideType RevisionNo="#x27070000"/>
+				<HideType RevisionNo="#x27080000"/>
+				<HideType RevisionNo="#x270b0000"/>
 				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
@@ -624,7 +1020,140 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03f63052" RevisionNo="#x00100000">EL1014</Type>
-				<HideType RevisionNo="#x00000000" ProductRevision="EL1014-0000-0000"/>
+				<HideType RevisionNo="#x00000000"/>
+				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03f63052" RevisionNo="#x00110000" CheckRevisionNo="LW_EQ">EL1014</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03f63052" RevisionNo="#x00120000" CheckRevisionNo="LW_EQ">EL1014</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00100000"/>
+				<HideType RevisionNo="#x00110000"/>
 				<Name LcId="1033"><![CDATA[EL1014 4Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014 4K. Dig. Eingang 24V, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
@@ -752,7 +1281,140 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03F63052" RevisionNo="#x0010000A">EL1014-0010</Type>
-				<HideType RevisionNo="#x0000000A" ProductRevision="EL1014-0010-0000"/>
+				<HideType RevisionNo="#x0000000A"/>
+				<Name LcId="1033"><![CDATA[EL1014-0010 4Ch. Dig. Input 24V, isolated, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1014-0010 4K. Dig. Eingang 24V, galv. getrennt, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03F63052" RevisionNo="#x0011000A" CheckRevisionNo="LW_EQ">EL1014-0010</Type>
+				<HideType RevisionNo="#x0000000A"/>
+				<HideType RevisionNo="#x0010000A"/>
+				<Name LcId="1033"><![CDATA[EL1014-0010 4Ch. Dig. Input 24V, isolated, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1014-0010 4K. Dig. Eingang 24V, galv. getrennt, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1014]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03F63052" RevisionNo="#x0012000A" CheckRevisionNo="LW_EQ">EL1014-0010</Type>
+				<HideType RevisionNo="#x0000000A"/>
+				<HideType RevisionNo="#x0010000A"/>
+				<HideType RevisionNo="#x0011000A"/>
 				<Name LcId="1033"><![CDATA[EL1014-0010 4Ch. Dig. Input 24V, isolated, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1014-0010 4K. Dig. Eingang 24V, galv. getrennt, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1014]]></URL>
@@ -817,6 +1479,115 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x03fa3052" RevisionNo="#x00100000">EL1018</Type>
+				<Name LcId="1033"><![CDATA[EL1018 8Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1018 8K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1018]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1018]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x03fa3052" RevisionNo="#x00110000">EL1018</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1018 8Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1018 8K. Dig. Eingang 24V, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1018]]></URL>
@@ -989,6 +1760,71 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x040a3052" RevisionNo="#x00100000">EL1034</Type>
+				<Name LcId="1033"><![CDATA[EL1034 4Ch. Dig. Input 24V, potential-free, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1034 4K. Dig. Eingang 24V, potenzialfrei, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1034]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1034]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x040a3052" RevisionNo="#x00110000">EL1034</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1034 4Ch. Dig. Input 24V, potential-free, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1034 4K. Dig. Eingang 24V, potenzialfrei, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1034]]></URL>
@@ -1396,7 +2232,181 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x044a3052" RevisionNo="#x00110000">EL1098</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1098 8Ch. Dig. Input 24V, 10µs, negative]]></Name>
+				<Name LcId="1031"><![CDATA[EL1098 8K. Dig. Eingang 24V, 10µs, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1098]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1098]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000f000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x04503052" RevisionNo="#x00100000">EL1104</Type>
+				<Name LcId="1033"><![CDATA[EL1104 4Ch. Dig. Input 24V, 3ms, Sensor Power]]></Name>
+				<Name LcId="1031"><![CDATA[EL1104 4K. Dig. Eingang 24V, 3ms, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1104]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1104]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04503052" RevisionNo="#x00110000">EL1104</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1104 4Ch. Dig. Input 24V, 3ms, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1104 4K. Dig. Eingang 24V, 3ms, Sensorversorgung]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1104]]></URL>
@@ -1524,7 +2534,137 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x045a3052" RevisionNo="#x00110000">EL1114</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1114 4Ch. Dig. Input 24V, 10µs, Sensor Power]]></Name>
+				<Name LcId="1031"><![CDATA[EL1114 4K. Dig. Eingang 24V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1114]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1114]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x04643052" RevisionNo="#x00100000">EL1124</Type>
+				<Name LcId="1033"><![CDATA[EL1124 4Ch. Dig. Input 5V, 10µs, Sensor Power]]></Name>
+				<Name LcId="1031"><![CDATA[EL1124 4K. Dig. Eingang 5V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1124]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1124]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04643052" RevisionNo="#x00110000">EL1124</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1124 4Ch. Dig. Input 5V, 10µs, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1124 4K. Dig. Eingang 5V, 10µs, Sensorversorgung]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1124]]></URL>
@@ -1759,6 +2899,50 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x04b23052" RevisionNo="#x00110000" CheckRevisionNo="LW_EQ">EL1202</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<AlternativeType RevisionNo="#x00110064"/>
+				<Name LcId="1033"><![CDATA[EL1202 2Ch. Fast Dig. Input 24V, 1µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1202 2K. Fast Dig. Eingang 24V, 1µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1202]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1202]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x04b23052" RevisionNo="#x00100064">EL1202-0100</Type>
 				<AlternativeType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1202-0100 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
@@ -1847,8 +3031,97 @@
 				</VendorSpecific>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x04b23052" RevisionNo="#x00110064" CheckRevisionNo="LW_EQ">EL1202-0100</Type>
+				<HideType RevisionNo="#x00100064"/>
+				<AlternativeType RevisionNo="#x00110000"/>
+				<Name LcId="1033"><![CDATA[EL1202-0100 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1202-0100 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1202]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1202]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x0990" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0" Su="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0" Su="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0" Su="0">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>DC</Name>
+					<Exclude>#x1a11</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x90</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>NextLatchTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>DC</Name>
+					<Exclude>#x1a10</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x90</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>NextLatchTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch</Desc>
+						<AssignActivate>#x0300</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0 Input="1">0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401200080000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x04E43052" RevisionNo="#x00110000">EL1252</Type>
-				<HideType RevisionNo="#x00000000" ProductRevision="EL1252-0000-0000"/>
+				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
 				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
@@ -2065,7 +3338,7 @@
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x04E43052" RevisionNo="#x00120000">EL1252</Type>
-				<HideType RevisionNo="#x00110000" ProductRevision="EL1252-0000-0011"/>
+				<HideType RevisionNo="#x00110000"/>
 				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
 				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
@@ -2366,6 +3639,1469 @@
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+					<VendorSpecific>
+						<TwinCAT>
+							<AlternativeSmMapping Default="1">
+								<Name>Standard (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a13</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+							<AlternativeSmMapping>
+								<Name>Line Motion (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a16</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+						</TwinCAT>
+					</VendorSpecific>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>125</AddInfo>
+					<ChannelCount>2</ChannelCount>
+				</Profile>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Fmmu Sm="2" Su="2">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x09ae" Virtual="true">Inputs</Sm>
+				<Sm StartAddress="#x0910" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a12</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true" Sm="1">
+					<Index>#x1a13</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a14</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a15</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>SysTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a15</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a14</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>SysTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a16</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>16</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch Settings</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="0">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04E43052" RevisionNo="#x00140000" CheckRevisionNo="LW_EQ">EL1252</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<HideType RevisionNo="#x00120000"/>
+				<HideType RevisionNo="#x00130000"/>
+				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+					<VendorSpecific>
+						<TwinCAT>
+							<AlternativeSmMapping Default="1">
+								<Name>Standard (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a13</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+							<AlternativeSmMapping>
+								<Name>Line Motion (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a16</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+						</TwinCAT>
+					</VendorSpecific>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>125</AddInfo>
+					<ChannelCount>2</ChannelCount>
+				</Profile>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Fmmu Sm="2" Su="2">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x09ae" Virtual="true">Inputs</Sm>
+				<Sm StartAddress="#x0910" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a12</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true" Sm="1">
+					<Index>#x1a13</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a14</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a15</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>SysTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a15</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a14</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>SysTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a16</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>16</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch Settings</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="0">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04E43052" RevisionNo="#x00150000" CheckRevisionNo="LW_EQ">EL1252</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<HideType RevisionNo="#x00120000"/>
+				<HideType RevisionNo="#x00130000"/>
+				<HideType RevisionNo="#x00140000"/>
+				<Name LcId="1033"><![CDATA[EL1252 2Ch. Fast Dig. Input 24V, 1µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1252 2K. Fast Dig. Eingang 24V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+					<VendorSpecific>
+						<TwinCAT>
+							<AlternativeSmMapping Default="1">
+								<Name>Standard (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a13</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+							<AlternativeSmMapping>
+								<Name>Line Motion (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a16</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+						</TwinCAT>
+					</VendorSpecific>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>125</AddInfo>
+					<ChannelCount>2</ChannelCount>
+				</Profile>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Fmmu Sm="2" Su="2">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x09ae" Virtual="true">Inputs</Sm>
+				<Sm StartAddress="#x0910" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a12</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true" Sm="1">
+					<Index>#x1a13</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a14</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a15</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>SysTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a15</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a14</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>SysTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a16</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>16</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch Settings</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="0">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04E43052" RevisionNo="#x0013000A">EL1252-0010</Type>
+				<Name LcId="1033"><![CDATA[EL1252-0010 2Ch. Fast Dig. Input 24V, 10µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1252-0010 2K. Fast Dig. Eingang 24V, 10µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+					<VendorSpecific>
+						<TwinCAT>
+							<AlternativeSmMapping Default="1">
+								<Name>Standard (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a13</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+							<AlternativeSmMapping>
+								<Name>Line Motion (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a16</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+						</TwinCAT>
+					</VendorSpecific>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>125</AddInfo>
+					<ChannelCount>2</ChannelCount>
+				</Profile>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Fmmu Sm="2" Su="2">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x09ae" Virtual="true">Inputs</Sm>
+				<Sm StartAddress="#x0910" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a12</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true" Sm="1">
+					<Index>#x1a13</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a14</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a15</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>SysTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a15</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a14</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>SysTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a16</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>16</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch Settings</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="0">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04E43052" RevisionNo="#x0014000A" CheckRevisionNo="LW_EQ">EL1252-0010</Type>
+				<HideType RevisionNo="#x0013000A"/>
+				<Name LcId="1033"><![CDATA[EL1252-0010 2Ch. Fast Dig. Input 24V, 10µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1252-0010 2K. Fast Dig. Eingang 24V, 10µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+					<VendorSpecific>
+						<TwinCAT>
+							<AlternativeSmMapping Default="1">
+								<Name>Standard (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a13</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+							<AlternativeSmMapping>
+								<Name>Line Motion (MDP 125)</Name>
+								<Sm No="0">
+									<Pdo>#x1a00</Pdo>
+									<Pdo>#x1a01</Pdo>
+									<Pdo>#x1a02</Pdo>
+								</Sm>
+								<Sm No="1">
+									<Pdo>#x1a16</Pdo>
+								</Sm>
+							</AlternativeSmMapping>
+						</TwinCAT>
+					</VendorSpecific>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>125</AddInfo>
+					<ChannelCount>2</ChannelCount>
+				</Profile>
+				<Fmmu Sm="0" Su="0">Inputs</Fmmu>
+				<Fmmu Sm="1" Su="1">Inputs</Fmmu>
+				<Fmmu Sm="2" Su="2">Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="#x22" Enable="1">Inputs</Sm>
+				<Sm StartAddress="#x09ae" Virtual="true">Inputs</Sm>
+				<Sm StartAddress="#x0910" Virtual="true">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>6</BitLen>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1a02</Index>
+					<Name>Reserved</Name>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a10</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a11</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a12</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>8</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true" Sm="1">
+					<Index>#x1a13</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a16</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xae</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status1</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xaf</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Status2</Name>
+						<DataType>USINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xb8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc0</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#xc8</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a14</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a15</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>SysTime</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="2" Virtual="true">
+					<Index>#x1a15</Index>
+					<Name>SysTime</Name>
+					<Exclude>#x1a14</Exclude>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x10</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>SysTime</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Su="1" Virtual="true">
+					<Index>#x1a16</Index>
+					<Name>Latch</Name>
+					<Exclude>#x1a10</Exclude>
+					<Exclude>#x1a11</Exclude>
+					<Exclude>#x1a12</Exclude>
+					<Exclude>#x1a13</Exclude>
+					<Entry>
+						<Index>0</Index>
+						<BitLen>16</BitLen>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg1</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>17</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchPos2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>19</SubIndex>
+						<BitLen>64</BitLen>
+						<Name>LatchNeg2</Name>
+						<DataType>ULINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcLatch</Name>
+						<Desc>DC Latch Settings</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="0">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x04E43052" RevisionNo="#x00100032" CheckRevisionNo="LW_EQ">EL1252-0050</Type>
+				<Name LcId="1033"><![CDATA[EL1252-0050 2Ch. Fast Dig. Input 5V, 1µs, DC Latch]]></Name>
+				<Name LcId="1031"><![CDATA[EL1252-0050 2K. Fast Dig. Eingang 5V, 1µs, DC Latch]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1252]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1252]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
 					</Electrical>
 					<VendorSpecific>
 						<TwinCAT>
@@ -3386,6 +6122,48 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x06b03052" RevisionNo="#x00100014" CheckRevisionNo="LW_EQ">EL1712-0020</Type>
+				<Name LcId="1033"><![CDATA[EL1712-0020 2Ch. Dig. Input 120V DC, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1712-0020 2K. Dig. Eingang 120V DC, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1712]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1712]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x06ba3052" RevisionNo="#x00100000">EL1722</Type>
 				<Name LcId="1033"><![CDATA[EL1722 2Ch. Dig. Input 120V/230V AC, 10ms, no power contacts]]></Name>
 				<Name LcId="1031"><![CDATA[EL1722 2K. Dig. Eingang  120V/230V AC, 10ms, keine Powerkontakte]]></Name>
@@ -3492,7 +6270,181 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x070C3052" RevisionNo="#x00110000">EL1804</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1804 4Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1804 4K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1804]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1804]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x07103052" RevisionNo="#x00100000">EL1808</Type>
+				<Name LcId="1033"><![CDATA[EL1808 8Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1808 8K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1808]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1808]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x07103052" RevisionNo="#x00110000">EL1808</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1808 8Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1808 8K. Dig. Eingang 24V, 3ms]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1808]]></URL>
@@ -3796,6 +6748,203 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x07113052" RevisionNo="#x00110000">EL1809</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1809 16Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1809 16K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1809]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1809]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="2" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a08</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x6080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a09</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x6090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x60a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x60b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x60c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x60d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x60e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x60f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x07163052" RevisionNo="#x00100000">EL1814</Type>
 				<Name LcId="1033"><![CDATA[EL1814 4Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1814 4K. Dig. Eingang 24V, 10µs]]></Name>
@@ -3860,7 +7009,269 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x07163052" RevisionNo="#x00110000">EL1814</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1814 4Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1814 4K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1814]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1814]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x071b3052" RevisionNo="#x00100000">EL1819</Type>
+				<Name LcId="1033"><![CDATA[EL1819 16Ch. Dig. Input 24V, 10µs]]></Name>
+				<Name LcId="1031"><![CDATA[EL1819 16K. Dig. Eingang 24V, 10µs]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1819]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1819]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="2" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a08</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x6080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a09</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x6090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x60a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x60b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x60c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x60d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x60e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x60f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x071b3052" RevisionNo="#x00110000">EL1819</Type>
+				<HideType RevisionNo="#x00100000"/>
 				<Name LcId="1033"><![CDATA[EL1819 16Ch. Dig. Input 24V, 10µs]]></Name>
 				<Name LcId="1031"><![CDATA[EL1819 16K. Dig. Eingang 24V, 10µs]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1819]]></URL>
@@ -4254,6 +7665,205 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x07433052" RevisionNo="#x00110000">EL1859</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1859 8Ch. Dig. Input 24V, 3ms, 8Ch. Dig. Output 24V, 0.5A]]></Name>
+				<Name LcId="1031"><![CDATA[EL1859 8K. Dig. Eingang 24V, 3ms, 8K. Dig. Ausgang 24V, 0.5A]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1859]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1859]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>130</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm MinSize="1" MaxSize="1" DefaultSize="1" StartAddress="#x0f01" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm MinSize="1" MaxSize="1" DefaultSize="1" StartAddress="#x1000" ControlByte="#x0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1608</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x7080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1609</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x7090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x160A</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x70A0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x160B</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x70B0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x160C</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x70C0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x160D</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x70D0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x160E</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x70E0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x160F</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x70F0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000F0FF</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x07463052" RevisionNo="#x00100000">EL1862</Type>
 				<Name LcId="1033"><![CDATA[EL1862 16Ch. Dig. Input 24V, 3ms]]></Name>
 				<Name LcId="1031"><![CDATA[EL1862 16K. Dig. Eingang 24V, 3ms]]></Name>
@@ -4450,7 +8060,599 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x07463052" RevisionNo="#x00110000" CheckRevisionNo="LW_EQ">EL1862</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1862 16Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1862 16K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1862]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1862]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="2" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a08</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x6080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a09</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x6090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x60a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x60b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x60c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x60d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x60e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x60f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x07463052" RevisionNo="#x00120000" CheckRevisionNo="LW_EQ">EL1862</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<HideType RevisionNo="#x00110000"/>
+				<Name LcId="1033"><![CDATA[EL1862 16Ch. Dig. Input 24V, 3ms]]></Name>
+				<Name LcId="1031"><![CDATA[EL1862 16K. Dig. Eingang 24V, 3ms]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1862]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1862]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="2" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a08</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x6080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a09</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x6090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x60a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x60b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x60c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x60d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x60e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x60f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x07463052" RevisionNo="#x0010000A">EL1862-0010</Type>
+				<Name LcId="1033"><![CDATA[EL1862-0010 16Ch. Dig. Input 24V, 3ms, negativ]]></Name>
+				<Name LcId="1031"><![CDATA[EL1862-0010 16K. Dig. Eingang 24V, 3ms, negative]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1862]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1862]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="2" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a08</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x6080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a09</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x6090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x60a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x60b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x60c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x60d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x60e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x60f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x07463052" RevisionNo="#x0011000A" CheckRevisionNo="LW_EQ">EL1862-0010</Type>
+				<HideType RevisionNo="#x0010000A"/>
 				<Name LcId="1033"><![CDATA[EL1862-0010 16Ch. Dig. Input 24V, 3ms, negativ]]></Name>
 				<Name LcId="1031"><![CDATA[EL1862-0010 16K. Dig. Eingang 24V, 3ms, negative]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1862]]></URL>
@@ -4850,6 +9052,203 @@
 				<Info>
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="2" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a04</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x6040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a05</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x6050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a06</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x6060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a07</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x6070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a08</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x6080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a09</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x6090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x60a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x60b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x60c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x60d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x60e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a0f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x60f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x07613052" RevisionNo="#x00110000" CheckRevisionNo="LW_EQ">EL1889</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EL1889 16Ch. Dig. Input 24V, 3ms, negative]]></Name>
+				<Name LcId="1031"><![CDATA[EL1889 16K. Dig. Eingang 24V, 3ms, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1889]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1889]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>110</EBusCurrent>
 					</Electrical>
 				</Info>
 				<GroupType>DigIn</GroupType>

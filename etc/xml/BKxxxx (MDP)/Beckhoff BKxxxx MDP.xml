@@ -1569,7 +1569,7 @@
 					<CoE SdoInfo="true" CompleteAccess="true"/>
 					<FoE/>
 				</Mailbox>
-				<Slots IdentifyModuleBy="ModuleIdent">
+				<Slots SlotIndexIncrement="16" SlotPdoIncrement="1" IdentifyModuleBy="ModuleIdent">
 					<Slot MinInstances="0" MaxInstances="254">
 						<Name>Terminals</Name>
 						<ModuleClass>
@@ -1717,7 +1717,7 @@
 					<CoE SdoInfo="true" CompleteAccess="true"/>
 					<FoE/>
 				</Mailbox>
-				<Slots IdentifyModuleBy="ModuleIdent">
+				<Slots SlotIndexIncrement="16" SlotPdoIncrement="1" IdentifyModuleBy="ModuleIdent">
 					<Slot MinInstances="0" MaxInstances="254">
 						<Name>Terminals</Name>
 						<ModuleClass>

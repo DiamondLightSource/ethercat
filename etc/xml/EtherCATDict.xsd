@@ -5,9 +5,6 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Dictionary" type="DictionaryType">
-					<xs:annotation>
-						<xs:documentation>information of the vendor</xs:documentation>
-					</xs:annotation>
 					<xs:keyref name="ObjectTypesRef" refer="DataTypesKey">
 						<xs:selector xpath="./Objects/Object"/>
 						<xs:field xpath="Type"/>
