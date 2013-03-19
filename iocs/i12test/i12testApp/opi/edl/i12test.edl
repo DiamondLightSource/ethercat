@@ -310,7 +310,7 @@ x 150
 y 60
 w 18
 h 18
-controlPv "$(P)$(S3):Channel1"
+controlPv "$(P)$(S3):OUT1"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -332,7 +332,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):Channel1"
+controlPv "$(P)$(S3):OUT1"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -346,7 +346,7 @@ x 150
 y 100
 w 18
 h 18
-controlPv "$(P)$(S3):Channel3"
+controlPv "$(P)$(S3):OUT3"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -368,7 +368,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):Channel3"
+controlPv "$(P)$(S3):OUT3"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -382,7 +382,7 @@ x 320
 y 60
 w 18
 h 18
-controlPv "$(P)$(S3):Channel2"
+controlPv "$(P)$(S3):OUT2"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -404,7 +404,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):Channel2"
+controlPv "$(P)$(S3):OUT2"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -418,7 +418,7 @@ x 320
 y 100
 w 18
 h 18
-controlPv "$(P)$(S3):Channel4"
+controlPv "$(P)$(S3):OUT4"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -440,7 +440,7 @@ bgColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P)$(S3):Channel4"
+controlPv "$(P)$(S3):OUT4"
 font "arial-medium-r-14.0"
 endObjectProperties
 
@@ -486,7 +486,7 @@ x 230
 y 155
 w 70
 h 25
-controlPv "$(P)$(S7):Channel2"
+controlPv "$(P)$(S7):IN2"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -510,7 +510,7 @@ x 315
 y 160
 w 18
 h 18
-controlPv "$(P)$(S7):Channel2"
+controlPv "$(P)$(S7):IN2"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -527,7 +527,7 @@ x 150
 y 160
 w 18
 h 18
-controlPv "$(P)$(S7):Channel1"
+controlPv "$(P)$(S7):IN1"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -544,7 +544,7 @@ x 65
 y 155
 w 70
 h 25
-controlPv "$(P)$(S7):Channel1"
+controlPv "$(P)$(S7):IN1"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -644,7 +644,7 @@ x 65
 y 195
 w 70
 h 25
-controlPv "$(P)$(S7):Channel3"
+controlPv "$(P)$(S7):IN3"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -668,7 +668,7 @@ x 150
 y 200
 w 18
 h 18
-controlPv "$(P)$(S7):Channel3"
+controlPv "$(P)$(S7):IN3"
 lineColor index 14
 onColor index 15
 offColor index 22
@@ -685,7 +685,7 @@ x 230
 y 190
 w 70
 h 25
-controlPv "$(P)$(S7):Channel4"
+controlPv "$(P)$(S7):IN4"
 font "arial-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -709,7 +709,7 @@ x 315
 y 195
 w 18
 h 18
-controlPv "$(P)$(S7):Channel4"
+controlPv "$(P)$(S7):IN4"
 lineColor index 14
 onColor index 15
 offColor index 22

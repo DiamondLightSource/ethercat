@@ -34,12 +34,18 @@ def main():
     doc = libxml2.parseFile(chainfile)
 
     master = EthercatMaster('/tmp/dummy')
-    for d in doc.xpathEval("//device"):
-        name = d.xpathEval("@type_name")[0].content
-        revision = parseInt(d.xpathEval("@revision")[0].content)
-        position = parseInt(d.xpathEval("@position")[0].content) 
+    for d in doc.xpathEval("//device") + doc.xpathEval("//ethercat.EthercatSlave"):
+        type_names = d.xpathEval("@type_name")
+        if type_names:
+            name = type_names[0].content
+            revision = parseInt(d.xpathEval("@revision")[0].content)
+            type_rev = "%s rev 0x%08x" % (name, revision)
+        else:
+            type_rev = d.xpathEval("@type_rev")[0].content
+        position = d.xpathEval("@position")[0].content
+        if not position.startswith("DCS"):
+            position = parseInt(position)
         portname = d.xpathEval("@name")[0].content
-        type_rev = "%s rev 0x%08x" % (name, revision)
         oversample = 0
         oversample_xml = d.xpathEval("@oversample")
         if len(oversample_xml):

@@ -102,6 +102,7 @@ struct EC_DEVICE
     ELLNODE node;
     char * name;
     char * type_name;
+    char * position_str;
     int position;
     int oversampling_rate;
     ELLLIST pdo_entry_mappings;
@@ -137,6 +138,9 @@ EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int 
 EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name);
 EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no, 
                                         int bit_length);
+
+// defined in parser.c
+int isOctal(char * attr);
 
 #ifdef __cplusplus
 }

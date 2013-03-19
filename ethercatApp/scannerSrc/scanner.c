@@ -221,7 +221,6 @@ void cyclic_task(void * usr)
             if (!simulation)
             {
                 ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
-                
                 // do this how often?
                 ecrt_master_sync_reference_clock(master);
                 ecrt_master_sync_slave_clocks(master);
@@ -256,7 +255,8 @@ void cyclic_task(void * usr)
             {
                 lat_us = 0;
             }
-
+            // printf("Wakeup time %llu, latency: %d us\n", TIMESPEC2NS(wakeupTime), lat_us);
+            
             if(lat_us > scanner->max_latency)
             {
                 scanner->max_latency = lat_us;
@@ -517,9 +517,14 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         printf("oversamping rate %d\n", device->oversampling_rate);
         if (!scanner->simulation)
         {
+        /* It would appear that to get a sane NextSync1Time value on the EL3702,
+           we need to subtract the SYNC0 time from SYNC1. Putting a 10kHz signal
+           into a 10kHz acquiring signal still gives some ugly sawtooth wave
+           as the local clock syncs with the master clock, but its within 100ns... */
             ecrt_slave_config_dc(sc, 
                 device->device_type->oversampling_activate, 
-                PERIOD_NS / device->oversampling_rate, 0, PERIOD_NS, 0);
+                PERIOD_NS / device->oversampling_rate, 0,
+                PERIOD_NS - (PERIOD_NS / device->oversampling_rate), 0);
         }
     }
 
@@ -547,13 +552,51 @@ void pack_string(char * buffer, int * ofs, char * str)
 
 int ethercat_init(SCANNER * scanner)
 {
+    int pos;
+    // get some info on each slave
+    ec_master_info_t master_info;
+    if(ecrt_master(scanner->master, &master_info) != 0) {
+        fprintf(stderr, "can't get master info\n");
+        exit(1);
+    }    
     ELLNODE * node = ellFirst(&scanner->config->devices);
     for(; node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         assert(device->device_type);
+        // if position string starts with DCS then lookup its actual position on the bus
+        if (device->position_str[0] == 'D' &&
+            device->position_str[1] == 'C' &&
+            device->position_str[2] == 'S') {
+            if (sscanf(device->position_str, "DCS%08d", &pos) != 1) {
+                fprintf(stderr, "Can't parse DCS number '%s'\n", device->position_str);
+                exit(1);             
+            }
+            int n, found = 0;
+            for(n = 0; n < master_info.slave_count; n++) {
+                ec_slave_info_t slave_info;
+                if(ecrt_master_get_slave(scanner->master, n, &slave_info) != 0) {
+                    fprintf(stderr, "can't get info for slave %d\n", n);
+                    exit(1);
+                }
+                if (pos == slave_info.serial_number) {
+                    device->position = n;
+                    found = 1;
+                }
+            }
+            if (!found) {
+                fprintf(stderr, "can't find '%s' on bus\n", device->position_str);
+                exit(1);            
+            }
+        } else {
+            if(isOctal(device->position_str)) {
+                fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n");
+                exit(1);
+            }
+            device->position = strtol(device->position_str, NULL, 0);
+        }        
         printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", \
-               device->name, device->type_name, device->position);
+               device->name, device->type_name, device->position);        
         device_initialize(scanner, device);
     }
     printf("PDO SIZE:     %d\n", scanner->pdo_size);

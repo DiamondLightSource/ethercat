@@ -181,7 +181,7 @@ def parsePdo(pdoNode, d, os):
 # script for scanner start-up, used in EthercatMaster.writeScannerStartup
 SCANNER_STARTUP_TEXT ="""#!/bin/sh
 cd "$(dirname $0)"
-%(scanner)s -q %(expanded_chain)s %(socket_path)s
+%(scanner)s %(expanded_chain)s %(socket_path)s
 """
 
 class EthercatMaster(Device):
@@ -235,7 +235,7 @@ class EthercatMaster(Device):
         if not missingDevices:
             return
         expected_len = len(reqs)
-        self.dev_descriptions = dict()
+        self.dev_descriptions = dict()        
         for key, dev in EthercatSlave._all_types_dict.iteritems():
             if key in reqs:
                 self.dev_descriptions[key] = dev
@@ -249,14 +249,16 @@ class EthercatMaster(Device):
                         missingDevices = True
                 if not missingDevices:
                     break
-        assert( expected_len == len(self.dev_descriptions) )
+        assert( expected_len == len(self.dev_descriptions) ), \
+            "The following modules are not listed in ethercat/etc/xml: \n%s" % \
+                [x for x in reqs if x not in self.dev_descriptions]
     
     def generateChainXml(self):
         o = '<chain>\n'
         for pos, slave in self.chain.iteritems():
             o = o + '<device type_name="%(type)s"'  % slave.__dict__
             o = o + ' revision="0x%(revision)08x"'  % slave.__dict__
-            o = o + ' position="%(position)d"'      % slave.__dict__ 
+            o = o + ' position="%(position)s"'      % slave.__dict__ 
             o = o + ' name="%(name)s"'              % slave.__dict__
             if slave.oversample != 0:
                 o = o + ' oversample="%(oversample)d"' % slave.__dict__
@@ -381,10 +383,10 @@ class EthercatSlave(Device):
 
     ArgInfo = makeArgInfo(__init__,
         master = Ident("ethercat master device", EthercatMaster),
-        position = Simple("slave position in ethercat chain", int),
+        position = Simple("slave position in ethercat chain, or serial number of format DCS00001234", str),
         type_rev = Choice("Device type and revision",_types_choice),
         name = Simple("slave's asyn port name", str),
-        oversample = Simple("slave's oversampling rate",int))
+        oversample = Simple("slave's oversampling rate, e.g. on an EL4702 oversample=100 bus freq 1kHz gives 100kHz samples",int))
 
 def getPdoEntryChoices():
     'typical pdo entry choices for Generic ADC sample signals'

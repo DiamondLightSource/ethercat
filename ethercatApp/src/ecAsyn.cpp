@@ -161,12 +161,14 @@ public:
             if(lastCycle == cyc)
             {
                 // skip duplicates
+            	printf("%s Duplicate %d\n", parent->portName, cyc);
                 return;
             }
             if((lastCycle + 1) % 65536 != cyc)
             {
                 xfc->lock();
                 xfc->incMissed();
+                printf("%s Missed %d\n", parent->portName, (lastCycle + 1) % 65536);
                 xfc->unlock();
             }
             lastCycle = cyc;

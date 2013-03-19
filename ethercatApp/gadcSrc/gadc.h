@@ -4,6 +4,7 @@ Generic ADC driver
 TDI-CTRL-REQ-015
 
 */
+#include <asynPortDriver.h>
 
 class WaveformPort : public asynPortDriver
 {

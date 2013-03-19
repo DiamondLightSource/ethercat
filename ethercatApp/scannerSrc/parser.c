@@ -49,7 +49,7 @@ void show(CONTEXT * ctx)
     {
         EC_DEVICE * device = 
             (EC_DEVICE *)node;
-        printf("name %s position %d\n", device->name, device->position);
+        printf("name %s position %s\n", device->name, device->position_str);
         printf("simulation specs %d\n", device->simspecs.count);
         ELLNODE * node1 = ellFirst(&device->simspecs);
         for (;node1; node1 = ellNext(node1) )
@@ -302,9 +302,9 @@ int parseSimulation(xmlNode * node, CONTEXT * ctx)
     {
         if ( find_duplicate(ctx, ctx->simspec->signal_no, ctx->simspec->bit_length) )
         {
-            printf("Duplicate signal number %d (bit_length %d) for device %s (position %d)\n", 
+            printf("Duplicate signal number %d (bit_length %d) for device %s (position %s)\n", 
                 ctx->simspec->signal_no, ctx->simspec->bit_length,
-                ctx->device->name, ctx->device->position);
+                ctx->device->name, ctx->device->position_str);
             assert(0);
         }
         ctx->simspec->type = parseStType(type_str);
@@ -328,7 +328,7 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
         getStr(node, "name", &ctx->device->name) &&
         getInt(node, "oversample", &ctx->device->oversampling_rate, 0) &&
         getStr(node, "type_name", &ctx->device->type_name) &&
-        getInt(node, "position", &ctx->device->position, 1) &&
+        getStr(node, "position", &ctx->device->position_str) &&
         joinDevice(ctx->config, ctx->device) &&
         parseSimspec(node, ctx) &&
         ellAddOK(&ctx->config->devices, &ctx->device->node);
@@ -470,10 +470,10 @@ char * serialize_config(EC_CONFIG * cfg)
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             assert( pdo_entry_mapping->pdo_entry );
             char line[1024];
-            snprintf(line, sizeof(line), "<entry device_position=\"%d\" "
+            snprintf(line, sizeof(line), "<entry device_position=\"%s\" "
                       "pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" "
                       "offset=\"%d\" bit=\"%d\" />\n", 
-                     device->position, pdo_entry_mapping->pdo_entry->parent->index, 
+                     device->position_str, pdo_entry_mapping->pdo_entry->parent->index, 
                      pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
                      pdo_entry_mapping->bit_position);
             strncat(sbuf, line, scount-strlen(sbuf)-1);

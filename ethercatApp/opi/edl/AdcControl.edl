@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 913
-y 110
+x 398
+y 308
 w 447
 h 544
 font "arial-bold-r-14.0"
@@ -288,7 +288,7 @@ release 0
 x 70
 y 10
 w 221
-h 40
+h 42
 font "arial-bold-r-18.0"
 fgColor index 14
 bgColor index 3
@@ -709,5 +709,31 @@ offLabel "CLEAR"
 3d
 useEnumNumeric
 font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 150
+w 100
+h 70
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Plot"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "AdcPlot"
+}
+symbols {
+  0 "P=$(DEVICE),R=:ADC$(CHANNEL)_,DATA=WAVEFORM"
+}
 endObjectProperties
 
