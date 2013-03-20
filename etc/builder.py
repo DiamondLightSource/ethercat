@@ -195,7 +195,6 @@ class EthercatMaster(Device):
         self.socket = socket
         self.max_message = max_message
         self.chain = {}
-        self.chainfile = IocDataStream("chain.xml")
         self.expandedfile = IocDataStream("expanded.xml")
         self.scannerf = IocDataStream("scanner.sh",mode=0555)
         self.dev_descriptions = []
@@ -203,7 +202,6 @@ class EthercatMaster(Device):
     def Initialise(self):
         print 'ecAsynInit("%(socket)s", %(max_message)d)' % self.__dict__
         self.getDeviceDescriptions()
-        self.chainfile.write( self.generateChainXml() )
         self.expandedfile.write( self.generateMasterXml() )
         self.writeScannerStartup()
 
