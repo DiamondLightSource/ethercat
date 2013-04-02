@@ -2,6 +2,9 @@
 # % macro, DEVICE, EtherCAT Master
 # % macro, PORT, asyn port for EtherCAT master
 # % macro, SCAN, poll period
+# % macro, name, Object name and gui association name
+
+# % gui, $(name=), edmembed, master-embed.edl, P=$(DEVICE)
 record(longin, "$(DEVICE):CYCLE")
 {
   field("DTYP", "asynInt32")
@@ -21,6 +24,7 @@ record(longin, "$(DEVICE):WORKINGCOUNTER")
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))WorkingCounter")
   field("SCAN", "$(SCAN)")
+  info("archiver", "1 Monitor")
 }
 
 record(mbbi, "$(DEVICE):WCSTATE")
@@ -37,4 +41,5 @@ record(mbbi, "$(DEVICE):WCSTATE")
   field("ZRST", "ZERO")
   field("ONST", "INCOMPLETE")
   field("TWST", "COMPLETE")
+  info("archiver", "1 Monitor")
 }
