@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 885
-y 632
+x 887
+y 658
 w 228
 h 114
 font "arial-medium-r-12.0"
@@ -164,7 +164,7 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 2
+x 1
 y 16
 w 219
 h 94
@@ -178,16 +178,15 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 3
+x 1
 y 7
-w 182
+w 219
 h 20
 font "engineering-medium-r-16.0"
-fontAlign "center"
 fgColor index 14
 bgColor index 51
 value {
-  "Slave $(P)"
+  "$(P)"
 }
 border
 endObjectProperties
