@@ -1,6 +1,7 @@
 # % macro, DEVICE, device name
 # % macro, PORT,   asyn port for device
 # % macro, SCAN,   scan rate
+# % macro, name, Object name and gui association name
 
 # % gui, $(name=), edmembed, slave-embed.edl, P=$(DEVICE)
 record(mbbi, "$(DEVICE):AL_STATE")
