@@ -2,6 +2,7 @@
 # % macro, PORT,   asyn port for device
 # % macro, SCAN,   scan rate
 
+# % gui, $(name=), edmembed, slave-embed.edl, P=$(DEVICE)
 record(mbbi, "$(DEVICE):AL_STATE")
 {
   field("DTYP", "asynInt32")
