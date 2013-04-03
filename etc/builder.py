@@ -31,6 +31,9 @@ class GenericADCTemplate(AutoSubstitution):
 class MasterTemplate(AutoSubstitution):
     TemplateFile = 'MASTER.template'
 
+class SlaveTemplate(AutoSubstitution):
+    TemplateFile = 'SLAVE.template'
+
 def parseInt(text):
     if text.startswith("#x") or text.startswith("0x"):
         return int(text.replace("#x", ""), 16)
