@@ -422,4 +422,3 @@ class GenericADC(Device):
         pdoentry = Choice("parameter in the form pdo_name.entry_name", _PdoEntryChoices),
         cycle = Simple("cycle parameter in the form pdo_name.entry_name", str)
         )
-
