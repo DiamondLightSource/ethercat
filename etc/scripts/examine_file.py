@@ -8,7 +8,7 @@ import iocbuilder
 import os, sys
 
 iocbuilder.ConfigureIOC(architecture = 'linux-x86')
-iocbuilder.ModuleVersion('asyn','4-17')    
+iocbuilder.ModuleVersion('asyn','4-19')
 
 # work-around to import $(TOP)/etc/builder.py whether in prod or work
 scripts_dir = os.path.realpath(os.path.dirname(__file__))
