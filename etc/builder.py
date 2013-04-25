@@ -1,7 +1,7 @@
 from iocbuilder.modules.asyn import Asyn
 from iocbuilder import Device, IocDataStream, AutoSubstitution
 from iocbuilder.arginfo import makeArgInfo, Simple, Ident, Choice
-import os 
+import os
 
 # These devices are used directly, while the others are loaded as part of
 # other devices
@@ -198,6 +198,8 @@ class EthercatMaster(Device):
         self.socket = socket
         self.max_message = max_message
         self.chain = {}
+        self.chainlist = []
+        self.chainfile = IocDataStream("chain.xml")
         self.expandedfile = IocDataStream("expanded.xml")
         self.scannerf = IocDataStream("scanner.sh",mode=0555)
         self.dev_descriptions = []
@@ -220,8 +222,9 @@ class EthercatMaster(Device):
                 socket_path = self.socket))
 
     def setSlave(self, slave):
-        assert( slave.position not in self.chain.keys() )
+        assert( slave.position not in self.chainlist )
         self.chain[slave.position] = slave 
+        self.chainlist.append(slave.position)
 
     def getDeviceDescriptions(self):
         ''' populate the slaves' device descriptions from the
@@ -229,7 +232,7 @@ class EthercatMaster(Device):
         '''
         reqs = set()   # set of devices in chain
         missingDevices = False
-        for position,slave in self.chain.iteritems():
+        for slave in [self.chain[position] for position in self.chainlist]:
             reqs.add((slave.type,slave.revision))
             if not slave.device:
                 missingDevices = True
@@ -241,7 +244,7 @@ class EthercatMaster(Device):
             if key in reqs:
                 self.dev_descriptions[key] = dev
                 missingDevices = False
-                for position, slave in self.chain.iteritems():
+                for slave in [self.chain[position] for position in self.chainlist]:
                     if slave.device:
                         continue
                     if (slave.type, slave.revision) == key:
@@ -256,7 +259,7 @@ class EthercatMaster(Device):
     
     def generateChainXml(self):
         o = '<chain>\n'
-        for pos, slave in self.chain.iteritems():
+        for slave in [self.chain[position] for position in self.chainlist]:
             o = o + '<device type_name="%(type)s"'  % slave.__dict__
             o = o + ' revision="0x%(revision)08x"'  % slave.__dict__
             o = o + ' position="%(position)s"'      % slave.__dict__ 
