@@ -1,7 +1,8 @@
+#include <libxml/parser.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 typedef struct EC_CONFIG EC_CONFIG;
 typedef struct EC_PDO_ENTRY EC_PDO_ENTRY;
@@ -10,6 +11,7 @@ typedef struct EC_SYNC_MANAGER EC_SYNC_MANAGER;
 typedef struct EC_DEVICE_TYPE EC_DEVICE_TYPE;
 typedef struct EC_DEVICE EC_DEVICE;
 typedef struct EC_PDO_ENTRY_MAPPING EC_PDO_ENTRY_MAPPING;
+typedef struct EC_DCS_LOOKUP EC_DCS_LOOKUP;
 
 // simulation types st_
 enum st_type {
@@ -102,7 +104,6 @@ struct EC_DEVICE
     ELLNODE node;
     char * name;
     char * type_name;
-    char * position_str;
     int position;
     int oversampling_rate;
     ELLLIST pdo_entry_mappings;
@@ -130,8 +131,16 @@ struct EC_CONFIG
     ELLLIST device_types;
     ELLLIST devices;
     ELLLIST pdo_entry_mappings;
+    ELLLIST dcs_lookups;
+    xmlDoc * doc;
 };
 
+struct EC_DCS_LOOKUP
+{
+    ELLNODE node;
+    int position;
+    int dcs;
+};
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
 EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int sub_index);

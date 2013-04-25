@@ -161,7 +161,7 @@ public:
             if(lastCycle == cyc)
             {
                 // skip duplicates
-            	printf("%s Duplicate %d\n", parent->portName, cyc);
+            	//printf("%s Duplicate %d\n", parent->portName, cyc);
                 return;
             }
             if((lastCycle + 1) % 65536 != cyc)
@@ -420,6 +420,10 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
             usr->config_buffer = callocMustSucceed
                 (size, sizeof(char), "can't allocate config XML receive buffer");
             memcpy(usr->config_buffer, engine->receive_buffer, size);
+            printf("config-file size:%d\n", size);
+            printf("%s\n", (char *) usr->config_buffer);
+            printf("************************\n");
+            
             init_unpack(usr, engine->receive_buffer, size);
             readConfig(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));

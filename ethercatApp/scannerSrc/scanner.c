@@ -289,6 +289,7 @@ void cyclic_task(void * usr)
                 if (!simulation)
                 {
                     EC_DEVICE * device = (EC_DEVICE *)node;
+                    assert(device->position != -1);
                     ecrt_master_get_slave(master, device->position, &slave_info);
                     msg->pdo.buffer[ofs++] = slave_info.al_state;
                     msg->pdo.buffer[ofs++] = slave_info.error_flag;
@@ -371,6 +372,7 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
     ec_slave_config_t * sc = NULL;
     if (! scanner->simulation)
     {
+        assert(device->position != -1);
         sc = ecrt_master_slave_config(scanner->master, 0, device->position, 
             device->device_type->vendor_id, device->device_type->product_id);
         assert(sc);
@@ -552,49 +554,11 @@ void pack_string(char * buffer, int * ofs, char * str)
 
 int ethercat_init(SCANNER * scanner)
 {
-    int pos;
-    // get some info on each slave
-    ec_master_info_t master_info;
-    if(ecrt_master(scanner->master, &master_info) != 0) {
-        fprintf(stderr, "can't get master info\n");
-        exit(1);
-    }    
     ELLNODE * node = ellFirst(&scanner->config->devices);
     for(; node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        assert(device->device_type);
-        // if position string starts with DCS then lookup its actual position on the bus
-        if (device->position_str[0] == 'D' &&
-            device->position_str[1] == 'C' &&
-            device->position_str[2] == 'S') {
-            if (sscanf(device->position_str, "DCS%08d", &pos) != 1) {
-                fprintf(stderr, "Can't parse DCS number '%s'\n", device->position_str);
-                exit(1);             
-            }
-            int n, found = 0;
-            for(n = 0; n < master_info.slave_count; n++) {
-                ec_slave_info_t slave_info;
-                if(ecrt_master_get_slave(scanner->master, n, &slave_info) != 0) {
-                    fprintf(stderr, "can't get info for slave %d\n", n);
-                    exit(1);
-                }
-                if (pos == slave_info.serial_number) {
-                    device->position = n;
-                    found = 1;
-                }
-            }
-            if (!found) {
-                fprintf(stderr, "can't find '%s' on bus\n", device->position_str);
-                exit(1);            
-            }
-        } else {
-            if(isOctal(device->position_str)) {
-                fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n");
-                exit(1);
-            }
-            device->position = strtol(device->position_str, NULL, 0);
-        }        
+        assert(device->device_type);    
         printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", \
                device->name, device->type_name, device->position);        
         device_initialize(scanner, device);
@@ -604,12 +568,10 @@ int ethercat_init(SCANNER * scanner)
 }
 
 SCANNER * start_scanner(char * filename, int simulation)
-{
+{    
+    int n;
     SCANNER * scanner = calloc(1, sizeof(SCANNER));
     scanner->config = calloc(1, sizeof(EC_CONFIG));
-    scanner->config_buffer = load_config(filename);
-    assert(scanner->config_buffer);
-    read_config2(scanner->config_buffer, strlen(scanner->config_buffer), scanner->config);
     scanner->simulation = simulation;
     if (!simulation)
     {
@@ -626,7 +588,27 @@ SCANNER * start_scanner(char * filename, int simulation)
             fprintf(stderr, "error: can't create EtherCAT domain\n");
             exit(1);
         }
+        // get some info on each slave
+        ec_master_info_t master_info;
+        if(ecrt_master(scanner->master, &master_info) != 0) {
+            fprintf(stderr, "can't get master info\n");
+            exit(1);            
+        }  
+        ec_slave_info_t slave_info;
+        for(n = 0; n < master_info.slave_count; n++) {        
+            if(ecrt_master_get_slave(scanner->master, n, &slave_info) != 0) {
+                fprintf(stderr, "can't get info for slave %d\n", n);
+                exit(1);
+            }
+            EC_DCS_LOOKUP *dcs_lookup = calloc(1, sizeof(EC_DCS_LOOKUP));
+            dcs_lookup->position = n;
+            dcs_lookup->dcs = slave_info.serial_number;
+            ellAdd(&scanner->config->dcs_lookups, &dcs_lookup->node);
+        }
     }
+    scanner->config_buffer = load_config(filename);
+    assert(scanner->config_buffer);
+    read_config2(scanner->config_buffer, strlen(scanner->config_buffer), scanner->config);    
     ethercat_init(scanner);
     if (simulation)
         scanner->domain = (ec_domain_t *) calloc(1, sizeof(SIM_DOMAIN));
@@ -638,13 +620,16 @@ void build_config_message(SCANNER * scanner)
 {
     // send config to clients
     EC_CONFIG * cfg = scanner->config;
-    char * sbuf = serialize_config(cfg);
     scanner->config_message = calloc(scanner->max_message, sizeof(char));
     scanner->config_message->tag = MSG_CONFIG;
     char * buffer = scanner->config_message->config.buffer;
-    int msg_ofs = 0;
-    pack_string(buffer, &msg_ofs, scanner->config_buffer);
+    int msg_ofs = 0;    
+    char * xbuf = regenerate_chain(cfg);
+    pack_string(buffer, &msg_ofs, xbuf);
+    free(xbuf);
+    char * sbuf = serialize_config(cfg);    
     pack_string(buffer, &msg_ofs, sbuf);
+    free(sbuf);
     scanner->config_size = buffer + msg_ofs - (char *)scanner->config_message;
 }
 

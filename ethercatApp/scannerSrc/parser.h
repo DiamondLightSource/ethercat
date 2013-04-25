@@ -1,6 +1,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+char * regenerate_chain(EC_CONFIG * cfg);
 char * serialize_config(EC_CONFIG * cfg);
 char * load_config(char * filename);
 int read_config2(char * config, int sz, EC_CONFIG * cfg);

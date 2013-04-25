@@ -7,8 +7,8 @@
 #include <errno.h>
 #include <sys/stat.h>
 
-#include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <libxml/parser.h>
 
 #include <ellLib.h>
 #include "classes.h"
@@ -49,7 +49,7 @@ void show(CONTEXT * ctx)
     {
         EC_DEVICE * device = 
             (EC_DEVICE *)node;
-        printf("name %s position %s\n", device->name, device->position_str);
+        printf("name %s position %d\n", device->name, device->position);
         printf("simulation specs %d\n", device->simspecs.count);
         ELLNODE * node1 = ellFirst(&device->simspecs);
         for (;node1; node1 = ellNext(node1) )
@@ -302,9 +302,9 @@ int parseSimulation(xmlNode * node, CONTEXT * ctx)
     {
         if ( find_duplicate(ctx, ctx->simspec->signal_no, ctx->simspec->bit_length) )
         {
-            printf("Duplicate signal number %d (bit_length %d) for device %s (position %s)\n", 
+            printf("Duplicate signal number %d (bit_length %d) for device %s (position %d)\n", 
                 ctx->simspec->signal_no, ctx->simspec->bit_length,
-                ctx->device->name, ctx->device->position_str);
+                ctx->device->name, ctx->device->position);
             assert(0);
         }
         ctx->simspec->type = parseStType(type_str);
@@ -323,12 +323,47 @@ int parseSimspec(xmlNode * node, CONTEXT * ctx)
 
 int parseDevice(xmlNode * node, CONTEXT * ctx)
 {
+    char * position_str;    
     ctx->device = calloc(1, sizeof(EC_DEVICE));
+    ctx->device->position = -1;
+    getStr(node, "position", &position_str);        
+    // if position string starts with DCS then lookup its actual position on the bus
+    if (position_str[0] == 'D' &&
+        position_str[1] == 'C' &&
+        position_str[2] == 'S') {
+        int dcs;                
+        if (sscanf(position_str, "DCS%08d", &dcs) != 1) {
+            fprintf(stderr, "Can't parse DCS number '%s'\n", position_str);
+            exit(1);             
+        }
+        ELLNODE * lnode;
+        for(lnode = ellFirst(&ctx->config->dcs_lookups); lnode; lnode = ellNext(lnode))
+        {
+            EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
+            if (dcs == dcs_lookup->dcs) {
+                ctx->device->position = dcs_lookup->position;
+                // 255 chars should be enough for a position on the bus!
+                char temp_position[255];
+                snprintf(temp_position, 255, "%d", dcs_lookup->position);               
+                xmlSetProp(node, (unsigned char *) "position", (unsigned char *) temp_position);
+            }
+        }
+    } else { 
+        if(isOctal(position_str)) { 
+            fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n"); 
+            exit(1); 
+        } 
+        ctx->device->position = strtol(position_str, NULL, 0); 
+    } 
+    if (ctx->device->position == -1) {
+        fprintf(stderr, "can't find '%s' on bus\n", position_str);
+        exit(1);            
+    }
+    
     return 
         getStr(node, "name", &ctx->device->name) &&
         getInt(node, "oversample", &ctx->device->oversampling_rate, 0) &&
         getStr(node, "type_name", &ctx->device->type_name) &&
-        getStr(node, "position", &ctx->device->position_str) &&
         joinDevice(ctx->config, ctx->device) &&
         parseSimspec(node, ctx) &&
         ellAddOK(&ctx->config->devices, &ctx->device->node);
@@ -343,9 +378,11 @@ int parseChain(xmlNode * node, CONTEXT * ctx)
 
 int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * mapping)
 {
+    assert(mapping->device_position != -1);
     mapping->parent = find_device(cfg, mapping->device_position);
     if(mapping->parent == NULL)
     {
+        printf("Can't find %d\n", mapping->device_position);
         return 0;
     }
     mapping->pdo_entry = find_pdo_entry(mapping->parent, pdo_index, 
@@ -408,11 +445,11 @@ int dump(xmlNode * node, CONTEXT * ctx)
 int read_config2(char * config, int size, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
-    xmlDoc * doc = xmlReadMemory(config, size, NULL, NULL, 0);
-    assert(doc);
+    cfg->doc = xmlReadMemory(config, size, NULL, NULL, 0);
+    assert(cfg->doc);
     CONTEXT ctx;
     ctx.config = cfg;
-    xmlNode * node = xmlDocGetRootElement(doc);
+    xmlNode * node = xmlDocGetRootElement(cfg->doc);
     xmlNode * c;
     for(c = node->children; c; c = c->next)
     {
@@ -454,6 +491,23 @@ char * load_config(char * filename)
     return buf;
 }
 
+char * regenerate_chain(EC_CONFIG * cfg)
+{
+    /* output expanded chain file with modified position values */
+    int ecount;
+    unsigned char * ebuf;
+    xmlDocDumpFormatMemory(cfg->doc, &ebuf, &ecount, 0);
+    
+    /* alloc space for chain file*/
+    char * sbuf = calloc(ecount, sizeof(char));
+    
+    /* write in the chain file and free it */
+    strncat(sbuf, (char *) ebuf, ecount-strlen(sbuf)-1);
+    xmlFree(ebuf);
+    
+    return sbuf;   
+}
+
 char * serialize_config(EC_CONFIG * cfg)
 {
     /* serialize PDO mapping */
@@ -470,10 +524,11 @@ char * serialize_config(EC_CONFIG * cfg)
             EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = (EC_PDO_ENTRY_MAPPING *)node1;
             assert( pdo_entry_mapping->pdo_entry );
             char line[1024];
-            snprintf(line, sizeof(line), "<entry device_position=\"%s\" "
+            assert(device->position != -1);
+            snprintf(line, sizeof(line), "<entry device_position=\"%d\" "
                       "pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" "
                       "offset=\"%d\" bit=\"%d\" />\n", 
-                     device->position_str, pdo_entry_mapping->pdo_entry->parent->index, 
+                     device->position, pdo_entry_mapping->pdo_entry->parent->index, 
                      pdo_entry_mapping->index, pdo_entry_mapping->sub_index, pdo_entry_mapping->offset, 
                      pdo_entry_mapping->bit_position);
             strncat(sbuf, line, scount-strlen(sbuf)-1);

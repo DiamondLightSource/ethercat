@@ -9,6 +9,7 @@ EC_DEVICE * find_device(EC_CONFIG * cfg, int position)
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
+
         if(device->position == position)
         {
             return device;
