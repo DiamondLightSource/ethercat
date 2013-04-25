@@ -35,7 +35,7 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 record(longin, "$(DEVICE):INPUT1:SLIMIT1")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__Limit1")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__Limit1")
   field("SCAN", "$(SCAN)")
 }
 
@@ -43,7 +43,7 @@ record(longin, "$(DEVICE):INPUT1:SLIMIT1")
 record(longin, "$(DEVICE):INPUT1:SLIMIT2")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__Limit2")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__Limit2")
   field("SCAN", "$(SCAN)")
 }
 
@@ -51,7 +51,7 @@ record(longin, "$(DEVICE):INPUT1:SLIMIT2")
 record(longin, "$(DEVICE):INPUT1:VALUE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Value")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Value")
   field("SCAN", "$(SCAN)")
 }
 
@@ -59,7 +59,7 @@ record(longin, "$(DEVICE):INPUT1:VALUE")
 record(longin, "$(DEVICE):INPUT2:SLIMIT1")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__Limit1")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__Limit1")
   field("SCAN", "$(SCAN)")
 }
 
@@ -67,7 +67,7 @@ record(longin, "$(DEVICE):INPUT2:SLIMIT1")
 record(longin, "$(DEVICE):INPUT2:SLIMIT2")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__Limit2")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__Limit2")
   field("SCAN", "$(SCAN)")
 }
 
@@ -75,7 +75,7 @@ record(longin, "$(DEVICE):INPUT2:SLIMIT2")
 record(longin, "$(DEVICE):INPUT2:VALUE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Value")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Value")
   field("SCAN", "$(SCAN)")
 }
 
@@ -83,7 +83,7 @@ record(longin, "$(DEVICE):INPUT2:VALUE")
 record(bi, "$(DEVICE):INPUT1:SUNDERRANGE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__Underrange")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__Underrange")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -93,7 +93,7 @@ record(bi, "$(DEVICE):INPUT1:SUNDERRANGE")
 record(bi, "$(DEVICE):INPUT1:SOVERRANGE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__Overrange")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__Overrange")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -103,7 +103,7 @@ record(bi, "$(DEVICE):INPUT1:SOVERRANGE")
 record(bi, "$(DEVICE):INPUT1:SERROR")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__Error")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__Error")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -113,7 +113,7 @@ record(bi, "$(DEVICE):INPUT1:SERROR")
 record(bi, "$(DEVICE):INPUT1:SSYNCERROR")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__Syncerror")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__Syncerror")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -123,7 +123,7 @@ record(bi, "$(DEVICE):INPUT1:SSYNCERROR")
 record(bi, "$(DEVICE):INPUT1:STXPDOSTATE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__TxPDOState")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__TxPDOState")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -133,7 +133,7 @@ record(bi, "$(DEVICE):INPUT1:STXPDOSTATE")
 record(bi, "$(DEVICE):INPUT1:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel1.Status__TxPDOToggle")
+  field("INP",  "@asyn($(PORT))AIInputsChannel1.Status__TxPDOToggle")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -143,7 +143,7 @@ record(bi, "$(DEVICE):INPUT1:STXPDOTOGGLE")
 record(bi, "$(DEVICE):INPUT2:SUNDERRANGE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__Underrange")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__Underrange")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -153,7 +153,7 @@ record(bi, "$(DEVICE):INPUT2:SUNDERRANGE")
 record(bi, "$(DEVICE):INPUT2:SOVERRANGE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__Overrange")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__Overrange")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -163,7 +163,7 @@ record(bi, "$(DEVICE):INPUT2:SOVERRANGE")
 record(bi, "$(DEVICE):INPUT2:SERROR")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__Error")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__Error")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -173,7 +173,7 @@ record(bi, "$(DEVICE):INPUT2:SERROR")
 record(bi, "$(DEVICE):INPUT2:SSYNCERROR")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__Syncerror")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__Syncerror")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -183,7 +183,7 @@ record(bi, "$(DEVICE):INPUT2:SSYNCERROR")
 record(bi, "$(DEVICE):INPUT2:STXPDOSTATE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__TxPDOState")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__TxPDOState")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -193,7 +193,7 @@ record(bi, "$(DEVICE):INPUT2:STXPDOSTATE")
 record(bi, "$(DEVICE):INPUT2:STXPDOTOGGLE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AITxPDO-MapStandardChannel2.Status__TxPDOToggle")
+  field("INP",  "@asyn($(PORT))AIInputsChannel2.Status__TxPDOToggle")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
@@ -203,7 +203,7 @@ record(bi, "$(DEVICE):INPUT2:STXPDOTOGGLE")
 record(longout, "$(DEVICE):OUTPUT3:ANALOGOUTPUT")
 {
   field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))AORxPDO-MapChannel3.Analogoutput")
+  field("OUT",  "@asyn($(PORT))AOOutputsChannel3.Analogoutput")
   field("OMSL", "supervisory")
 }
 
@@ -211,7 +211,7 @@ record(longout, "$(DEVICE):OUTPUT3:ANALOGOUTPUT")
 record(longout, "$(DEVICE):OUTPUT4:ANALOGOUTPUT")
 {
   field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))AORxPDO-MapChannel4.Analogoutput")
+  field("OUT",  "@asyn($(PORT))AOOutputsChannel4.Analogoutput")
   field("OMSL", "supervisory")
 }
 

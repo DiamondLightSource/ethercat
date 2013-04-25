@@ -32,7 +32,7 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longout, "$(DEVICE):OUTPUT1")
+record(longout, "$(DEVICE):OUTPUT1:ANALOGOUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))AOOutputsChannel1.Analogoutput")
@@ -40,7 +40,7 @@ record(longout, "$(DEVICE):OUTPUT1")
 }
 
 
-record(longout, "$(DEVICE):OUTPUT2")
+record(longout, "$(DEVICE):OUTPUT2:ANALOGOUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))AOOutputsChannel2.Analogoutput")
@@ -48,7 +48,7 @@ record(longout, "$(DEVICE):OUTPUT2")
 }
 
 
-record(longout, "$(DEVICE):OUTPUT3")
+record(longout, "$(DEVICE):OUTPUT3:ANALOGOUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))AOOutputsChannel3.Analogoutput")
@@ -56,7 +56,7 @@ record(longout, "$(DEVICE):OUTPUT3")
 }
 
 
-record(longout, "$(DEVICE):OUTPUT4")
+record(longout, "$(DEVICE):OUTPUT4:ANALOGOUTPUT")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))AOOutputsChannel4.Analogoutput")
