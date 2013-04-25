@@ -78,9 +78,53 @@ record(bo, "$(DEVICE):%(name)s")
 }
 """
 
+def shortenname(name):
+    "map long names to short"
+    map = { "AIINPUTSCHANNEL" : "INPUT",
+            "RTDINPUTSCHANNEL": "INPUT",
+            "TCTCINPUTSCHANNEL" : "INPUT",
+            "TCINPUTSCHANNEL": "INPUT",
+            "AISTANDARDCHANNEL" : "INPUT",
+            "RTDRTDINPUTSCHANNEL": "INPUT",
+            "STATUS__LIMIT" : "SLIMIT",
+            "AOOUTPUTSCHANNEL": "OUTPUT",
+            "STATUS__UNDERRANGE" : "SUNDERRANGE",
+            "STATUS__OVERRANGE" : "SOVERRANGE",
+            "STATUS__SYNCERROR": "SSYNCERROR",
+            "STATUS__ERROR" : "SERROR",
+            "STATUS__TXPDOSTATE": "STXPDOSTATE",
+            "STATUS__TXPDOTOGGLE": "STXPDOTOGGLE",
+            "STATUS__OUTPUTFUNCTIONSENABLED": "ENABLED",
+            "STATUS__STATUSOFOUTPUT": "SOUTPUT",
+            "STATUS__SETCOUNTERDONE": "DONE",
+            "STATUS__STATUSOFINPUTCLOCK": "SINPUTCLOCK",
+            "CNTOUTPUTS:SETCOUNTERVALUE": "CNTOUTPUTS:SET",
+            "CNTOUTPUTS:CONTROL__ENABLEOUTPUTFUNCTIONS" : "CNTOUTPUTS:ENABLE",           
+            "CNTINPUTS:STATUS__COUNTERINHIBITED": "CNTINPUTS:INHIBITED",
+            "CNTINPUTS:STATUS__STATUSOFINPUTUD" : "CNTINPUTS:SINPUTUD",
+            "CNTOUTPUTS:CONTROL__ENABLEOUTPUTFUNCTIONS": "CNTOUTPUTS:ENABLE",
+            "CNTOUTPUTS:CONTROL__SETOUTPUT" : "CNTOUTPUTS:CSETOUTPUT",
+            "CNTOUTPUTS:CONTROL__SETCOUNTER" : "CNTOUTPUTS:CSETCOUNTER",
+            "CNTOUTPUTS:CONTROL__INHIBITCOUNTER" : "CNTOUTPUTS:INHIBIT" ,
+            "STARTTIMENEXTOUTPUT:STARTTIMENEXTOUTPUT" : "STARTTIMENEXTOUTPUT",
+            "CH1CYCLECOUNT:CH1CYCLECOUNT" : "CH1CYCLECOUNT",
+            "CH2CYCLECOUNT:CH2CYCLECOUNT" : "CH2CYCLECOUNT", 
+            "NEXTSYNC1TIME:STARTTIMENEXTLATCH" :  "NEXTSYNC1TIME",
+            }
+    short = name.upper()
+    count = 0
+    print count,  short
+    for key in map:
+        count = count + 1
+        if short.find(key) > -1:
+            short = short.replace(key,map[key])
+            print count, short
+    return short
+
 def fixname(name):
     "make name conventional"
-    return name.replace(".", ":").upper()
+    return shortenname(name.replace(".", ":")).upper()
+
     
 def makeTemplate(longin, longout, bi, bo, output, base, devtype, revision):
     print "Generating template file %s" % output
