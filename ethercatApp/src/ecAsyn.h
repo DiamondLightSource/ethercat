@@ -62,6 +62,7 @@ public:
     ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid);
     EC_DEVICE * device;
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);
+    virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
 };
 
 #define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)
