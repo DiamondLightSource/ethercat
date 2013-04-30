@@ -302,6 +302,19 @@ void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
     unlock();
 }
 
+asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
+{
+  //  quick and dirty mapping for 16 bit ADCs 
+  //  This will not work for 24 bit ADCs!
+  static char *driverName = "ecAsyn";
+    *low = -32768;
+    *high = 32767;
+    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+              "%s::getBounds,low=%d, high=%d\n", 
+              driverName, *low, *high);
+    return(asynSuccess);  
+}
+
 void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 {
     lock();
