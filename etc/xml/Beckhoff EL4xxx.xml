@@ -116865,7 +116865,7 @@
 					<Name>AO Output Channel 1</Name>
 					<Entry>
 						<Index>#x7000</Index>
-						<SubIndex>17</SubIndex>
+						<SubIndex>1</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Analog output</Name>
 						<DataType DScale="+/-10">INT</DataType>
@@ -116876,7 +116876,7 @@
 					<Name>AO Output Channel 2</Name>
 					<Entry>
 						<Index>#x7010</Index>
-						<SubIndex>17</SubIndex>
+						<SubIndex>1</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Analog output</Name>
 						<DataType DScale="+/-10">INT</DataType>
@@ -116887,7 +116887,7 @@
 					<Name>AO Output Channel 3</Name>
 					<Entry>
 						<Index>#x7020</Index>
-						<SubIndex>17</SubIndex>
+						<SubIndex>1</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Analog output</Name>
 						<DataType DScale="+/-10">INT</DataType>
@@ -116898,7 +116898,7 @@
 					<Name>AO Output Channel 4</Name>
 					<Entry>
 						<Index>#x7030</Index>
-						<SubIndex>17</SubIndex>
+						<SubIndex>1</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Analog output</Name>
 						<DataType DScale="+/-10">INT</DataType>
