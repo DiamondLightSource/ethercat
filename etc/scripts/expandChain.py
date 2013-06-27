@@ -1,12 +1,12 @@
-#!/dls_sw/prod/tools/RHEL5/bin/dls-python2.6
+#!/bin/env dls-python
 
 from pkg_resources import require
-require("iocbuilder==3.24")
+require("iocbuilder==3.38")
 import iocbuilder
 import os, sys
 
-iocbuilder.ConfigureIOC(architecture = 'linux-x86')
-iocbuilder.ModuleVersion('asyn','4-19')
+iocbuilder.ConfigureIOC(architecture = 'linux-x86_64')
+iocbuilder.ModuleVersion('asyn','4-21')
 
 # work-around to import $(TOP)/etc/builder.py whether in prod or work
 scripts_dir = os.path.realpath(os.path.dirname(__file__))
