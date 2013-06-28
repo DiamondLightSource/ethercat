@@ -215,7 +215,7 @@ class EthercatMaster(Device):
         max_message = Simple("max scanner message size", int))
 
     def writeScannerStartup(self):
-        scanner_path = os.path.join(etcdir,'../bin/linux-x86/scanner')
+        scanner_path = os.path.join(etcdir,'../bin/linux-x86_64/scanner')
         self.scannerf.write(SCANNER_STARTUP_TEXT % dict(
                 scanner = os.path.realpath(scanner_path),
                 expanded_chain = "./" + self.expandedfile.name,
