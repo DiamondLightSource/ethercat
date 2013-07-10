@@ -306,7 +306,7 @@ asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *h
 {
   //  quick and dirty mapping for 16 bit ADCs 
   //  This will not work for 24 bit ADCs!
-  static char *driverName = "ecAsyn";
+  static const char *driverName = "ecAsyn";
     *low = -32768;
     *high = 32767;
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
@@ -544,7 +544,7 @@ static void makePorts(char * path, int max_message)
     ENGINE_USER * usr = (ENGINE_USER *)callocMustSucceed
         (1, sizeof(ENGINE_USER), "can't allocate socket engine private data");
     ellInit(&usr->ports);
-    usr->master = new ecMaster("MASTER0");
+    usr->master = new ecMaster((char *)"MASTER0");
     ellAdd(&usr->ports, &usr->master->node);
     usr->config_ready = rtMessageQueueCreate(1, sizeof(int));
     // TODO - no assert for runtime errors, so what should we use to throw?
