@@ -9,7 +9,7 @@ STATIC_BUILD=YES
 
 # work-around for ioc builder's benefit:
 # the symbol below moved from $(TOP)/configure/RELEASE
-VERSION=1-5-2dls3
+VERSION=1-5-2dls5
 ETHERLAB=/dls_sw/prod/tools/RHEL6-x86_64/ethercat/$(VERSION)
 ETHERLABPREFIX=$(ETHERLAB)/prefix
 
@@ -26,6 +26,8 @@ LIBRARY += scannerlib
 scannerlib_SRCS += parser.c classes.c unpack.c
 
 PROD += scanner
+# need private header file to disable errors being sent to stderr
+scanner_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/lib
 scanner_SRCS += scanner.c simulation.c
 scanner_LIBS += rtutils scannerlib Com
 

@@ -19,6 +19,8 @@
 #include "unpack.h"
 #include "simulation.h"
 
+#include "liberror.h"
+
 int debug = 1;
 int selftest = 1;
 int simulation = 0;
@@ -140,6 +142,8 @@ void cyclic_task(void * usr)
     ec_master_t * master = scanner->master;
     ec_domain_t * domain = scanner->domain;
     int simulation = scanner->simulation;
+    int error_to_console = 1;
+    int slave_info_status;
     uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
     EC_MESSAGE * msg = (EC_MESSAGE *)calloc(1, scanner->max_message);
@@ -162,6 +166,8 @@ void cyclic_task(void * usr)
         nslaves++;
     }
 
+    /* suppress errors to stderr */
+    ecrt_err_to_stderr = 0;
     while(1)
     {
         rtMessageQueueReceive(scanner->workq, msg, scanner->max_message);
@@ -290,7 +296,18 @@ void cyclic_task(void * usr)
                 {
                     EC_DEVICE * device = (EC_DEVICE *)node;
                     assert(device->position != -1);
-                    ecrt_master_get_slave(master, device->position, &slave_info);
+                    
+                    slave_info_status = ecrt_master_get_slave(master, device->position, &slave_info);
+                    if (slave_info_status != 0)
+                    {
+                        if (error_to_console)
+                        {
+                            fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
+                            error_to_console = 0;
+                        }
+                    }
+                    else
+                        error_to_console = 1;
                     msg->pdo.buffer[ofs++] = slave_info.al_state;
                     msg->pdo.buffer[ofs++] = slave_info.error_flag;
                 }
