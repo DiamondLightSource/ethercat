@@ -4,11 +4,6 @@ file master.db
     {"ECTEST", "", "999", "ECAT0"}
 
 }
-file ecAccumulate.db
-{
-    pattern {P, S, PORT, NELM}
-    {"ECTEST", ":200","ECAT1", "1000" }
-}
 file el4134.db
 {
     pattern {P, S, VADDR, PORT}
