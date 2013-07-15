@@ -85,6 +85,7 @@ int writeserial(int action, int base, int pos)
         printf("name:    %s\n", slave.name);
         printf("vendor:  0x%08x\n", slave.vendor_id);
         printf("product: 0x%08x\n", slave.product_code);
+        printf("revision: 0x%08x\n", slave.revision_number);
         uint32_t * serial = (uint32_t *)sii.words;
         printf("serial:  %d\n", serial[0]);
         
