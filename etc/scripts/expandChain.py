@@ -1,7 +1,7 @@
 #!/bin/env dls-python
 import os, sys
 
-# import $(TOP)/etc/builder/ethercat.py from this module
+# import ethercat.py from this module's builder
 scripts_dir = os.path.dirname(os.path.abspath(__file__))
 etc_dir = os.path.realpath(os.path.join(scripts_dir,'../'))
 builder_dir = os.path.realpath(os.path.join(etc_dir, 'builder'))
@@ -48,6 +48,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 # loads chain description, outputs complete config file...
