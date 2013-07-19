@@ -166,10 +166,10 @@ class EthercatChain:
         self.chainlist = []
         self.dev_descriptions = dict()
 
-    def setDevice(self, type_rev, position, portname, oversample):
-        assert( position not in self.chainlist )
-        self.chain[position] = EthercatChainElem(type_rev, position, portname, oversample)
-        self.chainlist.append(position)
+    def setDevice(self, chainelem):
+        assert( chainelem.position not in self.chainlist )
+        self.chain[chainelem.position] = chainelem
+        self.chainlist.append(chainelem.position)
 
     def getDeviceDescriptions(self):
         ''' populate the chain-elements' device descriptions from the

@@ -59,7 +59,7 @@ class EthercatMaster(Device):
                 socket_path = self.socket))
 
     def setSlave(self, slave):
-        self.chain.setDevice(slave.chainelem, position)
+        self.chain.setDevice(slave.chainelem)
 
     def getDeviceDescriptions(self):
         self.chain.getDeviceDescriptions()
@@ -79,14 +79,15 @@ class EthercatSlave(Device):
     def __init__(self, master, position, name, type_rev, oversample = 0):
         self.__super.__init__()
         self.master = master
-        self.chainelem = EthercatChainElem(type_rev, position, name, oversample)
+        self.chainelem = ethercat.EthercatChainElem(type_rev, position, name, oversample)
+        self.name = name
         self.master.setSlave(self)
 
     def getAllSignals(self):
-        if self.device == None:
+        if self.chainelem.device == None:
             self.master.getDeviceDescriptions()
-        assert( self.device != None)
-        return self.device.getDeviceSignals()
+        assert( self.chainelem.device != None)
+        return self.chainelem.device.getDeviceSignals()
 
     def getTypicalSignals(self):
         if self.device == None:
