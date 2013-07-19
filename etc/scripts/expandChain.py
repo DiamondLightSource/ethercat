@@ -1,28 +1,21 @@
 #!/bin/env dls-python
 
+import os, sys
 from pkg_resources import require
 require("iocbuilder==3.38")
 import iocbuilder
-import os, sys
+import iocbuilder.libversion
+from iocbuilder.libversion import ModuleVersion
 
-iocbuilder.ConfigureIOC(architecture = 'linux-x86_64')
-iocbuilder.ModuleVersion('asyn','4-21')
+# import $(TOP)/etc/builder/ethercat.py from this module
+scripts_dir = os.path.dirname(os.path.abspath(__file__))
+etc_dir = os.path.realpath(os.path.join(scripts_dir,'../'))
+builder_dir = os.path.realpath(os.path.join(etc_dir, 'builder'))
 
-# work-around to import $(TOP)/etc/builder.py whether in prod or work
-scripts_dir = os.path.realpath(os.path.dirname(__file__))
-top_dir = os.path.realpath(os.path.join(scripts_dir, '../..'))
-module_top, release_num= os.path.split(top_dir)
-if module_top.endswith("/ethercat"):
-    #released version of ethercat module
-    iocbuilder.ModuleVersion('ethercat',release_num)
-else:
-    modules_home, module_name = os.path.split(top_dir)
-    assert module_name == "ethercat", \
-            "Unexpected module name - should be 'ethercat'"
-    iocbuilder.ModuleVersion(module_name, home=modules_home)
+if builder_dir not in sys.path:
+    sys.path.insert(0, builder_dir)
 
-from iocbuilder.modules import ethercat
-from iocbuilder.modules.ethercat import parseInt, EthercatSlave, EthercatMaster
+import ethercat
 
 def main():
     if len(sys.argv) != 2:
