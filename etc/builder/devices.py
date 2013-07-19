@@ -59,7 +59,7 @@ class EthercatMaster(Device):
                 socket_path = self.socket))
 
     def setSlave(self, slave):
-        self.chain.setSlave(slave)
+        self.chain.setDevice(slave.chainelem, position)
 
     def getDeviceDescriptions(self):
         self.chain.getDeviceDescriptions()
@@ -75,23 +75,11 @@ class EthercatSlave(Device):
     Dependencies = ( Asyn, )
     LibFileList = [ 'ecAsyn' ]
     DbdFileList = [ 'ecAsyn' ]
-    # Set of allocated positions to avoid accidential duplication
-    __Positions = set()
-    _class_initialised = False
 
     def __init__(self, master, position, name, type_rev, oversample = 0):
         self.__super.__init__()
         self.master = master
-        assert position not in self.__Positions, \
-            "Slave position %d already taken" % position
-        self.position = position
-        self.__Positions.add(position)
-        self.name = name
-        self.type_rev = type_rev
-        self.type = type_rev.split(" rev ")[0]
-        self.revision = int(type_rev.split(" rev ")[1], 16)
-        self.oversample = oversample
-        self.device = None
+        self.chainelem = EthercatChainElem(type_rev, position, name, oversample)
         self.master.setSlave(self)
 
     def getAllSignals(self):
