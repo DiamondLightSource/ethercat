@@ -65,7 +65,17 @@ int main(int argc, char ** argv) {
         printf("name: %s\n", slave_info.name); /**< Name of the slave. */
 #endif
 
-        char * name = strtok(slave_info.name, " ");
+        /* slave.info name shows a whole name such as  */
+        /* EL2024 4K. Dig. Ausgang 24V, 2A rev 0x00110000 */
+        /* trim to the first space. */
+        /* There's a special case for the national instruments backplane */
+#define NI9144_NAME "NI 9144"
+        char *name;
+        if (strcmp(slave_info.name, NI9144_NAME) == 0)
+          name = slave_info.name;
+        else
+          name = strtok(slave_info.name, " ");
+        
         if(name == NULL) {
             name = "NAME ERROR";
         }
