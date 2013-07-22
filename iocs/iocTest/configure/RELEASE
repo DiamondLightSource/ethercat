@@ -20,8 +20,8 @@
 # CONFIG_SITE file.
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
-ETHERCAT=$(TOP)/../../misc/tests/ioc
-ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-14
+ETHERCAT=$(TOP)/../..
+ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-17
 
 # If using the sequencer, point SNCSEQ at its top directory:
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq

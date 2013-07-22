@@ -10,7 +10,7 @@ DBD += boxTest.dbd
 # boxTest.dbd will be created from these files
 boxTest_DBD += base.dbd
 boxTest_DBD += asyn.dbd
-boxTest_DBD += ecAsynPortSupport.dbd
+boxTest_DBD += ecAsyn.dbd
 
 # boxTest_registerRecordDeviceDriver.cpp will be created
 # boxTest.dbd
@@ -29,7 +29,7 @@ boxTest_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 # This line says that this IOC Application depends on the
 # xxx Support Module
 boxTest_LIBS += asyn
-boxTest_LIBS += ethercatSupport
+boxTest_LIBS += ecAsyn
 
 # We need to link this IOC Application against the EPICS Base libraries
 boxTest_LIBS += $(EPICS_BASE_IOC_LIBS)
