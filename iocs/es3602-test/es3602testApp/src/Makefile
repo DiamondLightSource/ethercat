@@ -14,7 +14,7 @@ DBD += es3602test.dbd
 # es3602test.dbd will be created from these files
 es3602test_DBD += base.dbd
 es3602test_DBD += asyn.dbd
-es3602test_DBD += ecAsynPortSupport.dbd
+es3602test_DBD += ecAsyn.dbd
 #es3602test_DBD += xxx.dbd
 
 # es3602test_registerRecordDeviceDriver.cpp will be created
@@ -37,7 +37,7 @@ es3602test_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
 # We need to link this IOC Application against the EPICS Base libraries
 es3602test_LIBS += asyn
-es3602test_LIBS += ethercatSupport
+es3602test_LIBS += ecAsyn
 es3602test_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 include $(TOP)/configure/RULES
