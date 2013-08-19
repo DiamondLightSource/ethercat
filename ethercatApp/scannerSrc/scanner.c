@@ -559,8 +559,10 @@ int ethercat_init(SCANNER * scanner)
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         assert(device->device_type);    
-        printf("DEVICE:       name \"%s\" type \"%s\" position %d\n", \
-               device->name, device->type_name, device->position);        
+        printf("DEVICE:       name \"%s\" "
+               "type \"%s\" rev %d position %d\n", 
+               device->name, device->type_name, 
+               device->type_revid, device->position);        
         device_initialize(scanner, device);
     }
     printf("PDO SIZE:     %d\n", scanner->pdo_size);

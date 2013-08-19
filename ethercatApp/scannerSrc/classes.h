@@ -1,4 +1,5 @@
 #include <libxml/parser.h>
+#include <ellLib.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,6 +96,7 @@ struct EC_DEVICE_TYPE
     char * name;
     int vendor_id;
     int product_id;
+    int revision_id;
     int oversampling_activate;
     ELLLIST sync_managers;
 };
@@ -104,6 +106,7 @@ struct EC_DEVICE
     ELLNODE node;
     char * name;
     char * type_name;
+    int type_revid;
     int position;
     int oversampling_rate;
     ELLLIST pdo_entry_mappings;
@@ -144,7 +147,7 @@ struct EC_DCS_LOOKUP
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
 EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int sub_index);
-EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name);
+EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name, int revision_id);
 EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no, 
                                         int bit_length);
 

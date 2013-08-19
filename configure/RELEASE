@@ -26,17 +26,10 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 IOCBUILDER = /dls_sw/prod/common/python/iocbuilder/3-9
 PYTHON = dls-python2.6
-ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-17
-#ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-19
-
+ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-19
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/dls_sw/epics/R3.14.11/base
-
-# ugly work-around for ioc builder's benefit:
-# the symbol below moved to ethercatApp/scannerSrc/Makefile
-#ETHERLAB=/dls_sw/prod/R3.14.11/support/etherlab/1-5-pre
-
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:

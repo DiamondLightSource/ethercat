@@ -34,4 +34,8 @@ serialtool_SRCS += serialtool.c
 PROD += slaveinfo
 slaveinfo_SRCS += slaveinfo.c
 
+PROD += testParser
+testParser_SRCS += testParser.c 
+testParser_LIBS += scannerlib Com
+
 include $(TOP)/configure/RULES
