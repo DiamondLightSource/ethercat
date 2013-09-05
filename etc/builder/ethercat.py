@@ -229,7 +229,6 @@ class EthercatChain:
         o = o + "</scanner>\n"
         return o
 
-        
 ############### module functions
 
 def initialise(forceInitialisation = False):
@@ -247,7 +246,6 @@ def initialise(forceInitialisation = False):
         types_choice = ["%s rev 0x%08x" % key \
                 for key in sorted(types_dict.keys())]
         pdo_entry_choices =  ["%s : %s rev 0x%08x" % k for k in getPdoEntryChoices(types_dict) ]
-
 
 def filteredDescriptions(dev_descriptions = None,filter = None):
     '''returns a dictionary of devices filtered by typename''' 
@@ -371,5 +369,3 @@ def parseTypeRev(type_rev):
     devtype = type_rev.split(" rev ")[0]
     revision = int(type_rev.split(" rev ")[1], 16)
     return (devtype, revision)
-
-

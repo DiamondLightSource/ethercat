@@ -38,7 +38,8 @@ def main():
         oversample_xml = d.xpathEval("@oversample")
         if len(oversample_xml):
            oversample = ethercat.parseInt(d.xpathEval("@oversample")[0].content)
-        chain.setDevice(type_rev, position, portname, oversample)
+        chainElem = ethercat.EthercatChainElem(type_rev, position, portname, oversample)
+        chain.setDevice(chainElem)
         
     ethercat.initialise()
     chain.getDeviceDescriptions()
