@@ -161,7 +161,7 @@ public:
             if(lastCycle == cyc)
             {
                 // skip duplicates
-            	//printf("%s Duplicate %d\n", parent->portName, cyc);
+                //printf("%s Duplicate %d\n", parent->portName, cyc);
                 return;
             }
             if((lastCycle + 1) % 65536 != cyc)
@@ -217,8 +217,9 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
                    NUM_SLAVE_PARAMS + pdos, /* max parameters */
-                   asynInt32Mask | asynInt32ArrayMask | asynDrvUserMask, /* interface mask*/
-                   asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
+                   asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
+                   | asynDrvUserMask, /* interface mask*/
+                   asynOctetMask| asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
                    0, /* non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
@@ -236,6 +237,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         sampler_config_t * conf = (sampler_config_t *)node;
         if(strcmp(conf->port, device->name) == 0)
         {
+            printf("sampler ports for device %s\n", device->name);
             Sampler * s = NULL;
             EC_PDO_ENTRY_MAPPING * sample_mapping = mapping_by_name(device, conf->sample);
             if(sample_mapping != NULL)
@@ -279,10 +281,27 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         n++;
     }
 
-    createParam("AL_STATE", asynParamInt32, &P_AL_STATE);
-    createParam("ERROR_FLAG", asynParamInt32, &P_ERROR_FLAG);
-    createParam("DISABLE", asynParamInt32, &P_DISABLE);
+    int status = asynSuccess;
+    status |= createParam(ECALStateString,   asynParamInt32, &P_AL_STATE);
+    status |= createParam(ECErrorFlagString, asynParamInt32, &P_ERROR_FLAG);
+    status |= createParam(ECDisableString,   asynParamInt32, &P_DISABLE);
+    status |= createParam(ECDeviceTypename,  asynParamOctet, &P_DEVTYPENAME);
+    status |= createParam(ECDeviceRevision,  asynParamOctet, &P_DEVREVISION);
+    status |= createParam(ECDevicePosition,  asynParamOctet, &P_DEVPOSITION);
+    status |= createParam(ECDeviceName,      asynParamOctet, &P_DEVNAME);
+    assert(status == asynSuccess);
     setIntegerParam(P_DISABLE, 1);
+
+    status = asynSuccess;
+    char *rev_string = format("Rev 0x%x", device->type_revid);
+    char *posbuffer = format("Pos %d", device->position);
+    status |= setStringParam(P_DEVNAME, device->name);
+    status |= setStringParam(P_DEVPOSITION, posbuffer);
+    status |= setStringParam(P_DEVREVISION, rev_string);
+    status |= setStringParam(P_DEVTYPENAME, device->type_name);
+    free(posbuffer);
+    free(rev_string);
+    assert(status == asynSuccess);
 
 }
 
@@ -306,9 +325,9 @@ asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *h
 {
   //  quick and dirty mapping for 16 bit ADCs 
   //  This will not work for 24 bit ADCs!
-  static const char *driverName = "ecAsyn";
-    *low = -32768;
-    *high = 32767;
+    static const char *driverName = "ecAsyn";
+    *low = -32768; //-8388608;
+    *high = 32767; //8388607;
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
               "%s::getBounds,low=%d, high=%d\n", 
               driverName, *low, *high);
@@ -371,6 +390,10 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return status;
 }
 
+/*
+ *  read configuration sent by scanner and populate "config" in 
+ *  ENGINE_USER structure
+ */
 static int init_unpack(ENGINE_USER * usr, char * buffer, int size)
 {
     EC_CONFIG * cfg = usr->config;
@@ -413,7 +436,10 @@ static void readConfig(ENGINE_USER * usr)
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        ecAsyn * port = new ecAsyn(device, device->pdo_entry_mappings.count, usr, ndev);
+        printf("Creating ecAsyn port No %d: %s\n", ndev, device->name);
+        ecAsyn * port = new ecAsyn(device, 
+                                   device->pdo_entry_mappings.count, 
+                                   usr, ndev);
         ellAdd(&usr->ports, &port->node);
         ndev++;
     }
