@@ -89,13 +89,15 @@ EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
     return NULL;
 }
 
-EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * name)
+EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name, 
+                                  int revision_id)
 {
     ELLNODE * node;
     for(node = ellFirst(&cfg->device_types); node; node = ellNext(node))
     {
         EC_DEVICE_TYPE * device_type = (EC_DEVICE_TYPE *)node;
-        if(strcmp(device_type->name, name) == 0)
+        if( (strcmp(device_type->name, type_name) == 0)
+            && (device_type->revision_id == revision_id) )
         {
             return device_type;
         }
