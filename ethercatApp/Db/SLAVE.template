@@ -32,9 +32,45 @@ record(longin, "$(DEVICE):ERROR_FLAG")
   field(SCAN, "$(SCAN)")
 }
 
-record(longin, "$(DEVICE):DISABLE")
+record(mbbi, "$(DEVICE):DISABLE")
 {
   field(DTYP, "asynInt32")
   field(INP,  "@asyn($(PORT))DISABLE")
   field(SCAN, "$(SCAN)")
+  field(ZRVL, "0")
+  field(ONVL, "1")
+  field(UNSV, "MAJOR")
+  field(ZRSV, "NO_ALARM")
+  field(ONSV, "INVALID")
+  field(ZRST, "ENABLED")
+  field(ONST, "DISABLED")
+}
+
+record(stringin, "$(DEVICE):DEVTYPENAME")
+{
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT))DEV_TYPENAME")
+   field(VAL,  "Unknown")
+   field(SCAN, "I/O Intr")
+}
+record(stringin, "$(DEVICE):DEVREVISION")
+{
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT))DEV_REVISION")
+   field(VAL,  "Unknown")
+   field(SCAN, "I/O Intr")
+}
+record(stringin, "$(DEVICE):DEVPOSITION")
+{
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT))DEV_POSITION")
+   field(VAL,  "Unknown")
+   field(SCAN, "I/O Intr")
+}
+record(stringin, "$(DEVICE):DEVNAME")
+{
+   field(DTYP, "asynOctetRead")
+   field(INP,  "@asyn($(PORT))DEV_NAME")
+   field(VAL,  "Unknown")
+   field(SCAN, "I/O Intr")
 }
