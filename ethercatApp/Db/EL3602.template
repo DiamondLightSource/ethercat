@@ -6,7 +6,7 @@
 # % macro, DEVICE, device name
 # % macro, PORT,   asyn port for device
 # % macro, SCAN,   scan rate
-
+# % gui, $(name=), edmembed, EL3602-embed.edl, DEVICE=$(DEVICE)
 
 record(mbbi, "$(DEVICE):AL_STATE")
 {
@@ -22,7 +22,6 @@ record(mbbi, "$(DEVICE):AL_STATE")
   field("THST", "SAFEOP")
   field("FRST", "OP")
 }
-
 
 record(longin, "$(DEVICE):ERROR_FLAG")
 {
