@@ -565,6 +565,15 @@ static int ioc_receive(ENGINE * server)
     return size;
 }
 
+/*
+ * Driver initialisation at IOC startup (ecAsynInit)
+ *
+ * path - location of Unix Domain Socket, must match the scanner's
+ * max_message - maximum size of messages between scanner and ioc
+ *               This must be able to accommodate the configuration
+ *               of the chain that is transferred from the scanner to 
+ *               the ioc.
+ */
 static void makePorts(char * path, int max_message)
 {
     ENGINE_USER * usr = (ENGINE_USER *)callocMustSucceed
