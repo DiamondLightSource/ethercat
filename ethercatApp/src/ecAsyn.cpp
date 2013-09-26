@@ -213,6 +213,9 @@ ecMaster::ecMaster(char * name) :
     createParam("WcState", asynParamInt32, &P_WcState);
 }
 
+/**
+ *  Creation of asyn port for an ethercat slave
+ */
 ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
@@ -220,7 +223,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
                    asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
                    | asynDrvUserMask, /* interface mask*/
                    asynOctetMask| asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
-                   0, /* non-blocking, no addresses */
+                   0, /* asyn flags: non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
                    0) /* default stack size */,
@@ -266,6 +269,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     P_First_PDO = -1;
     for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
+        assert(n < pdos);
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * name = makeParamName(mapping);
         printf("createParam %s\n", name);
@@ -279,6 +283,18 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         mapping->pdo_entry->parameter = param;
         mappings[n] = mapping;
         n++;
+    }
+
+    if ( (strcmp(this->device->type_name, "EL3602") == 0)
+         && (this->device->type_revid == 0x00120000) )
+    {
+        for( n = 0; n < pdos; n++)
+        {
+            // The ADC values for Beckhoff EL3602 are encoded in the
+            // top 3 bytes of the 32 bit word
+            if ( mappings[n]->pdo_entry->bits == 32 )
+                mappings[n]->shift = 8;
+        }
     }
 
     int status = asynSuccess;
@@ -323,11 +339,52 @@ void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
 
 asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
 {
-  //  quick and dirty mapping for 16 bit ADCs 
-  //  This will not work for 24 bit ADCs!
     static const char *driverName = "ecAsyn";
-    *low = -32768; //-8388608;
-    *high = 32767; //8388607;
+    printf("Device name: %s", this->device->type_name);
+    int cmd = pasynUser->reason;
+    if (cmd >= P_First_PDO && cmd <= P_Last_PDO)
+    {
+        int pdo = cmd - P_First_PDO;
+        assert(pdo >= 0 && pdo < pdos);
+        EC_PDO_ENTRY_MAPPING * mapping = mappings[pdo];
+        switch (mapping->pdo_entry->bits)
+        {
+        case 24:
+            *low = -8388608;
+            *high = 8388607;
+            break;
+        case 16:
+            *low = -32768;
+            *high = 32767;
+            break;
+        case 32:
+            if (mapping->shift == 8)
+            {
+                *low = -8388608;
+                *high = 8388607;
+            }
+            else
+            {
+                *low = INT32_MIN;
+                *high = INT32_MAX;
+            }
+            break;
+        default:
+            *low = 0;
+            *high = 0;
+        }
+        
+        if ( ( strcmp(this->device->type_name, "EL3602") == 0 ) 
+             && this->device->type_revid == 0x00120000 )
+        {
+            mapping->shift = 8;
+        }
+    }
+    else
+    {
+        *low = 0;
+        *high = 0;
+    }
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
               "%s::getBounds,low=%d, high=%d\n", 
               driverName, *low, *high);

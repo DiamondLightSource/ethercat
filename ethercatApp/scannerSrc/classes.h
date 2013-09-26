@@ -104,19 +104,24 @@ struct EC_DEVICE_TYPE
 struct EC_DEVICE
 {
     ELLNODE node;
-    char * name;
-    char * type_name;
-    int type_revid;
-    int position;
-    char * dcs_number;
-    int oversampling_rate;
+    char * name;              /*< asyn port name, e.g. ERIO.1*/
+    char * type_name;         /*< device type name, e.g. EL3602 */
+    int type_revid;           /*< dev revision, e.g. 0x00120000 */
+    int position;             /*< position in the bus */
+    char * dcs_number;        /*< position encoded as DCS number (if any) */
+    int oversampling_rate;    
     ELLLIST pdo_entry_mappings;
     // lookup device type by name
     EC_DEVICE_TYPE * device_type;
     ELLLIST simspecs;
 };
 
-// binary
+/*
+   [2013-09-16 Mon 12:50:22 ] Adding "shift" field to support EL3602,
+   the only 24 bit module that has its raw value sent as the top 24
+   bits of a 32 bit word.  For this slaves value field, "shift" will
+   be set to "8" to divide by 256 before passing to the asyn layer.
+ */
 struct EC_PDO_ENTRY_MAPPING
 {
     ELLNODE node;
@@ -127,6 +132,7 @@ struct EC_PDO_ENTRY_MAPPING
     int index;
     int sub_index;
     int device_position;
+    int shift;              /*< count of bits to right shift */
     st_signal *sim_signal;
 };
 
