@@ -88,7 +88,8 @@ class Pdo:
         return [ x.makeParamName() for x in self.entries ]
         
 class EthercatDevice:
-    ''' An EtherCAT device description, typically parsed from the manufacturer's description'''
+    ''' An EtherCAT device description, 
+        parsed from the manufacturer's description'''
     def __init__(self, type, vendor, product, revision ):
         self.type = type
         self.vendor = vendor
