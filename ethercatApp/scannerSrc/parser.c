@@ -457,8 +457,13 @@ int dump(xmlNode * node, CONTEXT * ctx)
     return 1;
 }
 
-
-
+/*
+ * populate an EC_CONFIG from xml document
+ *
+ * <code>cfg</code> - structure to be populated
+ * 
+ * <code>config</code> - xml document read in memory
+ */
 int read_config2(char * config, int size, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
