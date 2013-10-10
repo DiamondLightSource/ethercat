@@ -47,11 +47,14 @@ record(longin, "$(DEVICE):INPUT1:LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT1:VALUE")
+record(ai, "$(DEVICE):INPUT1:VALUE")
 {
-  field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AIInputsChannel1.Value")
-  field("SCAN", "$(SCAN)")
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))AIInputsChannel1.Value")
+  field(SCAN, "$(SCAN)")
+  field(EGUF, "10")
+  field(EGUL, "-10")
+  field(LINR, "LINEAR")
 }
 
 
@@ -71,13 +74,15 @@ record(longin, "$(DEVICE):INPUT2:LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT2:VALUE")
+record(ai, "$(DEVICE):INPUT2:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Value")
   field("SCAN", "$(SCAN)")
+  field("EGUF", "10")
+  field("EGUL", "-10")
+  field(LINR, "LINEAR")
 }
-
 
 record(bi, "$(DEVICE):INPUT1:UNDERRANGE")
 {
