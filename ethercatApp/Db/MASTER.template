@@ -1,6 +1,5 @@
 # ethercat MASTER.template
 # % macro, DEVICE, EtherCAT Master
-# % macro, PORT, asyn port for EtherCAT master
 # % macro, SCAN, poll period
 # % macro, name, Object name and gui association name
 
@@ -8,21 +7,21 @@
 record(longin, "$(DEVICE):CYCLE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Cycle")
+  field("INP",  "@asyn(MASTER0)Cycle")
   field("SCAN", ".1 second")
 }
 
 record(longin, "$(DEVICE):MISSED")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))Missed")
+  field("INP",  "@asyn(MASTER0)Missed")
   field("SCAN", "$(SCAN)")
 }
 
 record(longin, "$(DEVICE):WORKINGCOUNTER")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))WorkingCounter")
+  field("INP",  "@asyn(MASTER0)WorkingCounter")
   field("SCAN", "$(SCAN)")
   info("archiver", "1 Monitor")
 }
@@ -30,7 +29,7 @@ record(longin, "$(DEVICE):WORKINGCOUNTER")
 record(mbbi, "$(DEVICE):WCSTATE")
 {
   field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))WcState")
+  field("INP",  "@asyn(MASTER0)WcState")
   field("SCAN", "$(SCAN)")
   field("ZRVL", "0")
   field("ONVL", "1")

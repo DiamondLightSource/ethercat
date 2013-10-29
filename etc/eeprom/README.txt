@@ -23,7 +23,8 @@ ethercat sii_write -m0 -p8 ni_9144_rev_1.bin
 
 The 'ethercat' tool (from etherlab) is installed under 
 
-/dls_sw/prod/R3.14.11/support/etherlab/<etherlab_release>/opt/<arch>/etherlab/bin
+version=1.5.2dls3
+/dls_sw/prod/tools/RHEL6-x86_64/ethercat/${version}/prefix/bin/ethercat
 
 <etherlab_release> is 1-5-pre or 1-5-1 (june 2012)
 <arch> is usually linux-x86

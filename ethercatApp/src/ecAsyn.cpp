@@ -161,7 +161,7 @@ public:
             if(lastCycle == cyc)
             {
                 // skip duplicates
-            	//printf("%s Duplicate %d\n", parent->portName, cyc);
+                //printf("%s Duplicate %d\n", parent->portName, cyc);
                 return;
             }
             if((lastCycle + 1) % 65536 != cyc)
@@ -213,13 +213,17 @@ ecMaster::ecMaster(char * name) :
     createParam("WcState", asynParamInt32, &P_WcState);
 }
 
+/**
+ *  Creation of asyn port for an ethercat slave
+ */
 ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
                    NUM_SLAVE_PARAMS + pdos, /* max parameters */
-                   asynInt32Mask | asynInt32ArrayMask | asynDrvUserMask, /* interface mask*/
-                   asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
-                   0, /* non-blocking, no addresses */
+                   asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
+                   | asynDrvUserMask, /* interface mask*/
+                   asynOctetMask| asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
+                   0, /* asyn flags: non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
                    0) /* default stack size */,
@@ -236,6 +240,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         sampler_config_t * conf = (sampler_config_t *)node;
         if(strcmp(conf->port, device->name) == 0)
         {
+            printf("sampler ports for device %s\n", device->name);
             Sampler * s = NULL;
             EC_PDO_ENTRY_MAPPING * sample_mapping = mapping_by_name(device, conf->sample);
             if(sample_mapping != NULL)
@@ -264,6 +269,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
     P_First_PDO = -1;
     for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
+        assert(n < pdos);
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * name = makeParamName(mapping);
         printf("createParam %s\n", name);
@@ -279,10 +285,39 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         n++;
     }
 
-    createParam("AL_STATE", asynParamInt32, &P_AL_STATE);
-    createParam("ERROR_FLAG", asynParamInt32, &P_ERROR_FLAG);
-    createParam("DISABLE", asynParamInt32, &P_DISABLE);
+    if ( (strcmp(this->device->type_name, "EL3602") == 0)
+         && (this->device->type_revid == 0x00120000) )
+    {
+        for( n = 0; n < pdos; n++)
+        {
+            // The ADC values for Beckhoff EL3602 are encoded in the
+            // top 3 bytes of the 32 bit word
+            if ( mappings[n]->pdo_entry->bits == 32 )
+                mappings[n]->shift = 8;
+        }
+    }
+
+    int status = asynSuccess;
+    status |= createParam(ECALStateString,   asynParamInt32, &P_AL_STATE);
+    status |= createParam(ECErrorFlagString, asynParamInt32, &P_ERROR_FLAG);
+    status |= createParam(ECDisableString,   asynParamInt32, &P_DISABLE);
+    status |= createParam(ECDeviceTypename,  asynParamOctet, &P_DEVTYPENAME);
+    status |= createParam(ECDeviceRevision,  asynParamOctet, &P_DEVREVISION);
+    status |= createParam(ECDevicePosition,  asynParamOctet, &P_DEVPOSITION);
+    status |= createParam(ECDeviceName,      asynParamOctet, &P_DEVNAME);
+    assert(status == asynSuccess);
     setIntegerParam(P_DISABLE, 1);
+
+    status = asynSuccess;
+    char *rev_string = format("Rev 0x%x", device->type_revid);
+    char *posbuffer = format("Pos %d", device->position);
+    status |= setStringParam(P_DEVNAME, device->name);
+    status |= setStringParam(P_DEVPOSITION, posbuffer);
+    status |= setStringParam(P_DEVREVISION, rev_string);
+    status |= setStringParam(P_DEVTYPENAME, device->type_name);
+    free(posbuffer);
+    free(rev_string);
+    assert(status == asynSuccess);
 
 }
 
@@ -304,11 +339,52 @@ void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
 
 asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
 {
-  //  quick and dirty mapping for 16 bit ADCs 
-  //  This will not work for 24 bit ADCs!
-  static char *driverName = "ecAsyn";
-    *low = -32768;
-    *high = 32767;
+    static const char *driverName = "ecAsyn";
+    printf("Device name: %s", this->device->type_name);
+    int cmd = pasynUser->reason;
+    if (cmd >= P_First_PDO && cmd <= P_Last_PDO)
+    {
+        int pdo = cmd - P_First_PDO;
+        assert(pdo >= 0 && pdo < pdos);
+        EC_PDO_ENTRY_MAPPING * mapping = mappings[pdo];
+        switch (mapping->pdo_entry->bits)
+        {
+        case 24:
+            *low = -8388608;
+            *high = 8388607;
+            break;
+        case 16:
+            *low = -32768;
+            *high = 32767;
+            break;
+        case 32:
+            if (mapping->shift == 8)
+            {
+                *low = -8388608;
+                *high = 8388607;
+            }
+            else
+            {
+                *low = INT32_MIN;
+                *high = INT32_MAX;
+            }
+            break;
+        default:
+            *low = 0;
+            *high = 0;
+        }
+        
+        if ( ( strcmp(this->device->type_name, "EL3602") == 0 ) 
+             && this->device->type_revid == 0x00120000 )
+        {
+            mapping->shift = 8;
+        }
+    }
+    else
+    {
+        *low = 0;
+        *high = 0;
+    }
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
               "%s::getBounds,low=%d, high=%d\n", 
               driverName, *low, *high);
@@ -371,6 +447,10 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return status;
 }
 
+/*
+ *  read configuration sent by scanner and populate "config" in 
+ *  ENGINE_USER structure
+ */
 static int init_unpack(ENGINE_USER * usr, char * buffer, int size)
 {
     EC_CONFIG * cfg = usr->config;
@@ -413,7 +493,10 @@ static void readConfig(ENGINE_USER * usr)
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        ecAsyn * port = new ecAsyn(device, device->pdo_entry_mappings.count, usr, ndev);
+        printf("Creating ecAsyn port No %d: %s\n", ndev, device->name);
+        ecAsyn * port = new ecAsyn(device, 
+                                   device->pdo_entry_mappings.count, 
+                                   usr, ndev);
         ellAdd(&usr->ports, &port->node);
         ndev++;
     }
@@ -539,12 +622,21 @@ static int ioc_receive(ENGINE * server)
     return size;
 }
 
+/*
+ * Driver initialisation at IOC startup (ecAsynInit)
+ *
+ * path - location of Unix Domain Socket, must match the scanner's
+ * max_message - maximum size of messages between scanner and ioc
+ *               This must be able to accommodate the configuration
+ *               of the chain that is transferred from the scanner to 
+ *               the ioc.
+ */
 static void makePorts(char * path, int max_message)
 {
     ENGINE_USER * usr = (ENGINE_USER *)callocMustSucceed
         (1, sizeof(ENGINE_USER), "can't allocate socket engine private data");
     ellInit(&usr->ports);
-    usr->master = new ecMaster("MASTER0");
+    usr->master = new ecMaster((char *)"MASTER0");
     ellAdd(&usr->ports, &usr->master->node);
     usr->config_ready = rtMessageQueueCreate(1, sizeof(int));
     // TODO - no assert for runtime errors, so what should we use to throw?

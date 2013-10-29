@@ -6,7 +6,7 @@
 # % macro, DEVICE, device name
 # % macro, PORT,   asyn port for device
 # % macro, SCAN,   scan rate
-
+# % gui, $(name=), edmembed, EL3602-embed.edl, DEVICE=$(DEVICE)
 
 record(mbbi, "$(DEVICE):AL_STATE")
 {
@@ -22,7 +22,6 @@ record(mbbi, "$(DEVICE):AL_STATE")
   field("THST", "SAFEOP")
   field("FRST", "OP")
 }
-
 
 record(longin, "$(DEVICE):ERROR_FLAG")
 {
@@ -48,11 +47,14 @@ record(longin, "$(DEVICE):INPUT1:LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT1:VALUE")
+record(ai, "$(DEVICE):INPUT1:VALUE")
 {
-  field("DTYP", "asynInt32")
-  field("INP",  "@asyn($(PORT))AIInputsChannel1.Value")
-  field("SCAN", "$(SCAN)")
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))AIInputsChannel1.Value")
+  field(SCAN, "$(SCAN)")
+  field(EGUF, "10")
+  field(EGUL, "-10")
+  field(LINR, "LINEAR")
 }
 
 
@@ -72,13 +74,15 @@ record(longin, "$(DEVICE):INPUT2:LIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT2:VALUE")
+record(ai, "$(DEVICE):INPUT2:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))AIInputsChannel2.Value")
   field("SCAN", "$(SCAN)")
+  field("EGUF", "10")
+  field("EGUL", "-10")
+  field(LINR, "LINEAR")
 }
-
 
 record(bi, "$(DEVICE):INPUT1:UNDERRANGE")
 {

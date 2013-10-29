@@ -66,6 +66,7 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
     
     int bytes = (mapping->pdo_entry->bits - 1) / 8 + 1;
     buffer += mapping->offset + index * bytes;
+    
 
     switch(mapping->pdo_entry->bits)
     {
@@ -111,6 +112,8 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
             // discard top bit
             value &= INT32_MAX;
         }
+        if(mapping->shift > 0)
+            value = value >> mapping->shift;
         break;
     default:
         if(mapping->pdo_entry->bits > 32)

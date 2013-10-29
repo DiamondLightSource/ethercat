@@ -44,6 +44,16 @@ public:
     }
 };
 
+/** Strings defining parameters for a slave port
+ */
+#define ECALStateString     "AL_STATE"      /**< (asynInt32, r/o) slave state */
+#define ECErrorFlagString   "ERROR_FLAG"    /**< (asynInt32, r/o) slave's error flag */
+#define ECDisableString     "DISABLE"       /**< (asynInt32, r/o) slave's disabled flag */ 
+#define ECDeviceTypename    "DEV_TYPENAME"  /**< (asynOctect, r/o) device type */
+#define ECDeviceRevision    "DEV_REVISION"  /**< (asynoctect, r/o) device revision */
+#define ECDevicePosition    "DEV_POSITION"  /**< (asynOctect, r/o) slave's position */
+#define ECDeviceName        "DEV_NAME"      /**< (asynOctec, r/o) slave's asyn port name */
+
 class ecAsyn : public asynPortDriver, public ProcessDataObserver
 {
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -55,7 +65,11 @@ class ecAsyn : public asynPortDriver, public ProcessDataObserver
 #define FIRST_SLAVE_COMMAND P_AL_STATE
     int P_ERROR_FLAG;
     int P_DISABLE;
-#define LAST_SLAVE_COMMAND P_DISABLE
+    int P_DEVTYPENAME;
+    int P_DEVREVISION;
+    int P_DEVPOSITION;
+    int P_DEVNAME;
+#define LAST_SLAVE_COMMAND P_DEVNAME
     int P_First_PDO;
     int P_Last_PDO;
 public:

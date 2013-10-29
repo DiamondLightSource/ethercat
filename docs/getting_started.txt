@@ -37,13 +37,17 @@ short hostname (hostname -s)
 MASTER0_DEVICE="00:0E:0C:BC:28:91"
 DEVICE_MODULES="generic"
 
-The userspace API for the etherlab master is in "work", the diagnostics tool
-can scan the bus and display slave information:
+The userspace API for the etherlab master is release as a DLS tool.
+It can scan the bus and display slave information:
 
-/dls_sw/work/common/rt/ethercat/bin/ethercat slaves
+$ ethercat slaves
+0  0:0  OP  +  NI 9144
+
+$ which ethercat
+/dls_sw/prod/tools/RHEL6-x86_64/defaults/bin/ethercat
 
 There is also a diagnostics tool called "slaveinfo" that is built into the bin directory
-of the ethercat support module. It generates a template chain.xml which includes device
+of the ethercat support module. It generates a template builder xml which includes device
 names and revision numbers (see below):
 
 3) Scanner
@@ -98,7 +102,7 @@ Beckhoff EL31xx.xml  Beckhoff EL9xxx.xml  Beckhoff EP5xxx.xml  EtherCATBase.xsd
 
 These XML files contain the list of named registers that each device supports. Theoretically this
 information is also stored in a PROM in each device for auto-discovery but the etherlab master
-does not support this fully and some devices may (NI) may not provide the information.
+does not support this fully and some devices (NI) may not provide the information.
 
 4) Simulation
 

@@ -48,11 +48,15 @@ record(longin, "$(DEVICE):INPUT1:SLIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT1:VALUE")
+record(ai, "$(DEVICE):INPUT1:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCTCInputsChannel1.Value")
   field("SCAN", "$(SCAN)")
+  field("LINR", "LINEAR")
+  field("EGUF", "327.67")
+  field("EGUL", "-327.68")
+  field("EGU",  "C")
 }
 
 
@@ -72,11 +76,15 @@ record(longin, "$(DEVICE):INPUT2:SLIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT2:VALUE")
+record(ai, "$(DEVICE):INPUT2:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCTCInputsChannel2.Value")
   field("SCAN", "$(SCAN)")
+  field("LINR", "LINEAR")
+  field("EGUF", "327.67")
+  field("EGUL", "-327.68")
+  field("EGU",  "C")
 }
 
 
@@ -96,11 +104,15 @@ record(longin, "$(DEVICE):INPUT3:SLIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT3:VALUE")
+record(ai, "$(DEVICE):INPUT3:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCTCInputsChannel3.Value")
   field("SCAN", "$(SCAN)")
+  field("LINR", "LINEAR")
+  field("EGUF", "327.67")
+  field("EGUL", "-327.68")
+  field("EGU",  "C")
 }
 
 
@@ -120,11 +132,15 @@ record(longin, "$(DEVICE):INPUT4:SLIMIT2")
 }
 
 
-record(longin, "$(DEVICE):INPUT4:VALUE")
+record(ai, "$(DEVICE):INPUT4:VALUE")
 {
   field("DTYP", "asynInt32")
   field("INP",  "@asyn($(PORT))TCTCInputsChannel4.Value")
   field("SCAN", "$(SCAN)")
+  field("LINR", "LINEAR")
+  field("EGUF", "327.67")
+  field("EGUL", "-327.68")
+  field("EGU",  "C")
 }
 
 
