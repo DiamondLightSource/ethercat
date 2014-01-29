@@ -226,16 +226,16 @@ void cyclic_task(void * usr)
             wakeupTime = msg->timer.ts;
             if (!simulation)
             {
-                ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
-                // do this how often?
-                ecrt_master_sync_reference_clock(master);
-                ecrt_master_sync_slave_clocks(master);
-                
                 // gets reply to LRW frame sent last cycle
                 // from network card buffer
                 ecrt_master_receive(master);
                 ecrt_domain_process(domain);
     
+                ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
+                // do this how often?
+                ecrt_master_sync_reference_clock(master);
+                ecrt_master_sync_slave_clocks(master);
+                
                 ecrt_domain_state(domain, &domain_state);
             }
             else
