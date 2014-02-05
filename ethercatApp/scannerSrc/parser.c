@@ -376,7 +376,7 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
     dev_type_name_okay = getStr(node, "type_name", &ctdev->type_name);
     dev_revid_okay = getInt(node, "revision", &ctdev->type_revid, 1);
     joinOkay = joinDevice(ctx->config, ctdev);
-    printf("parseDevice: name %s type_name %s rev %d\n", 
+    printf("parseDevice: name %s type_name %s rev 0x%x\n", 
            ctdev->name, ctdev->type_name, ctdev->type_revid);
     return 
         dev_name_okay && dev_type_name_okay && dev_revid_okay && 

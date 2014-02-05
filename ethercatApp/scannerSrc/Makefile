@@ -9,12 +9,13 @@ STATIC_BUILD=YES
 
 # work-around for ioc builder's benefit:
 # the symbol below moved from $(TOP)/configure/RELEASE
-ETHERLAB=/dls_sw/prod/R3.14.11/support/etherlab/1-5-pre
-ETHERLABPREFIX=$(ETHERLAB)/opt/$(EPICS_HOST_ARCH)/etherlab
+VERSION=1-5-2dls5
+ETHERLAB=/dls_sw/prod/tools/RHEL6-x86_64/ethercat/$(VERSION)
+ETHERLABPREFIX=$(ETHERLAB)/prefix
 
-# need private header files for the serial number write IOCTL
-USR_INCLUDES += -I$(ETHERLAB)/src/ethercat-1.5-r1977/master
+
 USR_INCLUDES += -I$(ETHERLABPREFIX)/include
+
 USR_LDFLAGS += -L$(ETHERLABPREFIX)/lib -Wl,-rpath=$(ETHERLABPREFIX)/lib
 USR_INCLUDES += -I/usr/include/libxml2
 USR_SYS_LIBS += ethercat xml2
@@ -25,17 +26,17 @@ LIBRARY += scannerlib
 scannerlib_SRCS += parser.c classes.c unpack.c
 
 PROD += scanner
+# need private header file to disable errors being sent to stderr
+scanner_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/lib
 scanner_SRCS += scanner.c simulation.c
 scanner_LIBS += rtutils scannerlib Com
 
 PROD += serialtool
+# need private header files for the serial number write IOCTL
+serialtool_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
 serialtool_SRCS += serialtool.c
 
 PROD += slaveinfo
 slaveinfo_SRCS += slaveinfo.c
-
-PROD += testParser
-testParser_SRCS += testParser.c 
-testParser_LIBS += scannerlib Com
 
 include $(TOP)/configure/RULES

@@ -1,0 +1,156 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 529
+y 669
+w 255
+h 125
+font "arial-medium-r-12.0"
+ctlFont "arial-medium-r-12.0"
+btnFont "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 0
+ctlBgColor1 index 0
+ctlBgColor2 index 14
+topShadowColor index 1
+botShadowColor index 11
+title "Interlock PLC Override"
+showGrid
+snapToGrid
+disableScroll
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 250
+h 40
+lineColor index 14
+fill
+fillColor index 51
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 10
+w 230
+h 20
+font "engineering-medium-r-16.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "EL3602 $(DEVICE)"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 120
+y 50
+w 80
+h 20
+controlPv "$(DEVICE):INPUT1:VALUE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 120
+y 80
+w 80
+h 20
+controlPv "$(DEVICE):INPUT2:VALUE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 50
+w 75
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Channel 1:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 80
+w 76
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Channel 2:"
+}
+autoSize
+endObjectProperties
+

@@ -19,6 +19,8 @@
 #include "unpack.h"
 #include "simulation.h"
 
+#include "liberror.h"
+
 int debug = 1;
 int selftest = 1;
 int simulation = 0;
@@ -140,6 +142,8 @@ void cyclic_task(void * usr)
     ec_master_t * master = scanner->master;
     ec_domain_t * domain = scanner->domain;
     int simulation = scanner->simulation;
+    int error_to_console = 1;
+    int slave_info_status;
     uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
     EC_MESSAGE * msg = (EC_MESSAGE *)calloc(1, scanner->max_message);
@@ -162,6 +166,8 @@ void cyclic_task(void * usr)
         nslaves++;
     }
 
+    /* suppress errors to stderr */
+    ecrt_err_to_stderr = 0;
     while(1)
     {
         rtMessageQueueReceive(scanner->workq, msg, scanner->max_message);
@@ -220,16 +226,16 @@ void cyclic_task(void * usr)
             wakeupTime = msg->timer.ts;
             if (!simulation)
             {
-                ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
-                // do this how often?
-                ecrt_master_sync_reference_clock(master);
-                ecrt_master_sync_slave_clocks(master);
-                
                 // gets reply to LRW frame sent last cycle
                 // from network card buffer
                 ecrt_master_receive(master);
                 ecrt_domain_process(domain);
     
+                ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
+                // do this how often?
+                ecrt_master_sync_reference_clock(master);
+                ecrt_master_sync_slave_clocks(master);
+                
                 ecrt_domain_state(domain, &domain_state);
             }
             else
@@ -290,7 +296,18 @@ void cyclic_task(void * usr)
                 {
                     EC_DEVICE * device = (EC_DEVICE *)node;
                     assert(device->position != -1);
-                    ecrt_master_get_slave(master, device->position, &slave_info);
+                    
+                    slave_info_status = ecrt_master_get_slave(master, device->position, &slave_info);
+                    if (slave_info_status != 0)
+                    {
+                        if (error_to_console)
+                        {
+                            fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
+                            error_to_console = 0;
+                        }
+                    }
+                    else
+                        error_to_console = 1;
                     msg->pdo.buffer[ofs++] = slave_info.al_state;
                     msg->pdo.buffer[ofs++] = slave_info.error_flag;
                 }
@@ -519,10 +536,11 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         printf("oversamping rate %d\n", device->oversampling_rate);
         if (!scanner->simulation)
         {
-        /* It would appear that to get a sane NextSync1Time value on the EL3702,
-           we need to subtract the SYNC0 time from SYNC1. Putting a 10kHz signal
-           into a 10kHz acquiring signal still gives some ugly sawtooth wave
-           as the local clock syncs with the master clock, but its within 100ns... */
+        /* It would appear that to get a sane NextSync1Time value on
+           the EL3702, we need to subtract the SYNC0 time from
+           SYNC1. Putting a 10kHz signal into a 10kHz acquiring signal
+           still gives some ugly sawtooth wave as the local clock
+           syncs with the master clock, but its within 100ns... */
             ecrt_slave_config_dc(sc, 
                 device->device_type->oversampling_activate, 
                 PERIOD_NS / device->oversampling_rate, 0,
@@ -570,7 +588,7 @@ int ethercat_init(SCANNER * scanner)
 }
 
 SCANNER * start_scanner(char * filename, int simulation)
-{    
+{
     int n;
     SCANNER * scanner = calloc(1, sizeof(SCANNER));
     scanner->config = calloc(1, sizeof(EC_CONFIG));
@@ -598,7 +616,9 @@ SCANNER * start_scanner(char * filename, int simulation)
         }  
         ec_slave_info_t slave_info;
         for(n = 0; n < master_info.slave_count; n++) {        
-            if(ecrt_master_get_slave(scanner->master, n, &slave_info) != 0) {
+            if( ecrt_master_get_slave(scanner->master, n, 
+                                      &slave_info) != 0   ) 
+            {
                 fprintf(stderr, "can't get info for slave %d\n", n);
                 exit(1);
             }
@@ -610,7 +630,8 @@ SCANNER * start_scanner(char * filename, int simulation)
     }
     scanner->config_buffer = load_config(filename);
     assert(scanner->config_buffer);
-    read_config2(scanner->config_buffer, strlen(scanner->config_buffer), scanner->config);    
+    read_config2(scanner->config_buffer, 
+                 strlen(scanner->config_buffer), scanner->config);    
     ethercat_init(scanner);
     if (simulation)
         scanner->domain = (ec_domain_t *) calloc(1, sizeof(SIM_DOMAIN));
@@ -632,24 +653,28 @@ void build_config_message(SCANNER * scanner)
     char * sbuf = serialize_config(cfg);    
     pack_string(buffer, &msg_ofs, sbuf);
     free(sbuf);
-    scanner->config_size = buffer + msg_ofs - (char *)scanner->config_message;
+    scanner->config_size = buffer + msg_ofs - 
+                       (char *)scanner->config_message;
 }
 
 static int queue_send(ENGINE * server, int size)
 {
     CLIENT * client = (CLIENT *)server->usr;
-    return rtMessageQueueSend(client->scanner->workq, server->receive_buffer, size);
+    return rtMessageQueueSend(client->scanner->workq, 
+                              server->receive_buffer, size);
 }
 
 static int queue_receive(ENGINE * server)
 {
     CLIENT * client = (CLIENT *)server->usr;
-    return rtMessageQueueReceive(client->q, server->send_buffer, server->max_message);
+    return rtMessageQueueReceive(client->q, server->send_buffer, 
+                                 server->max_message);
 }
 static int send_config_on_connect(ENGINE * server, int sock)
 {
     CLIENT * client = (CLIENT *)server->usr;
-    return rtSockSend(sock, client->scanner->config_message, client->scanner->config_size);
+    return rtSockSend(sock, client->scanner->config_message, 
+                          client->scanner->config_size);
 }
 
 int main(int argc, char ** argv)
