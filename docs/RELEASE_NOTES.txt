@@ -1,0 +1,30 @@
+
+* Releases
+
+1-x releases are reserved for epics R3.14.11
+2-x releases are reserved for epics R3.14.12.3
+
+* R3.14.11 releases
+
+These version are unmodified, except for the asyn dependency:
+
+| Release | release date | asyn dependency |
+|     1-9 | <2013-04-30> |            4-17 |
+|    1-10 | <2013-08-21> |            4-17 |
+|   1-9-1 | <2013-09-05> |            4-19 |
+|    1-11 | <2013-10-04> |            4-21 |
+
+* R3.14.12.3 releases
+
+Up to release 2-2, these are releases from the 'rhel6' branch in subversion.
+From release 2-3 this is in trunk
+
+** Release 2-3
+   Merge documentation related to generic ADC.
+   Include patch by Damien Lynch.
+
+
+
+
+
+
