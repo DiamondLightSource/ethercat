@@ -17,11 +17,26 @@ These version are unmodified, except for the asyn dependency:
 * R3.14.12.3 releases
 
 Up to release 2-2, these are releases from the 'rhel6' branch in subversion.
-From release 2-3 this is in trunk
+From release 2-3 these are releases from 'trunk'
 
-** Release 2-3
-   Merge documentation related to generic ADC.
+** Release 2-3 05/02/14
+   Add documentation related to generic ADC.
    Include patch by Damien Lynch.
+
+** Release 2-2 29/10/13
+   Create asyn parameter to describe each slave
+   Modified scaling to improve support of 24-bit ADCs
+   Modified templates for EP3204-0002 and EP3314-0002 to show values 
+   in deg C
+
+** Release 2-1 19/07/13
+   Modifications in iocbuilder support
+
+** Release 2-0 11/07/13
+   Release prepared for RHEL6 systems
+   uses patched ethercat library
+   http://lists.etherlab.org/pipermail/etherlab-dev/2013/000316.html
+   http://lists.etherlab.org/pipermail/etherlab-dev/attachments/20130702/7d75709f/attachment-0001.obj
 
 
 

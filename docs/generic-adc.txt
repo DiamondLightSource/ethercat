@@ -1,0 +1,106 @@
+# -*- Mode: Org -*-
+
+* Notes on generic ADC implementation on Ethercat
+Ronaldo Mercado
+December 2013
+
+The gadc "generic adc" is an asyn port driver that accumulates samples
+from the ethercat scanner to provide waveforms and averaged ADC
+values.  It was written by James Rowland based on Pete Leicester’s
+requirements document for the VME ADCs TDI-CTRL-REQ-015.
+
+* Asyn Parameters for the Generic ADC driver
+
+| Name            | Type       | Use                                                            |
+| MODE            | Int32      | gated, trigerred or continuous                                 |
+| SAMPLES         | Int32      | number of samples in an acquisition window for continuous mode |
+| OFFSET          | Int32      | offset for trigger                                             |
+| AVERAGE         | Int32      | number of samples to average for triggered mode                |
+| TRIGGER         | Int32      | software trigger                                               |
+| BUFFERCOUNT     | Int32      | Samples in the channel's buffer                                |
+| VALUE           | Int32      | Averaged value                                                 |
+| CAPTURE         | Int32      | unknown                                                        |
+| CHANBUFF        | Int32      | unknown                                                        |
+| ENABLED         | Int32      | unknonw                                                        |
+| RETRIGGER       | Int32      | unknown                                                        |
+| CLEAR           | Int32      | unknown                                                        |
+| OVERFLOW        | Int32      | unknown                                                        |
+| AVERAGEOVERFLOW | Int32      | unknown                                                        |
+| STATE           | Int32      | unknown                                                        |
+| SUPPORT         | Int32      | unknown                                                        |
+| INFO            | Int32      | unknown                                                        |
+| PUTSAMPLE       | Int32      | unknown                                                        |
+| INTERRUPT       | Int32      | unknown                                                        |
+| WAVEFORM        | Int32Array | waveform with samples                                          |
+
+These parameters are accessed using the generic adc template
+gadc.template records
+
+* Records in the template gadc.template
+
+| Record Name                         | Record Type | In/Out | Asyn parameter |
+|-------------------------------------+-------------+--------+----------------|
+| $(DEVICE):ADC$(CHANNEL)_CHANBUFF    | longout     | out    | CHANBUFF       |
+| $(DEVICE):ADC$(CHANNEL)_INFO        | longout     | out    | INFO           |
+| $(DEVICE):ADC$(CHANNEL)_SAMPLES     | longout     | out    | SAMPLES        |
+| $(DEVICE):ADC$(CHANNEL)_OFFSET      | longout     | out    | OFFSET         |
+| $(DEVICE):ADC$(CHANNEL)_MODE        | mbbo        | out    | MODE           |
+| $(DEVICE):ADC$(CHANNEL)_TRIGGER     | longout     | out    | TRIGGER        |
+| $(DEVICE):ADC$(CHANNEL)_CAPTURE     | longout     | out    | CAPTURE        |
+| $(DEVICE):ADC$(CHANNEL)_AVERAGE     | longout     | out    | AVERAGE        |
+| $(DEVICE):ADC$(CHANNEL)_WAVEFORM    | waveform    | in     | WAVEFORM       |
+| $(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT | longin      | in     | BUFFERCOUNT    |
+| $(DEVICE):ADC$(CHANNEL)_VALUE       | longin      | in     | VALUE          |
+| $(DEVICE):ADC$(CHANNEL)_STATE       | mbbi        | in     | STATE          |
+| $(DEVICE):ADC$(CHANNEL)_ENABLED_R   | bi          | in     | ENABLED        |
+| $(DEVICE):ADC$(CHANNEL)_ENABLED     | bo          | out    | ENABLED        |
+| $(DEVICE):ADC$(CHANNEL)_RETRIGGER   | bo          | out    | RETRIGGER      |
+| $(DEVICE):ADC$(CHANNEL)_INTERRUPT   | longout     | out    | INTERRUPT      |
+| $(DEVICE):ADC$(CHANNEL)_CLEAR       | longout     | out    | CLEAR          |
+
+
+The $(DEVICE):ADC1_SAMPLES record sets the driver’s sample count for
+whenthe interrupts are generated (MODE set to continuous acquisition
+and the VALUE record has to be set to I/O Interrupt). The units are
+samples at the driver sampling frequency, 1 KHz.
+
+For example if the $(DEVICE):ADC1_SAMPLES is set to 50, an interrupt is
+generated every 50 ms.
+
+ADC1_AVERAGE is the number of samples used for averaging in the gated
+of triggered modes (see below). The units are samples at the driver
+sampling frequency, 1 KHz.
+
+* Options in AdcControl.edl
+
+The AdcControl.edl screen exposes the driver parameters.
+
+These provide options for gated acquisition and triggered acquisition.
+
+An offset (in samples) can be set, so that the window captured is
+offset with the trigger, either before or after the trigger.
+
+The use case during the driver development was the capture of vacuum
+events at 100 KHz in front ends. 
+
+I am not aware of this facility being in use.
+
+I haven’t looked at how to generate a trigger from hardware (the VME
+equivalent ADCs have physical connectors in the front of the carrier).
+
+* Waveform capture in continous acquisition
+
+For continuous acquisition, the ADC1_SAMPLES record controls how
+frequent the updates are and if one wishes to acquire complete
+waveforms.
+
+The number of elements in the ADC1_WAVEFORM record has to match to
+allow the capture of contiguous data.
+
+
+
+
+
+
+
+
