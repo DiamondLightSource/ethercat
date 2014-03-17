@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--  last modified 2010-06-24, SMC Corporation -->
 <EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
   <Vendor>
@@ -19,8 +19,8 @@
         <Type ProductCode="#x00fa6053" RevisionNo="#x00000000">EX250-SEN1-X156</Type>
         <Name LcId="1033"><![CDATA[EX250-SEN1-X156 EtherCAT SI Unit]]></Name>
         <GroupType>EX250</GroupType>
-        <Sm StartAddress="#x0f00" ControlByte="#x46" Enable="9" DefaultSize="0"></Sm>
-        <Sm StartAddress="#x1000" ControlByte="#x0" Enable="1" DefaultSize="0"></Sm>
+        <Sm StartAddress="#x0f00" ControlByte="#x46" Enable="9" DefaultSize="0">Outputs</Sm>
+        <Sm StartAddress="#x1000" ControlByte="#x0" Enable="1" DefaultSize="0">Outputs</Sm>
         <RxPdo Fixed="1" Mandatory="1" Sm="0">
           <Index>#x1600</Index>
           <Name>Outputs</Name>
