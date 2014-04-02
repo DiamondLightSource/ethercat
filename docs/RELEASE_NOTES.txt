@@ -27,8 +27,9 @@ These version are unmodified, except for the asyn dependency:
    A new element "PdoAssignment" was added for slaves that require an 
    additional pdo mapping at startup.
 
-   Also address the generic ADC scaling and EGUF/EGUL values of analog
-   records will need to be modified if using generic adc support.
+   The release also addresses the generic ADC scaling. EGUF/EGUL
+   values of analogue records will need to be modified if using
+   generic adc support.
 
 Up to release 2-2, these are releases from the 'rhel6' branch in subversion.
 From release 2-3 these are releases from 'trunk'
