@@ -5,5 +5,5 @@
 	<!--slaves 1 link up 1-->
 	<ethercat.EthercatSlave master="ECATM" name="ERIO.0" position="DCS00000000" type_rev="NI 9144 rev 0x00000002"/>
 	<ethercat.SlaveTemplate DEVICE="TST01-SLV" PORT="ERIO.0" SCAN="1 second" name="SLV0"/>
-	<ethercat.MasterTemplate DEVICE="TST01-MST" PORT="Master0" SCAN="1 second" name="MST"/>
+	<ethercat.MasterTemplate DEVICE="TST01-MST" SCAN="1 second" name="MST"/>
 </components>

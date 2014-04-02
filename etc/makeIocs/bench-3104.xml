@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<components arch="linux-x86_64">
+	<ethercat.EthercatMaster name="ECATM" socket="/tmp/socket"/>
+	<!--slaves 7 link up 1-->
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.0" position="DCS00022015" type_rev="EK1101 rev 0x00110000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.1" position="DCS00024782" type_rev="EL2595 rev 0x00120000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.2" position="DCS00023742" type_rev="EL3702 rev 0x00020000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.3" position="DCS00023660" type_rev="EL3104 rev 0x00100000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.4" position="DCS00023680" type_rev="EL3202-0010 rev 0x0011000a"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.5" position="DCS00024624" type_rev="EL3602 rev 0x00120000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.6" position="DCS00024569" type_rev="EL3314 rev 0x00130000"/>
+	<ethercat.GenericADC channel="1" name="G3" pdoentry="AIStandardChannel1.Value : EL3104 rev 0x00100000" slave="ERIO.3"/>
+	<ethercat.GenericADCTemplate CHANNEL="1" DEVICE="ERIO3-ADC" INTSCAN="I/O Intr" PORT="ERIO.3" SAMPLES="100" SCAN="I/O Intr" name="GT3"/>
+	<records.ai DESC="ai-ch1-erio3" DTYP="asynInt32" EGU="V" EGUF="10" EGUL="-10" HOPR="10" INP="@asyn(ERIO.3_ADC1)VALUE" LINR="LINEAR" LOPR="-10" SCAN="I/O Intr" PREC="3" name="AI3" record="ERIO3:CH1"/>
+	<records.ai DESC="ai-ch1-erio3v1" DTYP="asynInt32" EGU="V" EGUF="10" EGUL="-10" HOPR="10" INP="@asyn(ERIO.3)AIStandardChannel1.Value" LINR="LINEAR" LOPR="-10" SCAN="I/O Intr" PREC="3" name="AI3V1" record="ERIO3:CH1V1"/>
+</components>
+

@@ -1,3 +1,9 @@
+#define __STDC_LIMIT_MACROS
+#include <stdint.h>
+#include <asynPortDriver.h>
+#include <ellLib.h>
+#include "classes.h" // EC_PDO_ENTRY_MAPPING, EC_DEVICE
+
 struct ENGINE_USER;
 
 template <class T> struct ListNode
@@ -12,9 +18,13 @@ public:
     virtual ~ProcessDataObserver() {}
 };
 
+class ecAsyn;
+
 class XFCPort : public asynPortDriver
 {
     int P_Missed;
+    ecAsyn *parentPort;
+    struct EC_PDO_ENTRY_MAPPING *mapping;
 public:
     void incMissed()
     {
@@ -28,20 +38,7 @@ public:
         setIntegerParam(P_Missed, value);
         callParamCallbacks();
     }
-    XFCPort(const char * name) : asynPortDriver(
-        name,
-        1, /* maxAddr */
-        1, /* max parameters */
-        asynInt32Mask | asynDrvUserMask, /* interface mask*/
-        asynInt32Mask, /* interrupt mask */
-        0, /* non-blocking, no addresses */
-        1, /* autoconnect */
-        0, /* default priority */
-        0) /* default stack size */
-    {
-        createParam("MISSED", asynParamInt32, &P_Missed);
-        setIntegerParam(P_Missed, 0);
-    }
+    XFCPort(const char * name);
 };
 
 /** Strings defining parameters for a slave port
@@ -77,6 +74,7 @@ public:
     EC_DEVICE * device;
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);
     virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
+    virtual asynStatus getBoundsForMapping(struct EC_PDO_ENTRY_MAPPING *m, epicsInt32 *low, epicsInt32 *high);
 };
 
 #define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)

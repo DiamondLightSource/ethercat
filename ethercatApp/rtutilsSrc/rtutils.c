@@ -12,6 +12,13 @@
 #define HEADPTR(q) (unsigned *)(q->data + q->head * \
                                 (q->maximumMessageSize + sizeof(int)))
 
+
+typedef struct
+{
+    int tag;
+    struct timespec ts;
+} TIMER_MESSAGE;
+
 struct rtMessageQueueOSD
 {
     int capacity;

@@ -1,12 +1,12 @@
-#define __STDC_LIMIT_MACROS
+
 #include <string.h>
-#include <stdint.h>
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <epicsThread.h>
 #include <epicsExport.h>
-#include <asynPortDriver.h>
-#include <ellLib.h>
+
+
 #include <iocsh.h>
 #include <cantProceed.h>
 
@@ -58,6 +58,7 @@ static void showPdos(int enable)
 {
     showPdosEnabled = enable;    
 }
+// Called by the IOC command "ADC_Ethercat_Sampler"
 static void Configure_Sampler(char * port, int channel, char * sample, char * cycle)
 {
     sampler_config_t * conf = (sampler_config_t *)callocMustSucceed
@@ -131,7 +132,8 @@ public:
     Sampler(ecAsyn * parent, int channel, 
             EC_PDO_ENTRY_MAPPING * sample) : 
         parent(parent), sample(sample), 
-        wave(new WaveformPort(format("%s_ADC%d", parent->portName, channel))) {}
+        wave(new WaveformPort(format("%s_ADC%d", parent->portName, channel), parent, sample))
+        { }
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
         {
             wave->lock();
@@ -150,9 +152,9 @@ class Oversampler : public Sampler
     int P_Missed;
 
 public:
-    Oversampler(ecAsyn * parent, int channel, 
+    Oversampler(ecAsyn * parentPort, int channel, 
                EC_PDO_ENTRY_MAPPING * sample, EC_PDO_ENTRY_MAPPING * cycle) : 
-        Sampler(parent, channel, sample), cycle(cycle), lastCycle(0), 
+        Sampler(parentPort, channel, sample), cycle(cycle), lastCycle(0), 
         xfc(new XFCPort(format("%s_XFC%d", parent->portName, channel))) {}
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
         {
@@ -337,43 +339,52 @@ void ecMaster::on_pdo_message(PDO_MESSAGE * pdo, int size)
     unlock();
 }
 
+asynStatus ecAsyn::getBoundsForMapping(EC_PDO_ENTRY_MAPPING * mapping, epicsInt32 *low, epicsInt32 *high)
+{
+    asynStatus result = asynSuccess;
+    switch (mapping->pdo_entry->bits)
+    {
+    case 24:
+        *low = -8388608;
+        *high = 8388607;
+        break;
+    case 16:
+        *low = -32768;
+        *high = 32767;
+        break;
+    case 32:
+        if (mapping->shift == 8)
+        {
+            *low = -8388608;
+            *high = 8388607;
+        }
+        else
+        {
+            *low = INT32_MIN;
+            *high = INT32_MAX;
+        }
+        break;
+    default:
+        result = asynError;
+        *low = 0;
+        *high = 0;
+    }
+    return result;
+}
+
+
 asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
 {
     static const char *driverName = "ecAsyn";
-    printf("Device name: %s", this->device->type_name);
     int cmd = pasynUser->reason;
     if (cmd >= P_First_PDO && cmd <= P_Last_PDO)
     {
         int pdo = cmd - P_First_PDO;
         assert(pdo >= 0 && pdo < pdos);
         EC_PDO_ENTRY_MAPPING * mapping = mappings[pdo];
-        switch (mapping->pdo_entry->bits)
-        {
-        case 24:
-            *low = -8388608;
-            *high = 8388607;
-            break;
-        case 16:
-            *low = -32768;
-            *high = 32767;
-            break;
-        case 32:
-            if (mapping->shift == 8)
-            {
-                *low = -8388608;
-                *high = 8388607;
-            }
-            else
-            {
-                *low = INT32_MIN;
-                *high = INT32_MAX;
-            }
-            break;
-        default:
-            *low = 0;
-            *high = 0;
-        }
-        
+
+        this->getBoundsForMapping(mapping, low, high);
+
         if ( ( strcmp(this->device->type_name, "EL3602") == 0 ) 
              && this->device->type_revid == 0x00120000 )
         {
@@ -705,3 +716,23 @@ extern "C"
     }
     epicsExportRegistrar(ecAsynRegistrar);
 }
+
+
+/// XFCPort constructor
+XFCPort::XFCPort(const char * name) : asynPortDriver(
+        name,
+        1, /* maxAddr */
+        1, /* max parameters */
+        asynInt32Mask | asynDrvUserMask, /* interface mask*/
+        asynInt32Mask, /* interrupt mask */
+        0, /* non-blocking, no addresses */
+        1, /* autoconnect */
+        0, /* default priority */
+        0) /* default stack size */
+{
+    printf("Creating XFCPort \"%s\"\n", name);
+    createParam("MISSED", asynParamInt32, &P_Missed);
+    setIntegerParam(P_Missed, 0);
+}
+
+

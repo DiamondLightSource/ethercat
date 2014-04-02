@@ -1,3 +1,6 @@
+#ifndef _classes_H_
+#define _classes_H_
+
 #include <libxml/parser.h>
 #include <ellLib.h>
 
@@ -165,4 +168,6 @@ int isOctal(char * attr);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

@@ -1,0 +1,64 @@
+
+* Ethercat signal specification
+
+The hierarchy to specify a signal in an ethercat slave goes:
+
+| concept      | class in ethercat.py      |
+|--------------+---------------------------|
+| Slave        | EthercatDevice            |
+| Sync Manager | SyncManager               |
+| Pdo          | Pdo                       |
+| Pdo entry    | PdoEntry and PaddingEntry |
+
+To specify a signal in an ethercat chain, there are these two
+additional concepts
+
+| concept       | class in ethercat.py |
+|---------------+----------------------|
+| chain element | EthercatChainElem    |
+| chain         | EthercatChain        |
+
+The chain element links a chain position with a device
+
+The difference between EthercatChainElem and EthercatDevice is that a
+chain element has a position in a bus (chain)
+
+* Builder classes
+
+The way a chain is specified in the builder description is
+
+| concept        | class in devices.py |
+|----------------+---------------------|
+| master         | EthercatMaster      |
+| slave          | EthercatSlave       |
+| pdo assignment | PdoAssignement      |
+| generic ADC    | GenericADC          |
+  
+The slave entry for the builder includes the position in the chain
+
+The pdo assignment entry for the builder is needed when a non-default
+PDO needs to be assigned to a device. The assignment will be done at
+the device level, that is, all devices of the given type in the chain
+will have the same pdo assignments.
+
+This may be revised if the need arises.
+
+* Pdo entry padding
+
+It was found that the padding is needed when assigning pdos that are
+not in the default set. It is assumed that the only important
+information in the padding field is the bit length "bitlen" and the
+padding entry object will always have index and subindex values equal
+to zero.
+
+* Parsing of Ethercat slave information (ESI) files
+
+The slave information files include the signal specification mapping
+for the ethercat slaves and are parsed to generate scanner
+descriptions.
+
+It is assumed that slaves have up to four sync managers.
+This is explicit in the "assignedPdos" dictionary in an
+EthercatChainElem object.
+
+

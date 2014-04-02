@@ -1,14 +1,35 @@
 import ethercat
+import sys
+import unittest
 
-ethercat.initialise()
+class TestEthercatDescriptions(unittest.TestCase):
+    
+    def setUp(self):
+        ethercat.initialise()
+    def testContents(self):
+        self.assertTrue( len(ethercat.getAllDevices()) > 0 )
 
-all_devs = ethercat.getAllDevices()
-print "len of all_devs = %d"  % len(all_devs)
 
-pdochoices = ethercat.getPdoEntryChoices(all_devs)
-print "len of pdochoices = %d"  % len(pdochoices)
+class TestEthercatChain(unittest.TestCase):
 
-print "len of types_dict (filtered) = %d" % len(ethercat.types_dict)
+    def setUp(self):
+        ethercat.initialise()
 
-print "len of types_choice = %d" % len(ethercat.types_choice)
+    def testChain(self):
+        chain1 = ethercat.EthercatChain()
+        elem1 = ethercat.EthercatChainElem("EK1101 rev 0x00110000",0,"ERIO.0",0)
+        chain1.setDevice(elem1)
+        chain1.getDeviceDescriptions()
+        xml = chain1.generateChainXml()
+        self.assertTrue( xml )
+        self.assertTrue( len(xml) > 0 )
+        
 
+if __name__ == "__main__":
+    #import sys;sys.argv = ['', 'Test.testName']
+
+    # suite1 = unittest.TestLoader().loadTestsFromTestCase(TestEthercatDescriptions)
+    # suite2 = unittest.TestLoader().loadTestsFromTestCase(TestEthercatChain)
+    # unittest.TextTestRunner(verbosity=2).run(suite1)
+    # unittest.TextTestRunner(verbosity=2).run(suite2)
+    unittest.main()

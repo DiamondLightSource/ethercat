@@ -175,6 +175,13 @@ void cyclic_task(void * usr)
         if(msg->tag == MSG_WRITE)
         {
             int bit;
+            if (msg->write.bits != 1 && msg->write.bit_position != 0)
+            {
+                printf("Assert will fail: "
+                       "write bits %d, bit position %d\n",
+                       msg->write.bits, msg->write.bit_position);
+            }
+
             assert(msg->write.bits == 1 || msg->write.bit_position == 0);
             int value = msg->write.value;
             switch(msg->write.bits)
@@ -404,6 +411,15 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
             printf("SYNC MANAGER: dir %d watchdog %d\n", 
                 sync_manager->direction, sync_manager->watchdog);
         }
+        assert(ecrt_slave_config_sync_manager(sc,
+                                              sync_manager->index,
+                                              sync_manager->direction, 
+                                              sync_manager->watchdog
+                                              )==0);
+        if (sync_manager->pdos.count > 0)
+        {
+            ecrt_slave_config_pdo_assign_clear(sc, sync_manager->index);
+        }
         ELLNODE * node1 = ellFirst(&sync_manager->pdos);
         for(; node1; node1 = ellNext(node1))
         {
@@ -412,6 +428,13 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
             {
                 printf("PDO:          index %x\n", pdo->index);
             }
+            assert( ecrt_slave_config_pdo_assign_add(
+                        sc, sync_manager->index, pdo->index) == 0);
+            if (pdo->pdo_entries.count > 0)
+            {
+                ecrt_slave_config_pdo_mapping_clear(sc, pdo->index);
+                
+            }
             ELLNODE * node2 = ellFirst(&pdo->pdo_entries);
             for(; node2; node2 = ellNext(node2))
             {
@@ -419,15 +442,17 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                 EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
                 if(debug)
                 {
-                    printf("PDO ENTRY:    name \"%s\" index "
+                    printf("FIRST PASS PDO ENTRY:    name \"%s\" index "
                            "%x subindex %x bits %d\n", 
                             pdo_entry->name, pdo_entry->index, 
                             pdo_entry->sub_index, pdo_entry->bits);
                 }
-                /* 
-                    scalar entries are added automatically, just 
-                    add oversampling extensions
-                */
+                assert( 
+                    ecrt_slave_config_pdo_mapping_add(sc,
+                                                      pdo->index, 
+                                                      pdo_entry->index, 
+                                                      pdo_entry->sub_index, 
+                                                      pdo_entry->bits) == 0);
                 if(pdo_entry->oversampling)
                 {
                     for(n = 1; n < device->oversampling_rate; n++)
@@ -497,6 +522,16 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                 }
                 adjust_pdo_size(scanner, pdo_entry_mapping->offset, 
                                 pdo_entry->bits);
+                if(debug)
+                {
+                    printf("SECOND PASS PDO ENTRY:    name \"%s\" index "
+                           "%x subindex %x bits %d MAPPING: offset %d bit_position %d\n", 
+                           pdo_entry->name, pdo_entry->index, 
+                           pdo_entry->sub_index, pdo_entry->bits, 
+                           pdo_entry_mapping->offset, 
+                           pdo_entry_mapping->bit_position);
+                }
+
                 if(pdo_entry->oversampling)
                 {
                     for(n = 1; n < device->oversampling_rate; n++)
@@ -648,9 +683,17 @@ void build_config_message(SCANNER * scanner)
     char * buffer = scanner->config_message->config.buffer;
     int msg_ofs = 0;    
     char * xbuf = regenerate_chain(cfg);
+    if (debug)
+    {
+        printf("Configuration string for EPICS\n%s\n", xbuf);
+    }
     pack_string(buffer, &msg_ofs, xbuf);
     free(xbuf);
     char * sbuf = serialize_config(cfg);    
+    if (debug)
+    {
+        printf("Mappings string for EPICS\n%s\n", sbuf);
+    }
     pack_string(buffer, &msg_ofs, sbuf);
     free(sbuf);
     scanner->config_size = buffer + msg_ofs - 

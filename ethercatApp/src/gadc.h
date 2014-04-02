@@ -1,3 +1,5 @@
+#ifndef _gadc_H_
+#define _gadc_H_
 /*
 
 Generic ADC driver
@@ -6,6 +8,7 @@ TDI-CTRL-REQ-015
 */
 #include <asynPortDriver.h>
 
+class ecAsyn;
 class WaveformPort : public asynPortDriver
 {
 
@@ -37,8 +40,10 @@ class WaveformPort : public asynPortDriver
         GADC_BIT_NEGATIVE_OFFSET = 0x04
     };
 
+    /* on change of parameters, modify 
+       FIRST_WAVEFORM_COMMAND and LAST_WAVEFORM_COMMAND 
+       in gadc.cpp */
     int P_Capture;
-#define FIRST_WAVEFORM_COMMAND P_Capture
     int P_Mode;
     int P_Samples;
     int P_Offset;
@@ -58,12 +63,14 @@ class WaveformPort : public asynPortDriver
     int P_Value;
     int P_Interrupt;
     int P_Waveform;
-#define LAST_WAVEFORM_COMMAND P_Waveform
+
     epicsInt32 * buffer;
     epicsInt32 * outbuffer;
     int bofs;
     int bsize;
     int channel;
+    ecAsyn *parentPort;
+    struct EC_PDO_ENTRY_MAPPING *mapping;
     asynStatus resize();
     void reset();
     epicsInt32 IP(int param)
@@ -84,8 +91,10 @@ class WaveformPort : public asynPortDriver
     }
     int calcStartOffset(int size);
 public:
-    WaveformPort(const char * name);
+    WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAPPING *m);
     virtual asynStatus writeInt32(asynUser * pasynUser, epicsInt32 value);
+    virtual asynStatus getBounds(asynUser * pasynUser, 
+                                 epicsInt32 * low, epicsInt32 * high);
     /* does NOT support SCAN */
     asynStatus getArrayValue(asynUser *pasynUser, epicsInt32 *value,
                              size_t nElements, size_t *nIn);
@@ -102,44 +111,5 @@ public:
     asynStatus setPutsample(epicsInt32 value);
 };
 
-#define NUM_WAVEFORM_PARAMS (&LAST_WAVEFORM_COMMAND - &FIRST_WAVEFORM_COMMAND + 1)
 
-WaveformPort::WaveformPort(const char * name) : asynPortDriver(
-    name,
-    1, /* maxAddr */
-    NUM_WAVEFORM_PARAMS, /* max parameters */
-    asynInt32Mask | asynInt32ArrayMask | asynDrvUserMask, /* interface mask*/
-    asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
-    0, /* non-blocking, no addresses */
-    1, /* autoconnect */
-    0, /* default priority */
-    0) /* default stack size */
-{
-    createParam("CAPTURE", asynParamInt32, &P_Capture);
-    createParam("MODE", asynParamInt32, &P_Mode);
-    createParam("SAMPLES", asynParamInt32, &P_Samples);
-    createParam("OFFSET", asynParamInt32, &P_Offset);
-    createParam("AVERAGE", asynParamInt32, &P_Average);
-    createParam("CHANBUFF", asynParamInt32, &P_Chanbuff);
-    createParam("TRIGGER", asynParamInt32, &P_Trigger);
-    createParam("ENABLED", asynParamInt32, &P_Enabled);
-    createParam("RETRIGGER", asynParamInt32, &P_Retrigger);
-    createParam("CLEAR", asynParamInt32, &P_Clear);
-    createParam("OVERFLOW", asynParamInt32, &P_Overflow);
-    createParam("AVERAGEOVERFLOW", asynParamInt32, &P_Averageoverflow);
-    createParam("BUFFERCOUNT", asynParamInt32, &P_Buffercount);
-    createParam("STATE", asynParamInt32, &P_State);
-    createParam("SUPPORT", asynParamInt32, &P_Support);
-    createParam("INFO", asynParamInt32, &P_Info);
-    createParam("PUTSAMPLE", asynParamInt32, &P_Putsample);
-    createParam("VALUE", asynParamInt32, &P_Value);
-    createParam("INTERRUPT", asynParamInt32, &P_Interrupt);
-    createParam("WAVEFORM", asynParamInt32Array, &P_Waveform);
-    setIntegerParam(P_State, GADC_STATE_WAITING);
-    setIntegerParam(P_Support, GADC_BIT_TRIGGER | GADC_BIT_NEGATIVE_OFFSET);
-}
-
-#undef FIRST_WAVEFORM_COMMMAND
-#undef LAST_WAVEFORM_COMMAND
-#undef NUM_WAVEFORM_PARAMS
-
+#endif // _gadc_H_

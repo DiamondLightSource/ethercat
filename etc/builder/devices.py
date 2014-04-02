@@ -95,12 +95,28 @@ class EthercatSlave(Device):
         assert( self.device != None)
         return self.device.getTypicalDeviceSignals()
 
+    def assignPdo(self, smnumber, pdo_index):
+        self.chainelem.assignPdo(smnumber, pdo_index)
+
     ArgInfo = makeArgInfo(__init__,
         master = Ident("ethercat master device", EthercatMaster),
         position = Simple("slave position in ethercat chain, or serial number of format DCS00001234", str),
         type_rev = Choice("Device type and revision",ethercat.types_choice),
         name = Simple("slave's asyn port name", str),
         oversample = Simple("slave's oversampling rate, e.g. on an EL4702 oversample=100 bus freq 1kHz gives 100kHz samples",int))
+
+class PdoAssignment(Device):
+    ''' An entry to add a PDO in a slave's sync manager'''
+    def __init__(self, slave, smnumber, pdo_index):
+        self.__super.__init__()
+        self.slave = slave
+        self.smnumber = smnumber
+        self.slave.assignPdo(smnumber, pdo_index)
+
+    ArgInfo = makeArgInfo(__init__,
+                          slave = Ident("ethercat slave", EthercatSlave),
+                          smnumber = Simple("sync manager number", int),
+                          pdo_index = Simple("pdo index to include in sync manager", int))
 
 class GenericADC(Device):
     ''' A generic ADC signal'''

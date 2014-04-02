@@ -25,18 +25,21 @@ diamondFilter = [
         "EL9505", "EP2624-0002", "EL1014-0010", "EX260-SEC3", "EX260-SEC2", 
         "EX260-SEC4", "EL3314", "EP3204-0002", "EL3702",
         "EL2024", "EP4174-0002", "EX250-SEN1-X156", "EP2338-0002", 
-        "EP2338-0001", "EK1100", "EX260-SEC1", "EK1122", "EP1122-0001",
+        "EP2338-0001", "EK1100", "EK1101", "EX260-SEC1", "EK1122", "EP1122-0001",
         "EL1124", "EP3314-0002", "EL3602", "NI 9144", "EL9410", "EP2624", 
         "EL2124", "EL4134", "EL9512", "EL3202-0010", "EL3104", "EL3602-0010",
-        "EL3124", "EL2612"]
+        "EL2612", "EL2595", "EL3124"]
 #The entries in the wiki with these names don't show up in the database
 # EL9011 EL9080 EL9185 ZS2000-3712
 # I23 has an EL2612 that is not in the list of supported modules
 
+Debug = False
+
+
 ##################### module classes
 
 class PdoEntry:
-    '''A device pdo's entry'''
+    '''An entry in a devices's PDO'''
     def __init__(self, name, index, subindex, bitlen, datatype,oversample):
         self.name = name
         self.index = index
@@ -59,33 +62,88 @@ class PdoEntry:
         f = f + 'bit_length="%(bitlen)d" '
         f = f + 'datatype="%(datatype)s" '
         f = f + 'oversample="%(oversample)d" '
-        return '      <' + f % self.__dict__ +  '/>\n'
+        return '        <' + f % self.__dict__ +  '/>\n'
+
+
+class PaddingEntry(PdoEntry):
+    count = 0
+    ''' A padding entry in a PDO'''
+    def __init__(self, name, index, bitlen):
+        self.name = name
+        PaddingEntry.count = PaddingEntry.count + 1
+        self.name = (name + "Gap%d") % PaddingEntry.count
+        self.count = PaddingEntry.count
+        self.index = index
+        self.bitlen = bitlen
+        # dummy entries
+        self.subindex = 0
+        self.datatype = "BOOL"
+        self.oversample = 0
+
+    def generatePdoEntryXml(self):
+        f =     'entry name="%(name)s" '
+        f = f + 'index="0x%(index)08x" '
+        f = f + 'subindex="0x%(subindex)08x" '
+        f = f + 'bit_length="%(bitlen)d" '
+        f = f + 'datatype="%(datatype)s" '
+        f = f + 'oversample="%(oversample)d" '
+        return '        <' + f % self.__dict__ +  '/>\n'
 
 class Pdo:
-    '''A device's pdo entry'''
-    def __init__(self, name, index, direction):
+    '''A device's pdo entry
+       direction can be "Tx" for input from slaves 
+       or "Rx" for output to slaves
+       syncmanager can be None for non-default pdos
+    '''
+    def __init__(self, name, index, syncmanager, rxtx):
         self.name = name
         self.index = index
-        self.direction = direction
         self.entries = []
+        self.syncmanager = syncmanager
+        self.rxtx = rxtx
+        self.defaultPdo = True
+
     def addEntry(self, pdoentry):
         if pdoentry:
             self.entries.append(pdoentry)
             pdoentry.parent = self
     def generatePdoXml(self):
         ''' xml description for the ethercat scanner '''
-        o = '    <sync index="0" dir="0" watchdog="0">\n    '
-        o = o + "<pdo dir=\"%(direction)d\" " % self.__dict__
-        o = o + "name=\"%(name)s\"" % self.__dict__ 
+        o = "      <pdo name=\"%(name)s\"" % self.__dict__ 
         o = o + " index=\"0x%(index)08x\">\n" % self.__dict__
         for entry in self.entries:
             o = o + entry.generatePdoEntryXml()
-        o = o + "    </pdo>\n"
-        o = o + "    </sync>\n"
+        o = o + "      </pdo>\n"
+        
         return o
     def getPdoSignals(self):
         ''' list of sample signals for Generic ADCs '''
         return [ x.makeParamName() for x in self.entries ]
+
+class SyncManager:
+    ''' A device's sync manager '''
+    def __init__(self, index, direction, watchdog):
+        self.index = index
+        self.direction = direction
+        self.watchdog = watchdog
+        self.pdos = set()
+        self.number = "-1" # placeholder number
+    
+    def sortedPdos(self):
+        return sorted(self.pdos, key=lambda p:p.index)
+
+    def generateSyncManagerXml(self):
+        ''' xml description for the ethercat scanner '''
+        o = '    <sync index="%(number)s" ' % self.__dict__
+        o = o + ' dir="%(direction)s" '% self.__dict__
+        o = o + ' watchdog="%(watchdog)d">\n' % self.__dict__
+        for pdo in self.sortedPdos():
+            o = o + pdo.generatePdoXml()
+        o = o + "    </sync>\n"
+        return o
+
+    def assignPdo(self, pdo):
+        self.pdos.add(pdo)
         
 class EthercatDevice:
     ''' An EtherCAT device description, 
@@ -95,16 +153,58 @@ class EthercatDevice:
         self.vendor = vendor
         self.product = product
         self.revision = revision
+        self.syncmanagers = {}
         self.txpdos = []
         self.rxpdos = []
         self.assign_activate = None
+
+    def addSyncManager(self, sm):
+        if not sm:
+            return
+        self.syncmanagers[int(sm.number)] = sm
+
+    def getPdoByIndex(self, pdo_index):
+        for pdo in self.txpdos:
+            if pdo.index == pdo_index:
+                return pdo
+        for pdo in self.rxpdos:
+            if pdo.index == pdo_index:
+                return pdo
+        return None
+
+    def transferAssignments(self, elem):
+        """transfer pdo assignments from an EthercatChainElem object"""
+        if Debug:
+            print "transferAssignments for elem %s" % elem.portname
+        if not elem.processedAssignedPdos:
+            for smnumber in range(4):
+                for pdo_index in elem.assignedPdos[smnumber]:
+                    self.assignPdo(smnumber, pdo_index)
+            elem.processedAssignedPdos = True
+
+    def assignPdo(self, syncmanager_number, pdo_index):
+        pdo = self.getPdoByIndex(pdo_index)
+        if syncmanager_number in self.syncmanagers \
+           and pdo is not None:
+            self.syncmanagers[syncmanager_number].assignPdo(pdo)
+
     def addPdo(self, pdo ):
         if not pdo:
             return
-        if pdo.direction == 1:
+        if Debug:
+            if not pdo.syncmanager in self.syncmanagers:
+                print "Syncmanager %d not found in device. " % pdo.syncmanager
+            a = (pdo.syncmanager, self.syncmanagers[pdo.syncmanager].direction)
+            print "Adding pdo for syncmanager %s, direction %s" % a
+        if pdo.rxtx == "tx": 
+            #assert self.syncmanagers[pdo.syncmanager].direction == "Inputs"
             self.txpdos.append(pdo)
         else:
+            #assert self.syncmanagers[pdo.syncmanager].direction == "Outputs"
+            assert pdo.rxtx == "rx" # output
             self.rxpdos.append(pdo)
+        if pdo.syncmanager:
+            self.syncmanagers[int(pdo.syncmanager)].assignPdo(pdo)
 
     def generateDeviceXml(self):
         ''' xml description for the ethercat scanner '''
@@ -116,12 +216,15 @@ class EthercatDevice:
         if self.assign_activate:
             o = o + ' dcactivate="0x%(assign_activate)08x"' % self.__dict__
         o = o + ">\n"
-        for pdo in self.txpdos:
-            o = o + pdo.generatePdoXml()
-        for pdo in self.rxpdos:
-            o = o + pdo.generatePdoXml()
+        # for pdo in self.txpdos:
+        #     o = o + pdo.generatePdoXml()
+        # for pdo in self.rxpdos:
+        #     o = o + pdo.generatePdoXml()
+        for sm in self.syncmanagers:
+            o = o + self.syncmanagers[sm].generateSyncManagerXml()
         o = o + "  </device>\n"
         return o
+
     def getDeviceSignals(self):
         "all the device's signals"
         r = []
@@ -158,13 +261,31 @@ class EthercatChainElem:
         assert position not in self.__Positions, \
             "Slave position %d already taken" % position
         self.__Positions.add(position)
+        self.assignedPdos = {0: set(),
+                                         1: set(),
+                                         2: set(),
+                                         3: set() }
+        # record whether device descriptions were processed for 
+        # non default PDOs
+        self.processedAssignedPdos = True
 
+    def assignPdo(self, smnumber, pdo_index):
+        assert smnumber in [0,1,2,3]
+        self.assignedPdos[smnumber].add(pdo_index)
+        self.processedAssignedPdos = False
 
+    def getDeviceDescription(self):
+        key = parseTypeRev(self.type_rev)
+        self.device = all_dev_descriptions[key]
+        if not self.processedAssignedPdos:
+            self.device.transferAssignments(self)
+
+        
 class EthercatChain:
     '''a collection of slaves with positions and driver information'''
     def __init__(self):
         self.chain = {} # hash of EthercatChainElem
-        self.chainlist = []
+        self.chainlist = [] # list of positions
         self.dev_descriptions = dict()
 
     def setDevice(self, chainelem):
@@ -176,36 +297,14 @@ class EthercatChain:
         ''' populate the chain-elements' device descriptions from the
             descriptions en ethercat.dev_descriptions
         '''
-        global all_descriptions
-        reqs = set()   # set of devices in chain
-        missingDevices = False
-        for elem in [self.chain[position] for position in self.chainlist]:
-            reqs.add(parseTypeRev(elem.type_rev))
-            if not elem.device:
-                missingDevices = True
-        if not missingDevices:
-            return
-        expected_len = len(reqs)
-        self.dev_descriptions = dict()        
-        for key, dev in all_dev_descriptions.iteritems():
-            if key in reqs:
-                self.dev_descriptions[key] = dev
-                missingDevices = False
-                for elem in [self.chain[position] for position in self.chainlist]:
-                    if elem.device:
-                        continue
-                    if (elem.type, elem.revision) == key:
-                        elem.device = dev
-                    else:
-                        missingDevices = True
-                if not missingDevices:
-                    break
-        assert( expected_len == len(self.dev_descriptions) ), \
-            "The following modules are not listed in ethercat/etc/xml: \n%s" % \
-                [x for x in reqs if x not in self.dev_descriptions]
+        for pos in self.chain:
+            self.chain[pos].getDeviceDescription()
+        for pos in self.chain:
+            key = parseTypeRev(self.chain[pos].type_rev)
+            self.dev_descriptions[key] = all_dev_descriptions[key]
 
     def generateChainXml(self):
-        from itertools import chain
+        # from itertools import chain
         o = '<chain>\n'
         #produces a list of tuples (position, type_rev, portname, oversample)
         for chainelem in [ self.chain[position] for position in self.chainlist ]:
@@ -242,8 +341,8 @@ def initialise(forceInitialisation = False):
         all_dev_descriptions = None
         stypes = None
         all_dev_descriptions = getAllDevices()
-        stypes = getPdoEntryChoices(dev_descriptions)
-        types_dict = filteredDescriptions(dev_descriptions)
+        stypes = getPdoEntryChoices(all_dev_descriptions)
+        types_dict = filteredDescriptions(all_dev_descriptions)
         types_choice = ["%s rev 0x%08x" % key \
                 for key in sorted(types_dict.keys())]
         pdo_entry_choices =  ["%s : %s rev 0x%08x" % k for k in getPdoEntryChoices(types_dict) ]
@@ -267,40 +366,77 @@ def parseInt(text):
         return int(text.replace("#x", ""), 16)
     else:
         return int(text)
- 
-def parsePdoEntry(entry, oversample):
-    '''parse an xml entry node and return a PdoEntry object'''
-    # some pdo entries are just padding with no name, ignore
+        
+def parsePadding(entry):
+    ''' parse a padding pdo entry'''
+    name = ""
     try:
         name = entry.xpathEval("Name")[0].content
     except:
-        return None
+        pass
+    index = parseInt(entry.xpathEval("Index")[0].content)
+    bitlen = parseInt(entry.xpathEval("BitLen")[0].content)
+    return PaddingEntry(name, index, bitlen)
+
+def parsePdoEntry(entry, oversample):
+    '''parse an xml entry node and return a PdoEntry object'''
+    # is this padding?
+    padding = False
     try:
-        # or padding can have a name but no subindex
+        # padding can have a name but no subindex
         subindex = parseInt(entry.xpathEval("SubIndex")[0].content)
         # some pdos entries don't specify a datatype, ignore
         datatype = entry.xpathEval("DataType")[0].content
+    except:
+        padding = True
+    if padding:
+        return parsePadding(entry)
+    # some pdo entries are just padding with no name, ignore
+    try:
+        name = entry.xpathEval("Name")[0].content
     except:
         return None
     index = parseInt(entry.xpathEval("Index")[0].content)
     bitlen = parseInt(entry.xpathEval("BitLen")[0].content)
     return  PdoEntry(name, index, subindex, bitlen, datatype, oversample)
 
-def parsePdo(pdoNode, d, os):
+
+def parsePdo(pdoNode, os, rxtx):
     '''read pdo description from an xml pdo node'''
-    # some pdos don't have a sync manager assigment
-    # not supported by EtherLab driver
-    if not pdoNode.xpathEval("@Sm"):
-        return None
+        
     # some pdos don't have a name, ignore
     if not pdoNode.xpathEval("Name"):
         return None
     name = pdoNode.xpathEval("Name")[0].content
     index = parseInt(pdoNode.xpathEval("Index")[0].content)
-    pdo = Pdo(name,index, d)
+    if Debug:
+        a = (name, index, syncmanager)
+        print "Creating pdo name %s index %x syncmanager %s" % a
+    defaultPdo = False
+    #Some Pdos have a sync manager - those are marked defaultPdo
+    sm = pdoNode.xpathEval("@Sm")
+    if not sm:
+        defaultPdo = False
+        syncmanager = None
+    else:
+        syncmanager = sm[0].content
+        defaultPdo = True
+    pdo = Pdo(name,index, syncmanager, rxtx)
+    pdo.defaultPdo = defaultPdo
     for entry in pdoNode.xpathEval("Entry"):
         pdo.addEntry( parsePdoEntry(entry, index in os) )
     return pdo
+
+def parseSyncManager(smNode):
+    ''' read sync manager description from an xml sm node'''
+    watchdog = 0
+    direction = smNode.content # "Inputs", "Outputs", "MBoxOut", etc
+    index = parseInt(smNode.xpathEval("@StartAddress")[0].content)
+    if Debug:
+        a = (index, direction, watchdog)
+        print "found syncmanager index=%x direction=%s watchdog=%d" % a
+    sm = SyncManager(index, direction, watchdog)
+    return sm
 
 def getDescriptions(filename):
     '''return a dictionary of device descriptions in the file'''
@@ -327,11 +463,17 @@ def getDescriptions(filename):
         device.file = filename
         for dcmode in devNode.xpathEval("Dc/OpMode/Sm/Pdo[@OSFac]"):
             oversampling.add(parseInt(dcmode.content))
+        smCount = 0
+        for smNode in devNode.xpathEval("Sm"):
+            sm = parseSyncManager(smNode)
+            sm.number = str(smCount)
+            smCount = smCount + 1
+            device.addSyncManager(sm)
         for txpdo in devNode.xpathEval("TxPdo"):
-            pdo = parsePdo(txpdo, 1, oversampling)  
+            pdo = parsePdo(txpdo, oversampling, "tx")  
             device.addPdo( pdo ) 
         for rxpdo in devNode.xpathEval("RxPdo"):
-            pdo = parsePdo(rxpdo, 0, oversampling)  
+            pdo = parsePdo(rxpdo, oversampling, "rx")  
             device.addPdo(pdo) 
         dev_dictionary[key] = device
     return dev_dictionary

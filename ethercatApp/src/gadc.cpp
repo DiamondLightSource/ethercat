@@ -8,9 +8,12 @@ TDI-CTRL-REQ-015
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdint.h>
-#include <asynPortDriver.h>
+
+
 #include "gadc.h"
+#include "messages.h"
+#include "rtutils.h"
+#include "ecAsyn.h"
 
 static int _max(int a, int b)
 {
@@ -32,6 +35,54 @@ static int posmod(int a, int b)
     return c;
 }
 
+// check in gadc.h definition
+#define FIRST_WAVEFORM_COMMAND P_Capture
+#define LAST_WAVEFORM_COMMAND P_Waveform
+
+#define NUM_WAVEFORM_PARAMS (&LAST_WAVEFORM_COMMAND - &FIRST_WAVEFORM_COMMAND + 1)
+
+WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAPPING *m) : asynPortDriver(
+    name,
+    1, /* maxAddr */
+    NUM_WAVEFORM_PARAMS, /* max parameters */
+    asynInt32Mask | asynInt32ArrayMask | asynDrvUserMask, /* interface mask*/
+    asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
+    0, /* non-blocking, no addresses */
+    1, /* autoconnect */
+    0, /* default priority */
+    0), /* default stack size */
+ parentPort(p), mapping(m)
+{
+    printf("Creating waveform port \"%s\"\n", name);
+    createParam("CAPTURE", asynParamInt32, &P_Capture);
+    createParam("MODE", asynParamInt32, &P_Mode);
+    createParam("SAMPLES", asynParamInt32, &P_Samples);
+    createParam("OFFSET", asynParamInt32, &P_Offset);
+    createParam("AVERAGE", asynParamInt32, &P_Average);
+    createParam("CHANBUFF", asynParamInt32, &P_Chanbuff);
+    createParam("TRIGGER", asynParamInt32, &P_Trigger);
+    createParam("ENABLED", asynParamInt32, &P_Enabled);
+    createParam("RETRIGGER", asynParamInt32, &P_Retrigger);
+    createParam("CLEAR", asynParamInt32, &P_Clear);
+    createParam("OVERFLOW", asynParamInt32, &P_Overflow);
+    createParam("AVERAGEOVERFLOW", asynParamInt32, &P_Averageoverflow);
+    createParam("BUFFERCOUNT", asynParamInt32, &P_Buffercount);
+    createParam("STATE", asynParamInt32, &P_State);
+    createParam("SUPPORT", asynParamInt32, &P_Support);
+    createParam("INFO", asynParamInt32, &P_Info);
+    createParam("PUTSAMPLE", asynParamInt32, &P_Putsample);
+    createParam("VALUE", asynParamInt32, &P_Value);
+    createParam("INTERRUPT", asynParamInt32, &P_Interrupt);
+    createParam("WAVEFORM", asynParamInt32Array, &P_Waveform);
+    setIntegerParam(P_State, GADC_STATE_WAITING);
+    setIntegerParam(P_Support, GADC_BIT_TRIGGER | GADC_BIT_NEGATIVE_OFFSET);
+}
+
+#undef FIRST_WAVEFORM_COMMMAND
+#undef LAST_WAVEFORM_COMMAND
+#undef NUM_WAVEFORM_PARAMS
+
+
 // note possible enhancement for asynPortDriver, setter function pointer table
 asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
 {
@@ -41,7 +92,7 @@ asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
         return result;
     }
     int cmd = pasynUser->reason;
-    // printf("write param %d %d\n", cmd, value);
+
     if(cmd == P_Mode)
     {
         return setMode(value);
@@ -83,6 +134,12 @@ asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
         return setPutsample(value);
     }
     return asynSuccess;
+}
+
+asynStatus WaveformPort::getBounds(asynUser * pasynUser, epicsInt32 * low, epicsInt32 * high)
+{
+    assert(this->parentPort != NULL);
+    return  parentPort->getBoundsForMapping(mapping, low, high);
 }
 
 asynStatus WaveformPort::setMode(epicsInt32 value)

@@ -5,9 +5,18 @@ include $(TOP)/configure/CONFIG
 # LIBRARY
 
 USR_SYS_LIBS += xml2
-LIBRARY_IOC += ecAsyn
-ecAsyn_SRCS += ecAsyn.cpp
-ecAsyn_LIBS += asyn scannerlib rtutils gadc
+LIBRARY_IOC += ecAsyn 
+
+# gadc_SRCS += gadc.cpp
+# gadc_LIBS += asyn
+
+
+ecAsyn_SRCS += ecAsyn.cpp gadc.cpp
+ecAsyn_LIBS += asyn scannerlib rtutils 
+
+
+INC += gadc.h
+
 DBD += ecAsyn.dbd
 
 # IOC

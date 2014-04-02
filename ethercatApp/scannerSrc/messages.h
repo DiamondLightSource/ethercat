@@ -1,3 +1,6 @@
+#ifndef _messages_H
+#define _messages_H
+#include <time.h>               /* for struct timespec */
 enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2, MSG_PDO = 3, MSG_CONFIG = 4 };
 
 typedef struct
@@ -33,6 +36,12 @@ typedef struct
     int dummy;
 } HEARTBEAT_MESSAGE;
 
+typedef struct
+{
+    int tag;
+    struct timespec ts;
+} TIMER_MESSAGE;
+
 union EC_MESSAGE
 {
     int tag;
@@ -44,3 +53,5 @@ union EC_MESSAGE
 };
 
 typedef union EC_MESSAGE EC_MESSAGE;
+
+#endif

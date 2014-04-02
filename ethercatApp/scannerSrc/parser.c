@@ -13,10 +13,20 @@
 #include <ellLib.h>
 #include "classes.h"
 
+enum parser_dir_type {
+  /* mirrors ec_direction_t */
+  PARSER_DIR_INVALID, PARSER_DIR_OUTPUT, PARSER_DIR_INPUT
+};
+
+enum parsing_result_type {
+    PARSING_ERROR, PARSING_OKAY
+};
+
+
 int ellAddOK(ELLLIST * pList, ELLNODE * pNode)
 {
     ellAdd(pList, pNode);
-    return 1;
+    return PARSING_OKAY;
 }
 
 typedef struct CONTEXT CONTEXT;
@@ -70,12 +80,12 @@ int expectNode(xmlNode * node, char * name)
     if((node->type == XML_ELEMENT_NODE) &&
        (strcmp((char *)node->name, name) == 0))
     {
-        return 1;
+        return PARSING_OKAY;
     }
     else
     {
         printf("expected %s got %s", node->name, name);
-        return 0;
+        return PARSING_ERROR;
     }
 }
 
@@ -92,10 +102,10 @@ int parseChildren(xmlNode * node, CONTEXT * ctx, char * name, PARSEFUNC parseFun
         }
         if(!(expectNode(c, name) && parseFunc(c, ctx)))
         {
-            return 0;
+            return PARSING_ERROR;
         }
     }
-    return 1;
+    return PARSING_OKAY;
 }
 
 // octal constants are an absolute disaster, check them here
@@ -115,14 +125,14 @@ int isOctal(char * attr)
         }
         else if(state == LEADING_ZERO && isdigit(attr[n]))
         {
-            return 1;
+            return PARSING_OKAY;
         }
         else
         {
             break;
         }
     }
-    return 0;
+    return PARSING_ERROR;
 }
 
 int getDouble(xmlNode * node, char * name, double * value)
@@ -133,12 +143,13 @@ int getDouble(xmlNode * node, char * name, double * value)
     {
         *value = strtod(text, &end_str);
         if ( *end_str == 0 )
-            return 1;
+            return PARSING_OKAY;
     }
     printf("getDouble: Could not find parameter %s\n", name);
-    return 0;
+    return PARSING_ERROR;
 }
 
+/* return: status of the parsing, 1 if okay, zero on error */
 int getInt(xmlNode * node, char * name, int * value, int required)
 {
     char * text = (char *)xmlGetProp(node, (unsigned char *)name);
@@ -147,7 +158,7 @@ int getInt(xmlNode * node, char * name, int * value, int required)
         if(isOctal(text))
         {
             printf("error: constants with leading zeros are disallowed as they are parsed as octal\n");
-            return 0;
+            return PARSING_ERROR;
         }
         errno = 0;
         *value = strtol(text, NULL, 0);
@@ -162,12 +173,13 @@ int getInt(xmlNode * node, char * name, int * value, int required)
         else
         {
             *value = 0;
-            return 1;
+            return PARSING_OKAY;
         }
     }
-    return 0;
+    return PARSING_ERROR;
 }
 
+/* return: status of the parsing, 1 (okay) or 0 (error) */
 int getStr(xmlNode * node, char * name, char ** value)
 {
     *value = (char *)xmlGetProp(node, (unsigned char *)name);
@@ -203,13 +215,35 @@ int parseSync(xmlNode * node, CONTEXT * ctx)
 {
     ctx->sync_manager = calloc(1, sizeof(EC_SYNC_MANAGER));
     EC_SYNC_MANAGER *sm = ctx->sync_manager;
-    return
+    char parseBuffer[20];
+    char *direction = parseBuffer;
+    int parsingIsOkay = 1;
+    parsingIsOkay = getStr(node, "dir", &direction);
+    if (strcasecmp("outputs", direction) == 0)
+    {
+      sm->direction = PARSER_DIR_OUTPUT;
+    }
+    else if (strcasecmp("inputs", direction) == 0)
+    {
+      sm->direction = PARSER_DIR_INPUT;
+    }
+    else
+    {
+      sm->direction = PARSER_DIR_INVALID;
+    }
+    parsingIsOkay =parsingIsOkay &&
         getInt(node, "index", &sm->index, 1) &&
-        getInt(node, "dir", &sm->direction, 1) &&
         getInt(node, "watchdog", &sm->watchdog, 1) &&
         parseChildren(node, ctx, "pdo", parsePdo) &&
-        (sm->parent = ctx->device_type) && 
-        ellAddOK(&ctx->device_type->sync_managers, &sm->node);
+        (sm->parent = ctx->device_type);
+    if (parsingIsOkay)
+    {
+        if (sm->direction == PARSER_DIR_INVALID)
+            return PARSING_OKAY;
+        return ellAddOK(&ctx->device_type->sync_managers, &sm->node);
+    }
+    else
+        return PARSING_ERROR;
 }
 
 int parseDeviceType(xmlNode * node, CONTEXT * ctx)
@@ -280,9 +314,9 @@ int parseParams(xmlNode * node, st_simspec * spec)
                 getDouble(node, "symmetry", &spec->params.pramp.symmetry);
         case ST_INVALID:
         default:
-            return 0;
+            return PARSING_ERROR;
     }
-    return 0;
+    return PARSING_ERROR;
 }
 
 int find_duplicate(CONTEXT * ctx, int signal_no, int bit_length)
@@ -293,10 +327,10 @@ int find_duplicate(CONTEXT * ctx, int signal_no, int bit_length)
         st_simspec * simspec = (st_simspec *)node;
         if ( (simspec->signal_no == signal_no) && (simspec->bit_length == bit_length) )
         {
-            return 1;
+            return PARSING_OKAY;
         }
     }
-    return 0;
+    return PARSING_ERROR;
 }
 
 int parseSimulation(xmlNode * node, CONTEXT * ctx)
@@ -320,7 +354,7 @@ int parseSimulation(xmlNode * node, CONTEXT * ctx)
                 && ellAddOK(&ctx->device->simspecs, &ctx->simspec->node);
     }
     else
-        return 0;
+        return PARSING_ERROR;
 }
 
 int parseSimspec(xmlNode * node, CONTEXT * ctx)
@@ -399,16 +433,16 @@ int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * m
     if(mapping->parent == NULL)
     {
         printf("Can't find %d\n", mapping->device_position);
-        return 0;
+        return PARSING_ERROR;
     }
     mapping->pdo_entry = find_pdo_entry(mapping->parent, pdo_index, 
                                        mapping->index, mapping->sub_index);
     if(mapping->pdo_entry == NULL)
     {
-        return 0;
+        return PARSING_ERROR;
     }
     ellAddOK(&mapping->parent->pdo_entry_mappings, &mapping->node);
-    return 1;
+    return PARSING_OKAY;
 }
 
 int parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
@@ -416,13 +450,22 @@ int parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
     int pdo_index = 0;
     ctx->pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
     EC_PDO_ENTRY_MAPPING *mp = ctx->pdo_entry_mapping;
-    return 
-        getInt(node, "index", &mp->index, 1) &&
+    int parsingIsOkay;
+    parsingIsOkay = getInt(node, "index", &mp->index, 1) &&
         getInt(node, "sub_index", &mp->sub_index, 1) &&
         getInt(node, "device_position", &mp->device_position, 1) &&
         getInt(node, "offset", &mp->offset, 1) &&
         getInt(node, "bit", &mp->bit_position, 1) &&
-        getInt(node, "pdo_index", &pdo_index, 1) &&
+        getInt(node, "pdo_index", &pdo_index, 1);
+
+    if (parsingIsOkay && (mp->index == 0) && (mp->sub_index == 0))
+    {
+        printf("Skipping gap for pdo_index 0x%x\n", pdo_index);
+        free(ctx->pdo_entry_mapping);
+        return 1;
+    }
+    else return 
+        parsingIsOkay &&
         joinPdoEntryMapping(ctx->config, pdo_index, mp);
 }
 
@@ -436,7 +479,7 @@ int parseEntriesFromBuffer(char * text, int size, EC_CONFIG * cfg)
     xmlNode * node = xmlDocGetRootElement(doc);
     assert(node);
     parseChildren(node, &ctx, "entry", parsePdoEntryMapping);
-    return 0;
+    return PARSING_ERROR;
 }
 
 int dump(xmlNode * node, CONTEXT * ctx)
@@ -451,10 +494,10 @@ int dump(xmlNode * node, CONTEXT * ctx)
         }
         if(!dump(c, ctx))
         {
-            return 0;
+            return PARSING_ERROR;
         }
     }
-    return 1;
+    return PARSING_OKAY;
 }
 
 /*
@@ -489,7 +532,7 @@ int read_config2(char * config, int size, EC_CONFIG * cfg)
             parseChain(c, &ctx);
         }
     }
-    return 0;
+    return PARSING_ERROR;
 }
 
 char * load_config(char * filename)
