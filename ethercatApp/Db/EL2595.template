@@ -9,6 +9,8 @@
 # % macro, SCAN,   scan rate
 # % macro, DRVL,   drive high limit for current output
 # % macro, DRVH,   drive low limit for current output
+# % macro, name,   name for gui component
+# % gui, $(name=EL2595), edm, el2595.edl, DEVICE=$(DEVICE)
 
 record(mbbi, "$(DEVICE):AL_STATE")
 {
