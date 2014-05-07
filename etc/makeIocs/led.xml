@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<components arch="linux-x86_64">
+	<ethercat.EthercatMaster name="ECATM" socket="/tmp/socket"/>
+	<!--slaves 2 link up 1-->
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.0" position="0" type_rev="EK1101 rev 0x00110000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.1" position="1" type_rev="EL2595 rev 0x00120000"/>
+	<!--rxpdo 0x1601 is 5633 in base 10-->
+	<ethercat.PdoAssignment name="PA1" pdo_index="5633" slave="ERIO.1" smnumber="2"/>
+	<ethercat.auto_EL2595 DEVICE="TEST-RJQ:LED" DRVH="3000" DRVL="0" PORT="ERIO.1" SCAN="1 second" name="LED1"/>
+</components>
