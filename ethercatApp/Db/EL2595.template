@@ -10,7 +10,22 @@
 # % macro, DRVL,   drive high limit for current output
 # % macro, DRVH,   drive low limit for current output
 # % macro, name,   name for gui component
+# % macro, label,  name for embedded button
+
+# % gui, $(name=EL2595), edmembed, el2595-embed.edl, DEVICE=$(DEVICE),label=$(label)
 # % gui, $(name=EL2595), edm, el2595.edl, DEVICE=$(DEVICE)
+
+record(longout, "$(DEVICE):DOXCURRENT:OUTPUTCURRENT")
+{
+  field("DTYP", "asynInt32")
+  field("DESC", "$(label)")
+  field("OUT",  "@asyn($(PORT))DOXCurrent.Outputcurrent")
+  field("OMSL", "supervisory")
+  field("DRVH", "$(DRVH)")
+  field("DRVL", "$(DRVL)")
+  field("HOPR", "$(DRVH)")
+  field("LOPR", "$(DRVL)")
+}
 
 record(mbbi, "$(DEVICE):AL_STATE")
 {
@@ -93,18 +108,6 @@ record(bi, "$(DEVICE):DOXSTATUS:STXPDOTOGGLE")
   field("SCAN", "$(SCAN)")
   field("ZNAM", "OFF")
   field("ONAM", "ON")
-}
-
-
-record(longout, "$(DEVICE):DOXCURRENT:OUTPUTCURRENT")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))DOXCurrent.Outputcurrent")
-  field("OMSL", "supervisory")
-  field("DRVH", "$(DRVH)")
-  field("DRVL", "$(DRVL)")
-  field("HOPR", "$(DRVH)")
-  field("LOPR", "$(DRVL)")
 }
 
 

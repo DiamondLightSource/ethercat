@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1326
-y 430
+x 1047
+y 288
 w 403
 h 243
 font "arial-medium-r-16.0"
@@ -163,7 +163,7 @@ release 1
 x 5
 y 160
 w 106
-h 17
+h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
@@ -183,7 +183,7 @@ release 1
 x 10
 y 125
 w 56
-h 17
+h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
@@ -379,7 +379,7 @@ release 1
 x 260
 y 205
 w 39
-h 17
+h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
@@ -399,7 +399,7 @@ release 1
 x 5
 y 205
 w 99
-h 17
+h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
@@ -419,7 +419,7 @@ release 1
 x 145
 y 205
 w 64
-h 17
+h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
@@ -439,7 +439,7 @@ release 0
 x 215
 y 205
 w 20
-h 25
+h 20
 controlPv "$(DEVICE):DOXSTATUS:STATUS__WARNING"
 lineColor index 14
 onColor index 15
