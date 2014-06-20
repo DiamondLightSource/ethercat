@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1326
-y 430
-w 403
-h 243
+x 544
+y 236
+w 357
+h 402
 font "arial-medium-r-16.0"
 ctlFont "arial-bold-r-16.0"
 btnFont "arial-medium-r-16.0"
@@ -126,62 +126,14 @@ endGroup
 
 endObjectProperties
 
-# (Slider)
-object activeSliderClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 2
-y 34
-w 390
-h 75
-fgColor index 14
-bgColor index 3
-2ndBgColor index 5
-controlColor index 25
-indicatorColor index 19
-indicatorAlarm 1
-font "arial-medium-r-10.0"
-controlPv "$(DEVICE):DOXCURRENT:OUTPUTCURRENT"
-indicatorPv "$(DEVICE):DOXCURRENT:OUTPUTCURRENT"
-controlLabel "Desired Value"
-controlLabelType "pvLabel"
-readLabel "Readback Value"
-readLabelType "pvLabel"
-incMultiplier 1
-limitsFromDb
-displayFormat "FFloat"
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 1
-x 5
-y 160
-w 106
-h 17
-font "arial-medium-r-16.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Power control"
-}
-autoSize
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 10
-y 125
+x 35
+y 55
 w 56
 h 17
 font "arial-medium-r-16.0"
@@ -200,8 +152,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 235
-y 117
+x 100
+y 50
 w 146
 h 28
 controlPv "$(DEVICE):DOXCURRENT:OUTPUTCURRENT"
@@ -213,22 +165,144 @@ font "arial-bold-r-16.0"
 lineWidth 2
 endObjectProperties
 
-# (Textentry)
-object TextentryClass
+# (Group)
+object activeGroupClass
 beginObjectProperties
-major 10
+major 4
 minor 0
 release 0
-x 105
-y 111
-w 128
-h 40
-controlPv "$(DEVICE):DOXCURRENT:OUTPUTCURRENT"
-fgColor index 25
-fgAlarm
-bgColor index 3
+x 360
+y 0
+w 50
+h 30
+
+beginGroup
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 364
+y 4
+w 42
+h 23
+fgColor index 14
+bgColor index 0
+topShadowColor index 0
+botShadowColor index 14
+font "arial-medium-r-18.0"
+invisible
+buttonLabel "small screen"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "motor-all"
+}
+symbols {
+  0 "P=$(motor),M=''"
+}
+propagateMacros {
+  0 0
+}
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 362
+y 2
+w 48
+h 29
+lineColor index 11
+fillColor index 63
+lineWidth 2
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 360
+y 0
+w 48
+h 29
+lineColor index 1
+fillColor index 63
+lineWidth 2
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 362
+y 2
+w 47
+h 27
+lineColor index 49
 fill
-font "arial-bold-r-16.0"
+fillColor index 48
+lineWidth 3
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 372
+y 6
+w 4
+h 3
+lineColor index 1
+fill
+fillColor index 0
+lineWidth 2
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 377
+y 10
+w 17
+h 11
+lineColor index 14
+fillColor index 0
+lineWidth 2
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 377
+y 10
+w 17
+h 2
+lineColor index 14
+fill
+fillColor index 14
+lineWidth 2
+endObjectProperties
+
+endGroup
+
 endObjectProperties
 
 # (Group)
@@ -330,36 +404,14 @@ endGroup
 
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 135
-y 160
-w 105
-h 30
-fgColor index 25
-bgColor index 3
-selectColor index 3
-inconsistentColor index 0
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(DEVICE):DOXCONTROL:CONTROL__OUTPUT"
-indicatorPv "$(DEVICE):DOXCONTROL:CONTROL__OUTPUT"
-font "arial-medium-r-16.0"
-orientation "horizontal"
-endObjectProperties
-
 # (Byte)
 object ByteClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 310
-y 205
+x 120
+y 90
 w 20
 h 20
 controlPv "$(DEVICE):DOXSTATUS:SERROR"
@@ -376,8 +428,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 260
-y 205
+x 35
+y 95
 w 39
 h 17
 font "arial-medium-r-16.0"
@@ -396,18 +448,36 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 5
-y 205
-w 99
+x 25
+y 155
+w 141
 h 17
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Output Active"
+  "Status Digital Input"
 }
 autoSize
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 235
+y 155
+w 20
+h 20
+controlPv "$(DEVICE):DOXSTATUS:STATUS__DIGITALINPUT"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
 endObjectProperties
 
 # (Static Text)
@@ -416,8 +486,84 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 145
-y 205
+x 25
+y 185
+w 151
+h 17
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Status Output Active"
+}
+autoSize
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 235
+y 185
+w 20
+h 20
+controlPv "$(DEVICE):DOXSTATUS:STATUS__OUTPUTACTIVE"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 25
+y 215
+w 185
+h 17
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Status Ready to activate"
+}
+autoSize
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 235
+y 215
+w 20
+h 20
+controlPv "$(DEVICE):DOXSTATUS:STATUS__READYTOACTIVATE"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 35
+y 120
 w 64
 h 17
 font "arial-medium-r-16.0"
@@ -436,8 +582,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 215
-y 205
+x 120
+y 120
 w 20
 h 25
 controlPv "$(DEVICE):DOXSTATUS:STATUS__WARNING"
@@ -448,17 +594,37 @@ lineWidth 2
 numBits 1
 endObjectProperties
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 25
+y 245
+w 114
+h 17
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TXPDO Toggle"
+}
+autoSize
+endObjectProperties
+
 # (Byte)
 object ByteClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 115
-y 205
+x 235
+y 245
 w 20
-h 20
-controlPv "$(DEVICE):DOXSTATUS:STATUS__OUTPUTACTIVE"
+h 25
+controlPv "$(DEVICE):DOXCONTROL:CONTROL__INPUTTRIGGERENABLE"
 lineColor index 14
 onColor index 15
 offColor index 19
@@ -466,143 +632,121 @@ lineWidth 2
 numBits 1
 endObjectProperties
 
-# (Group)
-object activeGroupClass
+# (Static Text)
+object activeXTextClass
 beginObjectProperties
 major 4
-minor 0
-release 0
-x 355
-y 0
-w 50
-h 30
-
-beginGroup
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 4
-release 0
-x 359
-y 4
-w 42
-h 23
+minor 1
+release 1
+x 25
+y 275
+w 188
+h 17
+font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
-topShadowColor index 0
-botShadowColor index 14
-font "arial-medium-r-18.0"
-invisible
-buttonLabel "small screen"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "el2595-status"
+useDisplayBg
+value {
+  "Control Input Trig Enable"
 }
-symbols {
-  0 "DEVICE=$(DEVICE)"
-}
-propagateMacros {
-  0 0
-}
+autoSize
 endObjectProperties
 
-# (Circle)
-object activeCircleClass
+# (Byte)
+object ByteClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 357
-y 2
-w 48
-h 29
-lineColor index 11
-fillColor index 63
-lineWidth 2
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 355
-y 0
-w 48
-h 29
-lineColor index 1
-fillColor index 63
-lineWidth 2
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 357
-y 2
-w 47
-h 27
-lineColor index 49
-fill
-fillColor index 48
-lineWidth 3
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 367
-y 6
-w 4
-h 3
-lineColor index 1
-fill
-fillColor index 0
-lineWidth 2
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 372
-y 10
-w 17
-h 11
+x 235
+y 275
+w 20
+h 25
 lineColor index 14
-fillColor index 0
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 140
+y 305
+w 146
+h 28
+controlPv "$(DEVICE):ERROR_FLAG"
+fgColor index 16
+fgAlarm
+bgColor index 12
+fill
+font "arial-bold-r-16.0"
 lineWidth 2
 endObjectProperties
 
-# (Rectangle)
-object activeRectangleClass
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 25
+y 305
+w 78
+h 17
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Error Flag"
+}
+autoSize
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 372
-y 10
-w 17
-h 2
-lineColor index 14
-fill
-fillColor index 14
-lineWidth 2
+x 135
+y 345
+w 105
+h 30
+fgColor index 25
+bgColor index 3
+selectColor index 3
+inconsistentColor index 0
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):DOXCONTROL:CONTROL__RESET"
+indicatorPv "$(DEVICE):DOXCONTROL:CONTROL__RESET"
+font "arial-medium-r-16.0"
+orientation "horizontal"
 endObjectProperties
 
-endGroup
-
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 25
+y 345
+w 45
+h 15
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Reset"
+}
+autoSize
 endObjectProperties
 
