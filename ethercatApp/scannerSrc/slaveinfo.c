@@ -28,7 +28,7 @@ int main(int argc, char ** argv) {
     }
             
     ec_master_info_t master_info;
-    ec_master_t * master = ecrt_request_master(0);
+    ec_master_t * master = ecrt_open_master(0);
     if(master == NULL) {
         fprintf(stderr, "can't get ethercat master 0\n");
         exit(1);
