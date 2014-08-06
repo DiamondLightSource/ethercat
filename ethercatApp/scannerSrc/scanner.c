@@ -665,8 +665,9 @@ SCANNER * start_scanner(char * filename, int simulation)
     }
     scanner->config_buffer = load_config(filename);
     assert(scanner->config_buffer);
-    read_config2(scanner->config_buffer, 
-                 strlen(scanner->config_buffer), scanner->config);    
+    assert( read_config(scanner->config_buffer, 
+                        strlen(scanner->config_buffer), scanner->config)
+            == PARSING_OKAY);
     ethercat_init(scanner);
     if (simulation)
         scanner->domain = (ec_domain_t *) calloc(1, sizeof(SIM_DOMAIN));

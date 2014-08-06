@@ -469,7 +469,7 @@ static int init_unpack(ENGINE_USER * usr, char * buffer, int size)
     int tag = unpack_int(buffer, &ofs);
     assert(tag == MSG_CONFIG);
     int scanner_config_size = unpack_int(buffer, &ofs);
-    read_config2(buffer + ofs, scanner_config_size, cfg);
+    read_config(buffer + ofs, scanner_config_size, cfg);
     ofs += scanner_config_size;
     int mapping_config_size = unpack_int(buffer, &ofs);
     parseEntriesFromBuffer(buffer + ofs, mapping_config_size, cfg);

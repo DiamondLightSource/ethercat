@@ -16,6 +16,8 @@ typedef struct EC_DEVICE_TYPE EC_DEVICE_TYPE;
 typedef struct EC_DEVICE EC_DEVICE;
 typedef struct EC_PDO_ENTRY_MAPPING EC_PDO_ENTRY_MAPPING;
 typedef struct EC_DCS_LOOKUP EC_DCS_LOOKUP;
+typedef struct EC_SDO EC_SDO;
+typedef struct EC_SDO_ENTRY EC_SDO_ENTRY;
 
 // simulation types st_
 enum st_type {
@@ -119,6 +121,24 @@ struct EC_DEVICE
     ELLLIST simspecs;
 };
 
+
+struct EC_SDO
+{
+    ELLNODE node;
+    char * name;
+    EC_DEVICE * slave;
+    int index;                  /*< sdo index */
+    ELLLIST sdoentries;
+};
+struct EC_SDO_ENTRY
+{
+    ELLNODE node;
+    char * description;
+    EC_SDO * parent;
+    int subindex;               /*< sdo subindex */
+    int size;                   /*< sdo size */
+};
+
 /*
    [2013-09-16 Mon 12:50:22 ] Adding "shift" field to support EL3602,
    the only 24 bit module that has its raw value sent as the top 24
@@ -145,6 +165,7 @@ struct EC_CONFIG
     ELLLIST devices;
     ELLLIST pdo_entry_mappings;
     ELLLIST dcs_lookups;
+    ELLLIST sdo_requests;
     xmlDoc * doc;
 };
 
@@ -163,8 +184,13 @@ EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name,
 EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no, 
                                         int bit_length);
 
+enum parsing_result_type {
+    PARSING_ERROR, PARSING_OKAY
+};
+typedef enum parsing_result_type parsing_result_type_t;
+
 // defined in parser.c
-int isOctal(char * attr);
+parsing_result_type_t isOctal(char * attr);
 
 #ifdef __cplusplus
 }
