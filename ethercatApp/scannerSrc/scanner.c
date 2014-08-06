@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <errno.h>
 
 #include <ecrt.h>
 #include <ellLib.h>
@@ -26,6 +27,8 @@ int selftest = 1;
 int simulation = 0;
 // latency histogram for test only
 int dumplatency = 0;
+// Time to wait for EtherCAT frame to return. Default to 50 us.
+long frame_time_ns = 50000; 
 
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
@@ -148,6 +151,7 @@ void cyclic_task(void * usr)
     struct timespec wakeupTime;
     EC_MESSAGE * msg = (EC_MESSAGE *)calloc(1, scanner->max_message);
     int tick = 0;
+    struct timespec timenow, request;
 
     uint8_t * write_cache = calloc(scanner->pdo_size, sizeof(char));
     uint8_t * write_mask = calloc(scanner->pdo_size, sizeof(char));
@@ -233,8 +237,49 @@ void cyclic_task(void * usr)
             wakeupTime = msg->timer.ts;
             if (!simulation)
             {
-                // gets reply to LRW frame sent last cycle
-                // from network card buffer
+                // Merge writes
+                int n;
+                for (n = 0; n < scanner->pdo_size; n++)
+                {
+                    pd[n] &= ~write_mask[n];
+                    pd[n] |= write_cache[n];
+                }
+                memset(write_mask, 0, scanner->pdo_size);
+
+                ecrt_domain_queue(domain);
+                // sends LRW frame
+                ecrt_master_send(master);
+
+                // Wait for the EtherCAT frame to return. This time should be
+                // calculated for each facility. Look at the "DC system time
+                // transmission delay" of your slaves.
+                // Ignoring the error to console variable since we should never
+                // see any of the errors that result in the fprintfs.
+                if (clock_gettime(CLOCK_MONOTONIC, &timenow)) {
+                    fprintf(stderr, "Error getting current time in cyclic_task(): %s\n",
+                            strerror(errno));
+                    fprintf(stderr, "EtherCAT frame probably missed this cycle!\n");
+                } else {
+                    request.tv_sec  = timenow.tv_sec;
+                    request.tv_nsec = timenow.tv_nsec + frame_time_ns;
+                    if (request.tv_nsec >= 1000000000) {
+                        request.tv_nsec -= 1000000000;
+                        request.tv_sec += 1;
+                    }
+                    // Note that when compiled with _POSIX_C_SOURCE = 199506L
+                    // and -Wall the following call will spit out an implicit 
+                    // definition warning 
+                    while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &request, 0)) {
+                        if (errno != EINTR) { 
+                            fprintf(stderr, "Error waiting for EtherCAT frame to return: %s\n", 
+                                    strerror(errno)); 
+                            fprintf(stderr, "EtherCAT frame probably missed this cycle!\n");
+                            break; 
+                        } 
+                    }
+                }
+                
+                // Get the reply
                 ecrt_master_receive(master);
                 ecrt_domain_process(domain);
     
@@ -247,15 +292,6 @@ void cyclic_task(void * usr)
             }
             else
                 simulate_input(scanner);
-            
-            // merge writes
-            int n;
-            for(n = 0; n < scanner->pdo_size; n++)
-            {
-                pd[n] &= ~write_mask[n];
-                pd[n] |= write_cache[n];
-            }
-            memset(write_mask, 0, scanner->pdo_size);
             
             // check latency
             struct timespec ts;
@@ -330,13 +366,6 @@ void cyclic_task(void * usr)
             for(client = 0; client < scanner->max_clients; client++)
             {
                 rtMessageQueueSendNoWait(scanner->clients[client]->q, msg, msg_size);
-            }
-            
-            if (!simulation)
-            {
-                ecrt_domain_queue(domain);
-                // sends LRW frame to be received next cycle
-                ecrt_master_send(master);
             }
             
             tick++;
@@ -665,13 +694,15 @@ SCANNER * start_scanner(char * filename, int simulation)
     }
     scanner->config_buffer = load_config(filename);
     assert(scanner->config_buffer);
-    assert( read_config(scanner->config_buffer, 
-                        strlen(scanner->config_buffer), scanner->config)
-            == PARSING_OKAY);
+    assert(PARSING_OKAY ==
+           read_config(scanner->config_buffer, 
+                       strlen(scanner->config_buffer), 
+                       scanner->config));
     ethercat_init(scanner);
-    if (simulation)
+    if (simulation) 
+    {
         scanner->domain = (ec_domain_t *) calloc(1, sizeof(SIM_DOMAIN));
-                                            
+    }
     return scanner;
 }
 

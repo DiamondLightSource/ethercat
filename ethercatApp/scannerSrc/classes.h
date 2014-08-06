@@ -119,6 +119,7 @@ struct EC_DEVICE
     // lookup device type by name
     EC_DEVICE_TYPE * device_type;
     ELLLIST simspecs;
+    ELLLIST sdo_requests;
 };
 
 
@@ -137,6 +138,7 @@ struct EC_SDO_ENTRY
     EC_SDO * parent;
     int subindex;               /*< sdo subindex */
     int size;                   /*< sdo size */
+    char * asynparameter;       /*< parameter for the asyn port */
 };
 
 /*

@@ -502,8 +502,11 @@ parsing_result_type_t joinSlave(EC_CONFIG * cfg, char * slave,
         }
     }
     if (sdo->slave != NULL)
+    {
         /* matched a device */
+        
         return PARSING_OKAY;
+    }
     return PARSING_ERROR;
 }
 
@@ -525,13 +528,16 @@ parsing_result_type_t  parseSdo(xmlNode * node, CONTEXT * ctx)
 
 parsing_result_type_t parseSdoEntry(xmlNode * node, CONTEXT * ctx)
 {
-    ctx->sdo_entry = calloc(1, sizeof(EC_SDO_ENTRY));
+    EC_SDO_ENTRY * e;
+    e = ( ctx->sdo_entry = calloc(1, sizeof(EC_SDO_ENTRY)) );
     return
-        getInt(node, "subindex", &ctx->sdo_entry->subindex, PARSER_REQUIRED) &&
-        getInt(node, "size", &ctx->sdo_entry->size, PARSER_REQUIRED) &&
-        getStr(node, "description", &ctx->sdo_entry->description) &&
-        (ctx->sdo_entry->parent = ctx->sdo) &&
-        ellAddOK(&ctx->sdo->sdoentries, &ctx->sdo_entry->node);
+        getInt(node, "subindex", &e->subindex, PARSER_REQUIRED) &&
+        getInt(node, "size", &e->size, PARSER_REQUIRED) &&
+        getStr(node, "description", &e->description) &&
+        getStr(node, "asynparameter", &e->asynparameter) &&
+        (e->parent = ctx->sdo) &&
+        ellAddOK(&e->parent->slave->sdo_requests, &e->node) &&
+        ellAddOK(&ctx->sdo->sdoentries, &e->node);
 }
 
 

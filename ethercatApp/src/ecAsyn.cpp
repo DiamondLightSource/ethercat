@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <values.h>
 #include <epicsThread.h>
 #include <epicsExport.h>
 
@@ -223,8 +224,8 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
                    1, /* maxAddr */
                    NUM_SLAVE_PARAMS + pdos, /* max parameters */
                    asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
-                   | asynDrvUserMask, /* interface mask*/
-                   asynOctetMask| asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
+                   | asynFloat64Mask | asynDrvUserMask, /* interface mask*/
+                   asynOctetMask| asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
                    0, /* asyn flags: non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
@@ -276,7 +277,10 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         char * name = makeParamName(mapping);
         printf("createParam %s\n", name);
         int param;
-        assert(createParam(name, asynParamInt32, &param) == asynSuccess);
+        if (mapping->pdo_entry->datatype[0] == 'F') /* Float */
+            assert(createParam(name, asynParamFloat64, &param) == asynSuccess);
+        else
+            assert(createParam(name, asynParamInt32, &param) == asynSuccess);
         if(P_First_PDO == -1)
         {
             P_First_PDO = param;
@@ -419,16 +423,31 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
-        int32_t val = cast_int32(mapping, pdo->buffer, 0);
-        // can't make SDIS work with I/O intr (some values get lost)
-        // so using this for now
-        if(disable)
+        if (mapping->pdo_entry->datatype[0] == 'F')
         {
-            setIntegerParam(mapping->pdo_entry->parameter, INT32_MIN);
+            double val = cast_double(mapping, pdo->buffer, 0);
+            if (disable)
+            {
+                setDoubleParam(mapping->pdo_entry->parameter, MINFLOAT);
+            }
+            else
+            {
+                setDoubleParam(mapping->pdo_entry->parameter, val);
+            }
         }
         else
         {
-            setIntegerParam(mapping->pdo_entry->parameter, val);
+	        int32_t val = cast_int32(mapping, pdo->buffer, 0);
+	        // can't make SDIS work with I/O intr (some values get lost)
+	        // so using this for now
+	        if(disable)
+	        {
+	            setIntegerParam(mapping->pdo_entry->parameter, INT32_MIN);
+	        }
+	        else
+	        {
+	            setIntegerParam(mapping->pdo_entry->parameter, val);
+	        }
         }
     }
     callParamCallbacks();

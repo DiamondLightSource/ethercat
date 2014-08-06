@@ -55,6 +55,29 @@ int unpack_int(char * buffer, int * ofs)
     return value;
 }
 
+double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
+{
+    double value;
+    int bytes = (mapping->pdo_entry->bits -1) / 8 + 1;
+    buffer += mapping->offset + index * bytes;
+
+    /* According to the EtherCAT standard floats can come in two sizes: 32 bits
+     * and 64 bits.
+     */
+    switch (mapping->pdo_entry->bits)
+    {
+        case 32:
+            value = (double)*(float *)buffer;
+            break;
+        case 64:
+            value = *(double *)buffer;
+            break;
+        default:
+            printf("unknown type\n");
+    }
+    return value;
+}
+
 int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 {
     int32_t value = 0;

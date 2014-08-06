@@ -75,6 +75,5 @@ int main()
                                     data->config);
     if (data->load_result == PARSING_ERROR)
         printf("PARSING_ERROR returned\n");
-    
     return 0;  
 }
