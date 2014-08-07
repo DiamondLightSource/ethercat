@@ -4,6 +4,13 @@
 #include <libxml/parser.h>
 #include <ellLib.h>
 
+#ifndef __ECRT_H__
+/* #include "ecrt.h" */               /* for ec_sdo_request_t */
+/* copied from ecrt.h */
+struct ec_sdo_request;
+typedef struct ec_sdo_request ec_sdo_request_t; /**< \see ec_sdo_request. */
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -119,7 +126,7 @@ struct EC_DEVICE
     // lookup device type by name
     EC_DEVICE_TYPE * device_type;
     ELLLIST simspecs;
-    ELLLIST sdo_requests;
+    ELLLIST sdo_requests;     /*< list of sdo entries */
 };
 
 
@@ -139,6 +146,7 @@ struct EC_SDO_ENTRY
     int subindex;               /*< sdo subindex */
     int size;                   /*< sdo size */
     char * asynparameter;       /*< parameter for the asyn port */
+    ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
 };
 
 /*

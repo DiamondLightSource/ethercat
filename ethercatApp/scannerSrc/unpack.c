@@ -57,7 +57,7 @@ int unpack_int(char * buffer, int * ofs)
 
 double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 {
-    double value;
+    double value = 0;
     int bytes = (mapping->pdo_entry->bits -1) / 8 + 1;
     buffer += mapping->offset + index * bytes;
 

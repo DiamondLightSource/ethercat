@@ -15,6 +15,7 @@
 #include "rtutils.h"
 #include "msgsock.h"
 #include "messages.h"
+
 #include "classes.h"
 #include "parser.h"
 #include "unpack.h"
@@ -370,7 +371,9 @@ void cyclic_task(void * usr)
             
             tick++;
         }
-
+        else if (msg->tag == MSG_SDO_REQ) {
+            
+        }
     }
 
 }
@@ -415,6 +418,22 @@ int simulation_init(EC_DEVICE * device)
                pdo_entry_mapping->pdo_entry->name, simspec->signal_no,
                simspec->bit_length);
         simulation_fill(pdo_entry_mapping->sim_signal);
+    }
+    return 0;
+}
+
+/* Called from device_initialize to add sdo requests as 
+ registered in the device's configuration */
+int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device, 
+                     ec_slave_config_t *sc)
+{
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for(; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY * e = (EC_SDO_ENTRY *) node;
+        e->sdo_request = ecrt_slave_config_create_sdo_request(
+            sc, e->parent->index, e->subindex, e->size);
+        assert( e->sdo_request != NULL );
     }
     return 0;
 }
@@ -600,11 +619,12 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         printf("oversamping rate %d\n", device->oversampling_rate);
         if (!scanner->simulation)
         {
-        /* It would appear that to get a sane NextSync1Time value on
-           the EL3702, we need to subtract the SYNC0 time from
-           SYNC1. Putting a 10kHz signal into a 10kHz acquiring signal
-           still gives some ugly sawtooth wave as the local clock
-           syncs with the master clock, but its within 100ns... */
+            /* It would appear that to get a sane NextSync1Time value
+               on the EL3702, we need to subtract the SYNC0 time from
+               SYNC1. Putting a 10kHz signal into a 10kHz acquiring
+               signal still gives some ugly sawtooth wave as the local
+               clock syncs with the master clock, but its within
+               100ns... */
             ecrt_slave_config_dc(sc, 
                 device->device_type->oversampling_activate, 
                 PERIOD_NS / device->oversampling_rate, 0,
@@ -612,6 +632,8 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         }
     }
 
+    /* generate sdo request structures */
+    add_sdo_requests(scanner, device, sc);
     if (scanner->simulation)
         simulation_init(device);
     return 0;
