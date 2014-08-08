@@ -52,6 +52,7 @@ typedef struct
     int device;
     int index;
     int subindex;
+    int size_in_bits;
 } SDO_REQ_MESSAGE;
 
 typedef struct
@@ -60,7 +61,8 @@ typedef struct
     int device;
     int index;
     int subindex;
-    char value[8];
+    int size_in_bits;
+    char value[4];
 } SDO_WRITE_MESSAGE;
 
 typedef struct
@@ -69,8 +71,9 @@ typedef struct
     int device;
     int index;
     int subindex;
+    int size_in_bits;
     int state; 
-    char value[8];
+    char value[4];
 } SDO_READ_MESSAGE;
 
 

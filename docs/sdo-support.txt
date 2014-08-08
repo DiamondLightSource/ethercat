@@ -83,3 +83,24 @@ record(mbbi, "DEVICE:OUTPUT_VOLTAGE:STAT")
     field("FRST", "ERROR")
 }
 
+* read request in cyclic_task
+
+The cyclic task in the scanner will retrieve the status of the sdo
+requests on every tick (function gather_sdo_states)
+
+The function gather_sdo_states also marks a flag for requests for
+which the state has changed. These should generate an answer from the
+scanner, which is an MSG_SDO_READ message to return to the clients.
+
+When a MSG_SDO_REQ message arrives, the request will be registered in
+using the process_sdo_read_request function that will issue a read
+request only when the associated state for the request is not busy.
+
+
+* use of the "flag" in the sdoentry structure
+
+The sdoentry structure keeps the current state of the request (state
+field) and the old state of the request.
+
+The flag is used to register that a request to read this sdo has been
+received.

@@ -11,6 +11,7 @@
 #include <libxml/parser.h>
 
 #include <ellLib.h>
+#include "ecrt.h"
 #include "classes.h"
 
 enum parser_dir_type {
@@ -381,22 +382,26 @@ parsing_result_type_t parseDevice(xmlNode * node, CONTEXT * ctx)
     // if position string starts with DCS then lookup its actual position on the bus
     if (position_str[0] == 'D' &&
         position_str[1] == 'C' &&
-        position_str[2] == 'S') {
+        position_str[2] == 'S') 
+      {
         int dcs;                
         if (sscanf(position_str, "DCS%08d", &dcs) != 1) {
             fprintf(stderr, "Can't parse DCS number '%s'\n", position_str);
             exit(1);             
         }
-        ELLNODE * lnode;
-        for(lnode = ellFirst(&ctx->config->dcs_lookups); lnode; lnode = ellNext(lnode))
+        ELLNODE * lnode = ellFirst(&ctx->config->dcs_lookups);
+        int found_slave = 0;
+        for(; lnode && !found_slave; lnode = ellNext(lnode))
         {
             EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
             if (dcs == dcs_lookup->dcs) {
+                found_slave = 1;
                 ctdev->position = dcs_lookup->position;
-                // 255 chars should be enough for a position on the bus!
-                char temp_position[255];
-                snprintf(temp_position, 255, "%d", dcs_lookup->position);               
-                xmlSetProp(node, (unsigned char *) "position", (unsigned char *) temp_position);
+                char *temp_position = format("%d", ctdev->position);
+                xmlSetProp(node, (unsigned char *) "position",
+                           (unsigned char *) temp_position);
+                free(temp_position);
+                dcs_lookup->device = ctdev;
             }
         }
     } else { 
@@ -404,7 +409,20 @@ parsing_result_type_t parseDevice(xmlNode * node, CONTEXT * ctx)
             fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n"); 
             exit(1); 
         } 
+       
         ctdev->position = strtol(position_str, NULL, 0); 
+        ELLNODE * lnode = ellFirst(&ctx->config->dcs_lookups);
+        int found_slave = 0;
+        for(; lnode && !found_slave; lnode = ellNext(lnode))
+        {
+            int found_slave = 0;
+            EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
+            if (ctdev->position == dcs_lookup->position) 
+            {
+                found_slave = 1;
+                dcs_lookup->device = ctdev;
+            }
+        }
     } 
     if (ctdev->position == -1) {
         fprintf(stderr, "can't find '%s' on bus\n", position_str);
@@ -532,7 +550,7 @@ parsing_result_type_t parseSdoEntry(xmlNode * node, CONTEXT * ctx)
     e = ( ctx->sdo_entry = calloc(1, sizeof(EC_SDO_ENTRY)) );
     return
         getInt(node, "subindex", &e->subindex, PARSER_REQUIRED) &&
-        getInt(node, "size", &e->size, PARSER_REQUIRED) &&
+        getInt(node, "size", &e->size_in_bits, PARSER_REQUIRED) &&
         getStr(node, "description", &e->description) &&
         getStr(node, "asynparameter", &e->asynparameter) &&
         (e->parent = ctx->sdo) &&

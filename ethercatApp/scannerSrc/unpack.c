@@ -35,7 +35,9 @@ static int ioc_send(ENGINE * server, int size)
 {
     if(count % 100 == 0)
     {
-        pdo_data(server->receive_buffer, size);
+        EC_MESSAGE * msg = (EC_MESSAGE *) server->receive_buffer;
+        if (msg->tag == MSG_PDO)
+            pdo_data(server->receive_buffer, size);
     }
     count++;
     return 0;

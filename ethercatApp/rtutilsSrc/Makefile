@@ -8,6 +8,7 @@ INC=rtutils.h msgsock.h
 SHARED_LIBRARIES=NO
 STATIC_BUILD=YES
 
+
 LIBRARY += rtutils
 rtutils_SRCS += rtutils.c msgsock.c engine.c
 

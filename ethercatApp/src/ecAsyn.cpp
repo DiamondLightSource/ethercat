@@ -11,15 +11,15 @@
 #include <iocsh.h>
 #include <cantProceed.h>
 
+#include "ecAsyn.h"
 #include "classes.h"
 #include "parser.h"
 #include "unpack.h"
 #include "rtutils.h"
 #include "msgsock.h"
-#include "messages.h"
+
 
 #include "gadc.h"
-#include "ecAsyn.h"
 
 template <typename T> T * node_cast(ELLNODE * node)
 {
@@ -27,21 +27,6 @@ template <typename T> T * node_cast(ELLNODE * node)
     // even in the presence of VTABLE etc.
     return static_cast<T *>((ListNode<T> *)node);
 }
-
-enum 
-{ 
-    EC_WC_STATE_ZERO = 0, 
-    EC_WC_STATE_INCOMPLETE = 1, 
-    EC_WC_STATE_COMPLETE = 2 
-};
-
-enum 
-{ 
-    EC_AL_STATE_INIT = 1,
-    EC_AL_STATE_PREOP = 2,
-    EC_AL_STATE_SAFEOP = 4,
-    EC_AL_STATE_OP = 8
-};
 
 struct sampler_config_t
 {
@@ -77,18 +62,6 @@ static void Configure_Sampler(char * port, int channel, char * sample, char * cy
         conf->cycle = strdup(cycle);
     }
     ellAdd(&sampler_configs, &conf->node);
-}
-
-/* used in 99.9% of programs */
-static char * format(const char *fmt, ...)
-{
-    char * buffer = NULL;
-    va_list args;
-    va_start(args, fmt);
-    int ret = vasprintf(&buffer, fmt, args);
-    assert(ret != -1);
-    va_end(args);
-    return buffer;
 }
 
 static char * makeParamName(EC_PDO_ENTRY_MAPPING * mapping)
@@ -413,7 +386,7 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     assert(meta + 1 - pdo->buffer < size);
     epicsInt32 al_state = meta[0];
     epicsInt32 error_flag = meta[1];
-    epicsInt32 disable = pdo->wc_state == EC_WC_STATE_ZERO || al_state != EC_AL_STATE_OP;
+    epicsInt32 disable = pdo->wc_state == EC_WC_ZERO || al_state != EC_AL_STATE_OP;
     epicsInt32 lastDisable;
     assert(getIntegerParam(P_DISABLE, &lastDisable) == asynSuccess); // can't fail
     setIntegerParam(P_AL_STATE, al_state);

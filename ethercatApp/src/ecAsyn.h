@@ -3,6 +3,8 @@
 #include <asynPortDriver.h>
 #include <ellLib.h>
 #include "classes.h" // EC_PDO_ENTRY_MAPPING, EC_DEVICE
+#include "messages.h" //PDO_MESSAGE
+#include "rtutils.h"  //rtMessageQueueId
 
 struct ENGINE_USER;
 

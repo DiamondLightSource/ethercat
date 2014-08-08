@@ -4,12 +4,7 @@
 #include <libxml/parser.h>
 #include <ellLib.h>
 
-#ifndef __ECRT_H__
-/* #include "ecrt.h" */               /* for ec_sdo_request_t */
-/* copied from ecrt.h */
-struct ec_sdo_request;
-typedef struct ec_sdo_request ec_sdo_request_t; /**< \see ec_sdo_request. */
-#endif
+#include "ecrt.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -144,9 +139,15 @@ struct EC_SDO_ENTRY
     char * description;
     EC_SDO * parent;
     int subindex;               /*< sdo subindex */
-    int size;                   /*< sdo size */
+    int size_in_bits;           /*< sdo size in bits */
     char * asynparameter;       /*< parameter for the asyn port */
     ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
+    ec_request_state_t state;
+    ec_request_state_t oldstate;
+    int req_flag;
+    int send_flag;
+    char data[4];
+    void *readmsg;              /* opaque pointer to hold a sdo_read_message struct */
 };
 
 /*
@@ -184,6 +185,7 @@ struct EC_DCS_LOOKUP
     ELLNODE node;
     int position;
     int dcs;
+    EC_DEVICE * device;
 };
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
@@ -201,7 +203,7 @@ typedef enum parsing_result_type parsing_result_type_t;
 
 // defined in parser.c
 parsing_result_type_t isOctal(char * attr);
-
+char * format(const char *fmt, ...);
 #ifdef __cplusplus
 }
 #endif

@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 600
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
@@ -58,6 +59,7 @@ typedef struct
     rtMessageQueueId workq;
     int buckets[HISTBUCKETS];
     int max_latency;
+    int sends;            /* flag to signal there are sdo reads to send */
     /* used in simulation*/
     int simulation;
     int sim_pdo_size;     /* bytes used after all current assignments */
@@ -79,6 +81,12 @@ struct CLIENT
 };
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
+
+/* prototypes */
+void gather_sdo_states(SCANNER * scanner);
+void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req);
+EC_DEVICE * get_device(SCANNER * scanner, int device_index);
+EC_SDO_ENTRY * find_sdo_to_send(SCANNER * scanner);
 
 void dump_latency_task(void * usr)
 {
@@ -290,6 +298,7 @@ void cyclic_task(void * usr)
                 ecrt_master_sync_slave_clocks(master);
                 
                 ecrt_domain_state(domain, &domain_state);
+                gather_sdo_states(scanner);
             }
             else
                 simulate_input(scanner);
@@ -362,21 +371,146 @@ void cyclic_task(void * usr)
                 }
             }
 
+            EC_SDO_ENTRY *sdoentry = NULL;
+            if (scanner->sends)
+            {
+                sdoentry = find_sdo_to_send(scanner);
+            }
             // distribute PDO
             int client;
             for(client = 0; client < scanner->max_clients; client++)
             {
                 rtMessageQueueSendNoWait(scanner->clients[client]->q, msg, msg_size);
+                if (sdoentry)
+                {
+                    rtMessageQueueSendNoWait(
+                        scanner->clients[client]->q,
+                        sdoentry->readmsg,
+                        sizeof(SDO_READ_MESSAGE));
+                }
             }
-            
+            if (sdoentry) sdoentry->send_flag = 0;
             tick++;
         }
         else if (msg->tag == MSG_SDO_REQ) {
-            
+            process_sdo_read_request(scanner, &msg->sdo_req);
         }
     }
-
 }
+
+EC_SDO_ENTRY * find_sdo_to_send(SCANNER * scanner)
+{
+    scanner->sends = 0;
+    ELLNODE * node;
+    ELLNODE * reqnode;
+    node = ellFirst(&scanner->config->dcs_lookups);
+    for (; node; node = ellNext(node))
+    {
+        EC_DCS_LOOKUP * dindex = (EC_DCS_LOOKUP *) node;
+        if (dindex->device->sdo_requests.count == 0)
+            continue;
+        reqnode = ellFirst(&dindex->device->sdo_requests);
+        for (;reqnode; reqnode = ellNext(reqnode))
+        {
+            EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)reqnode;
+            if (sdoentry->send_flag)
+            {
+                return sdoentry;
+            }
+        }
+    }
+    return NULL;
+}
+
+#define cast8(sdoentry)  *((uint8_t *)&(sdoentry->data[0]))
+#define cast16(sdoentry) *((uint16_t *)&(sdoentry->data[0]))
+#define getdata(sdoentry) ecrt_sdo_request_data(sdoentry->sdo_request)
+void read_sdo(EC_SDO_ENTRY *sdoentry)
+{
+    switch (sdoentry->size_in_bits)
+    {
+    case 8:
+        cast8(sdoentry) = EC_READ_U8(getdata(sdoentry));
+        break;
+    case 16:
+        cast16(sdoentry) = EC_READ_U16(getdata(sdoentry));
+        break;
+    }
+}
+#undef cast8
+#undef cast16
+#undef getdata
+
+/* updates scanners "sends" flag */
+void gather_sdo_states(SCANNER * scanner)
+{
+    ELLNODE * reqnode;
+    ELLNODE * node;
+    node = ellFirst(&scanner->config->dcs_lookups);
+    for (; node; node = ellNext(node))
+    {
+        EC_DCS_LOOKUP * dindex = (EC_DCS_LOOKUP *) node;
+        if (dindex->device->sdo_requests.count == 0)
+            continue;
+        reqnode = ellFirst(&dindex->device->sdo_requests);
+        for (;reqnode; reqnode = ellNext(reqnode))
+        {
+            EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)reqnode;
+            if (sdoentry->send_flag)
+            {
+                scanner->sends = 1;
+                //ignore until result sent
+                //how often will this process?
+            }
+            else
+            {
+                sdoentry->state = ecrt_sdo_request_state(sdoentry->sdo_request);
+                if (sdoentry->state == EC_REQUEST_SUCCESS)
+                {
+                    read_sdo(sdoentry);
+                    sdoentry->send_flag = 1;
+                    scanner->sends = 1;
+                }
+                if (sdoentry->req_flag && 
+                    (sdoentry->state != EC_REQUEST_BUSY))
+                {
+                    ecrt_sdo_request_read(sdoentry->sdo_request);
+                    sdoentry->req_flag = 0;
+                }
+            }
+        }
+    }
+}
+
+void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req)
+{
+    EC_DEVICE * device = get_device(scanner, sdo_req->device);
+    assert( device != NULL);
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for (; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
+        assert(sdoentry->parent->slave == device);
+        if ((sdoentry->parent->index == sdo_req->index) &&
+            (sdoentry->subindex == sdo_req->subindex))
+        {
+            sdoentry->req_flag = 1;
+        }
+    }
+}
+
+EC_DEVICE * get_device(SCANNER * scanner, int device_index)
+{
+    ELLNODE * node = ellFirst(&scanner->config->dcs_lookups);
+    for (; node; node = ellNext(node))
+    {
+        EC_DCS_LOOKUP * dindex = (EC_DCS_LOOKUP *) node;
+        if (dindex->position == device_index)
+            return dindex->device;
+    }
+    return NULL;
+}
+
 
 // why is ecrt_domain_size not defined for userspace?
 void adjust_pdo_size(SCANNER * scanner, int offset, int bits)
@@ -422,6 +556,14 @@ int simulation_init(EC_DEVICE * device)
     return 0;
 }
 
+int size_in_bytes(int size_in_bits)
+{
+    int size = size_in_bits / 8 ;
+    if ( (size_in_bits % 8) > 0 )
+        size = size + 1;
+    return size;
+}
+
 /* Called from device_initialize to add sdo requests as 
  registered in the device's configuration */
 int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device, 
@@ -432,8 +574,18 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
     {
         EC_SDO_ENTRY * e = (EC_SDO_ENTRY *) node;
         e->sdo_request = ecrt_slave_config_create_sdo_request(
-            sc, e->parent->index, e->subindex, e->size);
+            sc, e->parent->index, e->subindex, 
+            size_in_bytes(e->size_in_bits));
         assert( e->sdo_request != NULL );
+        e->readmsg = calloc(1, sizeof(SDO_READ_MESSAGE));
+        SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) e->readmsg;
+        assert( msg != NULL );
+        msg->tag = MSG_SDO_READ;
+        msg->device = device->position;
+        msg->index = e->parent->index;
+        msg->subindex = e->subindex;
+        msg->size_in_bits = e->size_in_bits;
+        msg->state = EC_REQUEST_UNUSED;
     }
     return 0;
 }
@@ -710,6 +862,7 @@ SCANNER * start_scanner(char * filename, int simulation)
             }
             EC_DCS_LOOKUP *dcs_lookup = calloc(1, sizeof(EC_DCS_LOOKUP));
             dcs_lookup->position = n;
+            assert(slave_info.position == n);
             dcs_lookup->dcs = slave_info.serial_number;
             ellAdd(&scanner->config->dcs_lookups, &dcs_lookup->node);
         }

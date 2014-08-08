@@ -10,10 +10,13 @@ LIBRARY_IOC += ecAsyn
 # gadc_SRCS += gadc.cpp
 # gadc_LIBS += asyn
 
+VERSION=1-5-2dls5
+ETHERLAB=/dls_sw/prod/tools/RHEL6-x86_64/ethercat/$(VERSION)
 
 ecAsyn_SRCS += ecAsyn.cpp gadc.cpp
 ecAsyn_LIBS += asyn scannerlib rtutils 
-
+ecAsyn_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/include
+gadc_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/include
 
 INC += gadc.h
 
@@ -24,6 +27,7 @@ DBD += ecAsyn.dbd
 PROD_IOC += ethercat
 ethercat_DBD += base.dbd ecAsyn.dbd
 ethercat_SRCS += ethercat_registerRecordDeviceDriver.cpp
+
 USR_INCLUDES += -I/usr/include/libxml2
 
 # These two lines are needed for non-vxWorks builds, such as Linux
