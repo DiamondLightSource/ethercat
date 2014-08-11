@@ -192,10 +192,11 @@ ecMaster::ecMaster(char * name) :
 /**
  *  Creation of asyn port for an ethercat slave
  */
-ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
+ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos, 
+               ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
-                   NUM_SLAVE_PARAMS + pdos, /* max parameters */
+                   NUM_SLAVE_PARAMS + pdos + sdos * 2, /* max parameters */
                    asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
                    | asynFloat64Mask | asynDrvUserMask, /* interface mask*/
                    asynOctetMask| asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
@@ -204,6 +205,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
                    0, /* default priority */
                    0) /* default stack size */,
     pdos(pdos), 
+    sdos(sdos),
     devid(devid), 
     writeq(usr->writeq), 
     mappings(new EC_PDO_ENTRY_MAPPING * [pdos]),
@@ -241,9 +243,10 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         }
     }
     
-    int n = 0;
+    int n;
     P_First_PDO = -1;
-    for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
+    ELLNODE * node = ellFirst(&device->pdo_entry_mappings);
+    for(n = 0; node; node = ellNext(node), n++)
     {
         assert(n < pdos);
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
@@ -261,7 +264,6 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         P_Last_PDO = param;
         mapping->pdo_entry->parameter = param;
         mappings[n] = mapping;
-        n++;
     }
 
     if ( (strcmp(this->device->type_name, "EL3602") == 0)
@@ -276,6 +278,36 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid) :
         }
     }
 
+    P_First_SDO = -1;
+    node = ellFirst(&device->sdo_requests);
+    for (n = 0 ;node; node = ellNext(node), n++)
+    {
+        assert(n < sdos);
+        int param;
+        EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *) node;
+        printf("createParam %s\n", sdoentry->asynparameter);
+        assert(createParam(sdoentry->asynparameter, asynParamInt32, &param) == asynSuccess);
+        if (P_First_SDO == -1)
+        {
+            P_First_SDO = param;
+        }
+        P_Last_SDO = param;
+    }
+    
+    P_First_SDOSTATUS = -1;
+    node = ellFirst(&device->sdo_requests);
+    for (; node; node = ellNext(node))
+    {
+        int param;
+        EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *) node;
+        char *name = format("%s_stat", sdoentry->asynparameter);
+        printf("createParam %s\n", name);
+        assert(createParam(name, asynParamInt32, &param) == asynSuccess);
+        if (P_First_SDOSTATUS == -1)
+            P_First_SDOSTATUS = param;
+        P_Last_SDOSTATUS = param;
+    }
+             
     int status = asynSuccess;
     status |= createParam(ECALStateString,   asynParamInt32, &P_AL_STATE);
     status |= createParam(ECErrorFlagString, asynParamInt32, &P_ERROR_FLAG);
@@ -499,6 +531,7 @@ static void readConfig(ENGINE_USER * usr)
         printf("Creating ecAsyn port No %d: %s\n", ndev, device->name);
         ecAsyn * port = new ecAsyn(device, 
                                    device->pdo_entry_mappings.count, 
+                                   device->sdo_requests.count,
                                    usr, ndev);
         ellAdd(&usr->ports, &port->node);
         ndev++;
