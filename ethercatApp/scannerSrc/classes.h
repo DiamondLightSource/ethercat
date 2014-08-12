@@ -139,14 +139,16 @@ struct EC_SDO_ENTRY
     char * description;
     EC_SDO * parent;
     int subindex;               /*< sdo subindex */
-    int size_in_bits;           /*< sdo size in bits */
-    char * asynparameter;       /*< parameter for the asyn port */
+    int bits;           /*< sdo size in bits */
+    char * asynparameter;       /*< parameter name for the asyn port */
     ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
     ec_request_state_t state;
     ec_request_state_t oldstate;
     int req_flag;
     int send_flag;
     char data[4];
+    int parameter_v;// for asyn connection - sdo value
+    int parameter_s;// for asyn connection - sdo status
     void *readmsg;              /* opaque pointer to hold a sdo_read_message struct */
 };
 
@@ -195,6 +197,10 @@ EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name,
                                       int revision_id);
 EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no, 
                                         int bit_length);
+
+#define INT_24BIT_MAX 8388607
+#define INT_24BIT_MIN -8388608
+
 
 enum parsing_result_type {
     PARSING_ERROR, PARSING_OKAY
