@@ -10,7 +10,7 @@ Example:
 
 <sdorequests>
   <sdo name="DOX Settings Ch. 1" slave="EA1.11" index="0x8000" >
-    <sdoentry description="Voltage Output" subindex="0x8" size="8" 
+    <sdoentry description="Voltage Output" subindex="0x8" bit_length="8" 
               asynparameter="voltage"/>
   </sdo>
 </sdorequests>
@@ -24,21 +24,21 @@ the use of asynInt32 parameters in the EPICS side.
 For example, the table below shows the types of SDOS in the EL2595
 and the range supported.
 
-| type         | size    | supported (Y/N) |
-|--------------+---------+-----------------|
-| type 0000    | 0 bit   | Y               |
-| bool         | 1 bit   | Y               |
-| type 0000    | 2 bit   | Y               |
-| type 0000    | 3 bit   | Y               |
-| type 0000    | 4 bit   | Y               |
-| type 0000    | 5 bit   | Y               |
-| type 0000    | 7 bit   | Y               |
-| uint8        | 8 bit   | Y               |
-| string       | 16 bit  | Y               |
-| uint32       | 32 bit  | Y               |
-| string       | 48 bit  | NO              |
-| uint64       | 64 bit  | NO              |
-| octet_string | 224 bit | NO              |
+| type         | bit_length | supported (Y/N) |
+|--------------+------------+-----------------|
+| type 0000    | 0 bit      | Y               |
+| bool         | 1 bit      | Y               |
+| type 0000    | 2 bit      | Y               |
+| type 0000    | 3 bit      | Y               |
+| type 0000    | 4 bit      | Y               |
+| type 0000    | 5 bit      | Y               |
+| type 0000    | 7 bit      | Y               |
+| uint8        | 8 bit      | Y               |
+| string       | 16 bit     | Y               |
+| uint32       | 32 bit     | Y               |
+| string       | 48 bit     | NO              |
+| uint64       | 64 bit     | NO              |
+| octet_string | 224 bit    | NO              |
 
 * Scanner to EPICS communications
 
@@ -83,6 +83,19 @@ record(mbbi, "DEVICE:OUTPUT_VOLTAGE:STAT")
     field("FRST", "ERROR")
 }
 
+* Write request
+
+Example EPICS record for read/write.
+
+record(longout, "DEVICE:OUTPUT_VOLTAGE")
+{
+   field(DTYP, "asynInt32")
+   field(INP, "@asyn(ERIO.1)voltage")
+   field(OMSL, "supervisory")
+}
+
+
+
 * read request in cyclic_task
 
 The cyclic task in the scanner will retrieve the status of the sdo
@@ -104,3 +117,17 @@ field) and the old state of the request.
 
 The flag is used to register that a request to read this sdo has been
 received.
+
+* write sdo requests from IOC
+
+The IOC "engine" has two methods
+
+** ioc_send/pdo_data
+   These functions process messages from the receive buffer, that is
+   packets sent by the scanner.
+   For SDOs these will be replies from the scanner about status of
+   the read request and a value.
+
+** ioc_receive
+   This function add messages to the writeq, from the send_buffer.
+   For SDOs, these will be the read requests and write requests.
