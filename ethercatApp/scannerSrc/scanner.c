@@ -427,7 +427,7 @@ EC_SDO_ENTRY * find_sdo_to_send(SCANNER * scanner)
 #define getdata(sdoentry) ecrt_sdo_request_data(sdoentry->sdo_request)
 void read_sdo(EC_SDO_ENTRY *sdoentry)
 {
-    switch (sdoentry->size_in_bits)
+    switch (sdoentry->bits)
     {
     case 8:
         cast8(sdoentry) = EC_READ_U8(getdata(sdoentry));
@@ -556,10 +556,10 @@ int simulation_init(EC_DEVICE * device)
     return 0;
 }
 
-int size_in_bytes(int size_in_bits)
+int size_in_bytes(int bits)
 {
-    int size = size_in_bits / 8 ;
-    if ( (size_in_bits % 8) > 0 )
+    int size = bits / 8 ;
+    if ( (bits % 8) > 0 )
         size = size + 1;
     return size;
 }
@@ -575,7 +575,7 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
         EC_SDO_ENTRY * e = (EC_SDO_ENTRY *) node;
         e->sdo_request = ecrt_slave_config_create_sdo_request(
             sc, e->parent->index, e->subindex, 
-            size_in_bytes(e->size_in_bits));
+            size_in_bytes(e->bits));
         assert( e->sdo_request != NULL );
         e->readmsg = calloc(1, sizeof(SDO_READ_MESSAGE));
         SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) e->readmsg;
@@ -584,7 +584,7 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
         msg->device = device->position;
         msg->index = e->parent->index;
         msg->subindex = e->subindex;
-        msg->size_in_bits = e->size_in_bits;
+        msg->bits = e->bits;
         msg->state = EC_REQUEST_UNUSED;
     }
     return 0;
