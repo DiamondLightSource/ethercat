@@ -155,6 +155,17 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
     return value;        
 }
 
+int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry,SDO_READ_MESSAGE *msg)
+{
+    int32_t value = 0;
+    switch(sdoentry->bits)
+    {
+    case 1:
+    case 8:
+        value = *(uint8_t *)(msg->value);
+    }
+    return value;
+}
 int pdo_data(char * buffer, int size)
 {
     EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
