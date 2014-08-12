@@ -57,7 +57,6 @@ class ecAsyn : public asynPortDriver, public ProcessDataObserver
 {
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
     int pdos;
-    int sdos;
     int devid;
     rtMessageQueueId writeq;
     EC_PDO_ENTRY_MAPPING ** mappings;
@@ -78,10 +77,12 @@ class ecAsyn : public asynPortDriver, public ProcessDataObserver
     int P_Last_SDOSTATUS;
 public:
     ecAsyn(EC_DEVICE * device, int pdos, int sdos, ENGINE_USER * usr, int devid);
+    int sdos;
     EC_DEVICE * device;
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);
     virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
     virtual asynStatus getBoundsForMapping(struct EC_PDO_ENTRY_MAPPING *m, epicsInt32 *low, epicsInt32 *high);
+    void on_sdo_message(SDO_READ_MESSAGE * msg, int size);
 };
 
 #define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)
