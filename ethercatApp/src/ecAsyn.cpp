@@ -682,6 +682,7 @@ static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
     {
         for(node = ellFirst(&usr->sdo_observers); node; node = ellNext(node))
         {
+            assert( ecAsyn_cast(node)->sdos > 0);
             ecAsyn_cast(node)->on_sdo_message(&msg->sdo, size);
         }
         
