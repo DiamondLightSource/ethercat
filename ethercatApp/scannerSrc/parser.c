@@ -550,7 +550,7 @@ parsing_result_type_t parseSdoEntry(xmlNode * node, CONTEXT * ctx)
     e = ( ctx->sdo_entry = calloc(1, sizeof(EC_SDO_ENTRY)) );
     return
         getInt(node, "subindex", &e->subindex, PARSER_REQUIRED) &&
-        getInt(node, "size", &e->size_in_bits, PARSER_REQUIRED) &&
+        getInt(node, "bit_length", &e->bits, PARSER_REQUIRED) &&
         getStr(node, "description", &e->description) &&
         getStr(node, "asynparameter", &e->asynparameter) &&
         (e->parent = ctx->sdo) &&
