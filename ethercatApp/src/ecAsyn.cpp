@@ -28,6 +28,11 @@ template <typename T> T * node_cast(ELLNODE * node)
     return static_cast<T *>((ListNode<T> *)node);
 }
 
+ecAsyn * ecAsyn_cast(ELLNODE * node)
+{
+    return static_cast<ecAsyn *>((ListNode<ProcessDataObserver> *) node);
+}
+
 struct sampler_config_t
 {
     ELLNODE node;
@@ -162,6 +167,7 @@ struct ENGINE_USER
 {
     ecMaster * master;
     ELLLIST ports;
+    ELLLIST sdo_observers;      // ecAsyn ports only
     EC_CONFIG * config;
     rtMessageQueueId config_ready;
     int count;
@@ -292,6 +298,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
             P_First_SDO = param;
         }
         P_Last_SDO = param;
+        sdoentry->parameter_v = param;
     }
     
     P_First_SDOSTATUS = -1;
@@ -306,6 +313,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
         if (P_First_SDOSTATUS == -1)
             P_First_SDOSTATUS = param;
         P_Last_SDOSTATUS = param;
+        sdoentry->parameter_s = param;
     }
              
     int status = asynSuccess;
@@ -354,18 +362,18 @@ asynStatus ecAsyn::getBoundsForMapping(EC_PDO_ENTRY_MAPPING * mapping, epicsInt3
     switch (mapping->pdo_entry->bits)
     {
     case 24:
-        *low = -8388608;
-        *high = 8388607;
+        *low = INT_24BIT_MIN;
+        *high = INT_24BIT_MAX;
         break;
     case 16:
-        *low = -32768;
-        *high = 32767;
+        *low = SHRT_MIN;        // from limits.h
+        *high = SHRT_MAX; 
         break;
     case 32:
         if (mapping->shift == 8)
         {
-            *low = -8388608;
-            *high = 8388607;
+            *low = INT_24BIT_MIN;
+            *high = INT_24BIT_MAX;
         }
         else
         {
@@ -482,6 +490,30 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return status;
 }
 
+
+void ecAsyn::on_sdo_message(SDO_READ_MESSAGE * msg, int size)
+{
+    if (device->position == msg->device)
+    {
+        lock();
+        ELLNODE * node = ellFirst(&device->sdo_requests);
+        for(;node; node = ellNext(node))
+        {
+            EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)node;
+            if((sdoentry->subindex == msg->subindex) 
+               && (sdoentry->parent->index == msg->index))
+            {
+                int32_t val = sdocast_int32(sdoentry, msg);
+                setIntegerParam(sdoentry->parameter_v, val);
+            }
+        }
+        callParamCallbacks();
+        unlock();
+    }
+    
+
+}
+
 /*
  *  read configuration sent by scanner and populate "config" in 
  *  ENGINE_USER structure
@@ -534,6 +566,8 @@ static void readConfig(ENGINE_USER * usr)
                                    device->sdo_requests.count,
                                    usr, ndev);
         ellAdd(&usr->ports, &port->node);
+        if (port->sdos > 0)
+            ellAdd(&usr->sdo_observers, &port->node);
         ndev++;
     }
 }
@@ -624,22 +658,33 @@ int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
 
 static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
 {
-    EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
-    assert(msg->tag == MSG_PDO);
     static int c = 0;
-    //#endif
-    for(ELLNODE * node = ellFirst(&usr->ports); node; node = ellNext(node))
+    ELLNODE * node;
+    EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
+    if (msg->tag == MSG_PDO)
     {
-        node_cast<ProcessDataObserver>(node)->on_pdo_message(&msg->pdo, size);
-    }
-    if (showPdosEnabled)
-    {
-        if ( c % 1000 == 0 )
+        for(node = ellFirst(&usr->ports); node; node = ellNext(node))
         {
-            c = 0;
-            show_pdo_data(buffer, size, usr->config);
+            node_cast<ProcessDataObserver>(node)->on_pdo_message(&msg->pdo, size);
         }
-        c++;
+
+        if (showPdosEnabled)
+        {
+            if ( c % 1000 == 0 )
+            {
+                c = 0;
+                show_pdo_data(buffer, size, usr->config);
+            }
+            c++;
+        }
+    }
+    else if (msg->tag == MSG_SDO_READ)
+    {
+        for(node = ellFirst(&usr->sdo_observers); node; node = ellNext(node))
+        {
+            ecAsyn_cast(node)->on_sdo_message(&msg->sdo, size);
+        }
+        
     }
     return 0;
 }
