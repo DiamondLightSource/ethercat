@@ -131,3 +131,24 @@ The IOC "engine" has two methods
 ** ioc_receive
    This function add messages to the writeq, from the send_buffer.
    For SDOs, these will be the read requests and write requests.
+
+* Separate asyn port class for SDO requests
+
+The class ecSdoAsyn implements the blocking port for the sdo
+read/write requests.
+
+An instance will be created by its parent ecAsyn port class if there
+are sdos registered for that port (sdos > 0). (Implementation in
+readConfig function in ecAsyn.cpp)
+
+The class instance receives messages from the scanner.
+All instances are registered in the list sdo_observers list and
+implement the on_sdo_message method.
+
+TODO: 
+1. read method to send a SDO_REQ_MESSAGE in ecSdoAsyn
+2. write method to send a SDO_WRITE_MESSAGE in ecSdoAsyn
+3. callback part that queues SDO_READ_MESSAGE to send back from
+ecSdoAsyn to EPICS
+
+

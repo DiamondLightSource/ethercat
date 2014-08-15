@@ -62,7 +62,10 @@ typedef struct
     int index;
     int subindex;
     int bits;
-    char value[4];
+    union {
+        char cvalue[4];
+        int32_t ivalue;
+    } value;
 } SDO_WRITE_MESSAGE;
 
 typedef struct
@@ -75,7 +78,6 @@ typedef struct
     int state; 
     char value[4];
 } SDO_READ_MESSAGE;
-
 
 union EC_MESSAGE
 {

@@ -422,24 +422,20 @@ EC_SDO_ENTRY * find_sdo_to_send(SCANNER * scanner)
     return NULL;
 }
 
-#define cast8(sdoentry)  *((uint8_t *)&(sdoentry->data[0]))
-#define cast16(sdoentry) *((uint16_t *)&(sdoentry->data[0]))
-#define getdata(sdoentry) ecrt_sdo_request_data(sdoentry->sdo_request)
 void read_sdo(EC_SDO_ENTRY *sdoentry)
 {
     switch (sdoentry->bits)
     {
     case 8:
-        cast8(sdoentry) = EC_READ_U8(getdata(sdoentry));
+        sdoentry->sdodata.data8 = 
+            EC_READ_U8(ecrt_sdo_request_data(sdoentry->sdo_request));
         break;
     case 16:
-        cast16(sdoentry) = EC_READ_U16(getdata(sdoentry));
+        sdoentry->sdodata.data16 = 
+            EC_READ_U16(ecrt_sdo_request_data(sdoentry->sdo_request));
         break;
     }
 }
-#undef cast8
-#undef cast16
-#undef getdata
 
 /* updates scanners "sends" flag */
 void gather_sdo_states(SCANNER * scanner)
@@ -564,6 +560,21 @@ int size_in_bytes(int bits)
     return size;
 }
 
+char * describe_request(EC_SDO_ENTRY * sdoentry)
+{
+    assert(sdoentry->desc == NULL);
+    sdoentry->desc = 
+        format("Name: %s, %x:%x, bits %d asyn param %s \"%s\"",
+               sdoentry->parent->name, 
+               sdoentry->parent->index,
+               sdoentry->subindex,
+               sdoentry->bits,
+               sdoentry->asynparameter,
+               sdoentry->description);
+    return sdoentry->desc;
+}
+
+
 /* Called from device_initialize to add sdo requests as 
  registered in the device's configuration */
 int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device, 
@@ -577,6 +588,8 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
             sc, e->parent->index, e->subindex, 
             size_in_bytes(e->bits));
         assert( e->sdo_request != NULL );
+        printf("SDO request created: \n%s\n", describe_request(e));
+        free(e->desc);
         e->readmsg = calloc(1, sizeof(SDO_READ_MESSAGE));
         SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) e->readmsg;
         assert( msg != NULL );

@@ -133,6 +133,11 @@ struct EC_SDO
     int index;                  /*< sdo index */
     ELLLIST sdoentries;
 };
+typedef  union  {
+    char data[4];
+    uint16_t data16;
+    uint8_t data8;
+} sdodata_t;
 struct EC_SDO_ENTRY
 {
     ELLNODE node;
@@ -141,14 +146,16 @@ struct EC_SDO_ENTRY
     int subindex;               /*< sdo subindex */
     int bits;           /*< sdo size in bits */
     char * asynparameter;       /*< parameter name for the asyn port */
+    char * desc;
     ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
     ec_request_state_t state;
     ec_request_state_t oldstate;
     int req_flag;
     int send_flag;
-    char data[4];
-    int parameter_v;// for asyn connection - sdo value
-    int parameter_s;// for asyn connection - sdo status
+    sdodata_t sdodata;
+    int param_val;              /* three parameters used in asyn port */
+    int param_stat;
+    int param_trig;
     void *readmsg;              /* opaque pointer to hold a sdo_read_message struct */
 };
 
@@ -170,6 +177,7 @@ struct EC_PDO_ENTRY_MAPPING
     int device_position;
     int shift;              /*< count of bits to right shift */
     st_signal *sim_signal;
+    char *paramname;
 };
 
 struct EC_CONFIG
