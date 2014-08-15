@@ -17,7 +17,7 @@
 #include "unpack.h"
 #include "rtutils.h"
 #include "msgsock.h"
-
+#include "asynDriver.h"
 
 #include "gadc.h"
 
@@ -28,9 +28,9 @@ template <typename T> T * node_cast(ELLNODE * node)
     return static_cast<T *>((ListNode<T> *)node);
 }
 
-ecAsyn * ecAsyn_cast(ELLNODE * node)
+ecSdoAsyn * ecSdoAsyn_cast(ELLNODE * node)
 {
-    return static_cast<ecAsyn *>((ListNode<ProcessDataObserver> *) node);
+    return static_cast<ecSdoAsyn *>((ListNode<int> *)node);
 }
 
 struct sampler_config_t
@@ -41,6 +41,7 @@ struct sampler_config_t
     char * sample;
     char * cycle;
 };
+
 
 static ELLLIST sampler_configs;
 static int showPdosEnabled = 0;
@@ -71,32 +72,38 @@ static void Configure_Sampler(char * port, int channel, char * sample, char * cy
 
 static char * makeParamName(EC_PDO_ENTRY_MAPPING * mapping)
 {
-    char * name = format("%s.%s", mapping->pdo_entry->parent->name, mapping->pdo_entry->name);
-    // remove spaces
-    int out = 0;
-    for(int n = 0; n < (int)strlen(name); n++)
+    if(mapping->paramname == NULL)
     {
-        if(name[n] != ' ')
+        mapping->paramname = format("%s.%s", 
+                               mapping->pdo_entry->parent->name, 
+                               mapping->pdo_entry->name);
+        // remove spaces
+        int out = 0;
+        for(int n = 0; n < (int)strlen(mapping->paramname); n++)
         {
-            name[out++] = name[n];
+            if(mapping->paramname[n] != ' ')
+            {
+                mapping->paramname[out++] = mapping->paramname[n];
+            }
         }
+        mapping->paramname[out] = '\0';
     }
-    name[out] = '\0';
-    return name;
+    return mapping->paramname;
 }
 
 static EC_PDO_ENTRY_MAPPING * mapping_by_name(EC_DEVICE * device, const char * name)
 {
-    for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
+    EC_PDO_ENTRY_MAPPING * mapping;
+    mapping = (EC_PDO_ENTRY_MAPPING *)ellFirst(&device->pdo_entry_mappings);
+    while(mapping)
     {
-        EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * entry_name = makeParamName(mapping);
         int match = strcmp(name, entry_name) == 0;
-        free(entry_name);
         if(match)
         {
             return mapping;
         }
+        mapping = (EC_PDO_ENTRY_MAPPING *)ellNext(&mapping->node);
     }
     return NULL;
 }
@@ -167,7 +174,7 @@ struct ENGINE_USER
 {
     ecMaster * master;
     ELLLIST ports;
-    ELLLIST sdo_observers;      // ecAsyn ports only
+    ELLLIST sdo_observers;      // ecSdoAsyn ports only
     EC_CONFIG * config;
     rtMessageQueueId config_ready;
     int count;
@@ -202,7 +209,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
                ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
-                   NUM_SLAVE_PARAMS + pdos + sdos * 2, /* max parameters */
+                   NUM_SLAVE_PARAMS + pdos, /* max parameters */
                    asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
                    | asynFloat64Mask | asynDrvUserMask, /* interface mask*/
                    asynOctetMask| asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
@@ -211,10 +218,10 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
                    0, /* default priority */
                    0) /* default stack size */,
     pdos(pdos), 
-    sdos(sdos),
     devid(devid), 
-    writeq(usr->writeq), 
     mappings(new EC_PDO_ENTRY_MAPPING * [pdos]),
+    sdos(sdos),
+    writeq(usr->writeq), 
     device(device)
 {
     printf("ecAsyn INIT type %s name %s PDOS %d\n", device->type_name, device->name, pdos);
@@ -251,11 +258,11 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
     
     int n;
     P_First_PDO = -1;
-    ELLNODE * node = ellFirst(&device->pdo_entry_mappings);
-    for(n = 0; node; node = ellNext(node), n++)
+    EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)ellFirst(&device->pdo_entry_mappings);
+    n = 0;
+    while (mapping)
     {
         assert(n < pdos);
-        EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
         char * name = makeParamName(mapping);
         printf("createParam %s\n", name);
         int param;
@@ -270,6 +277,8 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
         P_Last_PDO = param;
         mapping->pdo_entry->parameter = param;
         mappings[n] = mapping;
+        n++;
+        mapping = (EC_PDO_ENTRY_MAPPING *)ellNext(&mapping->node);
     }
 
     if ( (strcmp(this->device->type_name, "EL3602") == 0)
@@ -283,39 +292,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
                 mappings[n]->shift = 8;
         }
     }
-
-    P_First_SDO = -1;
-    node = ellFirst(&device->sdo_requests);
-    for (n = 0 ;node; node = ellNext(node), n++)
-    {
-        assert(n < sdos);
-        int param;
-        EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *) node;
-        printf("createParam %s\n", sdoentry->asynparameter);
-        assert(createParam(sdoentry->asynparameter, asynParamInt32, &param) == asynSuccess);
-        if (P_First_SDO == -1)
-        {
-            P_First_SDO = param;
-        }
-        P_Last_SDO = param;
-        sdoentry->parameter_v = param;
-    }
     
-    P_First_SDOSTATUS = -1;
-    node = ellFirst(&device->sdo_requests);
-    for (; node; node = ellNext(node))
-    {
-        int param;
-        EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *) node;
-        char *name = format("%s_stat", sdoentry->asynparameter);
-        printf("createParam %s\n", name);
-        assert(createParam(name, asynParamInt32, &param) == asynSuccess);
-        if (P_First_SDOSTATUS == -1)
-            P_First_SDOSTATUS = param;
-        P_Last_SDOSTATUS = param;
-        sdoentry->parameter_s = param;
-    }
-             
     int status = asynSuccess;
     status |= createParam(ECALStateString,   asynParamInt32, &P_AL_STATE);
     status |= createParam(ECErrorFlagString, asynParamInt32, &P_ERROR_FLAG);
@@ -467,6 +444,8 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     unlock();
 }
 
+
+
 asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
     asynStatus status = asynPortDriver::writeInt32(pasynUser, value);
@@ -491,28 +470,6 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 }
 
 
-void ecAsyn::on_sdo_message(SDO_READ_MESSAGE * msg, int size)
-{
-    if (device->position == msg->device)
-    {
-        lock();
-        ELLNODE * node = ellFirst(&device->sdo_requests);
-        for(;node; node = ellNext(node))
-        {
-            EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)node;
-            if((sdoentry->subindex == msg->subindex) 
-               && (sdoentry->parent->index == msg->index))
-            {
-                int32_t val = sdocast_int32(sdoentry, msg);
-                setIntegerParam(sdoentry->parameter_v, val);
-            }
-        }
-        callParamCallbacks();
-        unlock();
-    }
-    
-
-}
 
 /*
  *  read configuration sent by scanner and populate "config" in 
@@ -567,7 +524,12 @@ static void readConfig(ENGINE_USER * usr)
                                    usr, ndev);
         ellAdd(&usr->ports, &port->node);
         if (port->sdos > 0)
-            ellAdd(&usr->sdo_observers, &port->node);
+        {
+            char *sdoportname= format("%s_SDO", device->name);
+            ecSdoAsyn * sdoport = new ecSdoAsyn(sdoportname, port);
+            ellAdd(&usr->sdo_observers, &sdoport->node);
+            free(sdoportname);
+        }
         ndev++;
     }
 }
@@ -606,6 +568,17 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
 
 int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
 {
+    static int c = 0;
+    if(c%1000==0)
+    { 
+        c=0;
+    }
+    else
+    { 
+        c++; 
+        return 0;
+    }
+
     EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
     assert(msg->tag == MSG_PDO);
     int n;
@@ -656,9 +629,8 @@ int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
     return 0;
 }
 
-static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
+static int msg_data(ENGINE_USER * usr, char * buffer, int size)
 {
-    static int c = 0;
     ELLNODE * node;
     EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
     if (msg->tag == MSG_PDO)
@@ -667,23 +639,14 @@ static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
         {
             node_cast<ProcessDataObserver>(node)->on_pdo_message(&msg->pdo, size);
         }
-
-        if (showPdosEnabled)
-        {
-            if ( c % 1000 == 0 )
-            {
-                c = 0;
-                show_pdo_data(buffer, size, usr->config);
-            }
-            c++;
-        }
+        if (showPdosEnabled) show_pdo_data(buffer, size, usr->config);
     }
     else if (msg->tag == MSG_SDO_READ)
     {
         for(node = ellFirst(&usr->sdo_observers); node; node = ellNext(node))
         {
-            assert( ecAsyn_cast(node)->sdos > 0);
-            ecAsyn_cast(node)->on_sdo_message(&msg->sdo, size);
+            assert( ecSdoAsyn_cast(node)->parent->sdos > 0);
+            ecSdoAsyn_cast(node)->on_sdo_message(&msg->sdo, size);
         }
         
     }
@@ -693,7 +656,7 @@ static int pdo_data(ENGINE_USER * usr, char * buffer, int size)
 static int ioc_send(ENGINE * server, int size)
 {
     ENGINE_USER * usr = (ENGINE_USER *)server->usr;
-    pdo_data(usr, server->receive_buffer, size);
+    msg_data(usr, server->receive_buffer, size);
     return 0;
 }
 
@@ -807,3 +770,167 @@ XFCPort::XFCPort(const char * name) : asynPortDriver(
 }
 
 
+////////////////////////////////
+// ecSdoAsyn constructor
+ecSdoAsyn::ecSdoAsyn(char * sdoport, ecAsyn * parent):
+    asynPortDriver(sdoport, 
+                   1,           // maxAddr
+                   parent->sdos * 3, // max parameters
+                   asynInt32Mask, /* interface mask */
+                   asynInt32Mask, /* interrupt mask */
+                   0,  /* ASYN_CANBLOCK=0, non blocking, no addresses */
+                   1, /* autoconnect */
+                   0, /* default priority */
+                   0) /* default stack size */,
+    paramrecords(new sdo_paramrecord_t * [parent->sdos]),
+    parent(parent)
+{
+    printf("ecSdoAsyn INIT name ");
+    assert(parent->sdos > 0);
+    EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)ellFirst(&parent->device->sdo_requests);
+    int n = 0;
+    while (sdoentry)
+    {
+        assert(n < parent->sdos);
+        printf("createParam %s, %s_stat, %s_trig\n", 
+               sdoentry->asynparameter,
+               sdoentry->asynparameter,
+               sdoentry->asynparameter);
+        sdo_paramrecord_t * paramrecord = (sdo_paramrecord_t *)calloc(1,sizeof(sdo_paramrecord_t));
+        char *status_name = format("%s_stat", sdoentry->asynparameter);
+        char *trigger_name = format("%s_trig", sdoentry->asynparameter);
+        assert(createParam(sdoentry->asynparameter, asynParamInt32, 
+                           &paramrecord->param_val) == asynSuccess);
+        assert(createParam(status_name, asynParamInt32, 
+                           &paramrecord->param_stat) == asynSuccess);
+        assert(createParam(trigger_name, asynParamInt32, 
+                           &paramrecord->param_trig) == asynSuccess);
+        free(status_name); free(trigger_name);
+        paramrecord->sdoentry = sdoentry;
+
+        sdoentry->param_val = paramrecord->param_val;
+        sdoentry->param_stat = paramrecord->param_stat;
+        sdoentry->param_trig = paramrecord->param_trig;
+        paramrecords[n] = paramrecord;
+        n++;
+        sdoentry =  (EC_SDO_ENTRY *)ellNext(&sdoentry->node);
+
+
+        // check assumption that the parameters increase by one
+        // needed for parameter "normalization" in getSdoentry
+
+        assert(paramrecord->param_val + 1 == paramrecord->param_stat);
+        assert(paramrecord->param_val + 2 == paramrecord->param_trig);
+    }
+}
+
+bool ecSdoAsyn::rangeOkay(int param)
+{
+    return (param >= firstParam() && param <= lastParam());
+}
+bool ecSdoAsyn::isVal(int param)
+{
+    return rangeOkay(param) && 
+        ((param - firstParam()) % 3 == 0);
+}
+bool ecSdoAsyn::isStat(int param)
+{
+    return rangeOkay(param) && 
+        ((param - firstParam()) % 3 == 1);
+}
+bool ecSdoAsyn::isTrig(int param)
+{
+    return rangeOkay(param) && 
+        ((param - firstParam()) % 3 == 2);
+}
+
+asynStatus ecSdoAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
+{
+    int cmd = pasynUser->reason;
+    if(isTrig(cmd))
+    {
+        EC_SDO_ENTRY * sdoentry = getSdoentry(cmd);
+        SDO_REQ_MESSAGE request;
+        request.tag = MSG_SDO_REQ;
+        request.device = parent->device->position;
+        request.index = sdoentry->parent->index;
+        request.subindex = sdoentry->subindex;
+        request.bits = sdoentry->bits;
+        rtMessageQueueSend(parent->writeq, &request, sizeof(SDO_REQ_MESSAGE));
+        return asynSuccess;
+    }
+    else if(isVal(cmd))
+    {
+        EC_SDO_ENTRY * sdoentry = getSdoentry(cmd);
+        SDO_WRITE_MESSAGE write;
+        write.tag = MSG_SDO_WRITE;
+        write.device = parent->device->position;
+        write.index = sdoentry->parent->index;
+        write.subindex = sdoentry->subindex;
+        write.bits = sdoentry->bits;
+        write.value.ivalue = value;
+    }
+    return asynError;
+}
+
+EC_SDO_ENTRY * ecSdoAsyn::getSdoentry(int param)
+{
+    // "normalize" to value params
+    if (isStat(param))
+    {
+        param -= 1;
+    }
+    if (isTrig(param))
+    {
+        param -= 2;
+    }
+    assert(isVal(param));
+    for (int n = 0; n < parent->sdos; n ++)
+    {
+        if (paramrecords[n]->param_val == param)
+            return paramrecords[n]->sdoentry;
+    }
+    assert( false ); // paramrecord not found
+    return NULL;
+}
+
+void ecSdoAsyn::on_sdo_message(SDO_READ_MESSAGE * msg, int size)
+{
+    if (parent->device->position == msg->device)
+    {
+        lock();
+        EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)ellFirst(&parent->device->sdo_requests);
+        // ELLNODE * node = ellFirst(&parent->device->sdo_requests);
+        while (sdoentry)
+        {
+            if((sdoentry->subindex == msg->subindex) 
+               && (sdoentry->parent->index == msg->index))
+            {
+                int32_t val = sdocast_int32(sdoentry, msg);
+                setIntegerParam(sdoentry->param_val, val);
+                setIntegerParam(sdoentry->param_stat, msg->state);
+                break;
+            }
+            sdoentry = (EC_SDO_ENTRY *)ellNext(&sdoentry->node);
+        }
+        if (!sdoentry)
+        {
+            printf("sdo_read_message did not match \n");
+        }
+        callParamCallbacks();
+        unlock();
+    }
+}
+
+/*
+* Questions
+When should there be lock/unlock:
+ecSdoAsyn port is locked when updating the values, after a SDO_READ_MESSAGE
+
+Question: how to effect queue requests through asynPortDriver?
+Answer: Write to the "_trig" parameter in the port
+
+Q: Which calls are used for queue requests?
+A: No asyn queues are used. The ecSdoAsyn ports are non-blocking
+
+*/
