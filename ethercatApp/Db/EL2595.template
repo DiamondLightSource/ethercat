@@ -140,3 +140,32 @@ record(bo, "$(DEVICE):DOXCONTROL:CONTROL__RESET")
   field("ONAM", "ON")
 }
 
+record(bo, "$(DEVICE):OUTPUT_VOLTAGE_READ")
+{
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT)_SDO)voltage_trig")
+   field(VAL, "1")
+   field(TPRO, "1")
+}
+
+record(longin, "$(DEVICE):OUTPUT_VOLTAGE:RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP, "@asyn($(PORT)_SDO)voltage")
+   field(TPRO, "1")
+}
+
+record(longin, "$(DEVICE):OUTPUT_VOLTAGE:STAT")
+{
+   field(DTYP, "asynInt32")
+   field(INP, "@asyn($(PORT)_SDO)voltage_stat")
+   field(TPRO, "1")
+}
+
+record(longout, "$(DEVICE):OUTPUT_VOLTAGE")
+{
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT)_SDO)voltage")
+   field(OMSL, "supervisory")
+   field(TPRO, "1")
+}
