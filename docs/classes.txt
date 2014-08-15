@@ -1,0 +1,46 @@
+#  -*- mode: org -*-
+
+* Classes
+** ListNode<T>
+Base template class that allows its instances to be included in
+ELLISTs, because of its common first ELLNODE element.
+
+** ProcessDataObserver 
+ListNode abstract class with methods to process pdo messages from the
+scanner.
+
+* asynPortDriver classes                      
+** ecAsyn
+This is an asyn port to service PDO requests. The class processes
+readback from the scanner in a separate thread that fills in the
+parameter system in asynPortDriver.
+Read requests are processed by the base class, as they get values
+directly from the parameter lists.
+Write requests generate messages to the scanner that are sent through
+the engine's queue system.
+
+** Sampler 
+Class that collects samples arriving from the scanner (process data
+observer) and fills in to its associated waveform port class.
+
+** WaveformPort
+Asyn port driver class that implements parameters related to generic
+ADC data.
+
+** XFCPort
+Asyn port driver class that serves the "MISSED" parameter to inform
+of missed samples in oversampling slaves.
+
+** ecMaster
+
+Asyn port driver class that serves parameters related to the ethercat
+master.
+
+| Parameter name | Description                    | Origin  |
+| Cycle          |                                | scanner |
+| WorkingCounter |                                |         |
+| Missed         |                                |         |
+| WcState        |                                |         |
+| Missed         | Counter for missed cycles      | IOC     |
+|                | This is obtained by monitoring |         |
+|                | every message from the scanner |         |
