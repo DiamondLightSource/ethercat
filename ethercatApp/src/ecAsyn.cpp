@@ -375,30 +375,40 @@ asynStatus ecAsyn::getBoundsForMapping(EC_PDO_ENTRY_MAPPING * mapping, epicsInt3
 
 asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high)
 {
-    static const char *driverName = "ecAsyn";
     int cmd = pasynUser->reason;
+    EC_PDO_ENTRY_MAPPING * mapping;
     if (cmd >= P_First_PDO && cmd <= P_Last_PDO)
     {
         int pdo = cmd - P_First_PDO;
         assert(pdo >= 0 && pdo < pdos);
-        EC_PDO_ENTRY_MAPPING * mapping = mappings[pdo];
-
+        mapping = mappings[pdo];
         this->getBoundsForMapping(mapping, low, high);
-
         if ( ( strcmp(this->device->type_name, "EL3602") == 0 ) 
              && this->device->type_revid == 0x00120000 )
         {
             mapping->shift = 8;
         }
+        if ( ( strcmp(this->device->type_name, "EL3124") == 0 ) 
+             && this->device->type_revid == 0x00110000 )
+        {
+            *low = 0;
+        }
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+                  "ecAsyn::getBounds port=%s type=%s reason=%d, "
+                  "mapping number %d, bits=%d lo=%d hi=%d\n",
+                  this->device->name, this->device->type_name,
+                  cmd, pdo, mapping->pdo_entry->bits, *low, *high);
     }
     else
     {
         *low = 0;
         *high = 0;
+        asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
+                  "ecAsyn::getBounds port=%s type=%s reason=%d, "
+                  "limits set to zero\n",
+                  this->device->name, this->device->type_name, cmd);
+    
     }
-    asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
-              "%s::getBounds,low=%d, high=%d\n", 
-              driverName, *low, *high);
     return(asynSuccess);  
 }
 
