@@ -442,13 +442,13 @@ void gather_sdo_states(SCANNER * scanner)
 {
     ELLNODE * reqnode;
     ELLNODE * node;
-    node = ellFirst(&scanner->config->dcs_lookups);
+    node = ellFirst(&scanner->config->devices);
     for (; node; node = ellNext(node))
     {
-        EC_DCS_LOOKUP * dindex = (EC_DCS_LOOKUP *) node;
-        if (dindex->device->sdo_requests.count == 0)
+        EC_DEVICE * device = (EC_DEVICE *) node;
+        if (device->sdo_requests.count == 0)
             continue;
-        reqnode = ellFirst(&dindex->device->sdo_requests);
+        reqnode = ellFirst(&device->sdo_requests);
         for (;reqnode; reqnode = ellNext(reqnode))
         {
             EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)reqnode;
