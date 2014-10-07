@@ -138,6 +138,14 @@ typedef  union  {
     uint16_t data16;
     uint8_t data8;
 } sdodata_t;
+
+typedef struct EC_SDO_STATE_STATS {
+    int unused;
+    int busy;
+    int success;
+    int error;
+    int unknown;
+} EC_SDO_STATE_STATS;
 struct EC_SDO_ENTRY
 {
     ELLNODE node;
@@ -149,6 +157,7 @@ struct EC_SDO_ENTRY
     char * desc;
     ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
     ec_request_state_t state;
+    EC_SDO_STATE_STATS state_stats;
     /* ec_request_state_t oldstate; */
     int req_flag;
     int send_flag;

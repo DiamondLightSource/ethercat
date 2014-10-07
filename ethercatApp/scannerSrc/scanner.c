@@ -83,10 +83,9 @@ struct CLIENT
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
 
 /* prototypes */
-int gather_sdo_states(ELLLIST * devices);
+EC_SDO_ENTRY * gather_sdo_states(ELLLIST * devices);
 void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req);
 EC_DEVICE * get_device(SCANNER * scanner, int device_index);
-EC_SDO_ENTRY * find_sdo_to_send(SCANNER * scanner);
 
 void dump_latency_task(void * usr)
 {
@@ -170,6 +169,7 @@ void cyclic_task(void * usr)
     int slave_info_status;
     uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
+    EC_SDO_ENTRY * tosend;
     EC_MESSAGE * msg = (EC_MESSAGE *)calloc(1, scanner->max_message);
     int tick = 0;
     struct timespec timenow, request;
@@ -311,7 +311,7 @@ void cyclic_task(void * usr)
                 ecrt_master_sync_slave_clocks(master);
                 
                 ecrt_domain_state(domain, &domain_state);
-                scanner->sends = gather_sdo_states(&scanner->config->devices);
+                tosend = gather_sdo_states(&scanner->config->devices);
             }
             else
                 simulate_input(scanner);
@@ -384,25 +384,16 @@ void cyclic_task(void * usr)
                 }
             }
 
-            EC_SDO_ENTRY *sdoentry = NULL;
-            if (scanner->sends)
+            if (tosend)
             {
-                sdoentry = find_sdo_to_send(scanner);
-                if (sdoentry) 
+                assert( tosend->send_flag );
+                tosend->send_flag = 0;
+                if (cc < 10)
                 {
-                    assert( sdoentry->send_flag );
-                    sdoentry->send_flag = 0;
-                    if (cc < 10)
-                    {
-                        printf("There's %d SDO to send %d param %s\n", 
-                               scanner->sends, cc, sdoentry ? 
-                               sdoentry->asynparameter: 
-                               "NULL-sdoentry");
-                        cc++;
-                    }
-
+                    printf("There's an SDO to send %d param %s\n", 
+                           cc, tosend->asynparameter);
+                    cc++;
                 }
-                scanner->sends = 0;
             }
             else
             {
@@ -413,11 +404,9 @@ void cyclic_task(void * usr)
             for(client = 0; client < scanner->max_clients; client++)
             {
                 rtMessageQueueSendNoWait(scanner->clients[client]->q, msg, msg_size);
-                if (sdoentry)
+                if (tosend)
                 {
-                    assert(! scanner->sends ); /* should have been cleared above! */
-                    assert(! sdoentry->send_flag ); /* should have been cleared above! */
-                    SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) sdoentry->readmsg;
+                    SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) tosend->readmsg;
                     assert( msg != NULL );
                     assert(msg->tag == MSG_SDO_READ);
                     if (cc < 10 )
@@ -430,7 +419,7 @@ void cyclic_task(void * usr)
                     }
                     rtMessageQueueSendNoWait(
                         scanner->clients[client]->q,
-                        sdoentry->readmsg,
+                        tosend->readmsg,
                         sizeof(SDO_READ_MESSAGE));
                 }
             }
@@ -443,30 +432,6 @@ void cyclic_task(void * usr)
             process_sdo_read_request(scanner, &msg->sdo_req);
         }
     }
-}
-
-EC_SDO_ENTRY * find_sdo_to_send(SCANNER * scanner)
-{
-    ELLNODE * node;
-    ELLNODE * reqnode;
-    node = ellFirst(&scanner->config->dcs_lookups);
-    for (; node; node = ellNext(node))
-    {
-        EC_DCS_LOOKUP * dindex = (EC_DCS_LOOKUP *) node;
-        if (dindex->device->sdo_requests.count == 0)
-            continue;
-        reqnode = ellFirst(&dindex->device->sdo_requests);
-        for (;reqnode; reqnode = ellNext(reqnode))
-        {
-            EC_SDO_ENTRY * sdoentry = (EC_SDO_ENTRY *)reqnode;
-            if (sdoentry->send_flag)
-            {
-                
-                return sdoentry;
-            }
-        }
-    }
-    return NULL;
 }
 
 void read_sdo(EC_SDO_ENTRY *sdoentry)
@@ -504,11 +469,35 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
     }
 }
 
+void update_stats(EC_SDO_ENTRY *sdoentry)
+{
+    switch (sdoentry->state)
+    {
+    case EC_REQUEST_UNUSED:
+        sdoentry->state_stats.unused++;
+        break;
+    case EC_REQUEST_BUSY:
+        sdoentry->state_stats.busy++;
+        break;
+    case EC_REQUEST_SUCCESS:
+        sdoentry->state_stats.success++;
+        break;
+    case EC_REQUEST_ERROR:
+        sdoentry->state_stats.error++;
+        break;
+    default:
+        sdoentry->state_stats.unknown++;
+    }
+}
 
-int gather_sdo_states(ELLLIST *devices)
+
+/* process sdo entries and return any one available to send */
+EC_SDO_ENTRY *gather_sdo_states(ELLLIST *devices)
 {
     ELLNODE * reqnode;
     ELLNODE * node;
+    EC_SDO_ENTRY *tosend = NULL;
+
     int sendscount = 0;
     int reqscount = 0;
     static int cc = 0;
@@ -527,6 +516,8 @@ int gather_sdo_states(ELLLIST *devices)
             if (sdoentry->send_flag)
             {
                 sendscount++;
+                if (!tosend)
+                    tosend = sdoentry;
                 //ignore until result sent
                 //how often will this process?
                 cc = 0;
@@ -538,11 +529,14 @@ int gather_sdo_states(ELLLIST *devices)
                     printf("ecrt_sdo_request_state\n");
                 }
                 sdoentry->state = ecrt_sdo_request_state(sdoentry->sdo_request);
+                update_stats(sdoentry);
                 if (sdoentry->state == EC_REQUEST_SUCCESS)
                 {
                     read_sdo(sdoentry);
                     sdoentry->send_flag = 1;
                     sdoentry->state = EC_REQUEST_UNUSED;
+                    if (!tosend)
+                        tosend = sdoentry;
                 }
                 if (sdoentry->req_flag && 
                     (sdoentry->state != EC_REQUEST_BUSY))
@@ -564,7 +558,7 @@ int gather_sdo_states(ELLLIST *devices)
                sendscount, reqscount);
     }
     cc++;
-    return sendscount;
+    return tosend;
 }
 
 void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req)
@@ -675,6 +669,11 @@ int init_sdo_requests(EC_DEVICE * device, ec_slave_config_t *sc)
         e->sdo_request = ecrt_slave_config_create_sdo_request(
             sc, e->parent->index, e->subindex, 
             size_in_bytes(e->bits));
+        e->state_stats.unused = 0;
+        e->state_stats.busy = 0;
+        e->state_stats.success = 0;
+        e->state_stats.error = 0;
+
         assert( e->sdo_request != NULL );
         printf("SDO request created: \n%s\n", describe_request(e));
         free(e->desc);
