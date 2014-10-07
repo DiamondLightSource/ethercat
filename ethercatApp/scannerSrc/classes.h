@@ -149,10 +149,11 @@ struct EC_SDO_ENTRY
     char * desc;
     ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
     ec_request_state_t state;
-    ec_request_state_t oldstate;
+    /* ec_request_state_t oldstate; */
     int req_flag;
     int send_flag;
-    sdodata_t sdodata;
+    /* sdodata_t sdodata; */
+    sdodata_t * sdodata;
     int param_val;              /* three parameters used in asyn port */
     int param_stat;
     int param_trig;
