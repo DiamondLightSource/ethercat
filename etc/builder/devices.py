@@ -98,6 +98,9 @@ class EthercatSlave(Device):
     def assignPdo(self, smnumber, pdo_index):
         self.chainelem.assignPdo(smnumber, pdo_index)
 
+    def assignSdo(self, sdo):
+        self.chainelem.assignSdo(sdo)
+
     ArgInfo = makeArgInfo(__init__,
         master = Ident("ethercat master device", EthercatMaster),
         position = Simple("slave position in ethercat chain, or serial number of format DCS00001234", str),
@@ -142,3 +145,32 @@ class GenericADC(Device):
         pdoentry = Choice("parameter in the form pdo_name.entry_name", ethercat.pdo_entry_choices),
         cycle = Simple("cycle parameter in the form pdo_name.entry_name", str)
         )
+
+class SdoControl(Device):
+    def __init__(self, name, slave, index):
+        self.__super.__init__()
+        self.sdo = ethercat.Sdo(name, slave, index)
+        self.sdo.slave.assignSdo(self.sdo)
+        
+    def assignEntry(self, sdoentry):
+        self.sdo.assignEntry(sdoentry)
+
+    ArgInfo = makeArgInfo(__init__,
+                          name = Simple("sdo name", str),
+                          slave = Ident("ethercat slave", EthercatSlave),
+                          index = Simple("sdo index", int))
+
+
+class SdoEntryControl(Device):
+    def __init__(self, name, parentsdo, asynparameter, description, subindex, bit_length):
+        self.__super.__init__()
+        self.sdoentry = ethercat.SdoEntry(parentsdo, name, asynparameter, description, subindex, bit_length)
+                        
+    ArgInfo = makeArgInfo(__init__,
+                          parentsdo = Ident("parent sdo", SdoControl),
+                          name = Simple("sdo entry name", str),
+                          asynparameter = Simple("asyn parameter prefix", str),
+                          description = Simple("sdo entry description", str),
+                          subindex = Simple("sdo entry subindex", int),
+                          bit_length = Simple("sdo entry bit length", int))
+

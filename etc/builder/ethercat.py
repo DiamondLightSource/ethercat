@@ -37,6 +37,42 @@ Debug = False
 
 
 ##################### module classes
+class Sdo:
+    '''An sdo to hold sdo entries for the sdo requests '''
+    def __init__(self,name, slave, index):
+        self.name = name
+        self.slave = slave
+        self.index = index
+        self.slave_name = slave.name
+        self.entries = []
+    def assignEntry(self, entry):
+        self.entries.append(entry)
+    def getSdoXml(self):
+        o = "  <sdo name=\"%(name)s\""  % self.__dict__
+        o = o + " slave=\"%(slave_name)s\""  % self.__dict__
+        o = o + " index=\"0x%(index)x\" >\n" % self.__dict__
+        for entry in self.entries:
+            o = o + entry.getSdoEntryXml()
+        o = o + "  </sdo>\n"
+        return o
+
+class SdoEntry:
+    def __init__(self, parentsdo, name, asynparameter, description, subindex, bit_length):
+        self.parentsdo = parentsdo
+        self.name = name
+        self.asynparameter = asynparameter
+        self.description = description
+        self.subindex = subindex
+        self.bit_length = bit_length
+        self.parentsdo.assignEntry(self)
+    def getSdoEntryXml(self):
+        o = "    <sdoentry"
+        o = o + " description=\"%(description)s\"" % self.__dict__
+        o = o + " subindex=\"0x%(subindex)x\" " % self.__dict__
+        o = o + "bit_length=\"%(bit_length)d\" " % self.__dict__
+        o = o + "asynparameter=\"%(asynparameter)s\"" % self.__dict__
+        o = o + " />\n"
+        return o
 
 class PdoEntry:
     '''An entry in a devices's PDO'''
@@ -261,24 +297,36 @@ class EthercatChainElem:
         assert position not in self.__Positions, \
             "Slave position %d already taken" % position
         self.__Positions.add(position)
+        # one set per synch manager
         self.assignedPdos = {0: set(),
-                                         1: set(),
-                                         2: set(),
-                                         3: set() }
+                             1: set(),
+                             2: set(),
+                             3: set() }
         # record whether device descriptions were processed for 
         # non default PDOs
         self.processedAssignedPdos = True
+        # list of sdos - specific to a chain element, not to the device type
+        self.assignedSdos = []
 
     def assignPdo(self, smnumber, pdo_index):
         assert smnumber in [0,1,2,3]
         self.assignedPdos[smnumber].add(pdo_index)
         self.processedAssignedPdos = False
 
+    def assignSdo(self, sdo):
+        self.assignedSdos.append(sdo)
+
     def getDeviceDescription(self):
         key = parseTypeRev(self.type_rev)
         self.device = all_dev_descriptions[key]
         if not self.processedAssignedPdos:
             self.device.transferAssignments(self)
+
+    def getSdoXml(self):
+        o = ""
+        for sdo in self.assignedSdos:
+            o = o + sdo.getSdoXml()
+        return o
 
         
 class EthercatChain:
@@ -317,6 +365,13 @@ class EthercatChain:
             o = o + " />\n"
         o = o + "</chain>\n"
         return o
+        
+    def generateSdorequestsXml(self):
+        o = '<sdorequests>\n'
+        for chainelem in [ self.chain[position] for position in self.chainlist ]:
+            o = o + chainelem.getSdoXml()
+        o = o + '</sdorequests>\n'
+        return o
 
     def generateMasterXml(self):
         assert self.dev_descriptions , "device descriptions not populated. should call getDeviceDescriptions"
@@ -326,6 +381,7 @@ class EthercatChain:
             o = o + dev_description.generateDeviceXml()
         o = o + "</devices>\n"
         o = o + self.generateChainXml()
+        o = o + self.generateSdorequestsXml()
         o = o + "</scanner>\n"
         return o
 
