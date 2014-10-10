@@ -1,0 +1,38 @@
+
+States in an EC_SDO_ENTRY
+
+1) idle 
+Normal state and at startup
+
+2) request 
+This state is entered when an sdo request message
+SDO_REQ_MESSAGE is received for this sdo entry
+
+3) processing read
+This state is entered once the ecrt_sdo_request_read is issued
+In this state the sdo entry will query for its ecrt_sdo_request_state
+and remain in this state while busy (EC_REQUEST_BUSY)
+
+The exit paths are when the state becomes:
+EC_REQUEST_SUCCESS - then the sdo is read and the sdo entry enters the send state
+EC_REQUEST_ERROR   - then the sdo entry enters the send state
+
+4) send
+The sdo entry waits to be picked up by the ticking process in cyclic_task.
+When an SDO_READ_MESSAGE is sent, the state reverts to idle.
+
+5) write
+This state is entered when an sdo request message
+SDO_WRITE_MESSAGE is received for this sdo entry
+
+6) processing write
+This state is entered once the ecrt_sdo_request_write is issued by the ticking loop in cyclic_task
+
+In this state the sdo entry will query for its ecrt_sdo_request_state
+and remain in this state while busy (EC_REQUEST_BUSY)
+
+The exit paths are when the state becomes:
+EC_REQUEST_SUCCESS - then the sdo is read and the sdo entry enters the send state
+EC_REQUEST_ERROR   - then the sdo entry enters the send state
+
+

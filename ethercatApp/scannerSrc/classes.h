@@ -124,6 +124,13 @@ struct EC_DEVICE
     ELLLIST sdo_requests;     /*< list of sdo entries */
 };
 
+enum EC_SDO_PROC_STATE { 
+    SDO_PROC_IDLE, 
+    SDO_PROC_REQ, 
+    SDO_PROC_READ, 
+    SDO_PROC_SEND, 
+    SDO_PROC_WRITE
+};
 
 struct EC_SDO
 {
@@ -139,13 +146,6 @@ typedef  union  {
     uint8_t data8;
 } sdodata_t;
 
-typedef struct EC_SDO_STATE_STATS {
-    int unused;
-    int busy;
-    int success;
-    int error;
-    int unknown;
-} EC_SDO_STATE_STATS;
 struct EC_SDO_ENTRY
 {
     ELLNODE node;
@@ -157,12 +157,9 @@ struct EC_SDO_ENTRY
     char * desc;
     ec_sdo_request_t * sdo_request;         /*< sdo request struct from ethercat */
     ec_request_state_t state;
-    EC_SDO_STATE_STATS state_stats;
-    /* ec_request_state_t oldstate; */
-    int req_flag;
-    int send_flag;
-    /* sdodata_t sdodata; */
-    sdodata_t * sdodata;
+    ec_request_state_t oldstate;
+    enum EC_SDO_PROC_STATE sdostate;
+    sdodata_t sdodata;
     int param_val;              /* three parameters used in asyn port */
     int param_stat;
     int param_trig;
