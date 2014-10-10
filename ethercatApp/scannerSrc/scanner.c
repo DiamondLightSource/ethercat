@@ -83,9 +83,7 @@ struct CLIENT
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
 
 /* prototypes */
-void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req);
 EC_DEVICE * get_device(SCANNER * scanner, int device_index);
-EC_SDO_ENTRY * find_sdo_to_send(const SCANNER * scanner);
 
 void dump_latency_task(void * usr)
 {
@@ -169,6 +167,29 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
     msg->value[3] = sdoentry->sdodata.data[3];            
 }
 
+void write_sdo(EC_SDO_ENTRY *sdoentry)
+{
+    SDO_WRITE_MESSAGE *wmsg = (SDO_WRITE_MESSAGE *)sdoentry->writemsg;
+    sdoentry->sdodata.data[0] = wmsg->value.cvalue[0];
+    sdoentry->sdodata.data[1] = wmsg->value.cvalue[1];
+    sdoentry->sdodata.data[2] = wmsg->value.cvalue[2];
+    sdoentry->sdodata.data[3] = wmsg->value.cvalue[3];
+    switch (sdoentry->bits)
+    {
+    case 8:
+        EC_WRITE_U8(ecrt_sdo_request_data(sdoentry->sdo_request), 
+                    sdoentry->sdodata.data8);
+        ecrt_sdo_request_write(sdoentry->sdo_request);
+        break;
+    case 16:
+        EC_WRITE_U16(ecrt_sdo_request_data(sdoentry->sdo_request), 
+                     sdoentry->sdodata.data16);
+        ecrt_sdo_request_write(sdoentry->sdo_request);
+        break;
+    }
+    
+}
+
 void send_to_clients(SCANNER * scanner, void *data, unsigned int size)
 {
     int client;
@@ -179,6 +200,56 @@ void send_to_clients(SCANNER * scanner, void *data, unsigned int size)
     }
 }
 
+void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req)
+{
+    EC_DEVICE * device = get_device(scanner, sdo_req->device);
+    assert( device != NULL);
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for (; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
+        assert(sdoentry->parent->slave == device);
+        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
+            (sdoentry->parent->index == sdo_req->index) &&
+            (sdoentry->subindex == sdo_req->subindex))
+        {
+            sdoentry->sdostate = SDO_PROC_REQ;
+        }
+    }
+}
+
+
+void copy_sdo_write(EC_SDO_ENTRY *sdoentry, SDO_WRITE_MESSAGE *sdo_write)
+{
+    SDO_WRITE_MESSAGE * wmsg = (SDO_WRITE_MESSAGE *) sdoentry->writemsg;
+    assert(wmsg->device == sdo_write->device);
+    assert(wmsg->index == sdo_write->index);
+    assert(wmsg->subindex == sdo_write->subindex);
+    assert(wmsg->bits == sdo_write->bits);
+    wmsg->value.cvalue[0] = sdo_write->value.cvalue[0];
+    wmsg->value.cvalue[1] = sdo_write->value.cvalue[1];
+    wmsg->value.cvalue[2] = sdo_write->value.cvalue[2];
+    wmsg->value.cvalue[3] = sdo_write->value.cvalue[3];
+}
+
+void process_sdo_write_request(SCANNER * scanner, SDO_WRITE_MESSAGE *sdo_write)
+{
+    EC_DEVICE * device = get_device(scanner, sdo_write->device);
+    assert( device != NULL);
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for (; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
+        assert(sdoentry->parent->slave == device);
+        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
+            (sdoentry->parent->index == sdo_write->index) &&
+            (sdoentry->subindex == sdo_write->subindex))
+        {
+            sdoentry->sdostate = SDO_PROC_WRITEREQ;
+            copy_sdo_write(sdoentry, sdo_write);
+        }
+    }
+}
 
 void cyclic_task(void * usr)
 {
@@ -420,10 +491,26 @@ void cyclic_task(void * usr)
                             send_to_clients(scanner, devsdo->readmsg,
                                             sizeof(SDO_READ_MESSAGE));
                             break;
+                        case SDO_PROC_WRITEREQ:
+                            devsdo->state = ecrt_sdo_request_state(devsdo->sdo_request);
+                            if (devsdo->state != EC_REQUEST_BUSY)
+                            {
+                                write_sdo(devsdo);
+                                devsdo->sdostate = SDO_PROC_WRITE;
+                            }
+                            break;
                         case SDO_PROC_WRITE:
-                            //TODO implement writing sdo
-                            printf("Here scanner would write to sdo\n");
-                            devsdo->sdostate = SDO_PROC_IDLE;
+                            devsdo->state = ecrt_sdo_request_state(devsdo->sdo_request);
+                            if (devsdo->state == EC_REQUEST_SUCCESS)
+                            {
+                                devsdo->sdostate = SDO_PROC_IDLE;
+                            }
+                            else if (devsdo->state == EC_REQUEST_ERROR)
+                            {
+                                //TODO send error report to clients
+                                printf("error writing sdo\n");
+                                devsdo->sdostate = SDO_PROC_IDLE;
+                            }
                             break;
                         }
                     }
@@ -433,7 +520,8 @@ void cyclic_task(void * usr)
             send_to_clients(scanner, msg, msg_size);
             tick++;
         } /* MSG_TICK */
-        else if (msg->tag == MSG_SDO_REQ) {
+        else if (msg->tag == MSG_SDO_REQ) 
+        {
             process_sdo_read_request(scanner, &msg->sdo_req);
             SDO_REQ_MESSAGE *sdo_req = &msg->sdo_req;
             assert(sdo_req->tag == MSG_SDO_REQ);
@@ -441,26 +529,18 @@ void cyclic_task(void * usr)
                    sdo_req->device,
                    sdo_req->index, sdo_req->subindex, sdo_req->bits);
         }
-    }
-}
-
-void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req)
-{
-    EC_DEVICE * device = get_device(scanner, sdo_req->device);
-    assert( device != NULL);
-    ELLNODE * node = ellFirst(&device->sdo_requests);
-    for (; node; node = ellNext(node))
-    {
-        EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
-        assert(sdoentry->parent->slave == device);
-        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
-            (sdoentry->parent->index == sdo_req->index) &&
-            (sdoentry->subindex == sdo_req->subindex))
+        else if (msg->tag == MSG_SDO_WRITE)
         {
-            sdoentry->sdostate = SDO_PROC_REQ;
+            process_sdo_write_request(scanner, &msg->sdo_write);
+            SDO_WRITE_MESSAGE *sdo_w = &msg->sdo_write;
+            assert(sdo_w->tag == MSG_SDO_WRITE);
+            printf("process_sdo_write_request device %d index %x subindex %x bits %d \n",
+                   sdo_w->device,
+                   sdo_w->index, sdo_w->subindex, sdo_w->bits);
         }
     }
 }
+
 
 EC_DEVICE * get_device(SCANNER * scanner, int device_index)
 {
@@ -559,6 +639,7 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
         printf("SDO request created: \n%s\n", describe_request(e));
         free(e->desc);
         e->readmsg = calloc(1, sizeof(SDO_READ_MESSAGE));
+        e->writemsg = calloc(1, sizeof(SDO_WRITE_MESSAGE));
         SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) e->readmsg;
         assert( msg != NULL );
         msg->tag = MSG_SDO_READ;
@@ -567,6 +648,14 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
         msg->subindex = e->subindex;
         msg->bits = e->bits;
         msg->state = EC_REQUEST_UNUSED;
+        SDO_WRITE_MESSAGE * wmsg = (SDO_WRITE_MESSAGE *) e->writemsg;
+        assert( wmsg != NULL );
+        wmsg->tag = MSG_SDO_WRITE;
+        wmsg->device = device->position;
+        wmsg->index = e->parent->index;
+        wmsg->subindex = e->subindex;
+        wmsg->bits = e->bits;
+        wmsg->value.ivalue = 0;
     }
     return 0;
 }

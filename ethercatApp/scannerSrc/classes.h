@@ -128,7 +128,8 @@ enum EC_SDO_PROC_STATE {
     SDO_PROC_IDLE, 
     SDO_PROC_REQ, 
     SDO_PROC_READ, 
-    SDO_PROC_SEND, 
+    SDO_PROC_SEND,
+    SDO_PROC_WRITEREQ,
     SDO_PROC_WRITE
 };
 
@@ -159,11 +160,13 @@ struct EC_SDO_ENTRY
     ec_request_state_t state;
     ec_request_state_t oldstate;
     enum EC_SDO_PROC_STATE sdostate;
+    
     sdodata_t sdodata;
     int param_val;              /* three parameters used in asyn port */
     int param_stat;
     int param_trig;
     void *readmsg;              /* opaque pointer to hold a sdo_read_message struct */
+    void *writemsg;             /* opaque pointer to hold an sdo_write message  */
 };
 
 /*

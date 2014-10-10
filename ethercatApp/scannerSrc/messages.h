@@ -54,7 +54,6 @@ typedef struct
     int subindex;
     int bits;
 } SDO_REQ_MESSAGE;
-
 typedef struct
 {
     int tag;

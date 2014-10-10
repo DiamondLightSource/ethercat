@@ -866,6 +866,8 @@ asynStatus ecSdoAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
         write.subindex = sdoentry->subindex;
         write.bits = sdoentry->bits;
         write.value.ivalue = value;
+        rtMessageQueueSend(parent->writeq, &write, sizeof(SDO_WRITE_MESSAGE));
+        return asynSuccess;
     }
     return asynError;
 }
