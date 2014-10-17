@@ -263,7 +263,6 @@ void cyclic_task(void * usr)
     struct timespec wakeupTime;
     EC_MESSAGE * msg = (EC_MESSAGE *)calloc(1, scanner->max_message);
     int tick = 0;
-    struct timespec timenow, request;
 
     uint8_t * write_cache = calloc(scanner->pdo_size, sizeof(char));
     uint8_t * write_mask = calloc(scanner->pdo_size, sizeof(char));
@@ -342,49 +341,7 @@ void cyclic_task(void * usr)
         else if(msg->tag == MSG_TICK )
         {
             wakeupTime = msg->timer.ts;
-            // Merge writes
-            int n;
-            for (n = 0; n < scanner->pdo_size; n++)
-            {
-                pd[n] &= ~write_mask[n];
-                pd[n] |= write_cache[n];
-            }
-            memset(write_mask, 0, scanner->pdo_size);
 
-            ecrt_domain_queue(domain);
-            // sends LRW frame
-            ecrt_master_send(master);
-
-            // Wait for the EtherCAT frame to return. This time should be
-            // calculated for each facility. Look at the "DC system time
-            // transmission delay" of your slaves.
-            // Ignoring the error to console variable since we should never
-            // see any of the errors that result in the fprintfs.
-            if (clock_gettime(CLOCK_MONOTONIC, &timenow)) {
-                fprintf(stderr, "Error getting current time in cyclic_task(): %s\n",
-                        strerror(errno));
-                fprintf(stderr, "EtherCAT frame probably missed this cycle!\n");
-            } else {
-                request.tv_sec  = timenow.tv_sec;
-                request.tv_nsec = timenow.tv_nsec + frame_time_ns;
-                if (request.tv_nsec >= 1000000000) {
-                    request.tv_nsec -= 1000000000;
-                    request.tv_sec += 1;
-                }
-                // Note that when compiled with _POSIX_C_SOURCE = 199506L
-                // and -Wall the following call will spit out an implicit 
-                // definition warning 
-                while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &request, 0)) {
-                    if (errno != EINTR) { 
-                        fprintf(stderr, "Error waiting for EtherCAT frame to return: %s\n", 
-                                strerror(errno)); 
-                        fprintf(stderr, "EtherCAT frame probably missed this cycle!\n");
-                        break; 
-                    } 
-                }
-            }
-                
-            // Get the reply
             ecrt_master_receive(master);
             ecrt_domain_process(domain);
     
@@ -395,6 +352,14 @@ void cyclic_task(void * usr)
                 
             ecrt_domain_state(domain, &domain_state);
             
+            // Merge writes
+            int n;
+            for (n = 0; n < scanner->pdo_size; n++)
+            {
+                pd[n] &= ~write_mask[n];
+                pd[n] |= write_cache[n];
+            }
+            memset(write_mask, 0, scanner->pdo_size);
             // check latency
             struct timespec ts;
             clock_gettime(CLOCK_MONOTONIC, &ts);
@@ -518,6 +483,11 @@ void cyclic_task(void * usr)
             }
             // distribute PDO
             send_to_clients(scanner, msg, msg_size);
+
+            ecrt_domain_queue(domain);
+            // sends LRW frame
+            ecrt_master_send(master);
+
             tick++;
         } /* MSG_TICK */
         else if (msg->tag == MSG_SDO_REQ) 
