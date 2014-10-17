@@ -895,15 +895,6 @@ EC_SDO_ENTRY * ecSdoAsyn::getSdoentry(int param)
 
 void ecSdoAsyn::on_sdo_message(SDO_READ_MESSAGE * msg, int size)
 {
-    printf("msg->tag == MSG_SDO_READ device %d index 0x%x\n "
-           "val = %d %d %d %d\n",
-           msg->device,
-           msg->index,
-           msg->value[0], 
-           msg->value[1], 
-           msg->value[2], 
-           msg->value[3]
-        );
     if (parent->device->position == msg->device)
     {
         lock();
