@@ -13,4 +13,12 @@
 	<ethercat.SdoEntryControl asynparameter="serrorlevel" bit_length="8" description="Error Level (supply)" name="SDO1.5" parentsdo="SDO1" subindex="18"/>
 	<ethercat.SdoEntryControl asynparameter="outwarnlevel" bit_length="8" description="Warning Level (output)" name="SDO1.6" parentsdo="SDO1" subindex="19"/>
 	<ethercat.SdoEntryControl asynparameter="outerrorlevel" bit_length="8" description="Error Level (output)" name="SDO1.7" parentsdo="SDO1" subindex="20"/>
+	<ethercat.auto_EL2595 DEVICE="RMTEST-LED-01" DRVH="1000" DRVL="0" PORT="ERIO.1" SCAN="1 second" label="Test LED" name="DEV1"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="voltage" PORT="ERIO.1_SDO" R=":VOLTAGE" name="sdoe1"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="svoltage" PORT="ERIO.1_SDO" R=":SVOLTAGE" name="sdoe2"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="holdcurrent" PORT="ERIO.1_SDO" R=":HOLDCURR" name="sdoe3"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="swarnlevel" PORT="ERIO.1_SDO" R=":SUPWARNLVL" name="sdoe4"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="serrorlevel" PORT="ERIO.1_SDO" R=":SUPERRORLVL" name="sdoe5"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="outwarnlevel" PORT="ERIO.1_SDO" R=":OUTWARNLVL" name="sdoe6"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="outerrorlevel" PORT="ERIO.1_SDO" R=":OUTERRORLVL" name="sdoe7"/>
 </components>
