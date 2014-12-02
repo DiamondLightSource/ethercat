@@ -16,6 +16,10 @@ These version are unmodified, except for the asyn dependency:
 
 * R3.14.12.3 releases
 
+** Release 4-0
+   SDO support, released from sdo_support branch, 
+   not integrated in trunk
+
 ** Release 3-1 and 3-2
    Add screens for EL2595
 
