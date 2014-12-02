@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 435
-y 272
+x 437
+y 298
 w 321
-h 171
+h 116
 font "arial-medium-r-18.0"
 ctlFont "arial-medium-r-18.0"
 btnFont "arial-medium-r-18.0"
@@ -33,7 +33,7 @@ release 0
 x 0
 y 10
 w 320
-h 160
+h 105
 lineColor index 14
 fill
 fillColor index 5
@@ -104,59 +104,14 @@ value {
 autoSize
 endObjectProperties
 
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 158
-y 65
-w 110
-h 30
-controlPv "$(P)$(R)_stat"
-font "arial-medium-r-18.0"
-fontAlign "center"
-fgColor index 16
-fgAlarm
-bgColor index 10
-limitsFromDb
-nullColor index 0
-useHexPrefix
-showUnits
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 48
-y 70
-w 31
-h 16
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Stat:"
-}
-autoSize
-endObjectProperties
-
 # (Message Button)
 object activeMessageButtonClass
 beginObjectProperties
 major 4
 minor 1
 release 0
-x 48
-y 101
+x 49
+y 65
 w 70
 h 23
 fgColor index 25
@@ -166,8 +121,8 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P)$(R)_trig"
 pressValue "1"
-onLabel "Trig"
-offLabel "Trig"
+onLabel "Read"
+offLabel "Read"
 3d
 font "arial-medium-r-16.0"
 endObjectProperties
@@ -178,9 +133,9 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 155
-y 116
-w 100
+x 159
+y 62
+w 110
 h 30
 controlPv "$(P)$(R)"
 precision 2
