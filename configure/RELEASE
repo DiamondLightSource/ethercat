@@ -1,7 +1,7 @@
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
-
-ASYN=/home/rjq35657/R3.14.12.3/support/asyn
+SUPPORT = /dls_sw/prod/R3.14.12.3/support
+ASYN=$(SUPPORT)/asyn/4-21
 
 
 # EPICS_BASE usually appears last so other apps can override stuff:
