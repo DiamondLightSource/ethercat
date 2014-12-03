@@ -501,9 +501,6 @@ void cyclic_task(void * usr)
             process_sdo_write_request(scanner, &msg->sdo_write);
             SDO_WRITE_MESSAGE *sdo_w = &msg->sdo_write;
             assert(sdo_w->tag == MSG_SDO_WRITE);
-            printf("process_sdo_write_request device %d index %x subindex %x bits %d \n",
-                   sdo_w->device,
-                   sdo_w->index, sdo_w->subindex, sdo_w->bits);
         }
     }
 }
