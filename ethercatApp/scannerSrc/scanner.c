@@ -495,9 +495,6 @@ void cyclic_task(void * usr)
             process_sdo_read_request(scanner, &msg->sdo_req);
             SDO_REQ_MESSAGE *sdo_req = &msg->sdo_req;
             assert(sdo_req->tag == MSG_SDO_REQ);
-            printf("process_sdo_read_request device %d index %x subindex %x bits %d \n",
-                   sdo_req->device,
-                   sdo_req->index, sdo_req->subindex, sdo_req->bits);
         }
         else if (msg->tag == MSG_SDO_WRITE)
         {
