@@ -1,0 +1,27 @@
+# Nothing here - all default doxygen settings
+
+INPUT                  =  \
+                         ../../ethercatApp/scannerSrc/classes.h \
+                         ../../ethercatApp/scannerSrc/classes.c \
+                         ../../ethercatApp/scannerSrc/parser.c \
+                         ../../ethercatApp/scannerSrc/qordertest.c \
+                         ../../ethercatApp/scannerSrc/unpack.c \
+                         ../../ethercatApp/scannerSrc/serialtool.c \
+                         ../../ethercatApp/scannerSrc/simulation.c \
+                         ../../ethercatApp/scannerSrc/slaveinfo.c \
+                         ../../ethercatApp/scannerSrc/scanner.c \
+                         ../../ethercatApp/scannerSrc/parsertest.c \
+                         ../../ethercatApp/scannerSrc/queue.c \
+                         ../../ethercatApp/scannerSrc/test_client.cpp \
+                         ../../ethercatApp/scannerSrc/classes.h \
+                         ../../ethercatApp/scannerSrc/config.h \
+                         ../../ethercatApp/scannerSrc/messages.h \
+                         ../../ethercatApp/scannerSrc/parser.h \
+                         ../../ethercatApp/scannerSrc/simulation.h \
+                         ../../ethercatApp/scannerSrc/unpack.h \
+                         ../../ethercatApp/scannerSrc/queue.h \
+                         ../../ethercatApp/src/ecAsyn.cpp \
+                         ../../ethercatApp/src/gadc.cpp \
+                         ../../ethercatApp/src/gadctest.cpp \
+                         ../../ethercatApp/src/ecAsyn.h \
+                         ../../ethercatApp/src/gadc.h
