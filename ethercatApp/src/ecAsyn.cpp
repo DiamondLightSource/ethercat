@@ -407,7 +407,6 @@ asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *h
                   "ecAsyn::getBounds port=%s type=%s reason=%d, "
                   "limits set to zero\n",
                   this->device->name, this->device->type_name, cmd);
-    
     }
     return(asynSuccess);  
 }
