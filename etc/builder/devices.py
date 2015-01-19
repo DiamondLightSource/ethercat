@@ -20,7 +20,11 @@ class SlaveTemplate(AutoSubstitution):
 # script for scanner start-up, used in EthercatMaster.writeScannerStartup
 SCANNER_STARTUP_TEXT ="""#!/bin/sh
 cd "$(dirname $0)"
-%(scanner)s -q %(expanded_chain)s %(socket_path)s
+OPTS="-q"
+if [ "$1" = "-d" ]; then
+    OPTS=""
+fi
+%(scanner)s ${OPTS} %(expanded_chain)s %(socket_path)s
 """
 
 class EthercatMaster(Device):
