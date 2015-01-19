@@ -1058,6 +1058,10 @@ int main(int argc, char ** argv)
         prio = PRIO_LOW;
         assert(rtThreadCreate("cyclic", prio, 0, cyclic_task, scanner) != NULL);
     }
+    else
+    {
+        printf("created high priority thread for cyclic task\n");        
+    }
     new_timer(PERIOD_NS, scanner->workq, prio, MSG_TICK);
 
     if(dumplatency)
