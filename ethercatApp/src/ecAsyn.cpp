@@ -600,7 +600,7 @@ int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
         }
     }
     printf("\n");
-    printf("bys cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
+    printf("bus cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
            msg->pdo.wc_state);
     ELLNODE * node;
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
