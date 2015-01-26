@@ -192,8 +192,8 @@ struct EC_PDO_ENTRY_MAPPING
 
 struct EC_CONFIG
 {
-    ELLLIST device_types;
-    ELLLIST devices;
+    ELLLIST device_types;       /* entries in xpath //devices/device */
+    ELLLIST devices;            /* entries in xpath //chain/device */
     ELLLIST pdo_entry_mappings;
     ELLLIST dcs_lookups;
     ELLLIST sdo_requests;
