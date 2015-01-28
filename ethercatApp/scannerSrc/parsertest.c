@@ -6,6 +6,11 @@
 #include "classes.h"
 #include "parser.h"
 
+typedef enum _CONFIG_CHECK { CONFIG_ERROR=0,  CONFIG_OKAY=1 } CONFIG_CHECK;
+typedef enum _BOOL { FALSE = 0, TRUE = 1} BOOL;
+
+/* typdef enum _CONFIG_CHECK CONFIG_CHECK; */
+
 typedef struct testdata
 {
     char * configFile;
@@ -63,16 +68,119 @@ int populate_dcslookup(EC_CONFIG *c)
     return 0;
 }
 
-int main()
+BOOL pdoentryOversample(EC_PDO_ENTRY *entry)
 {
+    BOOL result = FALSE;
+    if (entry->oversampling)
+    {
+        result = TRUE;
+    }
+    return result;
+}
+
+BOOL pdoOversample(EC_PDO *pdo)
+{
+    BOOL result = FALSE;
+    BOOL loop = TRUE;
+    ELLNODE * n = ellFirst(&pdo->pdo_entries);
+    while (loop && n)
+    {
+        EC_PDO_ENTRY *e = (EC_PDO_ENTRY *)n;
+        if (pdoentryOversample(e))
+        {
+            result = TRUE;
+            loop = FALSE;
+        }
+        n = ellNext(n);
+    }
+    return result;
+}
+
+CONFIG_CHECK check_syncmanager(EC_SYNC_MANAGER *sm)
+{
+    CONFIG_CHECK result = CONFIG_OKAY;
+    BOOL oversample = FALSE;
+    ELLNODE * n = ellFirst(&sm->pdos);
+    BOOL loop = TRUE;
+    while (loop && n)
+    {
+        EC_PDO *pdo = (EC_PDO *)n;
+        if (oversample && !pdoOversample(pdo))
+        {
+            /* configuration out of order */
+            result = CONFIG_ERROR;
+            loop = FALSE;       /* stop the loop */
+        }
+        if (!oversample && pdoOversample(pdo))
+        {
+            oversample = TRUE;
+        }
+        n = ellNext(n);
+    }
+    return result;
+}
+
+CONFIG_CHECK check_devicetype(EC_DEVICE_TYPE *devtype)
+{
+    CONFIG_CHECK result = CONFIG_OKAY;
+    ELLNODE *n = ellFirst(&devtype->sync_managers);
+    BOOL loop = TRUE;
+    while (loop && n)
+    {
+        EC_SYNC_MANAGER *syncmanager = (EC_SYNC_MANAGER *) n;
+        if (check_syncmanager(syncmanager) == CONFIG_ERROR)
+        {
+            loop = FALSE;
+            result = CONFIG_ERROR;
+        }
+        n = ellNext(n);
+    }
+    return result;
+}
+
+/* Function to verify that the pdos in all sync managers where there
+ * are oversampling registers are placed AFTER the registers where
+ * oversample==0 */
+CONFIG_CHECK check_config(EC_CONFIG *c)
+{
+    CONFIG_CHECK result = CONFIG_OKAY;
+    ELLNODE *n = ellFirst(&c->device_types);
+    while (n)
+    {
+        EC_DEVICE_TYPE * devtype = (EC_DEVICE_TYPE *) n;
+        if (check_devicetype(devtype) == CONFIG_ERROR)
+        {
+            printf("check_config: Error found devicetype %s\n",
+                devtype->name);
+            result = CONFIG_ERROR;
+        }
+        n = ellNext(n);
+    }
+    return result;
+}
+
+int main(int argc, char *argv[])
+{
+    if (argc < 2)
+    {
+        fprintf(stderr, "usage: parsertest <scanner.xml>\n");
+        exit(1);
+    }
+    char *fname = argv[1];
+    fprintf(stderr, "fname %s\n", fname);
     testdata_t * data = calloc(1, sizeof(testdata_t));
     data->config = calloc(1, sizeof(EC_CONFIG));
-    populate_dcslookup(data->config);
-    data->configFile = "/home/rjq35657/ex.xml";
+    /* populate_dcslookup(data->config); */
+    data->configFile = fname;
+    fprintf(stderr, "fname %s\n", data->configFile);
     data->config_buffer = load_config(data->configFile);
     data->load_result = read_config(data->config_buffer, 
                                     strlen(data->config_buffer),
                                     data->config);
+    if (check_config(data->config))  /* == CONFIG_OKAY */
+    {
+        printf("check_config: OKAY\n");
+    }
     if (data->load_result == PARSING_ERROR)
         printf("PARSING_ERROR returned\n");
     return 0;  
