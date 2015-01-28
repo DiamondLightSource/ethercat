@@ -162,24 +162,38 @@ class SyncManager:
         self.index = index
         self.direction = direction
         self.watchdog = watchdog
-        self.pdos = set()
+        self.pdos = []
+        self.pdo_index_list = []
         self.number = "-1" # placeholder number
-    
-    def sortedPdos(self):
-        return sorted(self.pdos, key=lambda p:p.index)
+
+    def pdosWithoutDuplicates(self):
+        # remove duplicates
+        pdo_index_list = []
+        checked_pdos = []
+        for pdo in self.pdos:
+            if not pdo.index in pdo_index_list:
+                checked_pdos.append(pdo)
+                pdo_index_list.append(pdo.index)
+        return checked_pdos
 
     def generateSyncManagerXml(self):
         ''' xml description for the ethercat scanner '''
         o = '    <sync index="%(number)s" ' % self.__dict__
         o = o + ' dir="%(direction)s" '% self.__dict__
         o = o + ' watchdog="%(watchdog)d">\n' % self.__dict__
-        for pdo in self.sortedPdos():
+        for pdo in self.pdosWithoutDuplicates():
             o = o + pdo.generatePdoXml()
         o = o + "    </sync>\n"
         return o
 
     def assignPdo(self, pdo):
-        self.pdos.add(pdo)
+        if pdo.index in self.pdo_index_list:
+            print "Duplicate pdo skipped (index = %d, name %s)" % \
+                (pdo.index, pdo.name)
+        else:
+            self.pdo_index_list.append(pdo.index)
+            self.pdos.append(pdo)
+        
         
 class EthercatDevice:
     ''' An EtherCAT device description, 
