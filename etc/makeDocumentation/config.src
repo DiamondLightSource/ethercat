@@ -1,6 +1,13 @@
 # Nothing here - all default doxygen settings
 
-INPUT                  =  \
+INPUT                  =  ../../etc/makeDocumentation/manual.src \
+                          ../../etc/makeDocumentation/release_notes.src \
+                          ../../etc/makeDocumentation/getting_started.src \
+                          ../../etc/makeDocumentation/sdo_support.src \
+                          ../../etc/makeDocumentation/generic_adc.src \
+                          ../../etc/makeDocumentation/classes.src \
+                          ../../etc/makeDocumentation/devices.src \
+                          ../../etc/makeDocumentation/license.src \                          
                          ../../ethercatApp/scannerSrc/classes.h \
                          ../../ethercatApp/scannerSrc/classes.c \
                          ../../ethercatApp/scannerSrc/parser.c \
@@ -11,15 +18,12 @@ INPUT                  =  \
                          ../../ethercatApp/scannerSrc/slaveinfo.c \
                          ../../ethercatApp/scannerSrc/scanner.c \
                          ../../ethercatApp/scannerSrc/parsertest.c \
-                         ../../ethercatApp/scannerSrc/queue.c \
-                         ../../ethercatApp/scannerSrc/test_client.cpp \
                          ../../ethercatApp/scannerSrc/classes.h \
                          ../../ethercatApp/scannerSrc/config.h \
                          ../../ethercatApp/scannerSrc/messages.h \
                          ../../ethercatApp/scannerSrc/parser.h \
                          ../../ethercatApp/scannerSrc/simulation.h \
                          ../../ethercatApp/scannerSrc/unpack.h \
-                         ../../ethercatApp/scannerSrc/queue.h \
                          ../../ethercatApp/src/ecAsyn.cpp \
                          ../../ethercatApp/src/gadc.cpp \
                          ../../ethercatApp/src/gadctest.cpp \

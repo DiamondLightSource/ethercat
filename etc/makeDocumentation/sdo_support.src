@@ -1,21 +1,23 @@
-#  -*- mode: org -*-
 
-* Specification at scanner initialization
+/**
+\page sdo_support SDO Support
+
+\section sdo_initialization Specification at scanner initialization
 
 SDO requests are registered in the scanner configuration
 
-The section <sdorequests> is parsed to the configuration structures
+The section &lt;sdorequests&gt; is parsed to the configuration structures
 
 Example:
 
-<sdorequests>
-  <sdo name="DOX Settings Ch. 1" slave="EA1.11" index="0x8000" >
-    <sdoentry description="Voltage Output" subindex="0x8" bit_length="8" 
-              asynparameter="voltage"/>
-  </sdo>
-</sdorequests>
+&lt;sdorequests&gt;<br/>
+  &lt;sdo name="DOX Settings Ch. 1" slave="EA1.11" index="0x8000" &gt;<br/>
+    &lt;sdoentry description="Voltage Output" subindex="0x8" bit_length="8" 
+              asynparameter="voltage"/&gt;<br/>
+  &lt;/sdo&gt;<br/>
+&lt;/sdorequests&gt;<br/>
 
-* SDO size supported
+\section sdo_size SDO size supported
 
 The Ethercat specification supports any size SDO.
 This implementation limits the support to 32-bit entries, because of
@@ -24,23 +26,91 @@ the use of asynInt32 parameters in the EPICS side.
 For example, the table below shows the types of SDOS in the EL2595
 and the range supported.
 
-| type         | bit_length | supported (Y/N) |
-|--------------+------------+-----------------|
-| type 0000    | 0 bit      | Y               |
-| bool         | 1 bit      | Y               |
-| type 0000    | 2 bit      | Y               |
-| type 0000    | 3 bit      | Y               |
-| type 0000    | 4 bit      | Y               |
-| type 0000    | 5 bit      | Y               |
-| type 0000    | 7 bit      | Y               |
-| uint8        | 8 bit      | Y               |
-| string       | 16 bit     | Y               |
-| uint32       | 32 bit     | Y               |
-| string       | 48 bit     | NO              |
-| uint64       | 64 bit     | NO              |
-| octet_string | 224 bit    | NO              |
+<table>
+<tr>
+<td><b>type</b></td>
+<td><b>bit_length</b></td>
+<td><b>supported (Y/N)</b></td>
+</tr>
+<tr>
+<td>type 0000</td>
+<td>0 bit</td>
+<td>Y</td>
+</tr>
 
-* Scanner to EPICS communications
+<tr>
+<td>bool</td>
+<td>1 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>2 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>3 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>4 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>5 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>7 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>uint8</td>
+<td>8 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>16 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>uint32</td>
+<td>32 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>48 bit</td>
+<td>NO</td>
+</tr>
+
+<tr>
+<td>uint64</td>
+<td>64 bit</td>
+<td>NO</td>
+</tr>
+
+<tr>
+<td>octet_string</td>
+<td>224 bit</td>
+<td>NO</td>
+</tr>
+</table>
+\section sdo_scanner_comms Scanner to EPICS communications
 
 These message types are used:
 
@@ -51,12 +121,12 @@ MSG_SDO_READ   an answer from the scanner
 The request can be in one of these states (ethercat library's
 ec_requets_state_t)
 
-    EC_REQUEST_UNUSED, /**< Not requested. */
-    EC_REQUEST_BUSY, /**< Request is being processed. */
-    EC_REQUEST_SUCCESS, /**< Request was processed successfully. */
-    EC_REQUEST_ERROR, /**< Request processing failed. */
+    EC_REQUEST_UNUSED, Not requested. 
+    EC_REQUEST_BUSY,   Request is being processed. 
+    EC_REQUEST_SUCCESS,  Request was processed successfully. 
+    EC_REQUEST_ERROR,  Request processing failed. 
 
-* Read request
+\section sdo_read_request Read request
 
 An EPICS record is processed for a read request.
 
@@ -83,7 +153,7 @@ record(mbbi, "DEVICE:OUTPUT_VOLTAGE:STAT")
     field("FRST", "ERROR")
 }
 
-* Write request
+\section sdo_write_request Write request
 
 Example EPICS record for read/write.
 
@@ -96,7 +166,7 @@ record(longout, "DEVICE:OUTPUT_VOLTAGE")
 
 
 
-* read request in cyclic_task
+\section sdo_cyclic_read read request in cyclic_task
 
 The cyclic task in the scanner will retrieve the status of the sdo
 requests on every tick (function gather_sdo_states)
@@ -109,46 +179,33 @@ When a MSG_SDO_REQ message arrives, the request will be registered in
 using the process_sdo_read_request function that will issue a read
 request only when the associated state for the request is not busy.
 
-
-* use of the "flag" in the sdoentry structure
-
-The sdoentry structure keeps the current state of the request (state
-field) and the old state of the request.
-
-The flag is used to register that a request to read this sdo has been
-received.
-
-* write sdo requests from IOC
+\section sdo_write_sdo write sdo requests from IOC
 
 The IOC "engine" has two methods
 
-** ioc_send/pdo_data
+\subsection sdo_write_method1 ioc_send/pdo_data
    These functions process messages from the receive buffer, that is
    packets sent by the scanner.
    For SDOs these will be replies from the scanner about status of
    the read request and a value.
 
-** ioc_receive
-   This function add messages to the writeq, from the send_buffer.
+\subsection sdo_write_method2 ioc_receive
+   This function adds messages to the writeq, from the send_buffer.
    For SDOs, these will be the read requests and write requests.
 
-* Separate asyn port class for SDO requests
+\section Separate asyn port class for SDO requests
 
 The class ecSdoAsyn implements the blocking port for the sdo
 read/write requests.
 
 An instance will be created by its parent ecAsyn port class if there
-are sdos registered for that port (sdos > 0). (Implementation in
+are sdos registered for that port (sdos &gt; 0). (Implementation in
 readConfig function in ecAsyn.cpp)
 
 The class instance receives messages from the scanner.
 All instances are registered in the list sdo_observers list and
 implement the on_sdo_message method.
 
-TODO: 
-1. read method to send a SDO_REQ_MESSAGE in ecSdoAsyn
-2. write method to send a SDO_WRITE_MESSAGE in ecSdoAsyn
-3. callback part that queues SDO_READ_MESSAGE to send back from
-ecSdoAsyn to EPICS
 
 
+**/
