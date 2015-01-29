@@ -1,290 +1,81 @@
 /**
 \page generic_adc Notes on generic ADC implementation on Ethercat
+\verbatim
+# -*- Mode: Org -*-
+
+* Notes on generic ADC implementation on Ethercat
 Ronaldo Mercado
-December 2013
-Reformated for doxygen and minor updates Jan 2015
+Original: December 2013
+Release 4-1: January 2015 Add note that no triggering is available.
 
 The gadc "generic adc" is an asyn port driver that accumulates samples
 from the ethercat scanner to provide waveforms and averaged ADC
 values.  It was written by James Rowland based on Pete Leicester’s
 requirements document for the VME ADCs TDI-CTRL-REQ-015.
 
-\section generic_adc_asynparams Asyn Parameters for the Generic ADC driver
+* Asyn Parameters for the Generic ADC driver
 
-<table>
-<tr>
-<td><b>Name</b></td>
-<td><b>Type</b></td>
-<td><b>Use</b></td>
-</tr>
-
-<tr>
-<td>MODE</td>
-<td>Int32</td>
-<td>gated, trigerred or continuous</td>
-</tr>
-
-<tr>
-<td>SAMPLES</td>
-<td>Int32</td>
-<td>number of samples in an acquisition window for continuous mode</td>
-</tr>
-
-<tr>
-<td>OFFSET</td>
-<td>Int32</td>
-<td>offset for trigger</td>
-</tr>
-
-<tr>
-<td>AVERAGE</td>
-<td>Int32</td>
-<td>number of samples to average for triggered mode</td>
-</tr>
-
-<tr>
-<td>TRIGGER</td>
-<td>Int32</td>
-<td>software trigger</td>
-</tr>
-
-<tr>
-<td>BUFFERCOUNT</td>
-<td>Int32</td>
-<td>Samples in the channel's buffer</td>
-</tr>
-
-<tr>
-<td>VALUE</td>
-<td>Int32</td>
-<td>Averaged value</td>
-</tr>
-
-<tr>
-<td>CAPTURE</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>CHANBUFF</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>ENABLED</td>
-<td>Int32</td>
-<td>unknonw</td>
-</tr>
-
-<tr>
-<td>RETRIGGER</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>CLEAR</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>OVERFLOW</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>AVERAGEOVERFLOW</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>STATE</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>SUPPORT</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>INFO</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>PUTSAMPLE</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>INTERRUPT</td>
-<td>Int32</td>
-<td>unknown</td>
-</tr>
-
-<tr>
-<td>WAVEFORM</td>
-<td>Int32Array</td>
-<td>waveform with samples</td>
-</tr>
-</table>
+| Name            | Type       | Use                                                            |
+| MODE            | Int32      | gated, trigerred or continuous                                 |
+| SAMPLES         | Int32      | number of samples in an acquisition window for continuous mode |
+| OFFSET          | Int32      | offset for trigger                                             |
+| AVERAGE         | Int32      | number of samples to average for triggered mode                |
+| TRIGGER         | Int32      | software trigger                                               |
+| BUFFERCOUNT     | Int32      | Samples in the channel's buffer                                |
+| VALUE           | Int32      | Averaged value                                                 |
+| CAPTURE         | Int32      | unknown                                                        |
+| CHANBUFF        | Int32      | unknown                                                        |
+| ENABLED         | Int32      | unknonw                                                        |
+| RETRIGGER       | Int32      | unknown                                                        |
+| CLEAR           | Int32      | unknown                                                        |
+| OVERFLOW        | Int32      | unknown                                                        |
+| AVERAGEOVERFLOW | Int32      | unknown                                                        |
+| STATE           | Int32      | unknown                                                        |
+| SUPPORT         | Int32      | unknown                                                        |
+| INFO            | Int32      | unknown                                                        |
+| PUTSAMPLE       | Int32      | unknown                                                        |
+| INTERRUPT       | Int32      | unknown                                                        |
+| WAVEFORM        | Int32Array | waveform with samples                                          |
 
 These parameters are accessed using the generic adc template
 gadc.template records
 
-\section generic_adc_records Records in the template gadc.template
+* Records in the template gadc.template
 
-<table>
-<tr>
-<td><b>Record Name</b></td>
-<td><b>Record Type</b></td>
-<td><b>In/Out</b></td>
-<td><b>Asyn parameter</b></td>
-</tr>
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_CHANBUFF\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>CHANBUFF</td>
-</tr>
+| Record Name                         | Record Type | In/Out | Asyn parameter |
+|-------------------------------------+-------------+--------+----------------|
+| $(DEVICE):ADC$(CHANNEL)_CHANBUFF    | longout     | out    | CHANBUFF       |
+| $(DEVICE):ADC$(CHANNEL)_INFO        | longout     | out    | INFO           |
+| $(DEVICE):ADC$(CHANNEL)_SAMPLES     | longout     | out    | SAMPLES        |
+| $(DEVICE):ADC$(CHANNEL)_OFFSET      | longout     | out    | OFFSET         |
+| $(DEVICE):ADC$(CHANNEL)_MODE        | mbbo        | out    | MODE           |
+| $(DEVICE):ADC$(CHANNEL)_TRIGGER     | longout     | out    | TRIGGER        |
+| $(DEVICE):ADC$(CHANNEL)_CAPTURE     | longout     | out    | CAPTURE        |
+| $(DEVICE):ADC$(CHANNEL)_AVERAGE     | longout     | out    | AVERAGE        |
+| $(DEVICE):ADC$(CHANNEL)_WAVEFORM    | waveform    | in     | WAVEFORM       |
+| $(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT | longin      | in     | BUFFERCOUNT    |
+| $(DEVICE):ADC$(CHANNEL)_VALUE       | longin      | in     | VALUE          |
+| $(DEVICE):ADC$(CHANNEL)_STATE       | mbbi        | in     | STATE          |
+| $(DEVICE):ADC$(CHANNEL)_ENABLED_R   | bi          | in     | ENABLED        |
+| $(DEVICE):ADC$(CHANNEL)_ENABLED     | bo          | out    | ENABLED        |
+| $(DEVICE):ADC$(CHANNEL)_RETRIGGER   | bo          | out    | RETRIGGER      |
+| $(DEVICE):ADC$(CHANNEL)_INTERRUPT   | longout     | out    | INTERRUPT      |
+| $(DEVICE):ADC$(CHANNEL)_CLEAR       | longout     | out    | CLEAR          |
 
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_INFO\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>INFO</td>
-</tr>
 
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_SAMPLES\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>SAMPLES</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_OFFSET\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>OFFSET</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_MODE\endverbatim</td>
-<td>mbbo</td>
-<td>out</td>
-<td>MODE</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_TRIGGER\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>TRIGGER</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_CAPTURE\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>CAPTURE</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_AVERAGE\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>AVERAGE</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_WAVEFORM\endverbatim</td>
-<td>waveform</td>
-<td>in</td>
-<td>WAVEFORM</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_BUFFERCOUNT\endverbatim</td>
-<td>longin</td>
-<td>in</td>
-<td>BUFFERCOUNT</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_VALUE\endverbatim</td>
-<td>longin</td>
-<td>in</td>
-<td>VALUE</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_STATE\endverbatim</td>
-<td>mbbi</td>
-<td>in</td>
-<td>STATE</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_ENABLED_R\endverbatim</td>
-<td>bi</td>
-<td>in</td>
-<td>ENABLED</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_ENABLED\endverbatim</td>
-<td>bo</td>
-<td>out</td>
-<td>ENABLED</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_RETRIGGER\endverbatim</td>
-<td>bo</td>
-<td>out</td>
-<td>RETRIGGER</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_INTERRUPT\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>INTERRUPT</td>
-</tr>
-
-<tr>
-<td>\verbatim$(DEVICE):ADC$(CHANNEL)_CLEAR\endverbatim</td>
-<td>longout</td>
-<td>out</td>
-<td>CLEAR</td>
-</tr>
-
-</table>
-
-The \verbatim$(DEVICE):ADC1_SAMPLES\endverbatim record sets the driver’s sample count for
+The $(DEVICE):ADC1_SAMPLES record sets the driver’s sample count for
 whenthe interrupts are generated (MODE set to continuous acquisition
 and the VALUE record has to be set to I/O Interrupt). The units are
 samples at the driver sampling frequency, 1 KHz.
 
-For example if the \verbatim$(DEVICE):ADC1_SAMPLES\endverbatim is set to 50, an interrupt is
+For example if the $(DEVICE):ADC1_SAMPLES is set to 50, an interrupt is
 generated every 50 ms.
 
 ADC1_AVERAGE is the number of samples used for averaging in the gated
 of triggered modes (see below). The units are samples at the driver
 sampling frequency, 1 KHz.
 
-\section generic_adc_adccontrol_edl Options in AdcControl.edl
+* Options in AdcControl.edl
 
 The AdcControl.edl screen exposes the driver parameters.
 
@@ -301,7 +92,7 @@ This facility is not in use, because triggering is not available.
 I haven’t looked at how to generate a trigger from hardware (the VME
 equivalent ADCs have physical connectors in the front of the carrier).
 
-\section generic_adc_waveform Waveform capture in continous acquisition
+* Waveform capture in continous acquisition
 
 For continuous acquisition, the ADC1_SAMPLES record controls how
 frequent the updates are and if one wishes to acquire complete
@@ -312,4 +103,5 @@ allow the capture of contiguous data.
 
 
 
+\endverbatim
 **/
