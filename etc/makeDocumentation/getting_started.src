@@ -35,29 +35,35 @@ It may be possible to make the link come up without assigning an IP address on s
 
 This creates /dev/EtherCAT0 and the "ethercat" service:
 
+\verbatim
 $ ls -l /dev/EtherCAT0 
 crw-rw-rw- 1 root root 253, 0 May 16 15:37 /dev/EtherCAT0
 
 $ /sbin/service ethercat status
 Checking for EtherCAT master devel 
 Master0  running
+\endverbatim
 
 The "ethercat" service needs to know which network card to use, the
 configuration file is stored in the "init" dls svn area under the 
 short hostname (hostname -s)
 
+\verbatim
 $ cat /dls_sw/prod/etc/init/$(hostname -s)/ethercat
 MASTER0_DEVICE="00:0E:0C:BC:28:91"
 DEVICE_MODULES="generic"
+\endverbatim
 
 The userspace API for the etherlab master is release as a DLS tool.
 It can scan the bus and display slave information:
 
+\verbatim
 $ ethercat slaves
 0  0:0  OP  +  NI 9144
 
 $ which ethercat
 /dls_sw/prod/tools/RHEL6-x86_64/defaults/bin/ethercat
+\endverbatim
 
 There is also a diagnostics tool called "slaveinfo" that is built into
 the bin directory of the ethercat support module. It generates a
@@ -80,14 +86,13 @@ ethercatApp/scannerSrc
 The scanner requires a configuration file containing a list of devices
 on the bus and their parameters:
 
+\verbatim
 $ less ../iocs/scanTest/etc/chain.xml
-
-&lt;chain&gt;<br/>
-&lt;device type_name="EK1101" revision="0x00110000" position="0" name="COUPLER0" /&gt;<br/>
-&lt;device type_name="EL1004" revision="0x00100000" position="1" name="VACUUM0" /&gt;<br/>
-&lt;device type_name="EL3702" revision="0x00020000" position="2" name="RF0" oversample="11" /&gt;<br/>
-&lt;device type_name="EL2004" revision="0x00100000" position="3" name="OUT0" /&gt;<br/>
-&lt;/chain&gt;<br/>
+<chain>
+<device type_name="EK1101" revision="0x00110000" position="0" name="COUPLER0" />
+<device type_name="EL3702" revision="0x00020000" position="1" name="RF0" oversample="11" />
+</chain>
+\endverbatim
 
 The "name" field is used later in the IOC to give each EtherCAT device
 an ASYN port name.
@@ -95,6 +100,7 @@ an ASYN port name.
 The revision numbers can be read from the devices using the "ethercat"
 command line tool:
 
+\verbatim
 $ ethercat slaves -v | less
 
 === Master 0, Slave 0 ===
@@ -105,11 +111,13 @@ Identity:
   Product code:    0x044d2c52
   Revision number: 0x00110000
   Serial number:   0x00000000...
+\endverbatim
 
 The script etc/scripts/expandChain.py is used to expand this
 configuration file using the XML description of each EtherCAT device
 stored in etc/xml
 
+\verbatim
 $ ls ../etc/xml/
 Beckhoff AX2xxx.xml  Beckhoff EL37xx.xml  Beckhoff ELx9xx.xml  Beckhoff EP6xxx.xml              EtherCATDict.xsd
 Beckhoff BKxxxx.xml  Beckhoff EL3xxx.xml  Beckhoff EM2xxx.xml  Beckhoff EP7xxx.xml              EtherCATInfo.xsd
@@ -119,6 +127,7 @@ Beckhoff EL1xxx.xml  Beckhoff EL5xxx.xml  Beckhoff EP2xxx.xml  Beckhoff FB1XXX.x
 Beckhoff EL2xxx.xml  Beckhoff EL6xxx.xml  Beckhoff EP3xxx.xml  Beckhoff FCxxxx.xml              SMC EX250-SEN1-X156.xml
 Beckhoff EL30xx.xml  Beckhoff EL7xxx.xml  Beckhoff EP4xxx.xml  BKxxxx (MDP)
 Beckhoff EL31xx.xml  Beckhoff EL9xxx.xml  Beckhoff EP5xxx.xml  EtherCATBase.xsd
+\endverbatim
 
 These XML files contain the list of named registers that each device
 supports. Theoretically this information is also stored in a PROM in
@@ -163,30 +172,33 @@ The scanner supports a simulation mode with the '-s' command switch.
 The configuration file supports extra elements to specify the simulated
 signals as in the example below.
 
+\verbatim
 $ cat iocs/diagnosticsTest/etc/diagnostics-test-chain.xml
 
-&lt;chain&gt;<br/>
-&lt;device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" /&gt;<br/>
-&lt;device type_name="EL3104" revision="0x00100000" position="1" name="AI1" &gt;<br/>
-    &lt;simulation signal_no="1" bit_length="16"<br/>
-            signal_type="sine_wave" low_value="-32768" high_value="32767" period_ms="10000" /&gt;<br/>
-    &lt;simulation signal_no="2" bit_length="16" <br/>
-            signal_type="ramp" low_value="-32768" high_value="32767" period_ms="10000" symmetry="100"/&gt;<br/>
-    &lt;simulation signal_no="3" bit_length="16" signal_type="constant" value="20000" /&gt;<br/>
-&lt;/device&gt;<br/>
-&lt;/chain&gt;<br/>
+<chain>
+<device type_name="EK1100" revision="0x00110000" position="0" name="COUPLER0" />
+<device type_name="EL3104" revision="0x00100000" position="1" name="AI1" >
+    <simulation signal_no="1" bit_length="16"
+            signal_type="sine_wave" low_value="-32768" high_value="32767" period_ms="10000" />
+    <simulation signal_no="2" bit_length="16" 
+            signal_type="ramp" low_value="-32768" high_value="32767" period_ms="10000" symmetry="100"/>
+    <simulation signal_no="3" bit_length="16" signal_type="constant" value="20000" />
+</device>
+</chain>
+\endverbatim
 
 The allocation follows the parameter "signal_no" combined with "bit_length",
 thus there's several signals with signal_no "1" depending on the signal bit-lengths.
 
 The supported types are "sine_wave", "ramp", "square_wave" and "constant".
 The limits for low_value and high_value are:
+\verbatim
 bit_length .....  low_value ... high_value
 1-bit                   0         1
 8-bit                   0         255
 16-bit             -32768         32767
 24-bit           -8388608         8388607
-
+\endverbatim
 
 \section gs_builder 6) iocbuilder Support
 
@@ -209,16 +221,17 @@ The additional tag PdoAssignment specifies a pdo index to add to a
 slave description. This is added to the type, so all devices of the
 same type will take this setting.
 
+\verbatim
 EXAMPLE
 =======
 
-&lt;?xml version="1.0" ?&gt;<br/>
-&lt;components arch="linux-x86_64"&gt;<br/>
-	&lt;ethercat.EthercatMaster max_message="150000" name="ECATM" socket="/tmp/scanner"/&gt;<br/>
-	&lt;ethercat.EthercatSlave master="ECATM" name="ERIO0.0" position="DCS00023358" type_rev="EK1100 rev 0x00110000"/&gt;<br/>
-	&lt;ethercat.EthercatSlave master="ECATM" name="EA1.9" position="DCS00024779" type_rev="EL2595 rev 0x00120000"/&gt;<br/>
-	&lt;ethercat.PdoAssignment name="PDOEA1.9.1" pdo_index="5633" slave="EA1.9" smnumber="2"/&gt;<br/>
-	&lt;!--#rxpdo 0x1601 is 5633 in base 10--&gt;<br/>
-&lt;/components&gt;<br/>
-
+<?xml version="1.0" ?>
+<components arch="linux-x86_64">
+	<ethercat.EthercatMaster max_message="150000" name="ECATM" socket="/tmp/scanner"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO0.0" position="DCS00023358" type_rev="EK1100 rev 0x00110000"/>
+	<ethercat.EthercatSlave master="ECATM" name="EA1.9" position="DCS00024779" type_rev="EL2595 rev 0x00120000"/>
+	<ethercat.PdoAssignment name="PDOEA1.9.1" pdo_index="5633" slave="EA1.9" smnumber="2"/>
+	<!--#rxpdo 0x1601 is 5633 in base 10-->
+</components>
+\endverbatim
 **/

@@ -1,6 +1,11 @@
 /**
 \page release_notes Release notes
 
+\section rel4_1 Release 4-1
+   Fix EL3702 oversampling support broken since 3-x
+   Dls trac #8598
+   Add doxygen documentation
+
 \section rel4_0 Release 4-0
    SDO support, released from sdo_support branch, 
    not integrated in trunk
