@@ -1,8 +1,6 @@
 /**
 \page generic_adc Notes on generic ADC implementation on Ethercat
 \verbatim
-# -*- Mode: Org -*-
-
 * Notes on generic ADC implementation on Ethercat
 Ronaldo Mercado
 Original: December 2013
