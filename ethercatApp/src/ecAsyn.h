@@ -3,6 +3,8 @@
 #include <asynPortDriver.h>
 #include <ellLib.h>
 #include "classes.h" // EC_PDO_ENTRY_MAPPING, EC_DEVICE
+#include "messages.h" //PDO_MESSAGE
+#include "rtutils.h"  //rtMessageQueueId
 
 struct ENGINE_USER;
 
@@ -19,7 +21,7 @@ public:
 };
 
 class ecAsyn;
-
+class ecSdoAsyn;
 class XFCPort : public asynPortDriver
 {
     int P_Missed;
@@ -51,12 +53,27 @@ public:
 #define ECDevicePosition    "DEV_POSITION"  /**< (asynOctect, r/o) slave's position */
 #define ECDeviceName        "DEV_NAME"      /**< (asynOctec, r/o) slave's asyn port name */
 
+typedef struct sdo_paramrecord 
+{
+    int param_val;              /* param in asyn with value */
+    int param_stat;             /* param in asyn with request state */
+    int param_trig;             /* param in asyn to trigger a read req */
+    EC_SDO_ENTRY *sdoentry;
+    // TODO: review - maybe redundant?
+    ecAsyn * ecasyn_port;
+    ecSdoAsyn * ecsdoasyn_port;
+} sdo_paramrecord_t;
+
+
 class ecAsyn : public asynPortDriver, public ProcessDataObserver
 {
+private:
+    //disallow evil constructors
+    ecAsyn(const ecAsyn&);
+    void operator=(const ecAsyn&);
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
     int pdos;
     int devid;
-    rtMessageQueueId writeq;
     EC_PDO_ENTRY_MAPPING ** mappings;
     int P_AL_STATE;
 #define FIRST_SLAVE_COMMAND P_AL_STATE
@@ -70,7 +87,9 @@ class ecAsyn : public asynPortDriver, public ProcessDataObserver
     int P_First_PDO;
     int P_Last_PDO;
 public:
-    ecAsyn(EC_DEVICE * device, int pdos, ENGINE_USER * usr, int devid);
+    ecAsyn(EC_DEVICE * device, int pdos, int sdos, ENGINE_USER * usr, int devid);
+    int sdos;
+    rtMessageQueueId writeq;
     EC_DEVICE * device;
     virtual void on_pdo_message(PDO_MESSAGE * message, int size);
     virtual asynStatus getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *high);
@@ -78,6 +97,27 @@ public:
 };
 
 #define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)
+
+class ecSdoAsyn : public asynPortDriver, public ListNode<int>
+{
+private:
+    //disallow evil constructors
+    ecSdoAsyn(const ecSdoAsyn&);
+    void operator=(const ecSdoAsyn&);
+    sdo_paramrecord_t ** paramrecords;
+    inline int firstParam() { return paramrecords[0]->param_val;}
+    inline int lastParam() {return paramrecords[parent->sdos-1]->param_trig;}
+    bool rangeOkay(int param);
+    bool isTrig(int param);
+    bool isVal(int param);
+    bool isStat(int param);
+    virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
+public:    
+    ecAsyn * parent;
+    ecSdoAsyn(char *sdoport, ecAsyn *p);
+    void on_sdo_message(SDO_READ_MESSAGE * msg, int size);
+    EC_SDO_ENTRY * getSdoentry(int param);
+};
 
 class ecMaster : public asynPortDriver, public ProcessDataObserver
 {

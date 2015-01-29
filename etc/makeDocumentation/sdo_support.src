@@ -1,0 +1,211 @@
+
+/**
+\page sdo_support SDO Support
+
+\section sdo_initialization Specification at scanner initialization
+
+SDO requests are registered in the scanner configuration
+
+The section &lt;sdorequests&gt; is parsed to the configuration structures
+
+Example:
+
+&lt;sdorequests&gt;<br/>
+  &lt;sdo name="DOX Settings Ch. 1" slave="EA1.11" index="0x8000" &gt;<br/>
+    &lt;sdoentry description="Voltage Output" subindex="0x8" bit_length="8" 
+              asynparameter="voltage"/&gt;<br/>
+  &lt;/sdo&gt;<br/>
+&lt;/sdorequests&gt;<br/>
+
+\section sdo_size SDO size supported
+
+The Ethercat specification supports any size SDO.
+This implementation limits the support to 32-bit entries, because of
+the use of asynInt32 parameters in the EPICS side.
+
+For example, the table below shows the types of SDOS in the EL2595
+and the range supported.
+
+<table>
+<tr>
+<td><b>type</b></td>
+<td><b>bit_length</b></td>
+<td><b>supported (Y/N)</b></td>
+</tr>
+<tr>
+<td>type 0000</td>
+<td>0 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>bool</td>
+<td>1 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>2 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>3 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>4 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>5 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>type 0000</td>
+<td>7 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>uint8</td>
+<td>8 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>16 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>uint32</td>
+<td>32 bit</td>
+<td>Y</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td>48 bit</td>
+<td>NO</td>
+</tr>
+
+<tr>
+<td>uint64</td>
+<td>64 bit</td>
+<td>NO</td>
+</tr>
+
+<tr>
+<td>octet_string</td>
+<td>224 bit</td>
+<td>NO</td>
+</tr>
+</table>
+\section sdo_scanner_comms Scanner to EPICS communications
+
+These message types are used:
+
+MSG_SDO_REQ    a read request from the client (EPICS)
+MSG_SDO_WRITE  a write request from the client (EPICS)
+MSG_SDO_READ   an answer from the scanner
+
+The request can be in one of these states (ethercat library's
+ec_requets_state_t)
+
+    EC_REQUEST_UNUSED, Not requested. 
+    EC_REQUEST_BUSY,   Request is being processed. 
+    EC_REQUEST_SUCCESS,  Request was processed successfully. 
+    EC_REQUEST_ERROR,  Request processing failed. 
+
+\section sdo_read_request Read request
+
+An EPICS record is processed for a read request.
+
+e.g.
+record(longin, "DEVICE:OUTPUT_VOLTAGE")
+{
+   field(DTYP, "asynInt32")
+   field(INP, "@asyn(ERIO.1)voltage")
+   field(SCAN, "1 second")
+}
+
+record(mbbi, "DEVICE:OUTPUT_VOLTAGE:STAT")
+{
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn(ERIO.1)voltage_stat)
+    field(SCAN, "1 second")
+    field("ONVL", "0")
+    field("TWVL", "1")
+    field("THVL", "2")
+    field("FRVL", "3")
+    field("ONST", "UNUSED")
+    field("TWST", "BUSY")
+    field("THST", "SUCCESS")
+    field("FRST", "ERROR")
+}
+
+\section sdo_write_request Write request
+
+Example EPICS record for read/write.
+
+record(longout, "DEVICE:OUTPUT_VOLTAGE")
+{
+   field(DTYP, "asynInt32")
+   field(INP, "@asyn(ERIO.1)voltage")
+   field(OMSL, "supervisory")
+}
+
+
+
+\section sdo_cyclic_read read request in cyclic_task
+
+The cyclic task in the scanner will retrieve the status of the sdo
+requests on every tick (function gather_sdo_states)
+
+The function gather_sdo_states also marks a flag for requests for
+which the state has changed. These should generate an answer from the
+scanner, which is an MSG_SDO_READ message to return to the clients.
+
+When a MSG_SDO_REQ message arrives, the request will be registered in
+using the process_sdo_read_request function that will issue a read
+request only when the associated state for the request is not busy.
+
+\section sdo_write_sdo write sdo requests from IOC
+
+The IOC "engine" has two methods
+
+\subsection sdo_write_method1 ioc_send/pdo_data
+   These functions process messages from the receive buffer, that is
+   packets sent by the scanner.
+   For SDOs these will be replies from the scanner about status of
+   the read request and a value.
+
+\subsection sdo_write_method2 ioc_receive
+   This function adds messages to the writeq, from the send_buffer.
+   For SDOs, these will be the read requests and write requests.
+
+\section Separate asyn port class for SDO requests
+
+The class ecSdoAsyn implements the blocking port for the sdo
+read/write requests.
+
+An instance will be created by its parent ecAsyn port class if there
+are sdos registered for that port (sdos &gt; 0). (Implementation in
+readConfig function in ecAsyn.cpp)
+
+The class instance receives messages from the scanner.
+All instances are registered in the list sdo_observers list and
+implement the on_sdo_message method.
+
+
+
+**/

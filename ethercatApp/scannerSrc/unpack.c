@@ -35,7 +35,9 @@ static int ioc_send(ENGINE * server, int size)
 {
     if(count % 100 == 0)
     {
-        pdo_data(server->receive_buffer, size);
+        EC_MESSAGE * msg = (EC_MESSAGE *) server->receive_buffer;
+        if (msg->tag == MSG_PDO)
+            pdo_data(server->receive_buffer, size);
     }
     count++;
     return 0;
@@ -52,6 +54,29 @@ int unpack_int(char * buffer, int * ofs)
 {
     int value = *((int *)(buffer + *ofs));
     (*ofs) += sizeof(int);
+    return value;
+}
+
+double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
+{
+    double value = 0;
+    int bytes = (mapping->pdo_entry->bits -1) / 8 + 1;
+    buffer += mapping->offset + index * bytes;
+
+    /* According to the EtherCAT standard floats can come in two sizes: 32 bits
+     * and 64 bits.
+     */
+    switch (mapping->pdo_entry->bits)
+    {
+        case 32:
+            value = (double)*(float *)buffer;
+            break;
+        case 64:
+            value = *(double *)buffer;
+            break;
+        default:
+            printf("unknown type\n");
+    }
     return value;
 }
 
@@ -130,6 +155,21 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
     return value;        
 }
 
+int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry,SDO_READ_MESSAGE *msg)
+{
+    int32_t value = 0;
+    switch(sdoentry->bits)
+    {
+    case 1:
+    case 8:
+        value = *(uint8_t *)(msg->value);
+        break;
+    case 16:
+        value = *(uint16_t *)(msg->value);
+        break;
+    }
+    return value;
+}
 int pdo_data(char * buffer, int size)
 {
     EC_MESSAGE * msg = (EC_MESSAGE *)buffer;
@@ -144,7 +184,7 @@ int pdo_data(char * buffer, int size)
         }
     }
     printf("\n");
-    printf("bys cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
+    printf("bus cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
            msg->pdo.wc_state);
     ELLNODE * node;
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
@@ -189,7 +229,7 @@ int init_unpack(char * buffer, int size)
     int tag = unpack_int(buffer, &ofs);
     assert(tag == MSG_CONFIG);
     int scanner_config_size = unpack_int(buffer, &ofs);
-    read_config2(buffer + ofs, scanner_config_size, cfg);
+    read_config(buffer + ofs, scanner_config_size, cfg);
     ofs += scanner_config_size;
     int mapping_config_size = unpack_int(buffer, &ofs);
     parseEntriesFromBuffer(buffer + ofs, mapping_config_size, cfg);

@@ -12,7 +12,7 @@ STATIC_BUILD=YES
 VERSION=1-5-2dls5
 ETHERLAB=/dls_sw/prod/tools/RHEL6-x86_64/ethercat/$(VERSION)
 ETHERLABPREFIX=$(ETHERLAB)/prefix
-
+# POSIX_CPPFLAGS = -D_POSIX_C_SOURCE=199506L -D_POSIX_THREADS -D_XOPEN_SOURCE=600
 
 USR_INCLUDES += -I$(ETHERLABPREFIX)/include
 
@@ -38,5 +38,9 @@ serialtool_SRCS += serialtool.c
 
 PROD += slaveinfo
 slaveinfo_SRCS += slaveinfo.c
+
+PROD += parsertest
+parsertest_SRCS += parsertest.c
+parsertest_LIBS += scannerlib Com
 
 include $(TOP)/configure/RULES

@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
@@ -6,6 +7,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <errno.h>
 
 #include <ecrt.h>
 #include <ellLib.h>
@@ -14,6 +16,7 @@
 #include "rtutils.h"
 #include "msgsock.h"
 #include "messages.h"
+
 #include "classes.h"
 #include "parser.h"
 #include "unpack.h"
@@ -26,6 +29,8 @@ int selftest = 1;
 int simulation = 0;
 // latency histogram for test only
 int dumplatency = 0;
+// Time to wait for EtherCAT frame to return. Default to 50 us.
+long frame_time_ns = 50000; 
 
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
@@ -54,6 +59,7 @@ typedef struct
     rtMessageQueueId workq;
     int buckets[HISTBUCKETS];
     int max_latency;
+    int sends;            /* flag to signal there are sdo reads to send */
     /* used in simulation*/
     int simulation;
     int sim_pdo_size;     /* bytes used after all current assignments */
@@ -75,6 +81,9 @@ struct CLIENT
 };
 
 enum { PRIO_LOW = 0, PRIO_HIGH = 60 };
+
+/* prototypes */
+EC_DEVICE * get_device(SCANNER * scanner, int device_index);
 
 void dump_latency_task(void * usr)
 {
@@ -136,12 +145,118 @@ void simulate_input(SCANNER * scanner)
     }
 }
 
+void read_sdo(EC_SDO_ENTRY *sdoentry)
+{
+    switch (sdoentry->bits)
+    {
+    case 8:
+        sdoentry->sdodata.data8 = 
+            EC_READ_U8(ecrt_sdo_request_data(sdoentry->sdo_request));
+        /* printf("read_sdo 8-bit value = %d\n", sdoentry->sdodata.data8); */
+        break;
+    case 16:
+        sdoentry->sdodata.data16 = 
+            EC_READ_U16(ecrt_sdo_request_data(sdoentry->sdo_request));
+        /* printf("read_sdo 16-bit value = %d\n", sdoentry->sdodata.data16); */
+        break;
+    }
+    SDO_READ_MESSAGE *msg = (SDO_READ_MESSAGE *)sdoentry->readmsg;
+    msg->value[0] = sdoentry->sdodata.data[0];
+    msg->value[1] = sdoentry->sdodata.data[1];
+    msg->value[2] = sdoentry->sdodata.data[2];
+    msg->value[3] = sdoentry->sdodata.data[3];            
+}
+
+void write_sdo(EC_SDO_ENTRY *sdoentry)
+{
+    SDO_WRITE_MESSAGE *wmsg = (SDO_WRITE_MESSAGE *)sdoentry->writemsg;
+    sdoentry->sdodata.data[0] = wmsg->value.cvalue[0];
+    sdoentry->sdodata.data[1] = wmsg->value.cvalue[1];
+    sdoentry->sdodata.data[2] = wmsg->value.cvalue[2];
+    sdoentry->sdodata.data[3] = wmsg->value.cvalue[3];
+    switch (sdoentry->bits)
+    {
+    case 8:
+        EC_WRITE_U8(ecrt_sdo_request_data(sdoentry->sdo_request), 
+                    sdoentry->sdodata.data8);
+        ecrt_sdo_request_write(sdoentry->sdo_request);
+        break;
+    case 16:
+        EC_WRITE_U16(ecrt_sdo_request_data(sdoentry->sdo_request), 
+                     sdoentry->sdodata.data16);
+        ecrt_sdo_request_write(sdoentry->sdo_request);
+        break;
+    }
+    
+}
+
+void send_to_clients(SCANNER * scanner, void *data, unsigned int size)
+{
+    int client;
+    for (client = 0; client < scanner->max_clients; client++)
+    {
+        rtMessageQueueSendNoWait(scanner->clients[client]->q,
+                                 data, size);
+    }
+}
+
+void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req)
+{
+    EC_DEVICE * device = get_device(scanner, sdo_req->device);
+    assert( device != NULL);
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for (; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
+        assert(sdoentry->parent->slave == device);
+        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
+            (sdoentry->parent->index == sdo_req->index) &&
+            (sdoentry->subindex == sdo_req->subindex))
+        {
+            sdoentry->sdostate = SDO_PROC_REQ;
+        }
+    }
+}
+
+
+void copy_sdo_write(EC_SDO_ENTRY *sdoentry, SDO_WRITE_MESSAGE *sdo_write)
+{
+    SDO_WRITE_MESSAGE * wmsg = (SDO_WRITE_MESSAGE *) sdoentry->writemsg;
+    assert(wmsg->device == sdo_write->device);
+    assert(wmsg->index == sdo_write->index);
+    assert(wmsg->subindex == sdo_write->subindex);
+    assert(wmsg->bits == sdo_write->bits);
+    wmsg->value.cvalue[0] = sdo_write->value.cvalue[0];
+    wmsg->value.cvalue[1] = sdo_write->value.cvalue[1];
+    wmsg->value.cvalue[2] = sdo_write->value.cvalue[2];
+    wmsg->value.cvalue[3] = sdo_write->value.cvalue[3];
+}
+
+void process_sdo_write_request(SCANNER * scanner, SDO_WRITE_MESSAGE *sdo_write)
+{
+    EC_DEVICE * device = get_device(scanner, sdo_write->device);
+    assert( device != NULL);
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for (; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
+        assert(sdoentry->parent->slave == device);
+        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
+            (sdoentry->parent->index == sdo_write->index) &&
+            (sdoentry->subindex == sdo_write->subindex))
+        {
+            sdoentry->sdostate = SDO_PROC_WRITEREQ;
+            copy_sdo_write(sdoentry, sdo_write);
+        }
+    }
+}
+
 void cyclic_task(void * usr)
 {
     SCANNER * scanner = (SCANNER *)usr;
     ec_master_t * master = scanner->master;
     ec_domain_t * domain = scanner->domain;
-    int simulation = scanner->simulation;
+
     int error_to_console = 1;
     int slave_info_status;
     uint8_t * pd = scanner->pd;
@@ -153,11 +268,6 @@ void cyclic_task(void * usr)
     uint8_t * write_mask = calloc(scanner->pdo_size, sizeof(char));
 
     ec_domain_state_t domain_state;
-    if (simulation) 
-    {
-        domain_state.working_counter = scanner->config->devices.count;
-        domain_state.wc_state = EC_WC_COMPLETE;
-    }
 
     int nslaves = 0;
     ELLNODE * node;
@@ -231,32 +341,25 @@ void cyclic_task(void * usr)
         else if(msg->tag == MSG_TICK )
         {
             wakeupTime = msg->timer.ts;
-            if (!simulation)
-            {
-                // gets reply to LRW frame sent last cycle
-                // from network card buffer
-                ecrt_master_receive(master);
-                ecrt_domain_process(domain);
+
+            ecrt_master_receive(master);
+            ecrt_domain_process(domain);
     
-                ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
-                // do this how often?
-                ecrt_master_sync_reference_clock(master);
-                ecrt_master_sync_slave_clocks(master);
+            ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
+            // do this how often?
+            ecrt_master_sync_reference_clock(master);
+            ecrt_master_sync_slave_clocks(master);
                 
-                ecrt_domain_state(domain, &domain_state);
-            }
-            else
-                simulate_input(scanner);
+            ecrt_domain_state(domain, &domain_state);
             
-            // merge writes
+            // Merge writes
             int n;
-            for(n = 0; n < scanner->pdo_size; n++)
+            for (n = 0; n < scanner->pdo_size; n++)
             {
                 pd[n] &= ~write_mask[n];
                 pd[n] |= write_cache[n];
             }
             memset(write_mask, 0, scanner->pdo_size);
-            
             // check latency
             struct timespec ts;
             clock_gettime(CLOCK_MONOTONIC, &ts);
@@ -299,52 +402,122 @@ void cyclic_task(void * usr)
             for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
             {
                 ec_slave_info_t slave_info;
-                if (!simulation)
-                {
-                    EC_DEVICE * device = (EC_DEVICE *)node;
-                    assert(device->position != -1);
+                EC_DEVICE * device = (EC_DEVICE *)node;
+                assert(device->position != -1);
                     
-                    slave_info_status = ecrt_master_get_slave(master, device->position, &slave_info);
-                    if (slave_info_status != 0)
+                slave_info_status = ecrt_master_get_slave(master, device->position, &slave_info);
+                if (slave_info_status != 0)
+                {
+                    if (error_to_console)
                     {
-                        if (error_to_console)
-                        {
-                            fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
-                            error_to_console = 0;
-                        }
+                        fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
+                        error_to_console = 0;
                     }
-                    else
-                        error_to_console = 1;
-                    msg->pdo.buffer[ofs++] = slave_info.al_state;
-                    msg->pdo.buffer[ofs++] = slave_info.error_flag;
                 }
                 else
+                    error_to_console = 1;
+                msg->pdo.buffer[ofs++] = slave_info.al_state;
+                msg->pdo.buffer[ofs++] = slave_info.error_flag;
+                if (device->sdo_requests.count > 0)
                 {
-                    msg->pdo.buffer[ofs++] = EC_AL_STATE_OP;
-                    msg->pdo.buffer[ofs++] = 0;
+                    ELLNODE * reqnode;
+                    reqnode = ellFirst(&device->sdo_requests);
+                    for (;reqnode; reqnode = ellNext(reqnode))
+                    {
+                        EC_SDO_ENTRY * devsdo = (EC_SDO_ENTRY *)reqnode;
+                        switch (devsdo->sdostate)
+                        {
+                        case SDO_PROC_IDLE:
+                            break;
+                        case SDO_PROC_REQ:
+                            devsdo->state = ecrt_sdo_request_state(devsdo->sdo_request);
+                            if (devsdo->state != EC_REQUEST_BUSY)
+                            {
+                                devsdo->sdostate = SDO_PROC_READ;
+                                ecrt_sdo_request_read(devsdo->sdo_request);
+                            }
+                            break;
+                        case SDO_PROC_READ:
+                            devsdo->state = ecrt_sdo_request_state(devsdo->sdo_request);
+                            if (devsdo->state == EC_REQUEST_SUCCESS)
+                            {
+                                read_sdo(devsdo);
+                                devsdo->sdostate = SDO_PROC_SEND;
+                            }
+                            else if (devsdo->state == EC_REQUEST_ERROR)
+                            {
+                                //TODO send error report to clients
+                                printf("error reading sdo\n");
+                                devsdo->sdostate = SDO_PROC_IDLE;
+                            }
+                            break;
+                        case SDO_PROC_SEND:
+                            devsdo->sdostate = SDO_PROC_IDLE;
+                            send_to_clients(scanner, devsdo->readmsg,
+                                            sizeof(SDO_READ_MESSAGE));
+                            break;
+                        case SDO_PROC_WRITEREQ:
+                            devsdo->state = ecrt_sdo_request_state(devsdo->sdo_request);
+                            if (devsdo->state != EC_REQUEST_BUSY)
+                            {
+                                write_sdo(devsdo);
+                                devsdo->sdostate = SDO_PROC_WRITE;
+                            }
+                            break;
+                        case SDO_PROC_WRITE:
+                            devsdo->state = ecrt_sdo_request_state(devsdo->sdo_request);
+                            if (devsdo->state == EC_REQUEST_SUCCESS)
+                            {
+                                devsdo->sdostate = SDO_PROC_IDLE;
+                            }
+                            else if (devsdo->state == EC_REQUEST_ERROR)
+                            {
+                                //TODO send error report to clients
+                                printf("error writing sdo\n");
+                                devsdo->sdostate = SDO_PROC_IDLE;
+                            }
+                            break;
+                        }
+                    }
                 }
             }
-
             // distribute PDO
-            int client;
-            for(client = 0; client < scanner->max_clients; client++)
-            {
-                rtMessageQueueSendNoWait(scanner->clients[client]->q, msg, msg_size);
-            }
-            
-            if (!simulation)
-            {
-                ecrt_domain_queue(domain);
-                // sends LRW frame to be received next cycle
-                ecrt_master_send(master);
-            }
-            
+            send_to_clients(scanner, msg, msg_size);
+
+            ecrt_domain_queue(domain);
+            // sends LRW frame
+            ecrt_master_send(master);
+
             tick++;
+        } /* MSG_TICK */
+        else if (msg->tag == MSG_SDO_REQ) 
+        {
+            process_sdo_read_request(scanner, &msg->sdo_req);
+            SDO_REQ_MESSAGE *sdo_req = &msg->sdo_req;
+            assert(sdo_req->tag == MSG_SDO_REQ);
         }
-
+        else if (msg->tag == MSG_SDO_WRITE)
+        {
+            process_sdo_write_request(scanner, &msg->sdo_write);
+            SDO_WRITE_MESSAGE *sdo_w = &msg->sdo_write;
+            assert(sdo_w->tag == MSG_SDO_WRITE);
+        }
     }
-
 }
+
+
+EC_DEVICE * get_device(SCANNER * scanner, int device_index)
+{
+    ELLNODE * node = ellFirst(&scanner->config->dcs_lookups);
+    for (; node; node = ellNext(node))
+    {
+        EC_DCS_LOOKUP * dindex = (EC_DCS_LOOKUP *) node;
+        if (dindex->position == device_index)
+            return dindex->device;
+    }
+    return NULL;
+}
+
 
 // why is ecrt_domain_size not defined for userspace?
 void adjust_pdo_size(SCANNER * scanner, int offset, int bits)
@@ -386,6 +559,67 @@ int simulation_init(EC_DEVICE * device)
                pdo_entry_mapping->pdo_entry->name, simspec->signal_no,
                simspec->bit_length);
         simulation_fill(pdo_entry_mapping->sim_signal);
+    }
+    return 0;
+}
+
+int size_in_bytes(int bits)
+{
+    int size = bits / 8 ;
+    if ( (bits % 8) > 0 )
+        size = size + 1;
+    return size;
+}
+
+char * describe_request(EC_SDO_ENTRY * sdoentry)
+{
+    assert(sdoentry->desc == NULL);
+    sdoentry->desc = 
+        format("Name: %s, %x:%x, bits %d asyn param %s \"%s\"",
+               sdoentry->parent->name, 
+               sdoentry->parent->index,
+               sdoentry->subindex,
+               sdoentry->bits,
+               sdoentry->asynparameter,
+               sdoentry->description);
+    return sdoentry->desc;
+}
+
+
+/* Called from device_initialize to add sdo requests as 
+ registered in the device's configuration */
+int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device, 
+                     ec_slave_config_t *sc)
+{
+    ELLNODE * node = ellFirst(&device->sdo_requests);
+    for(; node; node = ellNext(node))
+    {
+        EC_SDO_ENTRY * e = (EC_SDO_ENTRY *) node;
+        e->sdostate = SDO_PROC_IDLE;
+        e->sdo_request = ecrt_slave_config_create_sdo_request(
+            sc, e->parent->index, e->subindex, 
+            size_in_bytes(e->bits));
+        assert( e->sdo_request != NULL );
+        printf("SDO request created: \n%s\n", describe_request(e));
+        free(e->desc);
+        e->readmsg = calloc(1, sizeof(SDO_READ_MESSAGE));
+        e->writemsg = calloc(1, sizeof(SDO_WRITE_MESSAGE));
+        SDO_READ_MESSAGE * msg = (SDO_READ_MESSAGE *) e->readmsg;
+        assert( msg != NULL );
+        msg->tag = MSG_SDO_READ;
+        msg->device = device->position;
+        msg->index = e->parent->index;
+        msg->subindex = e->subindex;
+        msg->bits = e->bits;
+        msg->state = EC_REQUEST_UNUSED;
+        SDO_WRITE_MESSAGE * wmsg = (SDO_WRITE_MESSAGE *) e->writemsg;
+        assert( wmsg != NULL );
+        wmsg->tag = MSG_SDO_WRITE;
+        wmsg->device = device->position;
+        wmsg->index = e->parent->index;
+        wmsg->subindex = e->subindex;
+        wmsg->bits = e->bits;
+        wmsg->value.ivalue = 0;
     }
     return 0;
 }
@@ -571,11 +805,12 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         printf("oversamping rate %d\n", device->oversampling_rate);
         if (!scanner->simulation)
         {
-        /* It would appear that to get a sane NextSync1Time value on
-           the EL3702, we need to subtract the SYNC0 time from
-           SYNC1. Putting a 10kHz signal into a 10kHz acquiring signal
-           still gives some ugly sawtooth wave as the local clock
-           syncs with the master clock, but its within 100ns... */
+            /* It would appear that to get a sane NextSync1Time value
+               on the EL3702, we need to subtract the SYNC0 time from
+               SYNC1. Putting a 10kHz signal into a 10kHz acquiring
+               signal still gives some ugly sawtooth wave as the local
+               clock syncs with the master clock, but its within
+               100ns... */
             ecrt_slave_config_dc(sc, 
                 device->device_type->oversampling_activate, 
                 PERIOD_NS / device->oversampling_rate, 0,
@@ -583,6 +818,8 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         }
     }
 
+    /* generate sdo request structures */
+    add_sdo_requests(scanner, device, sc);
     if (scanner->simulation)
         simulation_init(device);
     return 0;
@@ -659,18 +896,22 @@ SCANNER * start_scanner(char * filename, int simulation)
             }
             EC_DCS_LOOKUP *dcs_lookup = calloc(1, sizeof(EC_DCS_LOOKUP));
             dcs_lookup->position = n;
+            assert(slave_info.position == n);
             dcs_lookup->dcs = slave_info.serial_number;
             ellAdd(&scanner->config->dcs_lookups, &dcs_lookup->node);
         }
     }
     scanner->config_buffer = load_config(filename);
     assert(scanner->config_buffer);
-    read_config2(scanner->config_buffer, 
-                 strlen(scanner->config_buffer), scanner->config);    
+    assert(PARSING_OKAY ==
+           read_config(scanner->config_buffer, 
+                       strlen(scanner->config_buffer), 
+                       scanner->config));
     ethercat_init(scanner);
-    if (simulation)
+    if (simulation) 
+    {
         scanner->domain = (ec_domain_t *) calloc(1, sizeof(SIM_DOMAIN));
-                                            
+    }
     return scanner;
 }
 
@@ -816,6 +1057,10 @@ int main(int argc, char ** argv)
         printf("can't create high priority thread, fallback to low priority\n");
         prio = PRIO_LOW;
         assert(rtThreadCreate("cyclic", prio, 0, cyclic_task, scanner) != NULL);
+    }
+    else
+    {
+        printf("created high priority thread for cyclic task\n");        
     }
     new_timer(PERIOD_NS, scanner->workq, prio, MSG_TICK);
 

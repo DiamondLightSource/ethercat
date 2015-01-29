@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<components arch="linux-x86_64">
+	<ethercat.EthercatMaster name="ECATM" socket="/tmp/socket"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.0" position="0" type_rev="EK1101 rev 0x00110000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.1" position="1" type_rev="EL2595 rev 0x00120000"/>
+	<ethercat.EthercatSlave master="ECATM" name="ERIO.2" position="2" type_rev="EL3104 rev 0x00120000"/>
+	<ethercat.PdoAssignment name="PDO" pdo_index="5633" slave="ERIO.1" smnumber="2"/>
+	<ethercat.SdoControl index="32768" name="SDO1" slave="ERIO.1"/>
+	<ethercat.SdoEntryControl asynparameter="voltage" bit_length="16" description="Output Voltage" name="SDO1.1" parentsdo="SDO1" subindex="4"/>
+	<ethercat.SdoEntryControl asynparameter="svoltage" bit_length="16" description="Supply Voltage" name="SDO1.2" parentsdo="SDO1" subindex="3"/>
+	<ethercat.SdoEntryControl asynparameter="holdcurrent" bit_length="16" description="Hold Current" name="SDO1.3" parentsdo="SDO1" subindex="2"/>
+	<ethercat.SdoEntryControl asynparameter="swarnlevel" bit_length="8" description="Warning Level (supply)" name="SDO1.4" parentsdo="SDO1" subindex="17"/>
+	<ethercat.SdoEntryControl asynparameter="serrorlevel" bit_length="8" description="Error Level (supply)" name="SDO1.5" parentsdo="SDO1" subindex="18"/>
+	<ethercat.SdoEntryControl asynparameter="outwarnlevel" bit_length="8" description="Warning Level (output)" name="SDO1.6" parentsdo="SDO1" subindex="19"/>
+	<ethercat.SdoEntryControl asynparameter="outerrorlevel" bit_length="8" description="Error Level (output)" name="SDO1.7" parentsdo="SDO1" subindex="20"/>
+	<ethercat.auto_EL2595 DEVICE="RMTEST-LED-01" DRVH="1000" DRVL="0" PORT="ERIO.1" SCAN="1 second" label="Test LED" name="DEV1"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="voltage" PORT="ERIO.1_SDO" R=":VOLTAGE" name="sdoe1"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="svoltage" PORT="ERIO.1_SDO" R=":SVOLTAGE" name="sdoe2"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="holdcurrent" PORT="ERIO.1_SDO" R=":HOLDCURR" name="sdoe3"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="swarnlevel" PORT="ERIO.1_SDO" R=":SUPWARNLVL" name="sdoe4"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="serrorlevel" PORT="ERIO.1_SDO" R=":SUPERRORLVL" name="sdoe5"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="outwarnlevel" PORT="ERIO.1_SDO" R=":OUTWARNLVL" name="sdoe6"/>
+	<ethercat.auto_sdoEntry P="RMTEST-LED-01" PARAM="outerrorlevel" PORT="ERIO.1_SDO" R=":OUTERRORLVL" name="sdoe7"/>
+</components>

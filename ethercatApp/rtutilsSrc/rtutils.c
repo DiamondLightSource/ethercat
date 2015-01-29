@@ -3,9 +3,11 @@
 #include <time.h>
 #include "rtutils.h"
 #include <pthread.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <stdio.h>
 
 #define TAILPTR(q) (unsigned *)(q->data + q->tail * \
                                 (q->maximumMessageSize + sizeof(int)))
@@ -69,12 +71,25 @@ rtThreadId rtThreadCreate (
     }
     thread->start = funptr;
     thread->usr = parm;
-    if(pthread_create(&thread->thread, &thread->attr, start_routine, thread) == 0)
+    int result = pthread_create(&thread->thread, &thread->attr, start_routine, thread);
+    if( result == 0)
     {
         return thread;
     }
     else
     {
+        switch(result)
+        {
+        case EAGAIN: printf("rtThreadCreate: EAGAIN (%d)\n", result); 
+            break;
+        case EINVAL: printf("rtThreadCreate: EINVAL (%d)\n", result); 
+            break;
+        case EPERM: printf("rtThreadCreate: EPERM (%d)\n", result); 
+            break;
+        default:
+            printf("rtThreadCreate: other error %d\n", result ); 
+            break;
+        }
         return NULL;
     }
 }
@@ -273,5 +288,6 @@ void new_timer(int period_ns, rtMessageQueueId sink, int priority, int tag)
     timer->period_ns = period_ns;
     timer->sink = sink;
     timer->tag = tag;
+    printf("Creating new timer with period %d nanoseconds\n", period_ns);
     rtThreadCreate("timer", priority, 0, timer_task, timer);
 }

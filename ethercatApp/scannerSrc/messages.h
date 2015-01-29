@@ -1,7 +1,11 @@
 #ifndef _messages_H
 #define _messages_H
 #include <time.h>               /* for struct timespec */
-enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2, MSG_PDO = 3, MSG_CONFIG = 4 };
+enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2, 
+       MSG_PDO = 3, MSG_CONFIG = 4, 
+       MSG_SDO_REQ = 5,
+       MSG_SDO_WRITE = 6,
+       MSG_SDO_READ =  7};
 
 typedef struct
 {
@@ -42,6 +46,38 @@ typedef struct
     struct timespec ts;
 } TIMER_MESSAGE;
 
+typedef struct
+{
+    int tag;
+    int device;
+    int index;
+    int subindex;
+    int bits;
+} SDO_REQ_MESSAGE;
+typedef struct
+{
+    int tag;
+    int device;
+    int index;
+    int subindex;
+    int bits;
+    union {
+        char cvalue[4];
+        int32_t ivalue;
+    } value;
+} SDO_WRITE_MESSAGE;
+
+typedef struct
+{
+    int tag;
+    int device;
+    int index;
+    int subindex;
+    int bits;
+    int state; 
+    char value[4];
+} SDO_READ_MESSAGE;
+
 union EC_MESSAGE
 {
     int tag;
@@ -50,6 +86,9 @@ union EC_MESSAGE
     HEARTBEAT_MESSAGE heartbeat;
     CONFIG_MESSAGE config;
     TIMER_MESSAGE timer;
+    SDO_REQ_MESSAGE sdo_req;
+    SDO_WRITE_MESSAGE sdo_write;
+    SDO_READ_MESSAGE sdo;
 };
 
 typedef union EC_MESSAGE EC_MESSAGE;

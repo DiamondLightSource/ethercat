@@ -1,0 +1,148 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 437
+y 298
+w 321
+h 116
+font "arial-medium-r-18.0"
+ctlFont "arial-medium-r-18.0"
+btnFont "arial-medium-r-18.0"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 0
+ctlBgColor1 index 10
+ctlBgColor2 index 14
+topShadowColor index 0
+botShadowColor index 14
+showGrid
+gridSize 5
+disableScroll
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 10
+w 320
+h 105
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 0
+y 0
+w 70
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  " $(box-label)"
+}
+autoSize
+border
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 159
+y 30
+w 110
+h 30
+controlPv "$(P)$(R)_rbv"
+font "arial-medium-r-18.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 10
+limitsFromDb
+nullColor index 0
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 49
+y 35
+w 75
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Readback:"
+}
+autoSize
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 49
+y 65
+w 70
+h 23
+fgColor index 25
+onColor index 4
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)$(R)_trig"
+pressValue "1"
+onLabel "Read"
+offLabel "Read"
+3d
+font "arial-medium-r-16.0"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 159
+y 62
+w 110
+h 30
+controlPv "$(P)$(R)"
+precision 2
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-16.0"
+endObjectProperties
+

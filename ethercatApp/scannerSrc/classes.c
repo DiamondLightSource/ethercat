@@ -1,7 +1,13 @@
+#define _GNU_SOURCE
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ellLib.h>
+#include <assert.h>
+
+
 #include "classes.h"
+
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position)
 {
@@ -105,4 +111,14 @@ EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name,
     return NULL;
 }
 
-
+/* used in 99.9% of programs */
+char * format(const char *fmt, ...)
+{
+    char * buffer = NULL;
+    va_list args;
+    va_start(args, fmt);
+    int ret = vasprintf(&buffer, fmt, args);
+    assert(ret != -1);
+    va_end(args);
+    return buffer;
+}

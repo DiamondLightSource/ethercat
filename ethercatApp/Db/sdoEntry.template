@@ -1,0 +1,36 @@
+#% macro, PORT, asyn port for slave's SDO requests
+#% macro, P, PV prefix
+#% macro, R, PV suffix
+#% macro, PARAM, asyn parameter name
+#% macro, name, gui element name
+#% gui, $(name), edmembed, sdoEntry.edl, P=$(P),R=$(R),box-label=SDO-$(PARAM)
+record(longin, "$(P)$(R)_rbv")
+{
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(PORT) 0)$(PARAM)")
+    field(SCAN, "I/O Intr")
+}
+record(longin, "$(P)$(R)_stat")
+{
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(PORT) 0)$(PARAM)_stat")
+    field(SCAN, "I/O Intr")
+}
+record(longout, "$(P)$(R)_trig")
+{
+    field(OMSL, "supervisory")
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT) 0)$(PARAM)_trig")
+    field(SCAN, "1 second")
+    field(PINI, "YES")
+}
+record(longout, "$(P)$(R)")
+{
+    field(DESC, "$(PARAM)")
+    field(OMSL, "supervisory")
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT) 0)$(PARAM)")
+    field(SCAN, "Passive")
+    field(FLNK, "$(P)$(R)_trig")
+}
+

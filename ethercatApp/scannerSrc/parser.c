@@ -11,6 +11,7 @@
 #include <libxml/parser.h>
 
 #include <ellLib.h>
+#include "ecrt.h"
 #include "classes.h"
 
 enum parser_dir_type {
@@ -18,12 +19,12 @@ enum parser_dir_type {
   PARSER_DIR_INVALID, PARSER_DIR_OUTPUT, PARSER_DIR_INPUT
 };
 
-enum parsing_result_type {
-    PARSING_ERROR, PARSING_OKAY
+enum parser_required {
+    PARSER_OPTIONAL, PARSER_REQUIRED
 };
 
 
-int ellAddOK(ELLLIST * pList, ELLNODE * pNode)
+parsing_result_type_t ellAddOK(ELLLIST * pList, ELLNODE * pNode)
 {
     ellAdd(pList, pNode);
     return PARSING_OKAY;
@@ -40,6 +41,8 @@ struct CONTEXT
     EC_SYNC_MANAGER * sync_manager;
     EC_DEVICE * device;
     EC_PDO_ENTRY_MAPPING * pdo_entry_mapping;
+    EC_SDO * sdo;
+    EC_SDO_ENTRY * sdo_entry;
     st_simspec * simspec;
 };
 
@@ -75,7 +78,7 @@ void show(CONTEXT * ctx)
     }
 }
 
-int expectNode(xmlNode * node, char * name)
+parsing_result_type_t expectNode(xmlNode * node, char * name)
 {
     if((node->type == XML_ELEMENT_NODE) &&
        (strcmp((char *)node->name, name) == 0))
@@ -89,9 +92,9 @@ int expectNode(xmlNode * node, char * name)
     }
 }
 
-typedef int (*PARSEFUNC)(xmlNode *, CONTEXT *);
+typedef parsing_result_type_t (*PARSEFUNC)(xmlNode *, CONTEXT *);
 
-int parseChildren(xmlNode * node, CONTEXT * ctx, char * name, PARSEFUNC parseFunc)
+parsing_result_type_t parseChildren(xmlNode * node, CONTEXT * ctx, char * name, PARSEFUNC parseFunc)
 {
     xmlNode * c;
     for(c = node->children; c; c = c->next)
@@ -109,7 +112,7 @@ int parseChildren(xmlNode * node, CONTEXT * ctx, char * name, PARSEFUNC parseFun
 }
 
 // octal constants are an absolute disaster, check them here
-int isOctal(char * attr)
+parsing_result_type_t isOctal(char * attr)
 {
     enum { START, LEADING_ZERO } state = START;
     int n;
@@ -135,7 +138,7 @@ int isOctal(char * attr)
     return PARSING_ERROR;
 }
 
-int getDouble(xmlNode * node, char * name, double * value)
+parsing_result_type_t getDouble(xmlNode * node, char * name, double * value)
 {
     char * text = (char *) xmlGetProp(node, (unsigned char *)name);
     char * end_str;
@@ -149,8 +152,7 @@ int getDouble(xmlNode * node, char * name, double * value)
     return PARSING_ERROR;
 }
 
-/* return: status of the parsing, 1 if okay, zero on error */
-int getInt(xmlNode * node, char * name, int * value, int required)
+parsing_result_type_t getInt(xmlNode * node, char * name, int * value, int required)
 {
     char * text = (char *)xmlGetProp(node, (unsigned char *)name);
     if(text != NULL)
@@ -179,39 +181,40 @@ int getInt(xmlNode * node, char * name, int * value, int required)
     return PARSING_ERROR;
 }
 
-/* return: status of the parsing, 1 (okay) or 0 (error) */
-int getStr(xmlNode * node, char * name, char ** value)
+parsing_result_type_t getStr(xmlNode * node, char * name, char ** value)
 {
     *value = (char *)xmlGetProp(node, (unsigned char *)name);
-    return (*value != NULL);
+    if (*value == NULL)
+        return PARSING_ERROR;
+    return PARSING_OKAY;
 }
 
-int parsePdoEntry(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parsePdoEntry(xmlNode * node, CONTEXT * ctx)
 {
     ctx->pdo_entry = calloc(1, sizeof(EC_PDO_ENTRY));
     return 
-        getInt(node, "index", &ctx->pdo_entry->index, 1) &&
-        getInt(node, "subindex", &ctx->pdo_entry->sub_index, 1) &&
-        getInt(node, "bit_length", &ctx->pdo_entry->bits, 1) &&
+        getInt(node, "index", &ctx->pdo_entry->index, PARSER_REQUIRED) &&
+        getInt(node, "subindex", &ctx->pdo_entry->sub_index, PARSER_REQUIRED) &&
+        getInt(node, "bit_length", &ctx->pdo_entry->bits, PARSER_REQUIRED) &&
         getStr(node, "name", &ctx->pdo_entry->name) &&
         getStr(node, "datatype", &ctx->pdo_entry->datatype) &&
-        getInt(node, "oversample", &ctx->pdo_entry->oversampling, 1) &&
+        getInt(node, "oversample", &ctx->pdo_entry->oversampling, PARSER_REQUIRED) &&
         (ctx->pdo_entry->parent = ctx->pdo) && 
         ellAddOK(&ctx->pdo->pdo_entries, &ctx->pdo_entry->node);
 }
 
-int parsePdo(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parsePdo(xmlNode * node, CONTEXT * ctx)
 {
     ctx->pdo = calloc(1, sizeof(EC_PDO));
     return 
         getStr(node, "name", &ctx->pdo->name) &&
-        getInt(node, "index", &ctx->pdo->index, 1) &&
+        getInt(node, "index", &ctx->pdo->index, PARSER_REQUIRED) &&
         parseChildren(node, ctx, "entry", parsePdoEntry) &&
         (ctx->pdo->parent = ctx->sync_manager) && 
         ellAddOK(&ctx->sync_manager->pdos, &ctx->pdo->node);
 }
              
-int parseSync(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseSync(xmlNode * node, CONTEXT * ctx)
 {
     ctx->sync_manager = calloc(1, sizeof(EC_SYNC_MANAGER));
     EC_SYNC_MANAGER *sm = ctx->sync_manager;
@@ -232,8 +235,8 @@ int parseSync(xmlNode * node, CONTEXT * ctx)
       sm->direction = PARSER_DIR_INVALID;
     }
     parsingIsOkay =parsingIsOkay &&
-        getInt(node, "index", &sm->index, 1) &&
-        getInt(node, "watchdog", &sm->watchdog, 1) &&
+        getInt(node, "index", &sm->index, PARSER_REQUIRED) &&
+        getInt(node, "watchdog", &sm->watchdog, PARSER_REQUIRED) &&
         parseChildren(node, ctx, "pdo", parsePdo) &&
         (sm->parent = ctx->device_type);
     if (parsingIsOkay)
@@ -246,32 +249,35 @@ int parseSync(xmlNode * node, CONTEXT * ctx)
         return PARSING_ERROR;
 }
 
-int parseDeviceType(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseDeviceType(xmlNode * node, CONTEXT * ctx)
 {
     ctx->device_type = calloc(1, sizeof(EC_DEVICE_TYPE));
     EC_DEVICE_TYPE *dt = ctx->device_type;
     return
         getStr(node, "name", &dt->name) &&
-        getInt(node, "dcactivate", &dt->oversampling_activate, 0) &&
-        getInt(node, "vendor", &dt->vendor_id, 1) &&
-        getInt(node, "product", &dt->product_id, 1) &&
-        getInt(node, "revision", &dt->revision_id, 1) &&
+        getInt(node, "dcactivate", 
+               &dt->oversampling_activate, PARSER_OPTIONAL) &&
+        getInt(node, "vendor", &dt->vendor_id, PARSER_REQUIRED) &&
+        getInt(node, "product", &dt->product_id, PARSER_REQUIRED) &&
+        getInt(node, "revision", &dt->revision_id, PARSER_REQUIRED) &&
         parseChildren(node, ctx, "sync", parseSync) &&
         ellAddOK(&ctx->config->device_types, &dt->node);
 }
 
-int parseTypes(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseTypes(xmlNode * node, CONTEXT * ctx)
 {
     return parseChildren(node, ctx, "device", parseDeviceType);
 }
 
 /* chain parser */
 
-int joinDevice(EC_CONFIG * cfg, EC_DEVICE * dv)
+parsing_result_type_t joinDevice(EC_CONFIG * cfg, EC_DEVICE * dv)
 {
     dv->device_type = find_device_type(cfg, dv->type_name, 
                                        dv->type_revid);
-    return (dv->device_type != NULL);
+    if (dv->device_type != NULL)
+        return PARSING_OKAY;
+    return PARSING_ERROR;
 }
 
 
@@ -293,7 +299,7 @@ enum st_type parseStType(char * type_str)
     return ST_INVALID;
 }
 
-int parseParams(xmlNode * node, st_simspec * spec)
+parsing_result_type_t parseParams(xmlNode * node, st_simspec * spec)
 {
     switch ( spec->type )
     {
@@ -319,7 +325,7 @@ int parseParams(xmlNode * node, st_simspec * spec)
     return PARSING_ERROR;
 }
 
-int find_duplicate(CONTEXT * ctx, int signal_no, int bit_length)
+parsing_result_type_t find_duplicate(CONTEXT * ctx, int signal_no, int bit_length)
 {
     ELLNODE * node = ellFirst(&ctx->device->simspecs);
     for ( ; node; node = ellNext(node) )
@@ -333,13 +339,13 @@ int find_duplicate(CONTEXT * ctx, int signal_no, int bit_length)
     return PARSING_ERROR;
 }
 
-int parseSimulation(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseSimulation(xmlNode * node, CONTEXT * ctx)
 {
     ctx->simspec = calloc(1, sizeof(st_simspec));
     char *type_str;
     if ( getStr(node, "signal_type", &type_str) 
-            && getInt(node, "signal_no", &ctx->simspec->signal_no, 1) 
-            && getInt(node, "bit_length", &ctx->simspec->bit_length, 1) )
+            && getInt(node, "signal_no", &ctx->simspec->signal_no, PARSER_REQUIRED) 
+            && getInt(node, "bit_length", &ctx->simspec->bit_length, PARSER_REQUIRED) )
     {
         if ( find_duplicate(ctx, ctx->simspec->signal_no, ctx->simspec->bit_length) )
         {
@@ -357,12 +363,12 @@ int parseSimulation(xmlNode * node, CONTEXT * ctx)
         return PARSING_ERROR;
 }
 
-int parseSimspec(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseSimspec(xmlNode * node, CONTEXT * ctx)
 {
     return parseChildren(node, ctx, "simulation", parseSimulation);
 }
 
-int parseDevice(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseDevice(xmlNode * node, CONTEXT * ctx)
 {
     char * position_str;
     int dev_name_okay;
@@ -376,22 +382,26 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
     // if position string starts with DCS then lookup its actual position on the bus
     if (position_str[0] == 'D' &&
         position_str[1] == 'C' &&
-        position_str[2] == 'S') {
+        position_str[2] == 'S') 
+      {
         int dcs;                
         if (sscanf(position_str, "DCS%08d", &dcs) != 1) {
             fprintf(stderr, "Can't parse DCS number '%s'\n", position_str);
             exit(1);             
         }
-        ELLNODE * lnode;
-        for(lnode = ellFirst(&ctx->config->dcs_lookups); lnode; lnode = ellNext(lnode))
+        ELLNODE * lnode = ellFirst(&ctx->config->dcs_lookups);
+        int found_slave = 0;
+        for(; lnode && !found_slave; lnode = ellNext(lnode))
         {
             EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
             if (dcs == dcs_lookup->dcs) {
+                found_slave = 1;
                 ctdev->position = dcs_lookup->position;
-                // 255 chars should be enough for a position on the bus!
-                char temp_position[255];
-                snprintf(temp_position, 255, "%d", dcs_lookup->position);               
-                xmlSetProp(node, (unsigned char *) "position", (unsigned char *) temp_position);
+                char *temp_position = format("%d", ctdev->position);
+                xmlSetProp(node, (unsigned char *) "position",
+                           (unsigned char *) temp_position);
+                free(temp_position);
+                dcs_lookup->device = ctdev;
             }
         }
     } else { 
@@ -399,7 +409,20 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
             fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n"); 
             exit(1); 
         } 
+       
         ctdev->position = strtol(position_str, NULL, 0); 
+        ELLNODE * lnode = ellFirst(&ctx->config->dcs_lookups);
+        int found_slave = 0;
+        for(; lnode && !found_slave; lnode = ellNext(lnode))
+        {
+            int found_slave = 0;
+            EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
+            if (ctdev->position == dcs_lookup->position) 
+            {
+                found_slave = 1;
+                dcs_lookup->device = ctdev;
+            }
+        }
     } 
     if (ctdev->position == -1) {
         fprintf(stderr, "can't find '%s' on bus\n", position_str);
@@ -419,14 +442,14 @@ int parseDevice(xmlNode * node, CONTEXT * ctx)
         ellAddOK(&ctx->config->devices, &ctdev->node);
 }
 
-int parseChain(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parseChain(xmlNode * node, CONTEXT * ctx)
 {
-    int r = parseChildren(node, ctx, "device", parseDevice);
-    show(ctx);
+    parsing_result_type_t r = parseChildren(node, ctx, "device", parseDevice);
+    /* show(ctx); */
     return r;
 }
 
-int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * mapping)
+parsing_result_type_t joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * mapping)
 {
     assert(mapping->device_position != -1);
     mapping->parent = find_device(cfg, mapping->device_position);
@@ -441,11 +464,10 @@ int joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO_ENTRY_MAPPING * m
     {
         return PARSING_ERROR;
     }
-    ellAddOK(&mapping->parent->pdo_entry_mappings, &mapping->node);
-    return PARSING_OKAY;
+    return ellAddOK(&mapping->parent->pdo_entry_mappings, &mapping->node);
 }
 
-int parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
+parsing_result_type_t parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
 {
     int pdo_index = 0;
     ctx->pdo_entry_mapping = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
@@ -482,6 +504,66 @@ int parseEntriesFromBuffer(char * text, int size, EC_CONFIG * cfg)
     return PARSING_ERROR;
 }
 
+parsing_result_type_t joinSlave(EC_CONFIG * cfg, char * slave, 
+                                EC_SDO * sdo)
+{
+    /* fill in the sdo's slave field */
+    ELLNODE * node;
+    assert(sdo->slave == NULL);
+    for (node = ellFirst(&cfg->devices); node; node = ellNext(node))
+    {
+        EC_DEVICE * device = (EC_DEVICE * ) node;
+        if (strcmp(device->name, slave)==0)
+        {
+            sdo->slave = device;
+            break;
+        }
+    }
+    if (sdo->slave != NULL)
+    {
+        /* matched a device */
+        
+        return PARSING_OKAY;
+    }
+    return PARSING_ERROR;
+}
+
+parsing_result_type_t parseSdoEntry(xmlNode * node, CONTEXT * ctx);
+
+parsing_result_type_t  parseSdo(xmlNode * node, CONTEXT * ctx)
+{
+    char * slave;
+    ctx->sdo = calloc(1, sizeof(EC_SDO));
+    parsing_result_type_t parsing_status;
+    parsing_status =     getInt(node, "index", &ctx->sdo->index, PARSER_REQUIRED) &&
+        getStr(node, "name", &ctx->sdo->name) &&
+        getStr(node, "slave", &slave) && 
+        joinSlave(ctx->config, slave, ctx->sdo);
+    return parsing_status &&
+        parseChildren(node, ctx, "sdoentry", parseSdoEntry) &&
+        ellAddOK(&ctx->config->sdo_requests, &ctx->sdo->node);
+}
+
+parsing_result_type_t parseSdoEntry(xmlNode * node, CONTEXT * ctx)
+{
+    EC_SDO_ENTRY * e;
+    e = ( ctx->sdo_entry = calloc(1, sizeof(EC_SDO_ENTRY)) );
+    return
+        getInt(node, "subindex", &e->subindex, PARSER_REQUIRED) &&
+        getInt(node, "bit_length", &e->bits, PARSER_REQUIRED) &&
+        getStr(node, "description", &e->description) &&
+        getStr(node, "asynparameter", &e->asynparameter) &&
+        (e->parent = ctx->sdo) &&
+        ellAddOK(&e->parent->slave->sdo_requests, &e->node) &&
+        ellAddOK(&ctx->sdo->sdoentries, &e->node);
+}
+
+
+int parseSdoRequests(xmlNode * node, CONTEXT * ctx)
+{
+    return parseChildren(node, ctx, "sdo", parseSdo);
+}
+
 int dump(xmlNode * node, CONTEXT * ctx)
 {
     printf("%s %d\n", node->name, node->type);
@@ -507,7 +589,7 @@ int dump(xmlNode * node, CONTEXT * ctx)
  * 
  * <code>config</code> - xml document read in memory
  */
-int read_config2(char * config, int size, EC_CONFIG * cfg)
+int read_config(char * config, int size, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
     cfg->doc = xmlReadMemory(config, size, NULL, NULL, 0);
@@ -516,23 +598,27 @@ int read_config2(char * config, int size, EC_CONFIG * cfg)
     ctx.config = cfg;
     xmlNode * node = xmlDocGetRootElement(cfg->doc);
     xmlNode * c;
-    for(c = node->children; c; c = c->next)
+    parsing_result_type_t parsing_okay = PARSING_OKAY;
+    for(c = node->children; c && parsing_okay; c = c->next)
     {
         if(c->type != XML_ELEMENT_NODE)
         {
             continue;
         }
-        printf("%s\n", c->name);
         if(strcmp((char *)c->name, "devices") == 0)
         {
-            parseTypes(c, &ctx);
+            parsing_okay = parseTypes(c, &ctx);
         }
         else if(strcmp((char *)c->name, "chain") == 0)
         {
-            parseChain(c, &ctx);
+            parsing_okay = parseChain(c, &ctx);
+        }
+        else if(strcmp((char *)c->name, "sdorequests") == 0)
+        {
+            parsing_okay = parseSdoRequests(c, &ctx);
         }
     }
-    return PARSING_ERROR;
+    return parsing_okay;
 }
 
 char * load_config(char * filename)

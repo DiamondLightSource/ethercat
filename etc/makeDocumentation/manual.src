@@ -1,0 +1,13 @@
+/**
+\mainpage dls-ethercat EPICS Support Module
+\section intro_sec Introduction
+DLS-ethercat is an EPICS support module to interface an Ethercat bus to EPICS.
+It uses a scanner process that serves as a server to communicate with EPICS iocs as clients.
+
+\section user_sec Publications
+The module along with Diamond's Remote I/O was presented at ICALEPCS 2011 <a href="http://accelconf.web.cern.ch/AccelConf/icalepcs2011/papers/wemau004.pdf">Integrating EtherCAT based IO into EPICS at Diamond (JACoW link)</a>
+
+IOCs build using these build instructions are available in iocs/
+
+**/
+

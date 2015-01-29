@@ -1,4 +1,4 @@
-#!/bin/env python2.6
+#!/bin/env dls-python
 #
 # script to list ethercat device types available in one file
 

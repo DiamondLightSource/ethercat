@@ -78,7 +78,14 @@ record(bo, "$(DEVICE):%(name)s")
   field("ONAM", "ON")
 }
 """
-
+ai_text = """
+record(ai, "$(DEVICE):%(name)s")
+{
+  field("DTYP", "asynFloat64")
+  field("INP",  "@asyn($(PORT))%(command)s")
+  field("SCAN", "$(SCAN)")
+}
+"""
 def shortenname(name):
     "map long names to short"
     map = { "AIINPUTSCHANNEL" : "INPUT",
@@ -127,7 +134,7 @@ def fixname(name):
     return shortenname(name.replace(".", ":")).upper()
 
     
-def makeTemplate(longin, longout, bi, bo, output, base, devtype, revision, extraPdos):
+def makeTemplate(ai, longin, longout, bi, bo, output, base, devtype, revision, extraPdos):
     print "Generating template file %s" % output
     f = file(output, "w")
     if len(extraPdos) == 0:
@@ -153,6 +160,8 @@ def makeTemplate(longin, longout, bi, bo, output, base, devtype, revision, extra
         print >> f, longout_text % {"name": fixname(l), "command": l}
     for l in bo:
         print >> f, bo_text % {"name": fixname(l), "command": l}
+    for l in ai:
+        print >> f, ai_text % {"name": fixname(l), "command": l}
     f.close()
 
 def getPdoName(node):
@@ -200,6 +209,7 @@ def parseFile(filename, output, list_devices, extraPdos):
             longout = []
             bi = []
             bo = []
+            ai = []
             
             for dcmode in device.xpathEval("Dc/OpMode/Sm/Pdo[@OSFac]"):
                 oversampling.add(parseInt(dcmode.content))
@@ -214,6 +224,8 @@ def parseFile(filename, output, list_devices, extraPdos):
                         datatype = entry.xpathEval("DataType")[0].content
                         if datatype == "BOOL":
                             bi.append(getPdoName(txpdo) + "." + getEntryName(entry) )
+                        elif datatype == "FLOAT":
+                            ai.append(getPdoName(txpdo) + "." + getEntryName(entry) )
                         else:
                             longin.append(getPdoName(txpdo) + "." + getEntryName(entry) )
                     elif verbose:
@@ -234,7 +246,7 @@ def parseFile(filename, output, list_devices, extraPdos):
                     elif verbose:
                         print "Ignoring entry in pdo %s" % getPdoName(txpdo)
 
-            makeTemplate(longin, longout, bi, bo, output, base, devtype, revision, extraPdos)
+            makeTemplate(ai, longin, longout, bi, bo, output, base, devtype, revision, extraPdos)
 
 def usage(progname):
     print "%s: Make EPICS template for EtherCAT device" % progname
