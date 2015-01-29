@@ -1,0 +1,9 @@
+# These are the IOCs we should create. The IOC should either have the same name
+# as an xml or py file in etc/makeIocs, or be suffixed with _sim to create a
+# simulation from that same file
+
+IOCS := bench-3104 bench-el3702 bench led-with-sdos led
+IOCS := $(IOCS) testIoc2 testIoc
+
+# These are the dirs that each IOC lives in
+IOC_DIRS := $(patsubst %, $(TOP)/iocs/%, $(IOCS))

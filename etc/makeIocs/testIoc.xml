@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <components arch="linux-x86">
 	<ethercat.EthercatMaster name="Master0" socket="/tmp/scanner"/>
-	<ethercat.MasterTemplate DEVICE="RJQ35657:MASTER" PORT="MASTER0" SCAN="1 second"/>
+	<ethercat.MasterTemplate DEVICE="RJQ35657:MASTER" SCAN="1 second"/>
 	<ethercat.EthercatSlave master="Master0" name="SLAVE0" position="0" type_rev="EK1100 rev 0x00010000"/>
 	<ethercat.EthercatSlave master="Master0" name="SLAVE1" position="1" type_rev="EL9512 rev 0x00100000"/>
 	<ethercat.EthercatSlave master="Master0" name="SLAVE2" position="2" type_rev="EL3104 rev 0x00100000"/>
