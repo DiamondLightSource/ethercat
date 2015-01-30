@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ecrt.h>
+#include <unistd.h>
 
 const char *usage = "Usage: slaveinfo [options]\n"
 "\n"
@@ -8,27 +9,44 @@ const char *usage = "Usage: slaveinfo [options]\n"
 "slaves on the bus.\n"
 "\n"
 "Options:\n"
-"  -h, --help        show this help message and exit\n"
-"  -d, --dcs         write dcs serial numbers instead of positional info\n";
+"  -h                show this help message and exit\n"
+"  -d                write dcs serial numbers instead of positional info\n"
+"  -m <master_index> master to use (defaults to 0)\n";
 
 int main(int argc, char ** argv) {
-    int i;
     int dcs=0;
-    for (i=1; i<argc; i++) {
-        if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
+    int master_index = 0;
+    opterr = 0;
+    while (1)
+    {
+        int cmd = getopt (argc, argv, "hdm:");
+        if(cmd == -1)
+        {
+            break;
+        }
+        switch(cmd)
+        {
+        case 'h':
             printf(usage);
             exit(0);
-        } else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--dcs") == 0) {
-            dcs = 1;          
-        } else {
-            printf(usage);
-            printf("\nError: slaveinfo takes no arguments\n");            
-            exit(1);
+            break;
+        case 'd':
+            dcs = 1;
+            break;
+        case 'm':
+            master_index = atoi(optarg);
+            break;
         }
     }
-            
+    
+    if(argc - optind > 0)
+    {
+        printf(usage);
+        exit(1);
+    }
+    
     ec_master_info_t master_info;
-    ec_master_t * master = ecrt_open_master(0);
+    ec_master_t * master = ecrt_open_master(master_index);
     if(master == NULL) {
         fprintf(stderr, "can't get ethercat master 0\n");
         exit(1);

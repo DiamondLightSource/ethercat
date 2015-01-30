@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <stddef.h>
@@ -859,7 +860,8 @@ int ethercat_init(SCANNER * scanner)
     return 0;
 }
 
-SCANNER * start_scanner(char * filename, int simulation)
+SCANNER * start_scanner(char * filename, int simulation,
+                        unsigned int master_index)
 {
     int n;
     SCANNER * scanner = calloc(1, sizeof(SCANNER));
@@ -867,7 +869,7 @@ SCANNER * start_scanner(char * filename, int simulation)
     scanner->simulation = simulation;
     if (!simulation)
     {
-        scanner->master = ecrt_request_master(0);
+        scanner->master = ecrt_request_master(master_index);
         if(scanner->master == NULL)
         {
             fprintf(stderr, "error: can't create "
@@ -964,10 +966,11 @@ static int send_config_on_connect(ENGINE * server, int sock)
 int main(int argc, char ** argv)
 {
     int simulation = 0;
+    int master_index = 0;
     opterr = 0;
     while (1)
     {
-        int cmd = getopt (argc, argv, "qs");
+        int cmd = getopt (argc, argv, "qsm:");
         if(cmd == -1)
         {
             break;
@@ -980,12 +983,15 @@ int main(int argc, char ** argv)
         case 's':
             simulation = 1;
             break;
+        case 'm':
+            master_index = atoi(optarg);
+            break;
         }
     }
     
     if(argc - optind < 2)
     {
-        fprintf(stderr, "usage: scanner [-s] [-q] scanner.xml socket_path\n");
+        fprintf(stderr, "usage: scanner [-m master_index] [-s] [-q] scanner.xml socket_path\n");
         exit(1);
     }
     
@@ -995,7 +1001,8 @@ int main(int argc, char ** argv)
     fprintf(stderr, "Scanner xml(%s) socket(%s) PDO display(%d)\n", xml_filename, path, selftest);
 
     // start scanner
-    SCANNER * scanner = start_scanner(xml_filename, simulation);
+    SCANNER * scanner = start_scanner(xml_filename,
+                                      simulation, master_index);
     scanner->max_message = 1000000;
     scanner->max_queue_message = 10000;
     scanner->max_clients = 10;

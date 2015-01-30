@@ -20,11 +20,12 @@ class SlaveTemplate(AutoSubstitution):
 # script for scanner start-up, used in EthercatMaster.writeScannerStartup
 SCANNER_STARTUP_TEXT ="""#!/bin/sh
 cd "$(dirname $0)"
+MASTER="-m %(master_index)d"
 OPTS="-q"
 if [ "$1" = "-d" ]; then
     OPTS=""
 fi
-%(scanner)s ${OPTS} %(expanded_chain)s %(socket_path)s
+%(scanner)s ${OPTS} ${MASTER} %(expanded_chain)s %(socket_path)s
 """
 
 class EthercatMaster(Device):
@@ -35,10 +36,11 @@ class EthercatMaster(Device):
     LibFileList = [ 'ecAsyn' ]
     DbdFileList = [ 'ecAsyn' ]
 
-    def __init__(self, socket, max_message = 100000):
+    def __init__(self, socket, max_message = 100000, master_index = 0):
         self.__super.__init__()
         self.socket = socket
         self.max_message = max_message
+        self.master_index = master_index
         self.chain = ethercat.EthercatChain()
         self.chainfile = IocDataStream("chain.xml")
         self.expandedfile = IocDataStream("expanded.xml")
@@ -51,16 +53,20 @@ class EthercatMaster(Device):
         self.expandedfile.write( self.generateMasterXml() )
         self.writeScannerStartup()
 
-    ArgInfo = makeArgInfo(__init__,
+    ArgInfo = makeArgInfo(
+        __init__,
         socket = Simple("scanner socket path", str),
-        max_message = Simple("max scanner message size", int))
+        max_message = Simple("max scanner message size", int),
+        master_index = Simple("master index", int)
+    )
 
     def writeScannerStartup(self):
         scanner_path = os.path.join(ethercat.etcdir,'../bin/linux-x86_64/scanner')
         self.scannerf.write(SCANNER_STARTUP_TEXT % dict(
-                scanner = os.path.realpath(scanner_path),
-                expanded_chain = "./" + self.expandedfile.name,
-                socket_path = self.socket))
+            scanner = os.path.realpath(scanner_path),
+            expanded_chain = "./" + self.expandedfile.name,
+            socket_path = self.socket,
+            master_index = self.master_index))
 
     def setSlave(self, slave):
         self.chain.setDevice(slave.chainelem)
