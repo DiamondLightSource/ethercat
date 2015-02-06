@@ -57,7 +57,9 @@ int main(int argc, char ** argv) {
     }
     
     printf("<components arch=\"linux-x86_64\">\n");
-    printf("  <ethercat.EthercatMaster name=\"ECATM\" socket=\"/tmp/socket\"/>\n");    
+    printf("  <ethercat.EthercatMaster name=\"ECATM\""
+           " socket=\"/tmp/socket%d\" master_index=\"%d\"/>\n",
+           master_index, master_index);
     printf("  <!-- slaves %d link up %d -->\n", master_info.slave_count, master_info.link_up);
 
     int n;
