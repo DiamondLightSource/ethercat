@@ -1,0 +1,11 @@
+<components arch="linux-x86_64">
+  <ethercat.EthercatMaster name="ECATM" socket="/tmp/socket2" master_index="2"/>
+  <!-- slaves 7 link up 1 -->
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.0" position="0" type_rev="EK1100 rev 0x00110000"/>
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.1" position="1" type_rev="EL3702 rev 0x00020000"/>
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.2" position="2" type_rev="EL3702 rev 0x00020000"/>
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.3" position="3" type_rev="EL3702 rev 0x00020000"/>
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.4" position="4" type_rev="EL9505 rev 0x00100000"/>
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.5" position="5" type_rev="EL1124 rev 0x00100000"/>
+  <ethercat.EthercatSlave master="ECATM" name="ERIO.6" position="6" type_rev="EL2124 rev 0x00100000"/>
+</components>

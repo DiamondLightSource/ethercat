@@ -3,7 +3,7 @@
 # simulation from that same file
 
 IOCS := bench-3104 bench-el3702 bench led-with-sdos led
-IOCS := $(IOCS) testIoc2 testIoc
+IOCS := $(IOCS) testIoc2 testIoc master_test
 
 # These are the dirs that each IOC lives in
 IOC_DIRS := $(patsubst %, $(TOP)/iocs/%, $(IOCS))
