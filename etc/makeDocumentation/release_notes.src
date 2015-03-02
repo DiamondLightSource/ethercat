@@ -1,6 +1,9 @@
 /**
 \page release_notes Release notes
 
+\section rel4_2 Release 4-2
+   Add scanner support for multiple masters
+
 \section rel4_1 Release 4-1
    Fix EL3702 oversampling support broken since 3-x
    Dls trac #8598
