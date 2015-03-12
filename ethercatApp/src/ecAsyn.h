@@ -45,6 +45,7 @@ public:
 
 /** Strings defining parameters for a slave port
  */
+#define ECSlaveInfoString   "SLAVE_INFO"    /**< (asynInt32, r/o) slave info result */
 #define ECALStateString     "AL_STATE"      /**< (asynInt32, r/o) slave state */
 #define ECErrorFlagString   "ERROR_FLAG"    /**< (asynInt32, r/o) slave's error flag */
 #define ECDisableString     "DISABLE"       /**< (asynInt32, r/o) slave's disabled flag */ 
@@ -75,8 +76,9 @@ private:
     int pdos;
     int devid;
     EC_PDO_ENTRY_MAPPING ** mappings;
+    int P_SLAVEINFO;
+#define FIRST_SLAVE_COMMAND P_SLAVEINFO
     int P_AL_STATE;
-#define FIRST_SLAVE_COMMAND P_AL_STATE
     int P_ERROR_FLAG;
     int P_DISABLE;
     int P_DEVTYPENAME;

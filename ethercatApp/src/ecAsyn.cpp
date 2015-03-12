@@ -47,7 +47,7 @@ static int showPdosEnabled = 0;
 
 static void showPdos(int enable)
 {
-    showPdosEnabled = enable;    
+    showPdosEnabled = enable;
 }
 // Called by the IOC command "ADC_Ethercat_Sampler"
 static void Configure_Sampler(char * port, int channel, char * sample, char * cycle)
@@ -73,8 +73,8 @@ static char * makeParamName(EC_PDO_ENTRY_MAPPING * mapping)
 {
     if(mapping->paramname == NULL)
     {
-        mapping->paramname = format("%s.%s", 
-                               mapping->pdo_entry->parent->name, 
+        mapping->paramname = format("%s.%s",
+                               mapping->pdo_entry->parent->name,
                                mapping->pdo_entry->name);
         // remove spaces
         int out = 0;
@@ -114,9 +114,9 @@ protected:
     EC_PDO_ENTRY_MAPPING * sample;
     WaveformPort * wave;
 public:
-    Sampler(ecAsyn * parent, int channel, 
-            EC_PDO_ENTRY_MAPPING * sample) : 
-        parent(parent), sample(sample), 
+    Sampler(ecAsyn * parent, int channel,
+            EC_PDO_ENTRY_MAPPING * sample) :
+        parent(parent), sample(sample),
         wave(new WaveformPort(format("%s_ADC%d", parent->portName, channel), parent, sample))
         { }
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
@@ -137,9 +137,9 @@ class Oversampler : public Sampler
     int P_Missed;
 
 public:
-    Oversampler(ecAsyn * parentPort, int channel, 
-               EC_PDO_ENTRY_MAPPING * sample, EC_PDO_ENTRY_MAPPING * cycle) : 
-        Sampler(parentPort, channel, sample), cycle(cycle), lastCycle(0), 
+    Oversampler(ecAsyn * parentPort, int channel,
+               EC_PDO_ENTRY_MAPPING * sample, EC_PDO_ENTRY_MAPPING * cycle) :
+        Sampler(parentPort, channel, sample), cycle(cycle), lastCycle(0),
         xfc(new XFCPort(format("%s_XFC%d", parent->portName, channel))) {}
     virtual void on_pdo_message(PDO_MESSAGE * pdo, int size)
         {
@@ -204,23 +204,23 @@ ecMaster::ecMaster(char * name) :
 /**
  *  Creation of asyn port for an ethercat slave
  */
-ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos, 
+ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
                ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
                    NUM_SLAVE_PARAMS + pdos, /* max parameters */
-                   asynOctetMask | asynInt32Mask | asynInt32ArrayMask 
+                   asynOctetMask | asynInt32Mask | asynInt32ArrayMask
                    | asynFloat64Mask | asynDrvUserMask, /* interface mask*/
                    asynOctetMask| asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
                    0, /* asyn flags: non-blocking, no addresses */
                    1, /* autoconnect */
                    0, /* default priority */
                    0) /* default stack size */,
-    pdos(pdos), 
-    devid(devid), 
+    pdos(pdos),
+    devid(devid),
     mappings(new EC_PDO_ENTRY_MAPPING * [pdos]),
     sdos(sdos),
-    writeq(usr->writeq), 
+    writeq(usr->writeq),
     device(device)
 {
     printf("ecAsyn INIT type %s name %s PDOS %d\n", device->type_name, device->name, pdos);
@@ -254,7 +254,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
             }
         }
     }
-    
+
     int n;
     P_First_PDO = -1;
     EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)ellFirst(&device->pdo_entry_mappings);
@@ -291,8 +291,9 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
                 mappings[n]->shift = 8;
         }
     }
-    
+
     int status = asynSuccess;
+    status |= createParam(ECSlaveInfoString, asynParamInt32, &P_SLAVEINFO);
     status |= createParam(ECALStateString,   asynParamInt32, &P_AL_STATE);
     status |= createParam(ECErrorFlagString, asynParamInt32, &P_ERROR_FLAG);
     status |= createParam(ECDisableString,   asynParamInt32, &P_DISABLE);
@@ -343,7 +344,7 @@ asynStatus ecAsyn::getBoundsForMapping(EC_PDO_ENTRY_MAPPING * mapping, epicsInt3
         break;
     case 16:
         *low = SHRT_MIN;        // from limits.h
-        *high = SHRT_MAX; 
+        *high = SHRT_MAX;
         break;
     case 32:
         if (mapping->shift == 8)
@@ -376,12 +377,12 @@ asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *h
         assert(pdo >= 0 && pdo < pdos);
         mapping = mappings[pdo];
         this->getBoundsForMapping(mapping, low, high);
-        if ( ( strcmp(this->device->type_name, "EL3602") == 0 ) 
+        if ( ( strcmp(this->device->type_name, "EL3602") == 0 )
              && this->device->type_revid == 0x00120000 )
         {
             mapping->shift = 8;
         }
-        if ( ( strcmp(this->device->type_name, "EL3124") == 0 ) 
+        if ( ( strcmp(this->device->type_name, "EL3124") == 0 )
              && this->device->type_revid == 0x00110000 )
         {
             *low = 0;
@@ -401,24 +402,34 @@ asynStatus ecAsyn::getBounds(asynUser *pasynUser, epicsInt32 *low, epicsInt32 *h
                   "limits set to zero\n",
                   this->device->name, this->device->type_name, cmd);
     }
-    return(asynSuccess);  
+    return(asynSuccess);
 }
 
 void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 {
     lock();
-    char * meta = pdo->buffer + pdo->size + 2 * devid;
+    char * meta = pdo->buffer + pdo->size + SLAVE_METADATA_CNT * devid;
     assert(meta + 1 - pdo->buffer < size);
-    epicsInt32 al_state = meta[0];
-    epicsInt32 error_flag = meta[1];
-    epicsInt32 disable = pdo->wc_state == EC_WC_ZERO || al_state != EC_AL_STATE_OP;
-
+    epicsInt32 slave_info = meta[0];
+    epicsInt32 al_state = meta[1];
+    epicsInt32 error_flag = meta[2];
+    epicsInt32 disable = pdo->wc_state != EC_WC_COMPLETE
+        || al_state != EC_AL_STATE_OP
+        || slave_info != 0;
+    asynStatus paramStatus = asynSuccess;
+    if (slave_info != 0)
+    {
+        paramStatus = asynDisconnected;
+    }
+    // perhaps set paramStatus to
+    // asynDisabled if pdo->wc_state != EC_WC_COMPLETE
+    setIntegerParam(P_SLAVEINFO, slave_info);
     setIntegerParam(P_AL_STATE, al_state);
-    setParamStatus(P_AL_STATE, disable ? asynDisconnected : asynSuccess);
+    setParamStatus(P_AL_STATE, paramStatus);
     setIntegerParam(P_ERROR_FLAG, error_flag);
-    setParamStatus(P_ERROR_FLAG, disable ? asynDisconnected : asynSuccess);
+    setParamStatus(P_ERROR_FLAG, paramStatus);
     setIntegerParam(P_DISABLE, disable);
-    setParamStatus(P_DISABLE, disable ? asynDisconnected : asynSuccess);
+    setParamStatus(P_DISABLE, paramStatus);
 
     for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
@@ -430,13 +441,12 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
             if (disable)
             {
                 setDoubleParam(mpdoe_param, MINFLOAT);
-                setParamStatus(mpdoe_param, asynDisconnected);
             }
             else
             {
                 setDoubleParam(mpdoe_param, val);
-                setParamStatus(mpdoe_param, asynSuccess);
             }
+            setParamStatus(mpdoe_param, paramStatus);
         }
         else
         {
@@ -446,13 +456,12 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 	        if(disable)
 	        {
 	            setIntegerParam(mpdoe_param, INT32_MIN);
-                setParamStatus(mpdoe_param, asynDisconnected);                
 	        }
 	        else
 	        {
 	            setIntegerParam(mpdoe_param, val);
-                setParamStatus(mpdoe_param, asynSuccess);                
 	        }
+            setParamStatus(mpdoe_param, paramStatus);
         }
     }
     callParamCallbacks();
@@ -487,7 +496,7 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
 
 /*
- *  read configuration sent by scanner and populate "config" in 
+ *  read configuration sent by scanner and populate "config" in
  *  ENGINE_USER structure
  */
 static int init_unpack(ENGINE_USER * usr, char * buffer, int size)
@@ -533,8 +542,8 @@ static void readConfig(ENGINE_USER * usr)
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
         printf("Creating ecAsyn port No %d: %s\n", ndev, device->name);
-        ecAsyn * port = new ecAsyn(device, 
-                                   device->pdo_entry_mappings.count, 
+        ecAsyn * port = new ecAsyn(device,
+                                   device->pdo_entry_mappings.count,
                                    device->sdo_requests.count,
                                    usr, ndev);
         ellAdd(&usr->ports, &port->node);
@@ -566,7 +575,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
             printf("config-file size:%d\n", size);
             printf("%s\n", (char *) usr->config_buffer);
             printf("************************\n");
-            
+
             init_unpack(usr, engine->receive_buffer, size);
             readConfig(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
@@ -574,7 +583,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
         else
         {
             // check that the config hasn't changed
-            assert(size == usr->config_size && 
+            assert(size == usr->config_size &&
                    memcmp(usr->config_buffer, engine->receive_buffer, size) == 0);
         }
     }
@@ -585,12 +594,12 @@ int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
 {
     static int c = 0;
     if(c%1000==0)
-    { 
+    {
         c=0;
     }
     else
-    { 
-        c++; 
+    {
+        c++;
         return 0;
     }
 
@@ -606,7 +615,7 @@ int show_pdo_data(char * buffer, int size, EC_CONFIG *cfg)
         }
     }
     printf("\n");
-    printf("bus cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter, 
+    printf("bus cycle %d working counter %d state %d\n", msg->pdo.cycle, msg->pdo.working_counter,
            msg->pdo.wc_state);
     ELLNODE * node;
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
@@ -663,7 +672,7 @@ static int msg_data(ENGINE_USER * usr, char * buffer, int size)
             assert( ecSdoAsyn_cast(node)->parent->sdos > 0);
             ecSdoAsyn_cast(node)->on_sdo_message(&msg->sdo, size);
         }
-        
+
     }
     return 0;
 }
@@ -688,7 +697,7 @@ static int ioc_receive(ENGINE * server)
  * path - location of Unix Domain Socket, must match the scanner's
  * max_message - maximum size of messages between scanner and ioc
  *               This must be able to accommodate the configuration
- *               of the chain that is transferred from the scanner to 
+ *               of the chain that is transferred from the scanner to
  *               the ioc.
  */
 static void makePorts(char * path, int max_message)
@@ -738,11 +747,11 @@ extern "C"
                                            { "sample",     iocshArgString },
                                            { "cycle",      iocshArgString }};
 
-    static const iocshArg * const SamplerArgs[] = { &SamplerArg[0], 
-                                                    &SamplerArg[1], 
-                                                    &SamplerArg[2], 
+    static const iocshArg * const SamplerArgs[] = { &SamplerArg[0],
+                                                    &SamplerArg[1],
+                                                    &SamplerArg[2],
                                                     &SamplerArg[3] };
-    
+
     static const iocshFuncDef SamplerFuncDef = {"ADC_Ethercat_Sampler", 4, SamplerArgs};
     static void SamplerCallFunc(const iocshArgBuf * args)
     {
@@ -788,7 +797,7 @@ XFCPort::XFCPort(const char * name) : asynPortDriver(
 ////////////////////////////////
 // ecSdoAsyn constructor
 ecSdoAsyn::ecSdoAsyn(char * sdoport, ecAsyn * parent):
-    asynPortDriver(sdoport, 
+    asynPortDriver(sdoport,
                    1,           // maxAddr
                    parent->sdos * 3, // max parameters
                    asynInt32Mask | asynDrvUserMask, /* interface mask */
@@ -807,18 +816,18 @@ ecSdoAsyn::ecSdoAsyn(char * sdoport, ecAsyn * parent):
     while (sdoentry)
     {
         assert(n < parent->sdos);
-        printf("createParam %s, %s_stat, %s_trig\n", 
+        printf("createParam %s, %s_stat, %s_trig\n",
                sdoentry->asynparameter,
                sdoentry->asynparameter,
                sdoentry->asynparameter);
         sdo_paramrecord_t * paramrecord = (sdo_paramrecord_t *)calloc(1,sizeof(sdo_paramrecord_t));
         char *status_name = format("%s_stat", sdoentry->asynparameter);
         char *trigger_name = format("%s_trig", sdoentry->asynparameter);
-        assert(createParam(sdoentry->asynparameter, asynParamInt32, 
+        assert(createParam(sdoentry->asynparameter, asynParamInt32,
                            &paramrecord->param_val) == asynSuccess);
-        assert(createParam(status_name, asynParamInt32, 
+        assert(createParam(status_name, asynParamInt32,
                            &paramrecord->param_stat) == asynSuccess);
-        assert(createParam(trigger_name, asynParamInt32, 
+        assert(createParam(trigger_name, asynParamInt32,
                            &paramrecord->param_trig) == asynSuccess);
         free(status_name); free(trigger_name);
         paramrecord->sdoentry = sdoentry;
@@ -842,17 +851,17 @@ bool ecSdoAsyn::rangeOkay(int param)
 }
 bool ecSdoAsyn::isVal(int param)
 {
-    return rangeOkay(param) && 
+    return rangeOkay(param) &&
         ((param - firstParam()) % 3 == 0);
 }
 bool ecSdoAsyn::isStat(int param)
 {
-    return rangeOkay(param) && 
+    return rangeOkay(param) &&
         ((param - firstParam()) % 3 == 1);
 }
 bool ecSdoAsyn::isTrig(int param)
 {
-    return rangeOkay(param) && 
+    return rangeOkay(param) &&
         ((param - firstParam()) % 3 == 2);
 }
 
@@ -917,7 +926,7 @@ void ecSdoAsyn::on_sdo_message(SDO_READ_MESSAGE * msg, int size)
         // ELLNODE * node = ellFirst(&parent->device->sdo_requests);
         while (sdoentry)
         {
-            if((sdoentry->subindex == msg->subindex) 
+            if((sdoentry->subindex == msg->subindex)
                && (sdoentry->parent->index == msg->index))
             {
                 int32_t val = sdocast_int32(sdoentry, msg);

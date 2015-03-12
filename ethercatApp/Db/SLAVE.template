@@ -32,6 +32,13 @@ record(longin, "$(DEVICE):ERROR_FLAG")
   field(SCAN, "$(SCAN)")
 }
 
+record(longin, "$(DEVICE):SLAVE_INFO")
+{
+  field(DTYP, "asynInt32")
+  field(INP,  "@asyn($(PORT))SLAVE_INFO")
+  field(SCAN, "$(SCAN)")
+}
+
 record(mbbi, "$(DEVICE):DISABLE")
 {
   field(DTYP, "asynInt32")

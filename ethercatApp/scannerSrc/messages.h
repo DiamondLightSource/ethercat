@@ -1,11 +1,13 @@
 #ifndef _messages_H
 #define _messages_H
 #include <time.h>               /* for struct timespec */
-enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2, 
-       MSG_PDO = 3, MSG_CONFIG = 4, 
+enum { MSG_TICK = 0, MSG_WRITE = 1, MSG_HEARTBEAT = 2,
+       MSG_PDO = 3, MSG_CONFIG = 4,
        MSG_SDO_REQ = 5,
        MSG_SDO_WRITE = 6,
        MSG_SDO_READ =  7};
+
+enum { SLAVE_METADATA_CNT = 3 };
 
 typedef struct
 {
@@ -74,7 +76,7 @@ typedef struct
     int index;
     int subindex;
     int bits;
-    int state; 
+    int state;
     char value[4];
 } SDO_READ_MESSAGE;
 

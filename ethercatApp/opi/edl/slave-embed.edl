@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 897
-y 788
+x 570
+y 627
 w 228
 h 204
 font "arial-medium-r-12.0"
@@ -19,7 +19,7 @@ ctlBgColor1 index 0
 ctlBgColor2 index 14
 topShadowColor index 1
 botShadowColor index 11
-title "Interlock PLC Override"
+title "slave embed"
 disableScroll
 endScreenProperties
 
@@ -29,147 +29,12 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 1
+x 3
 y 16
 w 219
-h 165
+h 185
 lineColor index 14
 fillColor index 0
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 7
-y 41
-w 60
-h 13
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "AL STATE:"
-}
-autoSize
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 107
-y 81
-w 90
-h 13
-controlPv "$(P):DISABLE"
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-autoHeight
-limitsFromDb
-nullColor index 0
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 7
-y 81
-w 46
-h 13
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Disable:"
-}
-autoSize
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 107
-y 41
-w 90
-h 13
-controlPv "$(P):AL_STATE"
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-autoHeight
-limitsFromDb
-nullColor index 0
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 7
-y 61
-w 55
-h 13
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Error flag:"
-}
-autoSize
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 107
-y 61
-w 90
-h 13
-controlPv "$(P):ERROR_FLAG"
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-autoHeight
-limitsFromDb
-nullColor index 0
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-noExecuteClipMask
 endObjectProperties
 
 # (Static Text)
@@ -198,142 +63,7 @@ major 4
 minor 6
 release 0
 x 107
-y 99
-w 90
-h 13
-controlPv "$(P):DEVTYPENAME"
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-autoHeight
-limitsFromDb
-nullColor index 0
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 7
-y 99
-w 93
-h 13
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Dev Type Name:"
-}
-autoSize
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 107
-y 120
-w 90
-h 13
-controlPv "$(P):DEVREVISION"
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-autoHeight
-limitsFromDb
-nullColor index 0
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 7
-y 120
-w 76
-h 13
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Dev Revision:"
-}
-autoSize
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 107
-y 141
-w 90
-h 13
-controlPv "$(P):DEVPOSITION"
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-autoHeight
-limitsFromDb
-nullColor index 0
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 7
-y 141
-w 73
-h 13
-font "arial-medium-r-12.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Dev Position:"
-}
-autoSize
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 107
-y 163
+y 183
 w 90
 h 13
 controlPv "$(P):DEVNAME"
@@ -351,6 +81,131 @@ objType "monitors"
 noExecuteClipMask
 endObjectProperties
 
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 161
+w 90
+h 13
+controlPv "$(P):DEVPOSITION"
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 140
+w 90
+h 13
+controlPv "$(P):DEVREVISION"
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 119
+w 90
+h 13
+controlPv "$(P):DEVTYPENAME"
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 101
+w 90
+h 13
+controlPv "$(P):DISABLE"
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 81
+w 90
+h 13
+controlPv "$(P):ERROR_FLAG"
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -358,7 +213,7 @@ major 4
 minor 1
 release 1
 x 7
-y 163
+y 183
 w 63
 h 13
 font "arial-medium-r-12.0"
@@ -367,6 +222,217 @@ bgColor index 0
 useDisplayBg
 value {
   "Dev Name:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 161
+w 73
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Dev Position:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 140
+w 76
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Dev Revision:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 119
+w 93
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Dev Type Name:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 101
+w 46
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Disable:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 81
+w 55
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Error flag:"
+}
+autoSize
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 7
+y 61
+w 190
+h 13
+
+beginGroup
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 61
+w 90
+h 13
+controlPv "$(P):AL_STATE"
+font "arial-medium-r-12.0"
+fgColor index 14
+fgAlarm
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+useAlarmBorder
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 61
+w 60
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "AL STATE:"
+}
+autoSize
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 107
+y 41
+w 90
+h 13
+controlPv "$(P):SLAVE_INFO"
+font "arial-medium-r-12.0"
+fgColor index 14
+fgAlarm
+bgColor index 0
+useDisplayBg
+autoHeight
+limitsFromDb
+nullColor index 0
+fastUpdate
+useHexPrefix
+useAlarmBorder
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 7
+y 41
+w 50
+h 13
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "slaveinfo"
 }
 autoSize
 endObjectProperties
