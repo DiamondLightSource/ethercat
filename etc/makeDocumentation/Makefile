@@ -15,7 +15,7 @@ install: $(DOCDIR)
 $(DOCDIR): config.src manual.src classes.src \
 	config.src devices.src generic_adc.src \
 	getting_started.src license.src release_notes.src \
-	sdo_support.src
+	sdo_support.src chain_description.src release_notes.src
 	mkdir -p $(DOCDIR)
 	dls-make-doxygen-documentation.py -o $(DOCDIR) config.src manual.src
 
