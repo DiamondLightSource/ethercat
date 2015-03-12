@@ -1,0 +1,68 @@
+/**
+
+\page chain_description Chain description
+\verbatim
+* Old description format
+** Root
+element name: chain
+No attributes
+
+** Slave entries
+element name: device
+| attribute name | description                                      |
+| type_name      | slave's device type                              |
+| revision       | slave's device revision                          |
+| position       | DCS name or absolute position in bus             |
+| name           | slave name, also subsequently used for asyn port |
+
+* iocbuilder description format
+** Master entry
+element name: ethercat.EthercatMaster
+ 
+| attribute name | description                                     |
+|----------------+-------------------------------------------------|
+| name           | Name of master                                  |
+| socket         | path of socket for EPICS/scanner communications |
+| master_index   | number for master in kernel module, e.g. 0,1    |
+
+** Slave entries
+element name: ethercat.EthercatSlave
+| attribute name | description                                          |
+|----------------+------------------------------------------------------|
+| name           | Name of slave, also used subsequentyly for asyn port |
+| master         | Name of master in master entry                       |
+| position       | Either a DCS number for addressing by serial number  |
+|                | or raw position when addressing by position          |
+| type_rev       | String that encodes type and revision                |
+|                | e.g. "EL3104 rev 0x00120000"                         |
+
+** Pdo Assignment entry
+element name: ethercat.PdoAssignment
+| attribute name | description                  |
+|----------------+------------------------------|
+| name           | Name of pdo assignment       |
+| slave          | name of slave in slave entry |
+| smnumber       | synch manager number         |
+| pdo_index      | pdo index in decimal         |
+
+** SdoControl
+element name: ethercat.SdoControl
+| attribute name | description                  |
+|----------------+------------------------------|
+| name           | Name of sdo                  |
+| slave          | name of slave in slave entry |
+| index          | sdo index in decimal         |
+
+** SdoEntryControl
+element name: ethercat.Sdoentrycontrol
+| attribute name | description                                                      |
+|----------------+------------------------------------------------------------------|
+| name           | Name of sdo entry                                                |
+| asynparameter  | name for asyn parameter                                          |
+| bit_length     | bit length (up to 32 bit length supported, see \ref sdo_support) |
+| description    | Description for the sdo entry                                    |
+| parentsdo      | name of parent sdo in sdo control entry                          |
+| subindex       | sdo entry subindex in decimal                                    |
+
+\endverbatim
+**/
