@@ -1,0 +1,40 @@
+/**
+
+\page pdo_message_map Map of PDO_MESSAGE
+
+The PDO_MESSAGE structure is specified with one char length for its "buffer" member.
+This is used as the start of a buffer of length
+
+msg_size is calculated by C pointer arithmetic in "char" size
+the formula is
+(msg->pdo.buffer + msg->pdo.size + nslaves * SLAVE_METADATA_CNT * sizeof(char)) - (char *)msg
+
+This means that on top of the pdo.size there are SLAVE_METADATA_CNT (currently 3)
+chars for each slave.
+
+The data is then
+
+| element         | size | description                              |
+|-----------------+------+------------------------------------------|
+| tag             | int  | message type discriminator               |
+| tv_sec          | int  | time component 1                         |
+| tv_nsec         | int  | time component 2                         |
+| working_counter | int  | working counter                          |
+| wc_state        | int  | working counter state                    |
+| cycle           | int  | cycle count                              |
+| size            | int  | pdo size                                 |
+| buffer          | NN   | pdo message for all slaves with metadata |
+
+Map for the buffer
+| offset                 | size     | description                       |
+|------------------------+----------+-----------------------------------|
+| 0                      | pdo size | pdo                               |
+| pdo_size               | char     | slave_info status for slave 1     |
+| pdo_size + 1           | char     | slave_info al_state for slave 1   |
+| pdo_size + 2           | char     | slave_info error flag for slave 1 |
+| ...                    |          |                                   |
+| pdo_size + 3*(k-1)     | char     | slave_info status for slave k     |
+| pdo_size + 3*(k-1) + 1 | char     | slave_info al_state for slave k   |
+| pdo_size + 3*(k-1) + 2 | char     | slave_info error flag for slave k |
+
+**/
