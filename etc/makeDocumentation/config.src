@@ -7,7 +7,8 @@ INPUT                  =  ../../etc/makeDocumentation/manual.src \
                           ../../etc/makeDocumentation/generic_adc.src \
                           ../../etc/makeDocumentation/classes.src \
                           ../../etc/makeDocumentation/devices.src \
-                          ../../etc/makeDocumentation/license.src \                          
+                          ../../etc/makeDocumentation/chain_description.src \                             
+                          ../../etc/makeDocumentation/license.src \
                          ../../ethercatApp/scannerSrc/classes.h \
                          ../../ethercatApp/scannerSrc/classes.c \
                          ../../ethercatApp/scannerSrc/parser.c \
