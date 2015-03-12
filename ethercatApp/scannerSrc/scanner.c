@@ -33,6 +33,8 @@ int dumplatency = 0;
 // Time to wait for EtherCAT frame to return. Default to 50 us.
 long frame_time_ns = 50000; 
 
+typedef enum _BOOL { FALSE = 0, TRUE = 1} BOOL;
+
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
 
@@ -258,7 +260,7 @@ void cyclic_task(void * usr)
     ec_master_t * master = scanner->master;
     ec_domain_t * domain = scanner->domain;
 
-    int error_to_console = 1;
+    BOOL error_to_console = TRUE;
     int slave_info_status;
     uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
@@ -400,6 +402,8 @@ void cyclic_task(void * usr)
             /* master sends FPRD datagrams every cycle to get this slave info */
             ELLNODE * node;
             int ofs = msg->pdo.size;
+            BOOL scan_okay = TRUE;
+            
             for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
             {
                 ec_slave_info_t slave_info;
@@ -409,16 +413,11 @@ void cyclic_task(void * usr)
                 slave_info_status = ecrt_master_get_slave(master, device->position, &slave_info);
                 if (slave_info_status != 0)
                 {
-                    if (error_to_console)
-                    {
-                        fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
-                        error_to_console = 0;
-                    }
+                    scan_okay = FALSE;
                 }
-                else
-                    error_to_console = 1;
                 msg->pdo.buffer[ofs++] = slave_info.al_state;
                 msg->pdo.buffer[ofs++] = slave_info.error_flag;
+                
                 if (device->sdo_requests.count > 0)
                 {
                     ELLNODE * reqnode;
@@ -482,6 +481,19 @@ void cyclic_task(void * usr)
                     }
                 }
             }
+            if (!scan_okay)
+            {
+                if (error_to_console)
+                {
+                    fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
+                    error_to_console = FALSE;
+                }
+            }
+            else
+            {
+                error_to_console = TRUE;
+            }
+            
             // distribute PDO
             send_to_clients(scanner, msg, msg_size);
 
