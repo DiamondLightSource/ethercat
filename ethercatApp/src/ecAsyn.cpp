@@ -1,4 +1,3 @@
-
 #include <string.h>
 
 #include <stdlib.h>
@@ -413,25 +412,30 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
     epicsInt32 al_state = meta[0];
     epicsInt32 error_flag = meta[1];
     epicsInt32 disable = pdo->wc_state == EC_WC_ZERO || al_state != EC_AL_STATE_OP;
-    epicsInt32 lastDisable;
-    assert(getIntegerParam(P_DISABLE, &lastDisable) == asynSuccess); // can't fail
+
     setIntegerParam(P_AL_STATE, al_state);
+    setParamStatus(P_AL_STATE, disable ? asynDisconnected : asynSuccess);
     setIntegerParam(P_ERROR_FLAG, error_flag);
+    setParamStatus(P_ERROR_FLAG, disable ? asynDisconnected : asynSuccess);
     setIntegerParam(P_DISABLE, disable);
+    setParamStatus(P_DISABLE, disable ? asynDisconnected : asynSuccess);
 
     for(ELLNODE * node = ellFirst(&device->pdo_entry_mappings); node; node = ellNext(node))
     {
         EC_PDO_ENTRY_MAPPING * mapping = (EC_PDO_ENTRY_MAPPING *)node;
+        int mpdoe_param = mapping->pdo_entry->parameter;
         if (mapping->pdo_entry->datatype[0] == 'F')
         {
             double val = cast_double(mapping, pdo->buffer, 0);
             if (disable)
             {
-                setDoubleParam(mapping->pdo_entry->parameter, MINFLOAT);
+                setDoubleParam(mpdoe_param, MINFLOAT);
+                setParamStatus(mpdoe_param, asynDisconnected);
             }
             else
             {
-                setDoubleParam(mapping->pdo_entry->parameter, val);
+                setDoubleParam(mpdoe_param, val);
+                setParamStatus(mpdoe_param, asynSuccess);
             }
         }
         else
@@ -441,11 +445,13 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
 	        // so using this for now
 	        if(disable)
 	        {
-	            setIntegerParam(mapping->pdo_entry->parameter, INT32_MIN);
+	            setIntegerParam(mpdoe_param, INT32_MIN);
+                setParamStatus(mpdoe_param, asynDisconnected);                
 	        }
 	        else
 	        {
-	            setIntegerParam(mapping->pdo_entry->parameter, val);
+	            setIntegerParam(mpdoe_param, val);
+                setParamStatus(mpdoe_param, asynSuccess);                
 	        }
         }
     }
