@@ -155,7 +155,6 @@ public:
             {
                 xfc->lock();
                 xfc->incMissed();
-                printf("%s Missed %d\n", parent->portName, (lastCycle + 1) % 65536);
                 xfc->unlock();
             }
             lastCycle = cyc;
