@@ -25,6 +25,19 @@ snapToGrid
 gridSize 5
 endScreenProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 30
+y 0
+w 225
+h 30
+
+beginGroup
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -40,23 +53,22 @@ fill
 fillColor index 3
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
+# (Textupdate)
+object TextupdateClass
 beginObjectProperties
-major 4
-minor 1
-release 1
+major 10
+minor 0
+release 0
 x 30
-y 5
+y 3
 w 222
 h 24
+fgColor index 14
+fgAlarm
+bgColor index 48
+fill
 font "arial-bold-r-14.0"
 fontAlign "center"
-fgColor index 14
-bgColor index 48
-value {
-  "EL3104 $(DEVICE)"
-}
 endObjectProperties
 
 # (Lines)
@@ -107,6 +119,10 @@ yPoints {
   1 3
   2 3
 }
+endObjectProperties
+
+endGroup
+
 endObjectProperties
 
 # (Group)
@@ -241,7 +257,7 @@ buttonLabel "small screen"
 numPvs 4
 numDsps 1
 displayFileName {
-  0 "el3104-status"
+  0 "el2595-status"
 }
 symbols {
   0 "DEVICE=$(DEVICE)"
