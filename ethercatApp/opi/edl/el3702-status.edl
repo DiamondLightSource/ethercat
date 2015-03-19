@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 614
-y 619
-w 273
-h 205
+x 609
+y 317
+w 306
+h 195
 font "arial-medium-r-16.0"
 ctlFont "arial-bold-r-16.0"
 btnFont "arial-medium-r-16.0"
@@ -19,24 +19,10 @@ ctlBgColor1 index 3
 ctlBgColor2 index 5
 topShadowColor index 1
 botShadowColor index 11
-title "EL3702 ADC $(DEVICE)"
+title "EL3702 Status - $(DEVICE)"
 showGrid
-snapToGrid
 gridSize 5
 endScreenProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 30
-y 0
-w 225
-h 30
-
-beginGroup
 
 # (Rectangle)
 object activeRectangleClass
@@ -46,29 +32,11 @@ minor 0
 release 0
 x 30
 y 0
-w 222
+w 276
 h 30
 lineColor index 3
 fill
 fillColor index 3
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 30
-y 3
-w 222
-h 24
-fgColor index 14
-fgAlarm
-bgColor index 48
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
 endObjectProperties
 
 # (Lines)
@@ -79,15 +47,15 @@ minor 0
 release 1
 x 30
 y 3
-w 222
+w 273
 h 24
 lineColor index 11
 fillColor index 0
 numPoints 3
 xPoints {
   0 30
-  1 252
-  2 252
+  1 303
+  2 303
 }
 yPoints {
   0 27
@@ -96,6 +64,25 @@ yPoints {
 }
 endObjectProperties
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 30
+y 3
+w 273
+h 24
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 48
+value {
+  "EL3702 Status $(DEVICE)"
+}
+endObjectProperties
+
 # (Lines)
 object activeLineClass
 beginObjectProperties
@@ -104,7 +91,7 @@ minor 0
 release 1
 x 30
 y 3
-w 222
+w 272
 h 24
 lineColor index 1
 fillColor index 0
@@ -112,7 +99,7 @@ numPoints 3
 xPoints {
   0 30
   1 30
-  2 252
+  2 302
 }
 yPoints {
   0 27
@@ -121,8 +108,43 @@ yPoints {
 }
 endObjectProperties
 
-endGroup
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 14
+y 69
+w 120
+h 18
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "CH1 Cycle CNT"
+}
+autoSize
+endObjectProperties
 
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 213
+y 165
+w 81
+h 27
+fgColor index 46
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "EXIT"
+font "arial-medium-r-16.0"
+3d
 endObjectProperties
 
 # (Group)
@@ -224,144 +246,23 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
+# (Textupdate)
+object TextupdateClass
 beginObjectProperties
-major 4
+major 10
 minor 0
 release 0
-x 225
-y 0
-w 50
-h 30
-
-beginGroup
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 4
-release 0
-x 229
-y 4
-w 42
-h 23
-fgColor index 14
-bgColor index 0
-topShadowColor index 0
-botShadowColor index 14
-font "arial-medium-r-18.0"
-invisible
-buttonLabel "small screen"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "el3702-status"
-}
-symbols {
-  0 "DEVICE=$(DEVICE)"
-}
-propagateMacros {
-  0 0
-}
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 227
-y 2
-w 48
-h 29
-lineColor index 11
-fillColor index 63
-lineWidth 2
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 225
-y 0
-w 48
-h 29
-lineColor index 1
-fillColor index 63
-lineWidth 2
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 227
-y 2
-w 47
-h 27
-lineColor index 49
+x 143
+y 35
+w 146
+h 28
+controlPv "$(DEVICE):ERROR_FLAG"
+fgColor index 16
+fgAlarm
+bgColor index 12
 fill
-fillColor index 48
-lineWidth 3
-endObjectProperties
-
-# (Circle)
-object activeCircleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 237
-y 6
-w 4
-h 3
-lineColor index 1
-fill
-fillColor index 0
+font "arial-bold-r-16.0"
 lineWidth 2
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 242
-y 10
-w 17
-h 11
-lineColor index 14
-fillColor index 0
-lineWidth 2
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 242
-y 10
-w 17
-h 2
-lineColor index 14
-fill
-fillColor index 14
-lineWidth 2
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 
 # (Static Text)
@@ -370,50 +271,69 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 5
+x 22
+y 39
+w 78
+h 18
+font "arial-medium-r-16.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Error Flag"
+}
+autoSize
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 143
+y 65
+w 146
+h 28
+controlPv "$(DEVICE):CH1CYCLECOUNT"
+fgColor index 16
+fgAlarm
+bgColor index 12
+fill
+font "arial-bold-r-16.0"
+lineWidth 2
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 143
+y 95
+w 146
+h 28
+controlPv "$(DEVICE):CH2CYCLECOUNT"
+fgColor index 16
+fgAlarm
+bgColor index 12
+fill
+font "arial-bold-r-16.0"
+lineWidth 2
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 143
 y 125
-w 81
-h 18
-font "arial-medium-r-16.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "AL_STATE"
-}
-autoSize
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 95
-y 120
 w 146
 h 28
-controlPv "$(DEVICE):AL_STATE"
-fgColor index 16
-fgAlarm
-bgColor index 12
-fill
-font "arial-bold-r-16.0"
-lineWidth 2
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 95
-y 85
-w 146
-h 28
-controlPv "$(DEVICE):CH2SAMPLE:CH2VALUE"
+controlPv "$(DEVICE):NEXTSYNC1TIME"
 fgColor index 16
 fgAlarm
 bgColor index 12
@@ -428,37 +348,18 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 32
-y 90
-w 54
+x 15
+y 129
+w 118
 h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Input 2:"
+  "Next Sync Time"
 }
 autoSize
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 95
-y 50
-w 146
-h 28
-controlPv "$(DEVICE):CH1SAMPLE:CH1VALUE"
-fgColor index 16
-fgAlarm
-bgColor index 12
-fill
-font "arial-bold-r-16.0"
-lineWidth 2
 endObjectProperties
 
 # (Static Text)
@@ -467,36 +368,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 31
-y 55
-w 55
+x 14
+y 98
+w 119
 h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Input 1:"
+  "CH2 Cycle CNT"
 }
 autoSize
-endObjectProperties
-
-# (Exit Button)
-object activeExitButtonClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 160
-y 165
-w 90
-h 35
-fgColor index 46
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-label "EXIT"
-font "arial-medium-r-16.0"
-3d
 endObjectProperties
 
