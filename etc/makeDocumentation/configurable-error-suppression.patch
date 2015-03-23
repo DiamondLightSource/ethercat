@@ -1,0 +1,1105 @@
+# HG changeset patch
+# User ronaldo.mercado@diamond.ac.uk
+# Date 1427125973 0
+# Branch dls-error-suppression
+# Node ID 0ce3fa45ccd010efffb75c2608a6aa8d051a7428
+# Parent  2eff7c993a632b3cfa8a4b3d954a60258d1c9965
+configurable suppression of error messages to stderr
+
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/Makefile.am
+--- a/lib/Makefile.am	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/Makefile.am	Mon Mar 23 15:52:53 2015 +0000
+@@ -34,6 +34,7 @@
+ 
+ libethercat_la_SOURCES = \
+ 	common.c \
++    liberror.c \
+ 	domain.c \
+ 	master.c \
+ 	reg_request.c \
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/common.c
+--- a/lib/common.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/common.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -40,6 +40,7 @@
+ 
+ #include "ioctl.h"
+ #include "master.h"
++#include "liberror.h"
+ 
+ /*****************************************************************************/
+ 
+@@ -77,7 +78,8 @@
+ 
+     master = malloc(sizeof(ec_master_t));
+     if (!master) {
+-        fprintf(stderr, "Failed to allocate memory.\n");
++        ecrt_errcode = ECRT_ERROPENMASTER1;
++        ERRPRINTF("Failed to allocate memory.\n");
+         return 0;
+     }
+ 
+@@ -100,20 +102,23 @@
+     master->fd = open(path, O_RDWR);
+ #endif
+     if (EC_IOCTL_IS_ERROR(master->fd)) {
+-        fprintf(stderr, "Failed to open %s: %s\n", path,
++        ecrt_errcode = ECRT_ERROPENMASTER2;
++        ERRPRINTF("Failed to open %s: %s\n", path,
+                 strerror(EC_IOCTL_ERRNO(master->fd)));
+         goto out_clear;
+     }
+ 
+     ret = ioctl(master->fd, EC_IOCTL_MODULE, &module_data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get module information from %s: %s\n",
++        ecrt_errcode = ECRT_ERROPENMASTER3;
++        ERRPRINTF("Failed to get module information from %s: %s\n",
+                 path, strerror(EC_IOCTL_ERRNO(ret)));
+         goto out_clear;
+     }
+ 
+     if (module_data.ioctl_version_magic != EC_IOCTL_VERSION_MAGIC) {
+-        fprintf(stderr, "ioctl() version magic is differing:"
++        ecrt_errcode = ECRT_ERROPENMASTER4;      
++        ERRPRINTF("ioctl() version magic is differing:"
+                 " %s: %u, libethercat: %u.\n",
+                 path, module_data.ioctl_version_magic,
+                 EC_IOCTL_VERSION_MAGIC);
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
+--- a/lib/domain.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/domain.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -42,6 +42,7 @@
+ #include "ioctl.h"
+ #include "domain.h"
+ #include "master.h"
++#include "liberror.h"
+ 
+ /*****************************************************************************/
+ 
+@@ -82,7 +83,8 @@
+ 
+     ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_SIZE, domain->index);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get domain size: %s\n",
++        ecrt_errcode = ECRT_ERRDOMAINSIZE;
++        ERRPRINTF("Failed to get domain size: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ 
+@@ -99,7 +101,8 @@
+         offset = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_OFFSET,
+                 domain->index);
+         if (EC_IOCTL_IS_ERROR(offset)) {
+-            fprintf(stderr, "Failed to get domain offset: %s\n",
++            ecrt_errcode = ECRT_ERRDOMAINDATA;
++            ERRPRINTF("Failed to get domain offset: %s\n",
+                     strerror(EC_IOCTL_ERRNO(offset)));
+             return NULL;
+         }
+@@ -118,7 +121,8 @@
+ 
+     ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_PROCESS, domain->index);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to process domain: %s\n",
++        ecrt_errcode = ECRT_ERRDOMAINPROCESS;
++        ERRPRINTF("Failed to process domain: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -131,7 +135,8 @@
+ 
+     ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_QUEUE, domain->index);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to queue domain: %s\n",
++        ecrt_errcode = ECRT_ERRDOMAINQUEUE;
++        ERRPRINTF("Failed to queue domain: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -148,7 +153,8 @@
+ 
+     ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_STATE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get domain state: %s\n",
++        ecrt_errcode = ECRT_ERRDOMAINSTATE;
++        ERRPRINTF("Failed to get domain state: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror-documentation.txt
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/lib/liberror-documentation.txt	Mon Mar 23 15:52:53 2015 +0000
+@@ -0,0 +1,2 @@
++
++to suppress errors to stderr, set the global ecrt_err_to_stderr to 0
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror.c
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/lib/liberror.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -0,0 +1,8 @@
++#include "liberror.h"
++
++int ecrt_err_to_stderr = 1;
++char *ecrt_errstring[ERRSTRING_LEN];
++
++int ecrt_errcode;
++
++
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror.h
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/lib/liberror.h	Mon Mar 23 15:52:53 2015 +0000
+@@ -0,0 +1,115 @@
++#define ERRSTRING_LEN 250
++
++extern int ecrt_err_to_stderr;
++extern char ecrt_errstring[ERRSTRING_LEN];
++
++#define ERRPRINTF(...) do { \
++    if (ecrt_err_to_stderr) { \
++        fprintf(stderr, __VA_ARGS__);\
++    }\
++    else {\
++        snprintf(ecrt_errstring, ERRSTRING_LEN, __VA_ARGS__);\
++        ecrt_errstring[ERRSTRING_LEN-1] = '\0';\
++    }\
++  }  while (0)
++
++extern int ecrt_errcode;
++
++#define ECRT_ERRCLEAR 0
++/* errors in common.c */
++#define ECRT_ERROPENMASTER1 100
++#define ECRT_ERROPENMASTER2 101
++#define ECRT_ERROPENMASTER3 102
++#define ECRT_ERROPENMASTER4 103
++/* errors in domain.c */
++#define ECRT_ERRDOMAINSIZE  200
++#define ECRT_ERRDOMAINDATA  201
++#define ECRT_ERRDOMAINPROCESS 202
++#define ECRT_ERRDOMAINQUEUE 203
++#define ECRT_ERRDOMAINSTATE 204
++/* errors in master.c */
++#define ECRT_ERRRESERVE 300
++#define ECRT_ERRMASTERCREATE 301
++#define ECRT_ERRMASTERCREATE1 302
++#define ECRT_ERRMASTERSLAVECONFIG 303
++#define ECRT_ERRMASTERSLAVECONFIG1 304
++#define ECRT_ERRMASTERSELECTREFERENCECLOCK 305
++#define ECRT_ERRMASTER 306
++#define ECRT_ERRMASTERGETSLAVE 307
++#define ECRT_ERRMASTERGETSYNCMANAGER 308
++#define ECRT_ERRMASTERGETPDO 309
++#define ECRT_ERRMASTERGETPDOENTRY 310
++#define ECRT_ERRMASTERSDODOWNLOAD 311
++#define ECRT_ERRMASTERSDODOWNLOADCOMPLETE 312
++#define ECRT_ERRMASTERSDOUPLOAD 313
++#define ECRT_ERRMASTERWRITEIDN 314
++#define ECRT_ERRMASTERREADIDN 315
++#define ECRT_ERRMASTERACTIVATE 316
++#define ECRT_ERRMASTERACTIVATE1 317
++#define ECRT_ERRMASTERDEACTIVATE 318
++#define ECRT_ERRMASTERSETSENDINTERVAL 319
++#define ECRT_ERRMASTERSEND 320
++#define ECRT_ERRMASTERRECEIVE 321
++#define ECRT_ERRMASTERSTATE 322
++#define ECRT_ERRMASTERLINKSTATE 323
++#define ECRT_ERRMASTERAPPLICATIONTIME 324
++#define ECRT_ERRMASTERSYNCREFERENCECLOCK 325
++#define ECRT_ERRMASTERSYNCSLAVECLOCKS 326
++#define ECRT_ERRMASTERREFERENCECLOCKTIME 327
++#define ECRT_ERRMASTERSYNCMONITORQUEUE 328
++#define ECRT_ERRMASTERSYNCMONITORPROCESS 329
++#define ECRT_ERRMASTERRESET 330
++
++/* errors in req_request.c */
++#define ECRT_ERRREQREQUESTSTATE 400
++#define ECRT_ERRREQREQUESTSTATE1 401
++#define ECRT_ERRREQREQUESTSIZE 402
++#define ECRT_ERRREQREQUESTREAD 403
++
++/* errors in sdo_request.c */
++#define ECRT_ERRSLAVECFGSYNCMANAGER 500
++#define ECRT_ERRSLAVECFGWATCHDOG 501
++#define ECRT_ERRSLAVECFGPDOASSIGNADD 502
++#define ECRT_ERRSLAVECFGPDOASSIGNCLEAR 503
++#define ECRT_ERRSLAVECFGPDOMAPPINGADD 504
++#define ECRT_ERRSLAVECFGPDOMAPPINGCLEAR 505
++#define ECRT_ERRSLAVECFGPDOS 506
++#define ECRT_ERRSLAVECFGREGPDOENTRY 507
++#define ECRT_ERRSLAVECFGREGPDOENTRY1 508
++#define ECRT_ERRSLAVECFGREGPDOENTRYPOS 509
++#define ECRT_ERRSLAVECFGREGPDOENTRYPOS1 510
++#define ECRT_ERRSLAVECFGDC 511
++#define ECRT_ERRSLAVECFGSDO 512
++#define ECRT_ERRSLAVECFGCOMPLETESDO 513
++#define ECRT_ERRSLAVECFGEMERGSIZE 514
++#define ECRT_ERRSLAVECFGEMERGPOP 515
++#define ECRT_ERRSLAVECFGEMERGCLEAR 516
++#define ECRT_ERRSLAVECFGEMERGOVERRUNS 517
++#define ECRT_ERRSLAVECFGCREATESDOREQUEST 518
++#define ECRT_ERRSLAVECFGCREATESDOREQUEST1 519
++#define ECRT_ERRSLAVECFGCREATESDOREQUEST2 520
++#define ECRT_ERRSLAVECFGCREATEREGREQUEST 521
++#define ECRT_ERRSLAVECFGCREATEREGREQUEST1 522
++#define ECRT_ERRSLAVECFGCREATEREGREQUEST2 523
++#define ECRT_ERRSLAVECFGCREATEVOEHANDLER 524
++#define ECRT_ERRSLAVECFGCREATEVOEHANDLER1 525
++#define ECRT_ERRSLAVECFGCREATEVOEHANDLER2 526
++#define ECRT_ERRSLAVECFGSTATE 527
++#define ECRT_ERRSLAVECFGIDN 528
++/* errors in sdo_request */
++#define ECRT_ERRSDOREQUESTINDEX 600
++#define ECRT_ERRSDOREQUESTTIMEOUT 601
++#define ECRT_ERRSDOREQUESTSTATE 602
++#define ECRT_ERRSDOREQUESTSTATE1 603
++#define ECRT_ERRSDOREQUESTSTATE2 604
++#define ECRT_ERRSDOREQUESTREAD 605
++#define ECRT_ERRSDOREQUESTWRITE 606
++/* errors in voe_handler.c */
++#define ECRT_ERRVOEHNDSENDHEADER 700
++#define ECRT_ERRVOEHNDRECEIVEDHEADER 701
++#define ECRT_ERRVOEHNDREAD 702
++#define ECRT_ERRVOEHNDREADNOSYNC 703
++#define ECRT_ERRVOEHNDWRITE 704
++#define ECRT_ERRVOEHNDEXECUTE 705
++#define ECRT_ERRVOEHNDEXECUTE1 706
++#define ECRT_ERRVOEHNDEXECUTE2 707
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
+--- a/lib/master.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/master.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -39,6 +39,7 @@
+ #include "master.h"
+ #include "domain.h"
+ #include "slave_config.h"
++#include "liberror.h"
+ 
+ /****************************************************************************/
+ 
+@@ -46,8 +47,9 @@
+ {
+     int ret = ioctl(master->fd, EC_IOCTL_REQUEST, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to reserve master: %s\n",
+-                strerror(EC_IOCTL_ERRNO(ret)));
++        ecrt_errcode = ECRT_ERRRESERVE;
++        ERRPRINTF("Failed to reserve master: %s\n",
++                  strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+     return 0;
+@@ -120,13 +122,15 @@
+ 
+     domain = malloc(sizeof(ec_domain_t));
+     if (!domain) {
+-        fprintf(stderr, "Failed to allocate memory.\n");
++        ecrt_errcode = ECRT_ERRMASTERCREATE;
++        ERRPRINTF("Failed to allocate memory.\n");
+         return 0;
+     }
+ 
+     index = ioctl(master->fd, EC_IOCTL_CREATE_DOMAIN, NULL);
+     if (EC_IOCTL_IS_ERROR(index)) {
+-        fprintf(stderr, "Failed to create domain: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERCREATE1;
++        ERRPRINTF("Failed to create domain: %s\n",
+                 strerror(EC_IOCTL_ERRNO(index)));
+         free(domain);
+         return 0;
+@@ -169,7 +173,8 @@
+ 
+     sc = malloc(sizeof(ec_slave_config_t));
+     if (!sc) {
+-        fprintf(stderr, "Failed to allocate memory.\n");
++        ecrt_errcode = ECRT_ERRMASTERSLAVECONFIG;
++        ERRPRINTF("Failed to allocate memory.\n");
+         return 0;
+     }
+ 
+@@ -180,7 +185,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_CREATE_SLAVE_CONFIG, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to create slave config: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSLAVECONFIG1;
++        ERRPRINTF("Failed to create slave config: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         free(sc);
+         return 0;
+@@ -217,7 +223,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SELECT_REF_CLOCK, config_index);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to select reference clock: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSELECTREFERENCECLOCK;
++        ERRPRINTF("Failed to select reference clock: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -234,7 +241,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_MASTER, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get master info: %s\n",
++        ecrt_errcode = ECRT_ERRMASTER;
++        ERRPRINTF("Failed to get master info: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -258,7 +266,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SLAVE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get slave info: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERGETSLAVE;
++        ERRPRINTF("Failed to get slave info: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -308,7 +317,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SLAVE_SYNC, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get sync manager information: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERGETSYNCMANAGER;
++        ERRPRINTF("Failed to get sync manager information: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -342,7 +352,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SLAVE_SYNC_PDO, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get pdo information: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERGETPDO;
++        ERRPRINTF("Failed to get pdo information: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -374,7 +385,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SLAVE_SYNC_PDO_ENTRY, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get pdo entry information: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERGETPDOENTRY;
++        ERRPRINTF("Failed to get pdo entry information: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -407,7 +419,8 @@
+         if (EC_IOCTL_ERRNO(ret) == EIO && abort_code) {
+             *abort_code = download.abort_code;
+         }
+-        fprintf(stderr, "Failed to execute SDO download: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSDODOWNLOAD;
++        ERRPRINTF("Failed to execute SDO download: %s\n",
+             strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -436,7 +449,8 @@
+         if (EC_IOCTL_ERRNO(ret) == EIO && abort_code) {
+             *abort_code = download.abort_code;
+         }
+-        fprintf(stderr, "Failed to execute SDO download: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSDODOWNLOADCOMPLETE;
++        ERRPRINTF("Failed to execute SDO download: %s\n",
+             strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -464,7 +478,8 @@
+         if (EC_IOCTL_ERRNO(ret) == EIO && abort_code) {
+             *abort_code = upload.abort_code;
+         }
+-        fprintf(stderr, "Failed to execute SDO upload: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSDOUPLOAD;
++        ERRPRINTF("Failed to execute SDO upload: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -493,7 +508,8 @@
+         if (EC_IOCTL_ERRNO(ret) == EIO && error_code) {
+             *error_code = io.error_code;
+         }
+-        fprintf(stderr, "Failed to write IDN: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERWRITEIDN;
++        ERRPRINTF("Failed to write IDN: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -521,7 +537,8 @@
+         if (EC_IOCTL_ERRNO(ret) == EIO && error_code) {
+             *error_code = io.error_code;
+         }
+-        fprintf(stderr, "Failed to read IDN: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERREADIDN;
++        ERRPRINTF("Failed to read IDN: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -539,7 +556,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_ACTIVATE, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to activate master: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERACTIVATE;
++        ERRPRINTF("Failed to activate master: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -556,7 +574,8 @@
+         master->process_data = mmap(0, master->process_data_size,
+                 PROT_READ | PROT_WRITE, MAP_SHARED, master->fd, 0);
+         if (master->process_data == MAP_FAILED) {
+-            fprintf(stderr, "Failed to map process data: %s\n",
++            ecrt_errcode = ECRT_ERRMASTERACTIVATE1;
++            ERRPRINTF("Failed to map process data: %s\n",
+                     strerror(errno));
+             master->process_data = NULL;
+             master->process_data_size = 0;
+@@ -579,7 +598,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_DEACTIVATE, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to deactivate master: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERDEACTIVATE;
++        ERRPRINTF("Failed to deactivate master: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return;
+     }
+@@ -596,7 +616,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SET_SEND_INTERVAL, &send_interval_us);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set send interval: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSETSENDINTERVAL;
++        ERRPRINTF("Failed to set send interval: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -612,7 +633,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SEND, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to send: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSEND;
++        ERRPRINTF("Failed to send: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -625,7 +647,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_RECEIVE, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to receive: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERRECEIVE;
++        ERRPRINTF("Failed to receive: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -638,7 +661,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_MASTER_STATE, state);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get master state: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSTATE;
++        ERRPRINTF("Failed to get master state: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -656,7 +680,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_MASTER_LINK_STATE, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get link state: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERLINKSTATE;
++        ERRPRINTF("Failed to get link state: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -675,7 +700,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_APP_TIME, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set application time: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERAPPLICATIONTIME;
++        ERRPRINTF("Failed to set application time: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -688,7 +714,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SYNC_REF, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to sync reference clock: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSYNCREFERENCECLOCK;
++        ERRPRINTF("Failed to sync reference clock: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -701,7 +728,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SYNC_SLAVES, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to sync slave clocks: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSYNCSLAVECLOCKS;
++        ERRPRINTF("Failed to sync slave clocks: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -714,7 +742,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_REF_CLOCK_TIME, time);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get reference clock time: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERREFERENCECLOCKTIME;
++        ERRPRINTF("Failed to get reference clock time: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ 
+@@ -729,7 +758,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_SYNC_MON_QUEUE, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to queue sync monitor datagram: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSYNCMONITORQUEUE;
++        ERRPRINTF("Failed to queue sync monitor datagram: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -744,7 +774,8 @@
+     ret = ioctl(master->fd, EC_IOCTL_SYNC_MON_PROCESS, &time_diff);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+         time_diff = 0xffffffff;
+-        fprintf(stderr, "Failed to process sync monitor datagram: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERSYNCMONITORPROCESS;
++        ERRPRINTF("Failed to process sync monitor datagram: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ 
+@@ -759,7 +790,8 @@
+ 
+     ret = ioctl(master->fd, EC_IOCTL_RESET, NULL);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to reset master: %s\n",
++        ecrt_errcode = ECRT_ERRMASTERRESET;
++        ERRPRINTF("Failed to reset master: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
+--- a/lib/reg_request.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/reg_request.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -41,6 +41,7 @@
+ #include "reg_request.h"
+ #include "slave_config.h"
+ #include "master.h"
++#include "liberror.h"
+ 
+ /*****************************************************************************/
+ 
+@@ -72,7 +73,8 @@
+ 
+     ret = ioctl(reg->config->master->fd, EC_IOCTL_REG_REQUEST_STATE, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get register request state: %s\n",
++        ecrt_errcode = ECRT_ERRREQREQUESTSTATE;
++        ERRPRINTF("Failed to get register request state: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return EC_REQUEST_ERROR;
+     }
+@@ -85,7 +87,8 @@
+         ret = ioctl(reg->config->master->fd,
+                 EC_IOCTL_REG_REQUEST_DATA, &io);
+         if (EC_IOCTL_IS_ERROR(ret)) {
+-            fprintf(stderr, "Failed to get register data: %s\n",
++            ecrt_errcode = ECRT_ERRREQREQUESTSTATE1;
++            ERRPRINTF("Failed to get register data: %s\n",
+                     strerror(EC_IOCTL_ERRNO(ret)));
+             return EC_REQUEST_ERROR;
+         }
+@@ -110,7 +113,8 @@
+ 
+     ret = ioctl(reg->config->master->fd, EC_IOCTL_REG_REQUEST_WRITE, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to command an register write operation: %s\n",
++        ecrt_errcode = ECRT_ERRREQREQUESTSIZE;
++        ERRPRINTF("Failed to command an register write operation: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -130,7 +134,8 @@
+ 
+     ret = ioctl(reg->config->master->fd, EC_IOCTL_REG_REQUEST_READ, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to command an register read operation: %s\n",
++        ecrt_errcode = ECRT_ERRREQREQUESTREAD;
++        ERRPRINTF("Failed to command an register read operation: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
+--- a/lib/sdo_request.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/sdo_request.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -41,6 +41,7 @@
+ #include "sdo_request.h"
+ #include "slave_config.h"
+ #include "master.h"
++#include "liberror.h"
+ 
+ /*****************************************************************************/
+ 
+@@ -68,7 +69,8 @@
+ 
+     ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_INDEX, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set SDO request index/subindex: %s\n",
++        ecrt_errcode = ECRT_ERRSDOREQUESTINDEX;
++        ERRPRINTF("Failed to set SDO request index/subindex: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -86,7 +88,8 @@
+ 
+     ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_TIMEOUT, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set SDO request timeout: %s\n",
++        ecrt_errcode = ECRT_ERRSDOREQUESTTIMEOUT;
++        ERRPRINTF("Failed to set SDO request timeout: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -117,14 +120,16 @@
+ 
+     ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_STATE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get SDO request state: %s\n",
++        ecrt_errcode = ECRT_ERRSDOREQUESTSTATE;
++        ERRPRINTF("Failed to get SDO request state: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return EC_REQUEST_ERROR;
+     }
+ 
+     if (data.size) { // new data waiting to be copied
+         if (req->mem_size < data.size) {
+-            fprintf(stderr, "Received %zu bytes do not fit info SDO data"
++            ecrt_errcode = ECRT_ERRSDOREQUESTSTATE1;
++            ERRPRINTF("Received %zu bytes do not fit info SDO data"
+                     " memory (%zu bytes)!\n", data.size, req->mem_size);
+             return EC_REQUEST_ERROR;
+         }
+@@ -134,7 +139,8 @@
+         ret = ioctl(req->config->master->fd,
+                 EC_IOCTL_SDO_REQUEST_DATA, &data);
+         if (EC_IOCTL_IS_ERROR(ret)) {
+-            fprintf(stderr, "Failed to get SDO data: %s\n",
++            ecrt_errcode = ECRT_ERRSDOREQUESTSTATE2;
++            ERRPRINTF("Failed to get SDO data: %s\n",
+                     strerror(EC_IOCTL_ERRNO(ret)));
+             return EC_REQUEST_ERROR;
+         }
+@@ -156,7 +162,8 @@
+ 
+     ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_READ, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to command an SDO read operation : %s\n",
++        ecrt_errcode = ECRT_ERRSDOREQUESTREAD;
++        ERRPRINTF("Failed to command an SDO read operation : %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -175,7 +182,8 @@
+ 
+     ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_WRITE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to command an SDO write operation : %s\n",
++        ecrt_errcode = ECRT_ERRSDOREQUESTWRITE;
++        ERRPRINTF("Failed to command an SDO write operation : %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
+--- a/lib/slave_config.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/slave_config.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -40,6 +40,7 @@
+ #include "reg_request.h"
+ #include "voe_handler.h"
+ #include "master.h"
++#include "liberror.h"
+ 
+ /*****************************************************************************/
+ 
+@@ -90,7 +91,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_SYNC, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to config sync manager: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGSYNCMANAGER;
++        ERRPRINTF("Failed to config sync manager: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -113,7 +115,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_WATCHDOG, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to config watchdog: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGWATCHDOG;
++        ERRPRINTF("Failed to config watchdog: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -132,7 +135,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_ADD_PDO, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to add PDO: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGPDOASSIGNADD;
++        ERRPRINTF("Failed to add PDO: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -153,7 +157,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_CLEAR_PDOS, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to clear PDOs: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGPDOASSIGNCLEAR;
++        ERRPRINTF("Failed to clear PDOs: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -175,7 +180,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_ADD_ENTRY, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to add PDO entry: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGPDOMAPPINGADD;
++        ERRPRINTF("Failed to add PDO entry: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -196,7 +202,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_CLEAR_ENTRIES, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to clear PDO entries: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGPDOMAPPINGCLEAR;
++        ERRPRINTF("Failed to clear PDO entries: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -222,7 +229,8 @@
+             break;
+ 
+         if (sync_info->index >= EC_MAX_SYNC_MANAGERS) {
+-            fprintf(stderr, "Invalid sync manager index %u!\n",
++            ecrt_errcode = ECRT_ERRSLAVECFGPDOS;
++            ERRPRINTF("Invalid sync manager index %u!\n",
+                     sync_info->index);
+             return -ENOENT;
+         }
+@@ -284,7 +292,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_REG_PDO_ENTRY, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to register PDO entry: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGREGPDOENTRY;
++        ERRPRINTF("Failed to register PDO entry: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -293,7 +302,8 @@
+         *bit_position = data.bit_position;
+     } else {
+         if (data.bit_position) {
+-            fprintf(stderr, "PDO entry 0x%04X:%02X does not byte-align "
++            ecrt_errcode = ECRT_ERRSLAVECFGREGPDOENTRY1;
++            ERRPRINTF("PDO entry 0x%04X:%02X does not byte-align "
+                     "in config %u:%u.\n", index, subindex,
+                     sc->alias, sc->position);
+             return -EFAULT;
+@@ -325,7 +335,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_REG_PDO_POS, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to register PDO entry: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGREGPDOENTRYPOS;
++        ERRPRINTF("Failed to register PDO entry: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -334,7 +345,8 @@
+         *bit_position = io.bit_position;
+     } else {
+         if (io.bit_position) {
+-            fprintf(stderr, "PDO entry %u/%u/%u does not byte-align "
++            ecrt_errcode = ECRT_ERRSLAVECFGREGPDOENTRYPOS1;
++            ERRPRINTF("PDO entry %u/%u/%u does not byte-align "
+                     "in config %u:%u.\n", sync_index, pdo_pos, entry_pos,
+                     sc->alias, sc->position);
+             return -EFAULT;
+@@ -362,7 +374,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_DC, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set DC parameters: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGDC;
++        ERRPRINTF("Failed to set DC parameters: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -384,7 +397,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_SDO, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to configure SDO: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGSDO;
++        ERRPRINTF("Failed to configure SDO: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -409,7 +423,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_SDO, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to configure SDO: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGCOMPLETESDO;
++        ERRPRINTF("Failed to configure SDO: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -462,7 +477,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_SIZE, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set emergency ring size: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGEMERGSIZE;
++        ERRPRINTF("Failed to set emergency ring size: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -483,7 +499,8 @@
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_POP, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+         if (EC_IOCTL_ERRNO(ret) != ENOENT) {
+-            fprintf(stderr, "Failed to get emergency message: %s\n",
++            ecrt_errcode = ECRT_ERRSLAVECFGEMERGPOP;
++            ERRPRINTF("Failed to get emergency message: %s\n",
+                     strerror(EC_IOCTL_ERRNO(ret)));
+         }
+         return -EC_IOCTL_ERRNO(ret);
+@@ -503,7 +520,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_CLEAR, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to clear emergency ring: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGEMERGCLEAR;
++        ERRPRINTF("Failed to clear emergency ring: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -522,7 +540,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_OVERRUNS, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get emergency overruns: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGEMERGOVERRUNS;
++        ERRPRINTF("Failed to get emergency overruns: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+@@ -557,14 +576,16 @@
+ 
+     req = malloc(sizeof(ec_sdo_request_t));
+     if (!req) {
+-        fprintf(stderr, "Failed to allocate memory.\n");
++        ecrt_errcode = ECRT_ERRSLAVECFGCREATESDOREQUEST;
++        ERRPRINTF("Failed to allocate memory.\n");
+         return 0;
+     }
+ 
+     if (size) {
+         req->data = malloc(size);
+         if (!req->data) {
+-            fprintf(stderr, "Failed to allocate %zu bytes of SDO data"
++            ecrt_errcode = ECRT_ERRSLAVECFGCREATESDOREQUEST1;
++            ERRPRINTF("Failed to allocate %zu bytes of SDO data"
+                     " memory.\n", size);
+             free(req);
+             return 0;
+@@ -580,7 +601,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_SDO_REQUEST, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to create SDO request: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGCREATESDOREQUEST2;
++        ERRPRINTF("Failed to create SDO request: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         ec_sdo_request_clear(req);
+         free(req);
+@@ -627,14 +649,16 @@
+ 
+     reg = malloc(sizeof(ec_reg_request_t));
+     if (!reg) {
+-        fprintf(stderr, "Failed to allocate memory.\n");
++        ecrt_errcode = ECRT_ERRSLAVECFGCREATEREGREQUEST;
++        ERRPRINTF("Failed to allocate memory.\n");
+         return NULL;
+     }
+ 
+     if (size) {
+         reg->data = malloc(size);
+         if (!reg->data) {
+-            fprintf(stderr, "Failed to allocate %zu bytes of register data"
++            ecrt_errcode = ECRT_ERRSLAVECFGCREATEREGREQUEST1;
++            ERRPRINTF("Failed to allocate %zu bytes of register data"
+                     " memory.\n", size);
+             free(reg);
+             return 0;
+@@ -648,7 +672,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_REG_REQUEST, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to create register request: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGCREATEREGREQUEST2;
++        ERRPRINTF("Failed to create register request: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         ec_reg_request_clear(reg);
+         free(reg);
+@@ -692,14 +717,16 @@
+ 
+     voe = malloc(sizeof(ec_voe_handler_t));
+     if (!voe) {
+-        fprintf(stderr, "Failed to allocate memory.\n");
++        ecrt_errcode = ECRT_ERRSLAVECFGCREATEVOEHANDLER;
++        ERRPRINTF("Failed to allocate memory.\n");
+         return 0;
+     }
+ 
+     if (size) {
+         voe->data = malloc(size);
+         if (!voe->data) {
+-            fprintf(stderr, "Failed to allocate %zu bytes of VoE data"
++            ecrt_errcode = ECRT_ERRSLAVECFGCREATEVOEHANDLER1;
++            ERRPRINTF("Failed to allocate %zu bytes of VoE data"
+                     " memory.\n", size);
+             free(voe);
+             return 0;
+@@ -713,7 +740,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_VOE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to create VoE handler: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGCREATEVOEHANDLER2;
++        ERRPRINTF("Failed to create VoE handler: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         ec_voe_handler_clear(voe);
+         free(voe);
+@@ -744,7 +772,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_STATE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get slave configuration state: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGSTATE;
++        ERRPRINTF("Failed to get slave configuration state: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -766,7 +795,8 @@
+ 
+     ret = ioctl(sc->master->fd, EC_IOCTL_SC_IDN, &io);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to configure IDN: %s\n",
++        ecrt_errcode = ECRT_ERRSLAVECFGIDN;
++        ERRPRINTF("Failed to configure IDN: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return -EC_IOCTL_ERRNO(ret);
+     }
+diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
+--- a/lib/voe_handler.c	Tue Feb 12 17:31:08 2013 +0100
++++ b/lib/voe_handler.c	Mon Mar 23 15:52:53 2015 +0000
+@@ -42,6 +42,7 @@
+ #include "voe_handler.h"
+ #include "slave_config.h"
+ #include "master.h"
++#include "liberror.h"
+ 
+ /*****************************************************************************/
+ 
+@@ -67,7 +68,8 @@
+ 
+     ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_SEND_HEADER, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to set VoE send header: %s\n",
++      ecrt_errcode = ECRT_ERRVOEHNDSENDHEADER;
++        ERRPRINTF("Failed to set VoE send header: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -87,7 +89,8 @@
+ 
+     ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_REC_HEADER, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to get received VoE header: %s\n",
++        ecrt_errcode = ECRT_ERRVOEHNDRECEIVEDHEADER;
++        ERRPRINTF("Failed to get received VoE header: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -118,7 +121,8 @@
+ 
+     ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_READ, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to initiate VoE reading: %s\n",
++        ecrt_errcode = ECRT_ERRVOEHNDREAD;
++        ERRPRINTF("Failed to initiate VoE reading: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -135,7 +139,8 @@
+ 
+     ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_READ_NOSYNC, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to initiate VoE reading: %s\n",
++        ecrt_errcode = ECRT_ERRVOEHNDREADNOSYNC;
++        ERRPRINTF("Failed to initiate VoE reading: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -154,7 +159,8 @@
+ 
+     ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_WRITE, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to initiate VoE writing: %s\n",
++        ecrt_errcode = ECRT_ERRVOEHNDWRITE;
++        ERRPRINTF("Failed to initiate VoE writing: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+     }
+ }
+@@ -171,14 +177,16 @@
+ 
+     ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_EXEC, &data);
+     if (EC_IOCTL_IS_ERROR(ret)) {
+-        fprintf(stderr, "Failed to execute VoE handler: %s\n",
++        ecrt_errcode = ECRT_ERRVOEHNDEXECUTE;
++        ERRPRINTF("Failed to execute VoE handler: %s\n",
+                 strerror(EC_IOCTL_ERRNO(ret)));
+         return EC_REQUEST_ERROR;
+     }
+ 
+     if (data.size) { // new data waiting to be copied
+         if (voe->mem_size < data.size) {
+-            fprintf(stderr, "Received %zu bytes do not fit info VoE data"
++            ecrt_errcode = ECRT_ERRVOEHNDEXECUTE1;
++            ERRPRINTF("Received %zu bytes do not fit info VoE data"
+                     " memory (%zu bytes)!\n", data.size, voe->mem_size);
+             return EC_REQUEST_ERROR;
+         }
+@@ -187,7 +195,8 @@
+ 
+         ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_DATA, &data);
+         if (EC_IOCTL_IS_ERROR(ret)) {
+-            fprintf(stderr, "Failed to get VoE data: %s\n",
++            ecrt_errcode = ECRT_ERRVOEHNDEXECUTE2;
++            ERRPRINTF("Failed to get VoE data: %s\n",
+                     strerror(EC_IOCTL_ERRNO(ret)));
+             return EC_REQUEST_ERROR;
+         }
