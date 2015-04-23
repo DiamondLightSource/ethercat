@@ -133,7 +133,7 @@ class PdoAssignment(Device):
 
 class GenericADC(Device):
     ''' A generic ADC signal'''
-    def __init__(self, slave, channel, pdoentry, cycle=None):
+    def __init__(self, slave, channel, pdoentry, cycle=""):
         self.__super.__init__()
         self.slave = slave
         self.channel = channel
