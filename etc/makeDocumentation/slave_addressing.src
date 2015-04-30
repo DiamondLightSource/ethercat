@@ -1,0 +1,44 @@
+/**
+\page slave_addressing Addressing of slaves 
+
+There are two modes of addressing slaves.
+
+1) Physical position in the bus or
+2) DCS numbers.
+
+During development two further options were considered and discarded
+3) The use of aliases provided by Etherlab. 
+There was one limitation that was not recorded at the time.
+4) Use of  EK1101 couplers with ID switch.
+
+The solution in use (DCS numbers) is to program out our inventory
+number which we call "DCS number" and use that number instead of the
+positions.
+
+The "DCS" string is blatantly hardcoded in the parsing routines
+(parser.c, parseDevice function) and also reflected in "DCS entries"
+in the code, e.g. EC_DCS_LOOKUP and dcs_number in each EC_DEVICE
+instance.
+
+When modules are bought at Diamond, they are assigned these numbers
+sequentially and given a sticker with the same number for the
+inventory.
+
+This is done using the "serialtool" program which is built along with
+the module.
+
+Once the units are programmed with DCS numbers, the scanner finds the
+slaves and assigns the positions regardless of the re-organisation of
+the slaves physically.
+
+\section improvements Improvements Wishlist
+
+Make the scanner resilient in case of missing slaves. At the moment
+every slave in the configuration needs to be present for the scanner
+to start.
+
+The current implementation also uses only one "domain" and when
+talking to Beckhoff they suggested that it might be better to use more
+than one.
+
+**/
