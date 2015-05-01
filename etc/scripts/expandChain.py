@@ -21,6 +21,8 @@ def main():
     doc = libxml2.parseFile(chainfile)
 
     chain = ethercat.EthercatChain()
+    chainPorts = {} # dictionary of chainElements by port name
+    sdoDict = {} # sdos indexed by sdo name
 
     for d in doc.xpathEval("//device") + doc.xpathEval("//ethercat.EthercatSlave"):
         type_names = d.xpathEval("@type_name")
@@ -39,8 +41,31 @@ def main():
         if len(oversample_xml):
            oversample = ethercat.parseInt(d.xpathEval("@oversample")[0].content)
         chainElem = ethercat.EthercatChainElem(type_rev, position, portname, oversample)
+        chainPorts[portname] = chainElem
         chain.setDevice(chainElem)
-        
+    for d in doc.xpathEval("//ethercat.PdoAssignment"):
+        slave = d.xpathEval("@slave")[0].content
+        pdo_index = ethercat.parseInt(d.xpathEval("@pdo_index")[0].content)
+        smnumber= ethercat.parseInt(d.xpathEval("@smnumber")[0].content)
+        # name= d.xpathEval("@name")[0].content
+        chainPorts[slave].assignPdo(smnumber, pdo_index)
+    for d in doc.xpathEval("//ethercat.SdoControl"):
+        name = d.xpathEval("@name")[0].content
+        slave_name = d.xpathEval("@slave")[0].content
+        index = ethercat.parseInt(d.xpathEval("@index")[0].content)
+        sdo = ethercat.Sdo(name, slave_name, index)
+        chainPorts[slave_name].assignSdo(sdo)
+        sdoDict[name] = sdo
+    for d in doc.xpathEval("//ethercat.SdoEntryControl"):
+        asynparameter = d.xpathEval("@asynparameter")[0].content
+        bit_length = ethercat.parseInt(d.xpathEval("@bit_length")[0].content)
+        description = d.xpathEval("@description")[0].content
+        name = d.xpathEval("@name")[0].content
+        parentsdo = sdoDict[d.xpathEval("@parentsdo")[0].content]
+        subindex = ethercat.parseInt(d.xpathEval("@subindex")[0].content)
+        sdoentry = ethercat.SdoEntry(parentsdo, name,
+                                     asynparameter, description,
+                                     subindex, bit_length)
     ethercat.initialise()
     chain.getDeviceDescriptions()
     print chain.generateMasterXml()

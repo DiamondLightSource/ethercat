@@ -1,4 +1,4 @@
-#!/bin/env dls-python2.6
+#!/bin/env dls-python
 
 from xml.dom.minidom import parse
 import sys

@@ -1,4 +1,4 @@
-#!/bin/env python2.6
+#!/bin/env dls-python
 #
 #  Script to print the names valid for analogue input generic adc "sample" parameters
 #  The names are of the form <pdo_name>.<entry_name>

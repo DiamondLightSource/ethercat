@@ -159,7 +159,7 @@ class GenericADC(Device):
 class SdoControl(Device):
     def __init__(self, name, slave, index):
         self.__super.__init__()
-        self.sdo = ethercat.Sdo(name, slave, index)
+        self.sdo = ethercat.Sdo(name, slave.name, index)
         self.sdo.slave.assignSdo(self.sdo)
         
     def assignEntry(self, sdoentry):
@@ -174,7 +174,7 @@ class SdoControl(Device):
 class SdoEntryControl(Device):
     def __init__(self, name, parentsdo, asynparameter, description, subindex, bit_length):
         self.__super.__init__()
-        self.sdoentry = ethercat.SdoEntry(parentsdo, name, asynparameter, description, subindex, bit_length)
+        self.sdoentry = ethercat.SdoEntry(parentsdo.sdo, name, asynparameter, description, subindex, bit_length)
                         
     ArgInfo = makeArgInfo(__init__,
                           parentsdo = Ident("parent sdo", SdoControl),

@@ -39,11 +39,10 @@ Debug = False
 ##################### module classes
 class Sdo:
     '''An sdo to hold sdo entries for the sdo requests '''
-    def __init__(self,name, slave, index):
+    def __init__(self,name, slave_name, index):
         self.name = name
-        self.slave = slave
         self.index = index
-        self.slave_name = slave.name
+        self.slave_name = slave_name
         self.entries = []
     def assignEntry(self, entry):
         self.entries.append(entry)
@@ -187,13 +186,12 @@ class SyncManager:
         return o
 
     def assignPdo(self, pdo):
-        if pdo.index in self.pdo_index_list:
-            print "Duplicate pdo skipped (index = %d, name %s)" % \
-                (pdo.index, pdo.name)
-        else:
+        if not pdo.index in self.pdo_index_list:
             self.pdo_index_list.append(pdo.index)
             self.pdos.append(pdo)
-        
+        # else:
+        #     print "Duplicate pdo skipped (index = %d, name %s)" % \
+        #         (pdo.index, pdo.name)
         
 class EthercatDevice:
     ''' An EtherCAT device description, 
