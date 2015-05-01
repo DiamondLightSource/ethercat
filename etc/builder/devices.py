@@ -160,7 +160,8 @@ class SdoControl(Device):
     def __init__(self, name, slave, index):
         self.__super.__init__()
         self.sdo = ethercat.Sdo(name, slave.name, index)
-        self.sdo.slave.assignSdo(self.sdo)
+        self.sdoslave = slave
+        self.sdoslave.assignSdo(self.sdo)
         
     def assignEntry(self, sdoentry):
         self.sdo.assignEntry(sdoentry)
