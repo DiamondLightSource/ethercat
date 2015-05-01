@@ -31,7 +31,9 @@ int simulation = 0;
 // latency histogram for test only
 int dumplatency = 0;
 // Time to wait for EtherCAT frame to return. Default to 50 us.
-long frame_time_ns = 50000; 
+long frame_time_ns = 50000;
+
+typedef enum _BOOL { FALSE = 0, TRUE = 1} BOOL;
 
 enum { PERIOD_NS = 1000000 };
 #define TIMESPEC2NS(T) ((uint64_t) (T).tv_sec * NSEC_PER_SEC + (T).tv_nsec)
@@ -68,7 +70,7 @@ typedef struct
     int sim_aligned_bit;  /* next bit available after all current assignments */
 } SCANNER;
 
-typedef struct 
+typedef struct
 {
     uint8_t * process_data;
 } SIM_DOMAIN;
@@ -123,7 +125,7 @@ void simulate_input(SCANNER * scanner)
         ELLNODE * node1 = ellFirst(&device->pdo_entry_mappings);
         for ( ; node1; node1 = ellNext(node1) )
         {
-            EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = 
+            EC_PDO_ENTRY_MAPPING * pdo_entry_mapping =
                                     ( EC_PDO_ENTRY_MAPPING *) node1;
             if (!pdo_entry_mapping->sim_signal)
                 continue;
@@ -137,7 +139,7 @@ void simulate_input(SCANNER * scanner)
             {
                 for(n = 1; n < device->oversampling_rate; n++)
                 {
-                    copy_sim_data2(sim_signal, pdo_entry_mapping, scanner->pd, 
+                    copy_sim_data2(sim_signal, pdo_entry_mapping, scanner->pd,
                                    n);
                     advance_sim_signal(sim_signal);
                 }
@@ -151,12 +153,12 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
     switch (sdoentry->bits)
     {
     case 8:
-        sdoentry->sdodata.data8 = 
+        sdoentry->sdodata.data8 =
             EC_READ_U8(ecrt_sdo_request_data(sdoentry->sdo_request));
         /* printf("read_sdo 8-bit value = %d\n", sdoentry->sdodata.data8); */
         break;
     case 16:
-        sdoentry->sdodata.data16 = 
+        sdoentry->sdodata.data16 =
             EC_READ_U16(ecrt_sdo_request_data(sdoentry->sdo_request));
         /* printf("read_sdo 16-bit value = %d\n", sdoentry->sdodata.data16); */
         break;
@@ -165,7 +167,7 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
     msg->value[0] = sdoentry->sdodata.data[0];
     msg->value[1] = sdoentry->sdodata.data[1];
     msg->value[2] = sdoentry->sdodata.data[2];
-    msg->value[3] = sdoentry->sdodata.data[3];            
+    msg->value[3] = sdoentry->sdodata.data[3];
 }
 
 void write_sdo(EC_SDO_ENTRY *sdoentry)
@@ -178,17 +180,17 @@ void write_sdo(EC_SDO_ENTRY *sdoentry)
     switch (sdoentry->bits)
     {
     case 8:
-        EC_WRITE_U8(ecrt_sdo_request_data(sdoentry->sdo_request), 
+        EC_WRITE_U8(ecrt_sdo_request_data(sdoentry->sdo_request),
                     sdoentry->sdodata.data8);
         ecrt_sdo_request_write(sdoentry->sdo_request);
         break;
     case 16:
-        EC_WRITE_U16(ecrt_sdo_request_data(sdoentry->sdo_request), 
+        EC_WRITE_U16(ecrt_sdo_request_data(sdoentry->sdo_request),
                      sdoentry->sdodata.data16);
         ecrt_sdo_request_write(sdoentry->sdo_request);
         break;
     }
-    
+
 }
 
 void send_to_clients(SCANNER * scanner, void *data, unsigned int size)
@@ -210,7 +212,7 @@ void process_sdo_read_request(SCANNER * scanner, SDO_REQ_MESSAGE *sdo_req)
     {
         EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
         assert(sdoentry->parent->slave == device);
-        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
+        if ((sdoentry->sdostate == SDO_PROC_IDLE) &&
             (sdoentry->parent->index == sdo_req->index) &&
             (sdoentry->subindex == sdo_req->subindex))
         {
@@ -242,7 +244,7 @@ void process_sdo_write_request(SCANNER * scanner, SDO_WRITE_MESSAGE *sdo_write)
     {
         EC_SDO_ENTRY *sdoentry = (EC_SDO_ENTRY *) node;
         assert(sdoentry->parent->slave == device);
-        if ((sdoentry->sdostate == SDO_PROC_IDLE) && 
+        if ((sdoentry->sdostate == SDO_PROC_IDLE) &&
             (sdoentry->parent->index == sdo_write->index) &&
             (sdoentry->subindex == sdo_write->subindex))
         {
@@ -258,7 +260,7 @@ void cyclic_task(void * usr)
     ec_master_t * master = scanner->master;
     ec_domain_t * domain = scanner->domain;
 
-    int error_to_console = 1;
+    BOOL error_to_console = TRUE;
     int slave_info_status;
     uint8_t * pd = scanner->pd;
     struct timespec wakeupTime;
@@ -345,14 +347,14 @@ void cyclic_task(void * usr)
 
             ecrt_master_receive(master);
             ecrt_domain_process(domain);
-    
+
             ecrt_master_application_time(master, TIMESPEC2NS(wakeupTime));
             // do this how often?
             ecrt_master_sync_reference_clock(master);
             ecrt_master_sync_slave_clocks(master);
-                
+
             ecrt_domain_state(domain, &domain_state);
-            
+
             // Merge writes
             int n;
             for (n = 0; n < scanner->pdo_size; n++)
@@ -373,52 +375,53 @@ void cyclic_task(void * usr)
                 lat_us = 0;
             }
             // printf("Wakeup time %llu, latency: %d us\n", TIMESPEC2NS(wakeupTime), lat_us);
-            
+
             if(lat_us > scanner->max_latency)
             {
                 scanner->max_latency = lat_us;
             }
-            
+
             if(lat_us > HISTBUCKETS - 1)
             {
                 lat_us = HISTBUCKETS - 1;
             }
-            
+
             if(dumplatency)
             {
                 scanner->buckets[lat_us]++;
             }
-            
+
             msg->pdo.working_counter = domain_state.working_counter;
             msg->pdo.wc_state = domain_state.wc_state;
             msg->pdo.tag = MSG_PDO;
             msg->pdo.cycle = tick;
             msg->pdo.size = scanner->pdo_size;
             memcpy(msg->pdo.buffer, pd, msg->pdo.size);
-            int msg_size = (msg->pdo.buffer + msg->pdo.size + nslaves * 2 * sizeof(char)) - (char *)msg;
+            int msg_size = (msg->pdo.buffer + msg->pdo.size +
+                            nslaves * SLAVE_METADATA_CNT *
+                            sizeof(char)) - (char *)msg;
 
-            /* master sends FPRD datagrams every cycle to get this slave info */
+            /* master sends FPRD datagrams every cycle to get this
+             * slave info */
             ELLNODE * node;
             int ofs = msg->pdo.size;
+            BOOL scan_okay = TRUE;
+
             for(node = ellFirst(&scanner->config->devices); node; node = ellNext(node))
             {
                 ec_slave_info_t slave_info;
                 EC_DEVICE * device = (EC_DEVICE *)node;
                 assert(device->position != -1);
-                    
+
                 slave_info_status = ecrt_master_get_slave(master, device->position, &slave_info);
                 if (slave_info_status != 0)
                 {
-                    if (error_to_console)
-                    {
-                        fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
-                        error_to_console = 0;
-                    }
+                    scan_okay = FALSE;
                 }
-                else
-                    error_to_console = 1;
+                msg->pdo.buffer[ofs++] = slave_info_status;
                 msg->pdo.buffer[ofs++] = slave_info.al_state;
                 msg->pdo.buffer[ofs++] = slave_info.error_flag;
+
                 if (device->sdo_requests.count > 0)
                 {
                     ELLNODE * reqnode;
@@ -482,6 +485,19 @@ void cyclic_task(void * usr)
                     }
                 }
             }
+            if (!scan_okay)
+            {
+                if (error_to_console)
+                {
+                    fprintf(stderr,"etherlab library error: %s", ecrt_errstring);
+                    error_to_console = FALSE;
+                }
+            }
+            else
+            {
+                error_to_console = TRUE;
+            }
+
             // distribute PDO
             send_to_clients(scanner, msg, msg_size);
 
@@ -491,7 +507,7 @@ void cyclic_task(void * usr)
 
             tick++;
         } /* MSG_TICK */
-        else if (msg->tag == MSG_SDO_REQ) 
+        else if (msg->tag == MSG_SDO_REQ)
         {
             process_sdo_read_request(scanner, &msg->sdo_req);
             SDO_REQ_MESSAGE *sdo_req = &msg->sdo_req;
@@ -550,7 +566,7 @@ int simulation_init(EC_DEVICE * device)
     for (; node ; node = ellNext(node) )
     {
         st_simspec *simspec = (st_simspec *) node;
-        EC_PDO_ENTRY_MAPPING *pdo_entry_mapping = 
+        EC_PDO_ENTRY_MAPPING *pdo_entry_mapping =
             find_mapping(device, simspec->signal_no, simspec->bit_length);
         assert( pdo_entry_mapping );
         assert( pdo_entry_mapping->sim_signal == NULL);
@@ -575,9 +591,9 @@ int size_in_bytes(int bits)
 char * describe_request(EC_SDO_ENTRY * sdoentry)
 {
     assert(sdoentry->desc == NULL);
-    sdoentry->desc = 
+    sdoentry->desc =
         format("Name: %s, %x:%x, bits %d asyn param %s \"%s\"",
-               sdoentry->parent->name, 
+               sdoentry->parent->name,
                sdoentry->parent->index,
                sdoentry->subindex,
                sdoentry->bits,
@@ -587,9 +603,9 @@ char * describe_request(EC_SDO_ENTRY * sdoentry)
 }
 
 
-/* Called from device_initialize to add sdo requests as 
+/* Called from device_initialize to add sdo requests as
  registered in the device's configuration */
-int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device, 
+int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
                      ec_slave_config_t *sc)
 {
     ELLNODE * node = ellFirst(&device->sdo_requests);
@@ -598,7 +614,7 @@ int add_sdo_requests(SCANNER * scanner, EC_DEVICE * device,
         EC_SDO_ENTRY * e = (EC_SDO_ENTRY *) node;
         e->sdostate = SDO_PROC_IDLE;
         e->sdo_request = ecrt_slave_config_create_sdo_request(
-            sc, e->parent->index, e->subindex, 
+            sc, e->parent->index, e->subindex,
             size_in_bytes(e->bits));
         assert( e->sdo_request != NULL );
         printf("SDO request created: \n%s\n", describe_request(e));
@@ -632,7 +648,7 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
     if (! scanner->simulation)
     {
         assert(device->position != -1);
-        sc = ecrt_master_slave_config(scanner->master, 0, device->position, 
+        sc = ecrt_master_slave_config(scanner->master, 0, device->position,
             device->device_type->vendor_id, device->device_type->product_id);
         assert(sc);
     }
@@ -643,12 +659,12 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
         EC_SYNC_MANAGER * sync_manager = (EC_SYNC_MANAGER *)node0;
         if(debug)
         {
-            printf("SYNC MANAGER: dir %d watchdog %d\n", 
+            printf("SYNC MANAGER: dir %d watchdog %d\n",
                 sync_manager->direction, sync_manager->watchdog);
         }
         assert(ecrt_slave_config_sync_manager(sc,
                                               sync_manager->index,
-                                              sync_manager->direction, 
+                                              sync_manager->direction,
                                               sync_manager->watchdog
                                               )==0);
         if (sync_manager->pdos.count > 0)
@@ -668,7 +684,7 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
             if (pdo->pdo_entries.count > 0)
             {
                 ecrt_slave_config_pdo_mapping_clear(sc, pdo->index);
-                
+
             }
             ELLNODE * node2 = ellFirst(&pdo->pdo_entries);
             for(; node2; node2 = ellNext(node2))
@@ -678,21 +694,21 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                 if(debug)
                 {
                     printf("FIRST PASS PDO ENTRY:    name \"%s\" index "
-                           "%x subindex %x bits %d\n", 
-                            pdo_entry->name, pdo_entry->index, 
+                           "%x subindex %x bits %d\n",
+                            pdo_entry->name, pdo_entry->index,
                             pdo_entry->sub_index, pdo_entry->bits);
                 }
-                assert( 
+                assert(
                     ecrt_slave_config_pdo_mapping_add(sc,
-                                                      pdo->index, 
-                                                      pdo_entry->index, 
-                                                      pdo_entry->sub_index, 
+                                                      pdo->index,
+                                                      pdo_entry->index,
+                                                      pdo_entry->sub_index,
                                                       pdo_entry->bits) == 0);
                 if(pdo_entry->oversampling)
                 {
                     for(n = 1; n < device->oversampling_rate; n++)
                     {
-                        printf("mapping %x\n", pdo_entry->index + 
+                        printf("mapping %x\n", pdo_entry->index +
                                   n * pdo_entry->bits);
                         if (scanner->simulation)
                         {
@@ -701,10 +717,10 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                         else
                         {
                             assert(ecrt_slave_config_pdo_mapping_add(
-                                   sc, pdo->index, 
+                                   sc, pdo->index,
                                    pdo_entry->index + n * pdo_entry->bits,
                                    pdo_entry->sub_index, pdo_entry->bits) == 0);
-                        } 
+                        }
                     }
                 }
                 else
@@ -716,7 +732,7 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
     {
         printf("simulation bits count: %d\n", simulation_data_size);
     }
-    
+
     /* second pass, assign mappings */
     node0 = ellFirst(&device->device_type->sync_managers);
     for(; node0; node0 = ellNext(node0))
@@ -731,39 +747,39 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
             {
                 int n;
                 EC_PDO_ENTRY * pdo_entry = (EC_PDO_ENTRY *)node2;
-                EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = calloc(1, 
+                EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = calloc(1,
                                         sizeof(EC_PDO_ENTRY_MAPPING));
                 if (!scanner->simulation)
                 {
-                     pdo_entry_mapping->offset = 
+                     pdo_entry_mapping->offset =
                         ecrt_slave_config_reg_pdo_entry(
                             sc, pdo_entry->index, pdo_entry->sub_index,
-                            scanner->domain, 
+                            scanner->domain,
                             (unsigned int *)&pdo_entry_mapping->bit_position);
                 }
                 else
                 {
-                    pdo_entry_mapping->offset = 
+                    pdo_entry_mapping->offset =
                         adjust_sim_pdo_size(scanner, pdo_entry->bits,
                          (unsigned int *)&pdo_entry_mapping->bit_position);
                 }
                 if(pdo_entry_mapping->offset < 0)
                 {
                     fprintf(stderr, "Scanner: Failed to register "
-                        "PDO entry %s on Device %s type %s at position %d\n", 
-                            pdo_entry->name, device->name, device->type_name, 
+                        "PDO entry %s on Device %s type %s at position %d\n",
+                            pdo_entry->name, device->name, device->type_name,
                             device->position);
                     exit(1);
                 }
-                adjust_pdo_size(scanner, pdo_entry_mapping->offset, 
+                adjust_pdo_size(scanner, pdo_entry_mapping->offset,
                                 pdo_entry->bits);
                 if(debug)
                 {
                     printf("SECOND PASS PDO ENTRY:    name \"%s\" index "
-                           "%x subindex %x bits %d MAPPING: offset %d bit_position %d\n", 
-                           pdo_entry->name, pdo_entry->index, 
-                           pdo_entry->sub_index, pdo_entry->bits, 
-                           pdo_entry_mapping->offset, 
+                           "%x subindex %x bits %d MAPPING: offset %d bit_position %d\n",
+                           pdo_entry->name, pdo_entry->index,
+                           pdo_entry->sub_index, pdo_entry->bits,
+                           pdo_entry_mapping->offset,
                            pdo_entry_mapping->bit_position);
                 }
 
@@ -776,17 +792,17 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                         if (!scanner->simulation)
                         {
                         ofs = ecrt_slave_config_reg_pdo_entry(
-                            sc, pdo_entry->index + n * pdo_entry->bits, 
-                            pdo_entry->sub_index, scanner->domain, 
+                            sc, pdo_entry->index + n * pdo_entry->bits,
+                            pdo_entry->sub_index, scanner->domain,
                             (unsigned int *)&bit_position);
                         }
                         else
                         {
-                            ofs = adjust_sim_pdo_size(scanner, pdo_entry->bits, 
+                            ofs = adjust_sim_pdo_size(scanner, pdo_entry->bits,
                                             (unsigned int *)&bit_position);
-                        } 
-                        printf("pdo entry reg %08x %04x %d\n", 
-                               pdo_entry->index + n * pdo_entry->bits, 
+                        }
+                        printf("pdo entry reg %08x %04x %d\n",
+                               pdo_entry->index + n * pdo_entry->bits,
                                pdo_entry->sub_index, ofs);
                         assert(ofs == pdo_entry_mapping->offset + n * pdo_entry->bits / 8);
                         assert(bit_position == pdo_entry_mapping->bit_position);
@@ -812,8 +828,8 @@ int device_initialize(SCANNER * scanner, EC_DEVICE * device)
                signal still gives some ugly sawtooth wave as the local
                clock syncs with the master clock, but its within
                100ns... */
-            ecrt_slave_config_dc(sc, 
-                device->device_type->oversampling_activate, 
+            ecrt_slave_config_dc(sc,
+                device->device_type->oversampling_activate,
                 PERIOD_NS / device->oversampling_rate, 0,
                 PERIOD_NS - (PERIOD_NS / device->oversampling_rate), 0);
         }
@@ -849,11 +865,11 @@ int ethercat_init(SCANNER * scanner)
     for(; node; node = ellNext(node))
     {
         EC_DEVICE * device = (EC_DEVICE *)node;
-        assert(device->device_type);    
+        assert(device->device_type);
         printf("DEVICE:       name \"%s\" "
-               "type \"%s\" rev %d position %d\n", 
-               device->name, device->type_name, 
-               device->type_revid, device->position);        
+               "type \"%s\" rev %d position %d\n",
+               device->name, device->type_name,
+               device->type_revid, device->position);
         device_initialize(scanner, device);
     }
     printf("PDO SIZE:     %d\n", scanner->pdo_size);
@@ -886,12 +902,12 @@ SCANNER * start_scanner(char * filename, int simulation,
         ec_master_info_t master_info;
         if(ecrt_master(scanner->master, &master_info) != 0) {
             fprintf(stderr, "can't get master info\n");
-            exit(1);            
-        }  
+            exit(1);
+        }
         ec_slave_info_t slave_info;
-        for(n = 0; n < master_info.slave_count; n++) {        
-            if( ecrt_master_get_slave(scanner->master, n, 
-                                      &slave_info) != 0   ) 
+        for(n = 0; n < master_info.slave_count; n++) {
+            if( ecrt_master_get_slave(scanner->master, n,
+                                      &slave_info) != 0   )
             {
                 fprintf(stderr, "can't get info for slave %d\n", n);
                 exit(1);
@@ -906,11 +922,11 @@ SCANNER * start_scanner(char * filename, int simulation,
     scanner->config_buffer = load_config(filename);
     assert(scanner->config_buffer);
     assert(PARSING_OKAY ==
-           read_config(scanner->config_buffer, 
-                       strlen(scanner->config_buffer), 
+           read_config(scanner->config_buffer,
+                       strlen(scanner->config_buffer),
                        scanner->config));
     ethercat_init(scanner);
-    if (simulation) 
+    if (simulation)
     {
         scanner->domain = (ec_domain_t *) calloc(1, sizeof(SIM_DOMAIN));
     }
@@ -924,7 +940,7 @@ void build_config_message(SCANNER * scanner)
     scanner->config_message = calloc(scanner->max_message, sizeof(char));
     scanner->config_message->tag = MSG_CONFIG;
     char * buffer = scanner->config_message->config.buffer;
-    int msg_ofs = 0;    
+    int msg_ofs = 0;
     char * xbuf = regenerate_chain(cfg);
     if (debug)
     {
@@ -932,34 +948,34 @@ void build_config_message(SCANNER * scanner)
     }
     pack_string(buffer, &msg_ofs, xbuf);
     free(xbuf);
-    char * sbuf = serialize_config(cfg);    
+    char * sbuf = serialize_config(cfg);
     if (debug)
     {
         printf("Mappings string for EPICS\n%s\n", sbuf);
     }
     pack_string(buffer, &msg_ofs, sbuf);
     free(sbuf);
-    scanner->config_size = buffer + msg_ofs - 
+    scanner->config_size = buffer + msg_ofs -
                        (char *)scanner->config_message;
 }
 
 static int queue_send(ENGINE * server, int size)
 {
     CLIENT * client = (CLIENT *)server->usr;
-    return rtMessageQueueSend(client->scanner->workq, 
+    return rtMessageQueueSend(client->scanner->workq,
                               server->receive_buffer, size);
 }
 
 static int queue_receive(ENGINE * server)
 {
     CLIENT * client = (CLIENT *)server->usr;
-    return rtMessageQueueReceive(client->q, server->send_buffer, 
+    return rtMessageQueueReceive(client->q, server->send_buffer,
                                  server->max_message);
 }
 static int send_config_on_connect(ENGINE * server, int sock)
 {
     CLIENT * client = (CLIENT *)server->usr;
-    return rtSockSend(sock, client->scanner->config_message, 
+    return rtSockSend(sock, client->scanner->config_message,
                           client->scanner->config_size);
 }
 
@@ -988,13 +1004,13 @@ int main(int argc, char ** argv)
             break;
         }
     }
-    
+
     if(argc - optind < 2)
     {
         fprintf(stderr, "usage: scanner [-m master_index] [-s] [-q] scanner.xml socket_path\n");
         exit(1);
     }
-    
+
     char * xml_filename = argv[optind++];
     char * path = argv[optind++];
 
@@ -1039,7 +1055,7 @@ int main(int argc, char ** argv)
         fprintf(stderr, "%s %d: Scanner can't create the UNIX socket - delete old sockets.\n", __FILE__, __LINE__);
         exit(1);
     }
-    
+
     int c;
     for(c = 0; c < scanner->max_clients; c++)
     {
@@ -1057,7 +1073,7 @@ int main(int argc, char ** argv)
         client->engine->usr = client;
         engine_start(client->engine);
     }
-    
+
     int prio = PRIO_HIGH;
     if(rtThreadCreate("cyclic", prio, 0, cyclic_task, scanner) == NULL)
     {
@@ -1067,7 +1083,7 @@ int main(int argc, char ** argv)
     }
     else
     {
-        printf("created high priority thread for cyclic task\n");        
+        printf("created high priority thread for cyclic task\n");
     }
     new_timer(PERIOD_NS, scanner->workq, prio, MSG_TICK);
 
@@ -1082,6 +1098,6 @@ int main(int argc, char ** argv)
     }
 
     iocsh(NULL);
-    
+
     return 0;
 }

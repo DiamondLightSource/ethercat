@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1055
-y 392
+x 425
+y 749
 w 273
-h 270
+h 205
 font "arial-medium-r-16.0"
 ctlFont "arial-bold-r-16.0"
 btnFont "arial-medium-r-16.0"
@@ -19,7 +19,7 @@ ctlBgColor1 index 3
 ctlBgColor2 index 5
 topShadowColor index 1
 botShadowColor index 11
-title "EL3104 ADC $(DEVICE)"
+title "EL3702 ADC $(DEVICE)"
 showGrid
 snapToGrid
 gridSize 5
@@ -55,7 +55,7 @@ fontAlign "center"
 fgColor index 14
 bgColor index 48
 value {
-  "EL3104 $(DEVICE)"
+  "EL3702 $(DEVICE)"
 }
 endObjectProperties
 
@@ -241,7 +241,7 @@ buttonLabel "small screen"
 numPvs 4
 numDsps 1
 displayFileName {
-  0 "el3104-status"
+  0 "el3702-status"
 }
 symbols {
   0 "DEVICE=$(DEVICE)"
@@ -354,8 +354,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 15
-y 195
+x 5
+y 125
 w 81
 h 18
 font "arial-medium-r-16.0"
@@ -374,8 +374,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 105
-y 190
+x 95
+y 120
 w 146
 h 28
 controlPv "$(DEVICE):AL_STATE"
@@ -387,19 +387,6 @@ font "arial-bold-r-16.0"
 lineWidth 2
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 20
-y 50
-w 221
-h 28
-
-beginGroup
-
 # (Textupdate)
 object TextupdateClass
 beginObjectProperties
@@ -407,10 +394,10 @@ major 10
 minor 0
 release 0
 x 95
-y 50
+y 85
 w 146
 h 28
-controlPv "$(DEVICE):INPUT1:VALUE"
+controlPv "$(DEVICE):CH2SAMPLE:CH2VALUE"
 fgColor index 16
 fgAlarm
 bgColor index 12
@@ -425,63 +412,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 20
-y 55
-w 55
-h 18
-font "arial-medium-r-16.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Input 1:"
-}
-autoSize
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 20
-y 85
-w 221
-h 28
-
-beginGroup
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 95
-y 85
-w 146
-h 28
-controlPv "$(DEVICE):INPUT2:VALUE"
-fgColor index 16
-fgAlarm
-bgColor index 12
-fill
-font "arial-bold-r-16.0"
-lineWidth 2
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 20
+x 32
 y 90
 w 54
 h 18
@@ -495,23 +426,6 @@ value {
 autoSize
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 20
-y 120
-w 221
-h 28
-
-beginGroup
-
 # (Textupdate)
 object TextupdateClass
 beginObjectProperties
@@ -519,10 +433,10 @@ major 10
 minor 0
 release 0
 x 95
-y 120
+y 50
 w 146
 h 28
-controlPv "$(DEVICE):INPUT3:VALUE"
+controlPv "$(DEVICE):CH1SAMPLE:CH1VALUE"
 fgColor index 16
 fgAlarm
 bgColor index 12
@@ -537,78 +451,18 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 20
-y 125
-w 54
+x 31
+y 55
+w 55
 h 18
 font "arial-medium-r-16.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Input 3:"
+  "Input 1:"
 }
 autoSize
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 20
-y 155
-w 221
-h 28
-
-beginGroup
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 95
-y 155
-w 146
-h 28
-controlPv "$(DEVICE):INPUT4:VALUE"
-fgColor index 16
-fgAlarm
-bgColor index 12
-fill
-font "arial-bold-r-16.0"
-lineWidth 2
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 20
-y 160
-w 54
-h 18
-font "arial-medium-r-16.0"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Input 4:"
-}
-autoSize
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 
 # (Exit Button)
@@ -617,8 +471,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 165
-y 230
+x 160
+y 165
 w 90
 h 35
 fgColor index 46

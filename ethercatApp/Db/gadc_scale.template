@@ -3,6 +3,16 @@
 # % macro, CHANNEL, ADC channel
 
 # scaling hardcoded to 2^15 raw ADC value == 10 V
+#
+# Deprecated template dating from when ADC scaling was not
+# available in the driver.
+
+# replace with ai record reading @asyn($(PORT)_ADC$(CHANNEL))VALUE
+
+record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
+{
+    field(FLNK, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
+}
 
 # % archiver 10 Monitor
 record(ai, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
@@ -15,7 +25,3 @@ record(ai, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
     field(EGU, "V")
 }
 
-record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
-{
-    field(FLNK, "$(DEVICE):ADC$(CHANNEL)_VALEGU")
-}
