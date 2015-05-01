@@ -1,0 +1,18 @@
+avoid-syslog-spam-when-bus-loses-power.patch
+
+obtained from DLS controls svn repository
+svn diff -r 96488:128281 http://serv0002.cs.diamond.ac.uk/repos/controls/diamond/trunk/targetOS/drivers/ethercat/driver
+
+Index: master/ioctl.c
+===================================================================
+--- master/ioctl.c	(revision 96488)
++++ master/ioctl.c	(revision 128281)
+@@ -215,7 +215,7 @@
+     if (!(slave = ec_master_find_slave_const(
+                     master, 0, data.position))) {
+         up(&master->master_sem);
+-        EC_MASTER_ERR(master, "Slave %u does not exist!\n", data.position);
++        EC_MASTER_DBG(master, 1, "Slave %u does not exist!\n", data.position);
+         return -EINVAL;
+     }
+ 

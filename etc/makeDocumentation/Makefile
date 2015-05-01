@@ -20,6 +20,7 @@ $(DOCDIR): config.src manual.src classes.src \
 	mkdir -p $(DOCDIR)
 	dls-make-doxygen-documentation.py -o $(DOCDIR) config.src manual.src
 	cp configurable-error-suppression.patch $(DOCDIR)
+	cp avoid-syslog-spam-when-bus-loses-power.patch $(DOCDIR)
 
 # # rule for generating build instructions from an xml file
 # $(DOCDIR)/build_instructions_%: $(TOP)/etc/makeIocs/%.xml

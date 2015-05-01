@@ -1,6 +1,15 @@
 /**
 \page release_notes Release notes
 
+\section rel4_3 Release 4-3
+   Add severity to records when bus disconnected
+
+An extra metadata parameter per slave is sent by the scanner to
+indicate the status of the cyclic slave information request
+ecrt_master_get_slave.  This value is used when not zero to indicate
+an asynDisconnected status for the port which translates into an
+invalid severity for the records using the slave's asyn port.
+
 \section rel4_2 Release 4-2
    Add scanner support for multiple masters
 
@@ -10,7 +19,7 @@
    Add doxygen documentation
 
 \section rel4_0 Release 4-0
-   SDO support, released from sdo_support branch, 
+   SDO support, released from sdo_support branch,
    not integrated in trunk
 
 \section rel3_1 Release 3-1 and 3-2
@@ -21,10 +30,10 @@
 
    The slave initialisation was re-worked to allow a pdo mapping to be
    added. Previous scanner xml configuration files are not compatible.
-   
+
    The iocbuilder support was modified to generate sync manager
-   information to match the new initialisation parameters needed. 
-   A new element "PdoAssignment" was added for slaves that require an 
+   information to match the new initialisation parameters needed.
+   A new element "PdoAssignment" was added for slaves that require an
    additional pdo mapping at startup.
 
    The release also addresses the generic ADC scaling. EGUF/EGUL
@@ -41,7 +50,7 @@ From release 2-3 these are releases from 'trunk'
 \section rel2_2 Release 2-2 29/10/13
    Create asyn parameter to describe each slave
    Modified scaling to improve support of 24-bit ADCs
-   Modified templates for EP3204-0002 and EP3314-0002 to show values 
+   Modified templates for EP3204-0002 and EP3314-0002 to show values
    in deg C
 
 \section rel2_1 Release 2-1 19/07/13
@@ -49,9 +58,9 @@ From release 2-3 these are releases from 'trunk'
 
 \section rel2_0 Release 2-0 11/07/13
    Release prepared for RHEL6 systems
-   
+
    uses patched ethercat library
-   
+
    http://lists.etherlab.org/pipermail/etherlab-dev/2013/000316.html
    http://lists.etherlab.org/pipermail/etherlab-dev/attachments/20130702/7d75709f/attachment-0001.obj
 

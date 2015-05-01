@@ -40,8 +40,11 @@ the distribution as part of the documentation (see below).
 [3] http://lists.etherlab.org/pipermail/etherlab-dev/attachments/20130702/7d75709f/attachment-0001.obj
 \endverbatim
 
-\section patch Patch for etherlab library
+\section patch Patch to stop errors in stderr
 The patch for the etherlab library:
 <a href="./configurable-error-suppression.patch">configurable-error-suppression.patch</a>
 
+\section patch2 Patch to avoid syslog spamming
+A further patch thanks to the <a href="http://lists.etherlab.org/mailman/listinfo/etherlab-dev">etherlab mailing list</a>:
+<a href="./avoid-syslog-spam-when-bus-loses-power.patch">avoid-syslog-spam-when-bus-loses-power.patch</a>
 **/
