@@ -1,0 +1,47 @@
+/**
+\page building Building the etherlab library
+\verbatim
+Building the etherlab library for DLS ethercat
+Ronaldo Mercado
+September 2014, locations updated March 2015
+
+The DLS EPICS ethercat support module [1] uses a patch in etherlab to
+suppress error messages being sent to stderr.
+
+The patch was published in the etherlab-devel mailing list on
+2013-07-02 [2] [3]
+
+The patch submitted is incomplete - a modification to include
+liberror.c in lib/Makefile.am is missing. The steps below produce a
+compatible library.
+
+* INSTRUCTIONS
+
+hg clone http://hg.code.sf.net/p/etherlabmaster/code etherlabmaster-code
+cd etherlabmaster-code
+hg update 2eff7c993a63
+patch -p1 < ~/configurable-error-suppression.patch
+./bootstrap
+./configure
+make
+
+The build script at Diamond uses this invocation to "configure"
+
+  ./configure --enable-generic --disable-r8169 --disable-8139too --prefix=$TARGET_PREFIX
+
+* LOCATION
+
+This file "building.src" and "configure-error-suppression.patch" were uploaded to
+the distribution as part of the documentation (see below).
+
+* References
+[1] http://controls.diamond.ac.uk/downloads/support/ethercat/
+[2] http://lists.etherlab.org/pipermail/etherlab-dev/2013/000316.html
+[3] http://lists.etherlab.org/pipermail/etherlab-dev/attachments/20130702/7d75709f/attachment-0001.obj
+\endverbatim
+
+\section patch Patch for etherlab library
+The patch for the etherlab library:
+<a href="./configurable-error-suppression.patch">configurable-error-suppression.patch</a>
+
+**/

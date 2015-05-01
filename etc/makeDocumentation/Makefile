@@ -15,9 +15,11 @@ install: $(DOCDIR)
 $(DOCDIR): config.src manual.src classes.src \
 	config.src devices.src generic_adc.src \
 	getting_started.src license.src release_notes.src \
-	sdo_support.src chain_description.src release_notes.src
+	sdo_support.src chain_description.src release_notes.src \
+    slave_addressing.src
 	mkdir -p $(DOCDIR)
 	dls-make-doxygen-documentation.py -o $(DOCDIR) config.src manual.src
+	cp configurable-error-suppression.patch $(DOCDIR)
 
 # # rule for generating build instructions from an xml file
 # $(DOCDIR)/build_instructions_%: $(TOP)/etc/makeIocs/%.xml

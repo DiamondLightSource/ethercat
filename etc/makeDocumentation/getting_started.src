@@ -20,11 +20,8 @@ part of the DLS "tool" ethercat.
 This driver is generated from etherlab 1.5.2 
 
 There is one patch from the 1.5.2 sourceforge source as indicated in the
-release notes for release 2.0
-
-http://lists.etherlab.org/pipermail/etherlab-dev/2013/000316.html
-
-http://lists.etherlab.org/pipermail/etherlab-dev/attachments/20130702/7d75709f/attachment-0001.obj 
+release notes for release 2.0. The instructions are in a separate page:
+\ref building.
 
 You will need a working build environment (autoconf, gcc and make) to install this RPM
 as it uses DKMS and compiles against your Kernel at install time (or reboot)
