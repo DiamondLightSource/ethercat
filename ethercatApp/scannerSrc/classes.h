@@ -143,6 +143,7 @@ struct EC_SDO
 };
 typedef  union  {
     char data[4];
+    uint32_t data32;
     uint16_t data16;
     uint8_t data8;
 } sdodata_t;
