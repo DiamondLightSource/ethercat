@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <errno.h>
+#include <signal.h>
 
 #include <ecrt.h>
 #include <ellLib.h>
@@ -979,10 +980,42 @@ static int send_config_on_connect(ENGINE * server, int sock)
                           client->scanner->config_size);
 }
 
+static int cleanup_scanner(int sock, const char* path)
+{
+    int status;
+
+    status = close(sock);
+    if(status){
+	fprintf(stderr, "Failed to close socket %d, status %d \n", sock, status);
+	return -1;
+    }
+
+    if(path != NULL){
+	status = remove(path);
+    }else{
+	fprintf(stderr, "Path is undefined\n");
+	return -1;
+    }
+
+    if(status){
+	fprintf(stderr, "Failed to remove file descriptor %s, status %d\n", path, status);
+    }
+
+    return 0;
+}
+
+static void termination_handler(int sgnl)
+{
+    // Close standard input
+    close(0);
+    return;
+}
+
 int main(int argc, char ** argv)
 {
     int simulation = 0;
     int master_index = 0;
+    struct sigaction new_action, old_action;
     opterr = 0;
     while (1)
     {
@@ -1055,6 +1088,24 @@ int main(int argc, char ** argv)
         fprintf(stderr, "%s %d: Scanner can't create the UNIX socket - delete old sockets.\n", __FILE__, __LINE__);
         exit(1);
     }
+    //Setup signal handler
+    new_action.sa_handler = termination_handler;
+    sigemptyset (&new_action.sa_mask);
+    new_action.sa_flags = 0;
+
+    sigaction (SIGINT, NULL, &old_action);
+    if (old_action.sa_handler != SIG_IGN)
+	sigaction (SIGINT, &new_action, NULL);
+
+    sigaction (SIGQUIT, NULL, &old_action);
+    if (old_action.sa_handler != SIG_IGN)
+	sigaction (SIGQUIT, &new_action, NULL);
+
+    sigaction (SIGTERM, NULL, &old_action);
+    if (old_action.sa_handler != SIG_IGN)
+	sigaction (SIGTERM, &new_action, NULL);
+
+    printf("Registered signal handler.\n");
 
     int c;
     for(c = 0; c < scanner->max_clients; c++)
@@ -1098,6 +1149,8 @@ int main(int argc, char ** argv)
     }
 
     iocsh(NULL);
+
+    cleanup_scanner(sock, path);
 
     return 0;
 }
