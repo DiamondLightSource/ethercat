@@ -1,0 +1,10 @@
+O.*
+iocs/*
+bin
+data
+db
+dbd
+lib
+include
+documentation/doxygen/
+*.pyc

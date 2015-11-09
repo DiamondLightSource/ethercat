@@ -15,6 +15,24 @@
 # % gui, $(name=EL2595), edmembed, el2595-embed.edl, DEVICE=$(DEVICE),label=$(label)
 # % gui, $(name=EL2595), edm, el2595.edl, DEVICE=$(DEVICE)
 
+# This associates BOY screens with the template
+# % gui, $(name=EL2595), boydetail, ethercatApp_opi/el2595_detail.opi, DEVICE=$(DEVICE), label=$(label)
+# % gui, $(name=EL2595), boyembed, ethercatApp_opi/el2595_embed_box.opi, DEVICE=$(DEVICE), label=$(label)
+# % gui, $(name=EL2595), boyembed, ethercatApp_opi/el2595_embed.opi, DEVICE=$(DEVICE), label=$(label)
+
+# % gui, $(name=EL2595), readback, Control,                 $(DEVICE):DOXSTATUS:STATUS__OUTPUTACTIVE
+# % gui, $(name=EL2595), enum, Control,                     $(DEVICE):DOXCONTROL:CONTROL__OUTPUT
+# % gui, $(name=EL2595), readback, Current,                 $(DEVICE):DOXCURRENT:OUTPUTCURRENT
+# % gui, $(name=EL2595), demand, Current,                   $(DEVICE):DOXCURRENT:OUTPUTCURRENT
+# % gui, $(name=EL2595), statusbits, Warning,               $(DEVICE):DOXSTATUS:STATUS__WARNING
+# % gui, $(name=EL2595), statusbits, Error,                 $(DEVICE):DOXSTATUS:SERROR
+# % gui, $(name=EL2595), statusbits, Digital Input Status,  $(DEVICE):DOXSTATUS:STATUS__DIGITALINPUT
+# % gui, $(name=EL2595), statusbits, Ready to Activate,     $(DEVICE):DOXSTATUS:STATUS__READYTOACTIVATE
+# % gui, $(name=EL2595), statusbits, TXPDO Toggle,          $(DEVICE):DOXCONTROL:CONTROL__INPUTTRIGGERENABLE
+# % gui, $(name=EL2595), readback, Error Flag,              $(DEVICE):ERROR_FLAG
+# % gui, $(name=EL2595), readback, Reset,                   $(DEVICE):DOXCONTROL:CONTROL__RESET
+# % gui, $(name=EL2595), enum, Reset,                       $(DEVICE):DOXCONTROL:CONTROL__RESET
+
 record(longout, "$(DEVICE):DOXCURRENT:OUTPUTCURRENT")
 {
   field("DTYP", "asynInt32")
