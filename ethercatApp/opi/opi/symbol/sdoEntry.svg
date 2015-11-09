@@ -16,7 +16,7 @@
    id="svg1307"
    sodipodi:version="0.32"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="led 0.svg">
+   sodipodi:docname="sdoEnrty.svg">
   <metadata
      id="metadata1313">
     <rdf:RDF>
@@ -25,6 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -158,83 +159,4 @@
      sodipodi:ry="9.75"
      d="m 19.875,9.5009556 a 10.125,9.75 0 1 1 -20.25,0 10.125,9.75 0 1 1 20.25,0 z"
      transform="matrix(0.75061729,0,0,0.77948718,2.6814815,2.5950825)" />
-  <g
-     id="g2951">
-    <path
-       id="path2815"
-       d="M 10.029712,2.1082933 9.9702837,0.04886092"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6"
-       d="M 10.029714,20.030672 9.970284,17.97124"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8"
-       d="m 17.970284,10.030672 2.059432,-0.05943"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-1"
-       d="M -0.02971625,10.030672 2.0297158,9.9712418"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-  </g>
-  <g
-     id="g2945"
-     transform="matrix(0.92387953,-0.38268343,0.38268343,0.92387953,33.932125,-1.5960233)">
-    <path
-       id="path2815-4"
-       d="m -26.519791,-6.3341504 -0.05943,-2.0594323"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-1"
-       d="m -26.519789,11.588229 -0.05943,-2.0594325"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-4"
-       d="m -18.579219,1.5882285 2.059432,-0.05943"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-1-4"
-       d="m -36.579219,1.5882285 2.059432,-0.05943"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-  </g>
-  <g
-     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,-4.1638233,10.03909)"
-     id="g2951-2">
-    <path
-       id="path2815-41"
-       d="M 10.029712,2.1082933 9.9702837,0.04886092"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-9"
-       d="M 10.029714,20.030672 9.970284,17.97124"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-8"
-       d="m 17.970284,10.030672 2.059432,-0.05943"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-1-45"
-       d="M -0.02971625,10.030672 2.0297158,9.9712418"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-  </g>
-  <g
-     transform="matrix(0.38268343,-0.92387953,0.92387953,0.38268343,-3.1023687,15.451361)"
-     id="g2951-28">
-    <path
-       id="path2815-5"
-       d="M 10.029712,2.1082933 9.9702837,0.04886092"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-15"
-       d="M 10.029714,20.030672 9.970284,17.97124"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-86"
-       d="m 17.970284,10.030672 2.059432,-0.05943"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       id="path2815-6-8-1-8"
-       d="M -0.02971625,10.030672 2.0297158,9.9712418"
-       style="fill:none;stroke:#000000;stroke-width:0.94056749px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-  </g>
 </svg>

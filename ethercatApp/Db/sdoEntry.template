@@ -4,6 +4,15 @@
 #% macro, PARAM, asyn parameter name
 #% macro, name, gui element name
 #% gui, $(name), edmembed, sdoEntry.edl, P=$(P),R=$(R),box-label=SDO-$(PARAM)
+
+# % gui, $(name), boyembed, ethercatApp_opi/sdo_embed_box.opi, P=$(P),R=$(R),box-label=SDO-$(PARAM)
+# % gui, $(name), boyembed, ethercatApp_opi/sdo_embed.opi, P=$(P),R=$(R),box-label=SDO-$(PARAM)
+# % gui, $(name), boydetail, ethercatApp_opi/sdo_detail.opi, P=$(P),R=$(R),box-label=SDO-$(PARAM)
+
+# % gui, $(name), readback, Value,              $(DEVICE):$(P):$(R)_rbv
+# % gui, $(name), demand, Value,                $(DEVICE):$(P):$(R)
+# % gui, $(name), command, Read Value,          $(DEVICE):$(P):$(R)_trig
+
 record(longin, "$(P)$(R)_rbv")
 {
     field(DTYP, "asynInt32")
