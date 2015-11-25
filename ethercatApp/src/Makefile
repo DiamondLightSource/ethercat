@@ -24,10 +24,6 @@ DBD += ecAsyn.dbd
 
 # IOC
 
-PROD_IOC += ethercat
-ethercat_DBD += base.dbd ecAsyn.dbd
-ethercat_SRCS += ethercat_registerRecordDeviceDriver.cpp
-
 USR_INCLUDES += -I/usr/include/libxml2
 
 # These two lines are needed for non-vxWorks builds, such as Linux
