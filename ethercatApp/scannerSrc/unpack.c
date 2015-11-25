@@ -167,6 +167,9 @@ int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry,SDO_READ_MESSAGE *msg)
     case 16:
         value = *(uint16_t *)(msg->value);
         break;
+    case 32:
+        value = *(uint32_t *)(msg->value);
+        break;
     }
     return value;
 }

@@ -163,6 +163,11 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
             EC_READ_U16(ecrt_sdo_request_data(sdoentry->sdo_request));
         /* printf("read_sdo 16-bit value = %d\n", sdoentry->sdodata.data16); */
         break;
+    case 32:
+        sdoentry->sdodata.data32 =
+            EC_READ_U32(ecrt_sdo_request_data(sdoentry->sdo_request));
+        /* printf("read_sdo 32-bit value = %d\n", sdoentry->sdodata.data32); */
+        break;
     }
     SDO_READ_MESSAGE *msg = (SDO_READ_MESSAGE *)sdoentry->readmsg;
     msg->value[0] = sdoentry->sdodata.data[0];
@@ -188,6 +193,11 @@ void write_sdo(EC_SDO_ENTRY *sdoentry)
     case 16:
         EC_WRITE_U16(ecrt_sdo_request_data(sdoentry->sdo_request),
                      sdoentry->sdodata.data16);
+        ecrt_sdo_request_write(sdoentry->sdo_request);
+        break;
+    case 32:
+        EC_WRITE_U32(ecrt_sdo_request_data(sdoentry->sdo_request),
+                     sdoentry->sdodata.data32);
         ecrt_sdo_request_write(sdoentry->sdo_request);
         break;
     }
