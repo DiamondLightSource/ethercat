@@ -53,7 +53,6 @@ int read_slave_revision()
     }
     master_count = module.master_count;
     
-    printf("number of masters is %d\n", module.master_count);
     printf("Master No, Slave_no,DCS_number,Revision Number\n");
     assert(close(fd) == 0);
     
