@@ -6,7 +6,8 @@ import os
 
 # These devices are used directly, while the others are loaded as part of
 # other devices
-__all__ = ['EthercatMaster', 'EthercatSlave', 'GenericADC','GenericADCTemplate','MasterTemplate']
+__all__ = ['EthercatMaster', 'EthercatSlave', 'GenericADC','GenericADCTemplate',
+           'MasterTemplate', 'RtutilsLib', 'ScannerLib']
 
 class GenericADCTemplate(AutoSubstitution):
     TemplateFile = 'gadc.template'
@@ -27,6 +28,16 @@ if [ "$1" = "-d" ]; then
 fi
 %(scanner)s ${OPTS} ${MASTER} %(expanded_chain)s %(socket_path)s
 """
+
+class RtutilsLib(Device):
+    '''The rtutils library available with this module'''
+    LibFileList = ['rtutils']
+    AutoInstantiate = True
+
+class ScannerLib(Device):
+    '''The scannerlib library available with this module'''
+    LibFileList = ['scannerlib']
+    AutoInstantiate = True
 
 class EthercatMaster(Device):
     '''An EtherCAT Master device for the iocbuilder
