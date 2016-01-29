@@ -572,6 +572,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
                 (size, sizeof(char), "can't allocate config XML receive buffer");
             memcpy(usr->config_buffer, engine->receive_buffer, size);
             printf("config-file size:%d\n", size);
+            /* FIXME: the string needs to be unpacked */
             printf("%s\n", (char *) usr->config_buffer);
             printf("************************\n");
 
