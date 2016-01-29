@@ -57,6 +57,20 @@ int unpack_int(char * buffer, int * ofs)
     return value;
 }
 
+/** \param[in] buffer  buffer
+    \param[inout] ofs  offset in the buffer, increased by this function
+    \param[out] str where the string is copied to
+    \param[out] size of string in chars
+ */
+void unpack_string(char *buffer, int * ofs, char **str, int *len)
+{
+    *len = unpack_int(buffer, ofs)-1;
+    printf("*len is %d\n", *len);
+    *str = calloc(1, *len +1);
+    assert(*str);
+    memcpy(*str, buffer + *ofs, *len);
+    (*ofs) += *len + 1;
+}
 double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 {
     double value = 0;

@@ -678,10 +678,10 @@ char * serialize_config(EC_CONFIG * cfg)
             assert(device->position != -1);
             snprintf(line, sizeof(line), "<entry device_position=\"%d\" "
                       "pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" "
-                      "offset=\"%d\" bit=\"%d\" />\n", 
+                      "offset=\"%d\" bit=\"%d\" bit_length=\"%d\"/>\n", 
                      device->position, mp->pdo_entry->parent->index, 
                      mp->index, mp->sub_index, mp->offset, 
-                     mp->bit_position);
+                     mp->bit_position,mp->pdo_entry->bits);
             strncat(sbuf, line, scount-strlen(sbuf)-1);
         }
     }
