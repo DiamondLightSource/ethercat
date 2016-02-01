@@ -8,7 +8,8 @@ TDI-CTRL-REQ-015
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#define __STDC_LIMIT_MACROS
+#include <stdint.h>
 
 #include "gadc.h"
 #include "messages.h"

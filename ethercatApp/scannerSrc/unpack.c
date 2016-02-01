@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#define __STDC_LIMIT_MACROS
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
