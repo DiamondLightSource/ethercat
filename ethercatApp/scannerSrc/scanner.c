@@ -170,10 +170,10 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
         break;
     }
     SDO_READ_MESSAGE *msg = (SDO_READ_MESSAGE *)sdoentry->readmsg;
-    msg->value[0] = sdoentry->sdodata.data[0];
-    msg->value[1] = sdoentry->sdodata.data[1];
-    msg->value[2] = sdoentry->sdodata.data[2];
-    msg->value[3] = sdoentry->sdodata.data[3];
+    msg->value.data[0] = sdoentry->sdodata.data[0];
+    msg->value.data[1] = sdoentry->sdodata.data[1];
+    msg->value.data[2] = sdoentry->sdodata.data[2];
+    msg->value.data[3] = sdoentry->sdodata.data[3];
 }
 
 void write_sdo(EC_SDO_ENTRY *sdoentry)

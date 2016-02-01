@@ -172,21 +172,21 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 
 int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry,SDO_READ_MESSAGE *msg)
 {
-    int32_t value = 0;
+    sdodata_t value = { {0,0,0,0} };
     switch(sdoentry->bits)
     {
     case 1:
     case 8:
-        value = *(uint8_t *)(msg->value);
+        value.data8 = msg->value.data8;
         break;
     case 16:
-        value = *(uint16_t *)(msg->value);
+        value.data16 = msg->value.data16;
         break;
     case 32:
-        value = *(uint32_t *)(msg->value);
+        value.data32 = msg->value.data32;
         break;
     }
-    return value;
+    return value.data32;
 }
 int pdo_data(char * buffer, int size)
 {

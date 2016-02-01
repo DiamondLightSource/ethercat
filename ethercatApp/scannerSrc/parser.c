@@ -484,7 +484,7 @@ parsing_result_type_t parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
     {
         printf("Skipping gap for pdo_index 0x%x\n", pdo_index);
         free(ctx->pdo_entry_mapping);
-        return 1;
+        return PARSING_OKAY;
     }
     else return 
         parsingIsOkay &&
@@ -589,7 +589,8 @@ int dump(xmlNode * node, CONTEXT * ctx)
  * 
  * <code>config</code> - xml document read in memory
  */
-int read_config(char * config, int size, EC_CONFIG * cfg)
+parsing_result_type_t
+read_config(char * config, int size, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
     cfg->doc = xmlReadMemory(config, size, NULL, NULL, 0);
