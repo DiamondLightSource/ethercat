@@ -58,10 +58,10 @@ int unpack_int(char * buffer, int * ofs)
     return value;
 }
 
-/** \param[in] buffer  buffer
-    \param[inout] ofs  offset in the buffer, increased by this function
-    \param[out] str where the string is copied to
-    \param[out] size of string in chars
+/** \param [in] buffer  buffer
+    \param [inout] ofs  offset in the buffer, increased by this function
+    \param [out] str where the string is copied to
+    \param [out] size of string in chars
  */
 void unpack_string(char *buffer, int * ofs, char **str, int *len)
 {
