@@ -24,6 +24,20 @@ EC_DEVICE * find_device(EC_CONFIG * cfg, int position)
     return NULL;
 }
 
+EC_DEVICE * find_device_by_name(EC_CONFIG * cfg, const char * name)
+{
+    ELLNODE * node;
+    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
+    {
+        EC_DEVICE * device = (EC_DEVICE *)node;
+            
+        if ( strcmp(name, device->name) == 0 ) {
+            return device;
+        }
+    }
+    return NULL;
+}
+
 EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int sub_index)
 {
     ELLNODE * node0;
@@ -75,7 +89,7 @@ EC_PDO_ENTRY * find_signal(EC_DEVICE * device, int signal_no, int bit_length)
     }
     return NULL;
 }
-EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no, 
+EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
                                         int bit_length)
 {
     EC_PDO_ENTRY * pdo_entry = find_signal(device, signal_no, bit_length);
@@ -84,7 +98,7 @@ EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
     ELLNODE * node = ellFirst(&device->pdo_entry_mappings);
     for (; node; node = ellNext(node) )
     {
-        EC_PDO_ENTRY_MAPPING * pdo_entry_mapping = 
+        EC_PDO_ENTRY_MAPPING * pdo_entry_mapping =
                     (EC_PDO_ENTRY_MAPPING *) node;
         if (pdo_entry_mapping->pdo_entry == pdo_entry)
         {
@@ -95,7 +109,7 @@ EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
     return NULL;
 }
 
-EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name, 
+EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name,
                                   int revision_id)
 {
     ELLNODE * node;

@@ -210,6 +210,7 @@ struct EC_DCS_LOOKUP
 };
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
+EC_DEVICE * find_device_by_name(EC_CONFIG * cfg, const char * name);
 EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, 
                               int index, int sub_index);
 EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name, 
