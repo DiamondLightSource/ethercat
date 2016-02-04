@@ -66,11 +66,11 @@ int unpack_int(char * buffer, int * ofs)
 void unpack_string(char *buffer, int * ofs, char **str, int *len)
 {
     *len = unpack_int(buffer, ofs)-1;
-    printf("*len is %d\n", *len);
-    *str = calloc(1, *len +1);
+    printf("*ofs is %d, *len is %d\n", *ofs, *len);
+    *str = calloc(sizeof(char), *len +1);
     assert(*str);
-    memcpy(*str, buffer + *ofs, *len);
-    (*ofs) += *len + 1;
+    memcpy(*str, buffer + *ofs, *len + 1);
+    (*ofs) += sizeof(char) * ( *len + 1 );
 }
 double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 {

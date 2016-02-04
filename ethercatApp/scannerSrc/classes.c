@@ -24,20 +24,6 @@ EC_DEVICE * find_device(EC_CONFIG * cfg, int position)
     return NULL;
 }
 
-EC_DEVICE * find_device_by_name(EC_CONFIG * cfg, const char * name)
-{
-    ELLNODE * node;
-    for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
-    {
-        EC_DEVICE * device = (EC_DEVICE *)node;
-            
-        if ( strcmp(name, device->name) == 0 ) {
-            return device;
-        }
-    }
-    return NULL;
-}
-
 EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, int index, int sub_index)
 {
     ELLNODE * node0;

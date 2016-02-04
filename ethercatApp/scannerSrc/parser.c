@@ -488,7 +488,8 @@ parsing_result_type_t parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
     }
     else return 
         parsingIsOkay &&
-        joinPdoEntryMapping(ctx->config, pdo_index, mp);
+        joinPdoEntryMapping(ctx->config, pdo_index, mp) &&
+             ellAddOK(&ctx->config->pdo_entry_mappings, &mp->node);
 }
 
 int parseEntriesFromBuffer(char * text, int size, EC_CONFIG * cfg)
