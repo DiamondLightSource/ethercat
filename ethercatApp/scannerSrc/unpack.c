@@ -72,11 +72,10 @@ void unpack_string(char *buffer, int * ofs, char **str, int *len)
     memcpy(*str, buffer + *ofs, *len + 1);
     (*ofs) += sizeof(char) * ( *len + 1 );
 }
-double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
+double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer)
 {
     double value = 0;
-    int bytes = (mapping->pdo_entry->bits -1) / 8 + 1;
-    buffer += mapping->offset + index * bytes;
+    buffer += mapping->offset;
 
     /* According to the EtherCAT standard floats can come in two sizes: 32 bits
      * and 64 bits.

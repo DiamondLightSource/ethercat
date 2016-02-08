@@ -437,7 +437,7 @@ void ecAsyn::on_pdo_message(PDO_MESSAGE * pdo, int size)
         int mpdoe_param = mapping->pdo_entry->parameter;
         if (mapping->pdo_entry->datatype[0] == 'F')
         {
-            double val = cast_double(mapping, pdo->buffer, 0);
+            double val = cast_double(mapping, pdo->buffer);
             if (disable)
             {
                 setDoubleParam(mpdoe_param, MINFLOAT);
