@@ -10,7 +10,9 @@ STATIC_BUILD=YES
 
 
 LIBRARY += rtutils
-rtutils_SRCS += rtutils.c msgsock.c engine.c
+rtutils_SRCS += rtutils.c
+rtutils_SRCS += msgsock.c
+rtutils_SRCS += engine.c
 
 PROD_IOC=rthreadtest
 rthreadtest_LIBS += rtutils
