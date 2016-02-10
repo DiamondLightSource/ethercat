@@ -208,10 +208,9 @@ The iocbuilder xml description can be the input to expandChain.py
 Since release 3-0 the module supports assigning pdo entries that are
 not available by default in modules.  This was developed to support
 the EL2595 LED Controller that requires to enable a PDO for control of
-the current output and are at the moment only supported for iocs built
-using iocbuilder.
+the current output.
 
-For support outside iocbuilder the expand_chain.py script needs to be
+For support outside iocbuilder expand_chain.py script has been
 modified to process PdoAssignment entries in the builder description.
 
 The additional tag PdoAssignment specifies a pdo index to add to a
