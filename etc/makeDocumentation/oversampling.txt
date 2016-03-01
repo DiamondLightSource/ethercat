@@ -1,0 +1,16 @@
+Clarification of oversampling configuration
+===========================================
+
+The configuration xml uses "oversample" too liberally.
+
+There are two types of "oversample" as used in the configuration xml.
+
+For the pdo entries, "oversample" can be 0 or 1 (boolean) It is
+determined by checking whether the requested oversampling rate is
+among the list of device specified rates as checked in the ethercat
+slave information file at xpath
+//Device/Dc/OpMode/Sm/Pdo@OSFac
+
+For the device entry, "oversample" is the oversampling rate (count,
+e.g. 10 samples per pdo message).
+
