@@ -1,6 +1,9 @@
 /**
 \page release_notes Release notes
 
+\section rel4_5 Release 4-5
+   Added ESI device descriptions to support EL3202-0010 revision 0x0014000a (Jira BC-128)
+
 \section rel4_3 Release 4-3
    Add severity to records when bus disconnected
 
