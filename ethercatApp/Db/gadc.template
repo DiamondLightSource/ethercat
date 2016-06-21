@@ -8,6 +8,18 @@
 # % macro, name, name for gui element
 # % gui, $(name=), edm, AdcControl.edl, DEVICE=$(DEVICE),CHANNEL=$(CHANNEL)
 
+# % gui, $(name=), boyembed, ethercatApp_opi/gadc_embed_box.opi, DEVICE=$(DEVICE), CHANNEL=$(CHANNEL), name=$(name=)
+# % gui, $(name=), boyembed, ethercatApp_opi/gadc_embed.opi, DEVICE=$(DEVICE), CHANNEL=$(CHANNEL), name=$(name=)
+# % gui, $(name=), boydetail, ethercatApp_opi/gadc_detail.opi, DEVICE=$(DEVICE), CHANNEL=$(CHANNEL), name=$(name=)
+
+# <GUI tag>, <name>, <type>, <descr>, <PV>
+# Where <type> is in <demand|readback|enum|statusbits|command|toggle>
+# % gui, $(name=), demand, Samples, $(DEVICE):ADC$(CHANNEL)_SAMPLES
+# % gui, $(name=), readback, Value, $(DEVICE):ADC$(CHANNEL)_VALUE
+# % gui, $(name=), readback, Status, $(DEVICE):ADC$(CHANNEL)_STATE
+# % gui, $(name=), enum, Retrigger, $(DEVICE):ADC$(CHANNEL)_RETRIGGER
+# % gui, $(name=), enum, Enable, $(DEVICE):ADC$(CHANNEL)_ENABLED
+# % gui, $(name=), readback, Enabled, $(DEVICE):ADC$(CHANNEL)_ENABLED_R
 
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CHANBUFF")
 {
