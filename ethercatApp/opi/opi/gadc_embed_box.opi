@@ -50,7 +50,7 @@
       <color name="Text: FG" red="0" green="0" blue="0" />
     </foreground_color>
     <group_name></group_name>
-    <height>83</height>
+    <height>109</height>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>

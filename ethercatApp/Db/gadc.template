@@ -15,6 +15,7 @@
 # <GUI tag>, <name>, <type>, <descr>, <PV>
 # Where <type> is in <demand|readback|enum|statusbits|command|toggle>
 # % gui, $(name=), demand, Samples, $(DEVICE):ADC$(CHANNEL)_SAMPLES
+# % gui, $(name=), demand, Average, $(DEVICE):ADC$(CHANNEL)_AVERAGE
 # % gui, $(name=), readback, Value, $(DEVICE):ADC$(CHANNEL)_VALUE
 # % gui, $(name=), readback, Status, $(DEVICE):ADC$(CHANNEL)_STATE
 # % gui, $(name=), enum, Retrigger, $(DEVICE):ADC$(CHANNEL)_RETRIGGER
