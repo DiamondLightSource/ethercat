@@ -36,6 +36,10 @@ PROD += serialtool
 serialtool_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
 serialtool_SRCS += serialtool.c
 
+PROD += get-slave-revisions
+get-slave-revisions_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
+get-slave-revisions_SRCS += get-slave-revisions.c
+
 PROD += slaveinfo
 slaveinfo_SRCS += slaveinfo.c
 

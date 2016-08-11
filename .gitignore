@@ -1,0 +1,16 @@
+bin/*
+configure/O.*
+data
+db
+dbd
+documentation/doxygen
+etc/builder/*.pyc
+ethercatApp/Db/O.*
+ethercatApp/opi/edl/O.*
+ethercatApp/opi/symbol/O.*
+ethercatApp/protocol/O.*
+ethercatApp/rtutilsSrc/O.*
+ethercatApp/scannerSrc/O.*
+ethercatApp/src/O.*
+lib
+include/*.h
