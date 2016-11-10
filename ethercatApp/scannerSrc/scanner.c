@@ -867,6 +867,7 @@ void pack_string(char * buffer, int * ofs, char * str)
     /* 
        format is an integer encoding the string length followed by the
        string chars including the terminating null byte
+       the string is packed at buffer + *ofs
      */
     int sl = strlen(str) + 1;
     pack_int(buffer, ofs, sl);

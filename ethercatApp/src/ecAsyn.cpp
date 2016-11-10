@@ -505,6 +505,15 @@ static int init_unpack(ENGINE_USER * usr, char * buffer)
     int ofs = 0;
     int tag = unpack_int(buffer, &ofs);
     assert(tag == MSG_CONFIG);
+    char *scanner_version;
+    int scanner_version_len;
+    unpack_string(buffer, &ofs, &scanner_version, &scanner_version_len);
+    printf("VERSION_STRING is %s\n", VERSION_STRING);
+    printf("scanner_version len is %d scanner version is %s\n",
+           scanner_version_len, scanner_version);
+    assert( strcmp(VERSION_STRING, scanner_version) == 0 );
+    free(scanner_version);
+    
     int scanner_config_size = unpack_int(buffer, &ofs);
     read_config(buffer + ofs, scanner_config_size, cfg);
     ofs += scanner_config_size;
@@ -569,9 +578,6 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
        2. slave chain description - parsed in init_unpack
        3. serialised pdo mapping - parsed in init_unpack
      */
-    char * scanner_version;
-    int scanner_version_len;
-    int ofs = 0;
     printf("getting config\n");
     ENGINE_USER * usr = (ENGINE_USER *)engine->usr;
     int ack = 0;
@@ -585,18 +591,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
                 (size, sizeof(char), "can't allocate config XML receive buffer");
             memcpy(usr->config_buffer, engine->receive_buffer, size);
             printf("config-file size:%d\n", size);
-            printf("%s\n", (char *) usr->config_buffer);
-            printf("************************\n");
-
-            /* check that the scanner version matches the ioc */
-            
-            unpack_string(engine->receive_buffer, &ofs, & scanner_version, &scanner_version_len);
-            printf("VERSION_STRING is %s\n", VERSION_STRING);
-            printf("scanner_version is %s\n", scanner_version);
-            assert( strcmp(VERSION_STRING, scanner_version) == 0 );
-            free(scanner_version);
-                
-            init_unpack(usr, engine->receive_buffer + ofs);
+            init_unpack(usr, engine->receive_buffer);
             readConfig(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
         }

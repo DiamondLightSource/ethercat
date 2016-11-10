@@ -12,6 +12,7 @@
 #include "rtutils.h"
 #include "msgsock.h"
 #include "messages.h"
+#include "version.h"
 
 static EC_CONFIG * cfg;
 
@@ -66,7 +67,6 @@ int unpack_int(char * buffer, int * ofs)
 void unpack_string(char *buffer, int * ofs, char **str, int *len)
 {
     *len = unpack_int(buffer, ofs)-1;
-    printf("*ofs is %d, *len is %d\n", *ofs, *len);
     *str = calloc(sizeof(char), *len +1);
     assert(*str);
     memcpy(*str, buffer + *ofs, *len + 1);
@@ -246,6 +246,11 @@ int init_unpack(char * buffer)
     int ofs = 0;
     int tag = unpack_int(buffer, &ofs);
     assert(tag == MSG_CONFIG);
+    char * scanner_version;
+    int scanner_len;
+    unpack_string(buffer, &ofs, &scanner_version, &scanner_len);
+    assert( strcmp(scanner_version, VERSION_STRING) == 0 );
+    free(scanner_version);
     int scanner_config_size = unpack_int(buffer, &ofs);
     read_config(buffer + ofs, scanner_config_size, cfg);
     ofs += scanner_config_size;
