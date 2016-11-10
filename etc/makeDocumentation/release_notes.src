@@ -1,6 +1,16 @@
 /**
 \page release_notes Release notes
 
+\section rel4_7 Release 4-7
+
+Add "version.h" to encode a module version used to verify that scanner
+and ioc are running the same release.  Unmatched releases can cause
+unexpected results to show upstream, because possible changes in the
+mapping of the packets sent from the scanner to the EPICS ioc.
+
+\section rel4_6 Release 4-6
+   Changes to CSS screens
+
 \section rel4_5 Release 4-5
    Added ESI device descriptions to support EL3202-0010 revision 0x0014000a (Jira BC-128)
 

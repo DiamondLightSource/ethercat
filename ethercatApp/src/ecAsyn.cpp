@@ -17,7 +17,7 @@
 #include "rtutils.h"
 #include "msgsock.h"
 #include "asynDriver.h"
-
+#include "version.h"
 #include "gadc.h"
 
 template <typename T> T * node_cast(ELLNODE * node)
@@ -497,8 +497,9 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
 /*
  *  read configuration sent by scanner and populate "config" in
  *  ENGINE_USER structure
+ *  These are components 2 and 
  */
-static int init_unpack(ENGINE_USER * usr, char * buffer, int size)
+static int init_unpack(ENGINE_USER * usr, char * buffer)
 {
     EC_CONFIG * cfg = usr->config;
     int ofs = 0;
@@ -559,6 +560,18 @@ static void readConfig(ENGINE_USER * usr)
 
 static int receive_config_on_connect(ENGINE * engine, int sock)
 {
+    /* 
+       the processing in this function mirrors the method
+       build_config_message in scanner.c where the configuration
+       packet originates in the scanner
+       What the ioc expects is
+       1. version
+       2. slave chain description - parsed in init_unpack
+       3. serialised pdo mapping - parsed in init_unpack
+     */
+    char * scanner_version;
+    int scanner_version_len;
+    int ofs = 0;
     printf("getting config\n");
     ENGINE_USER * usr = (ENGINE_USER *)engine->usr;
     int ack = 0;
@@ -575,7 +588,15 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
             printf("%s\n", (char *) usr->config_buffer);
             printf("************************\n");
 
-            init_unpack(usr, engine->receive_buffer, size);
+            /* check that the scanner version matches the ioc */
+            
+            unpack_string(engine->receive_buffer, &ofs, & scanner_version, &scanner_version_len);
+            printf("VERSION_STRING is %s\n", VERSION_STRING);
+            printf("scanner_version is %s\n", scanner_version);
+            assert( strcmp(VERSION_STRING, scanner_version) == 0 );
+            free(scanner_version);
+                
+            init_unpack(usr, engine->receive_buffer + ofs);
             readConfig(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
         }
@@ -584,6 +605,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
             // check that the config hasn't changed
             assert(size == usr->config_size &&
                    memcmp(usr->config_buffer, engine->receive_buffer, size) == 0);
+            // check that the scanner version matches
         }
     }
     return !(size > 0);

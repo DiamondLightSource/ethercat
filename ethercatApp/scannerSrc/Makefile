@@ -20,7 +20,7 @@ USR_LDFLAGS += -L$(ETHERLABPREFIX)/lib -Wl,-rpath=$(ETHERLABPREFIX)/lib
 USR_INCLUDES += -I/usr/include/libxml2
 USR_SYS_LIBS += ethercat xml2
 
-INC += classes.h parser.h classes.h unpack.h messages.h
+INC += classes.h parser.h classes.h unpack.h messages.h version.h
 
 LIBRARY += scannerlib
 scannerlib_SRCS += parser.c classes.c unpack.c

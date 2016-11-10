@@ -23,7 +23,7 @@
 #include "parser.h"
 #include "unpack.h"
 #include "simulation.h"
-
+#include "version.h"
 #include "liberror.h"
 
 int debug = 1;
@@ -170,10 +170,10 @@ void read_sdo(EC_SDO_ENTRY *sdoentry)
         break;
     }
     SDO_READ_MESSAGE *msg = (SDO_READ_MESSAGE *)sdoentry->readmsg;
-    msg->value[0] = sdoentry->sdodata.data[0];
-    msg->value[1] = sdoentry->sdodata.data[1];
-    msg->value[2] = sdoentry->sdodata.data[2];
-    msg->value[3] = sdoentry->sdodata.data[3];
+    msg->value.data[0] = sdoentry->sdodata.data[0];
+    msg->value.data[1] = sdoentry->sdodata.data[1];
+    msg->value.data[2] = sdoentry->sdodata.data[2];
+    msg->value.data[3] = sdoentry->sdodata.data[3];
 }
 
 void write_sdo(EC_SDO_ENTRY *sdoentry)
@@ -864,6 +864,10 @@ void pack_int(char * buffer, int * ofs, int value)
 
 void pack_string(char * buffer, int * ofs, char * str)
 {
+    /* 
+       format is an integer encoding the string length followed by the
+       string chars including the terminating null byte
+     */
     int sl = strlen(str) + 1;
     pack_int(buffer, ofs, sl);
     strcpy(buffer + *ofs, str);
@@ -946,12 +950,25 @@ SCANNER * start_scanner(char * filename, int simulation,
 
 void build_config_message(SCANNER * scanner)
 {
-    // send config to clients
+    /* 
+       send config to clients 
+
+       The processing in this function mirrors the method
+       receive_config_on_connect in ecAsyn.cpp where the configuration
+       packet is processed in the EPICS ioc
+
+       the configuration message has these elements
+       1. version of the scanner running (version)
+       2. slave chain description (xbuf)
+       3. serialised pdo mapping (sbuf)
+     */
+    
     EC_CONFIG * cfg = scanner->config;
     scanner->config_message = calloc(scanner->max_message, sizeof(char));
     scanner->config_message->tag = MSG_CONFIG;
     char * buffer = scanner->config_message->config.buffer;
     int msg_ofs = 0;
+    pack_string(buffer, &msg_ofs, VERSION_STRING);
     char * xbuf = regenerate_chain(cfg);
     if (debug)
     {

@@ -18,14 +18,14 @@ static EC_CONFIG * cfg;
 static int count = 0;
 
 int pdo_data(char * buffer, int size);
-int init_unpack(char * buffer, int size);
+int init_unpack(char * buffer);
 
 static int receive_config_on_connect(ENGINE * engine, int sock)
 {
     int size = rtSockReceive(sock, engine->receive_buffer, engine->max_message);
     if(size > 0)
     {
-        init_unpack(engine->receive_buffer, size);
+        init_unpack(engine->receive_buffer);
     }
     // zero is success code
     return !(size > 0);
@@ -57,6 +57,21 @@ int unpack_int(char * buffer, int * ofs)
     return value;
 }
 
+/** \param [in] buffer  buffer
+    \param [ofs] ofs  offset in the buffer, increased by this function
+    \param [str] str where the string is copied to
+    \param [len] size of string in chars
+    The caller has to free the memory allocated in *str (output string returned in the heap)
+ */
+void unpack_string(char *buffer, int * ofs, char **str, int *len)
+{
+    *len = unpack_int(buffer, ofs)-1;
+    printf("*ofs is %d, *len is %d\n", *ofs, *len);
+    *str = calloc(sizeof(char), *len +1);
+    assert(*str);
+    memcpy(*str, buffer + *ofs, *len + 1);
+    (*ofs) += sizeof(char) * ( *len + 1 );
+}
 double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
 {
     double value = 0;
@@ -155,23 +170,23 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
     return value;        
 }
 
-int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry,SDO_READ_MESSAGE *msg)
+int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry, SDO_READ_MESSAGE *msg)
 {
-    int32_t value = 0;
+    sdodata_t value = { {0,0,0,0} };
     switch(sdoentry->bits)
     {
     case 1:
     case 8:
-        value = *(uint8_t *)(msg->value);
+        value.data8 = msg->value.data8;
         break;
     case 16:
-        value = *(uint16_t *)(msg->value);
+        value.data16 = msg->value.data16;
         break;
     case 32:
-        value = *(uint32_t *)(msg->value);
+        value.data32 = msg->value.data32;
         break;
     }
-    return value;
+    return value.data32;
 }
 int pdo_data(char * buffer, int size)
 {
@@ -225,7 +240,7 @@ int pdo_data(char * buffer, int size)
     return 0;
 }
 
-int init_unpack(char * buffer, int size)
+int init_unpack(char * buffer)
 {
     cfg = calloc(1, sizeof(EC_CONFIG));
     int ofs = 0;

@@ -6,6 +6,7 @@ int32_t cast_int32(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index);
 int32_t sdocast_int32(EC_SDO_ENTRY *sdoentry, SDO_READ_MESSAGE *msg);
 double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index);
 int unpack_int(char * buffer, int * ofs);
+void unpack_string(char *buffer, int * ofs, char **str, int *len);
 #ifdef __cplusplus
 }
 #endif

@@ -69,6 +69,14 @@ typedef struct
     } value;
 } SDO_WRITE_MESSAGE;
 
+/* same structure as sdodata_t in classes.h */
+typedef union {
+    char data[4];
+    uint32_t data32;
+    uint16_t data16;
+    uint8_t data8;
+} sdodatamsg_t;
+
 typedef struct
 {
     int tag;
@@ -77,7 +85,7 @@ typedef struct
     int subindex;
     int bits;
     int state;
-    char value[4];
+    sdodatamsg_t value;
 } SDO_READ_MESSAGE;
 
 union EC_MESSAGE
