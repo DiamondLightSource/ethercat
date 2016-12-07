@@ -8,8 +8,11 @@
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 
+#include "slave-types.h"
+
 // IOCTL API exposes some features not present in the C API
 #include "ioctl.h"
+
 
 enum { READ_ACTION = 0, WRITE_ACTION = 1 };
 
@@ -23,6 +26,8 @@ int writeserial(int action, int base, int pos)
 {
     char * devname = "/dev/EtherCAT0";
     int fd;
+    int check_result;
+    
     if(action == WRITE_ACTION)
     {
         fd = open(devname, O_RDWR);
@@ -81,11 +86,17 @@ int writeserial(int action, int base, int pos)
             exit(1);
         }
 
+        check_result = check_valid_slave(slave.name, slave.revision_number);
+        if (check_result == NO)
+        {
+            printf("* WARNING, slave type not supported *\n");
+        }
         printf("slave:   %d\n", n);
         printf("name:    %s\n", slave.name);
         printf("vendor:  0x%08x\n", slave.vendor_id);
         printf("product: 0x%08x\n", slave.product_code);
         printf("revision: 0x%08x\n", slave.revision_number);
+        
         uint32_t * serial = (uint32_t *)sii.words;
         printf("serial:  %d\n", serial[0]);
         
@@ -145,6 +156,8 @@ int main(int argc, char ** argv)
         fprintf(stderr, usage, argv[0]);
         exit(1);
     }
+    read_valid_slaves();
+
     writeserial(action, base, pos);
     return 0;
 }

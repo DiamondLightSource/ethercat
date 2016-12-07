@@ -6,10 +6,11 @@ include $(TOP)/configure/CONFIG
 
 SHARED_LIBRARIES=NO
 STATIC_BUILD=YES
+#HOST_OPT=NO
 
 # work-around for ioc builder's benefit:
 # the symbol below moved from $(TOP)/configure/RELEASE
-VERSION=1-5-2dls5
+VERSION=1-5-2dls8
 ETHERLAB=/dls_sw/prod/tools/RHEL6-x86_64/ethercat/$(VERSION)
 ETHERLABPREFIX=$(ETHERLAB)/prefix
 # POSIX_CPPFLAGS = -D_POSIX_C_SOURCE=199506L -D_POSIX_THREADS -D_XOPEN_SOURCE=600
@@ -34,14 +35,19 @@ scanner_LIBS += rtutils scannerlib Com
 PROD += serialtool
 # need private header files for the serial number write IOCTL
 serialtool_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
-serialtool_SRCS += serialtool.c
+serialtool_SRCS += serialtool.c slave-types.c
 
-PROD += get-slave-revisions
+PROD += get-slave-revisions 
 get-slave-revisions_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
 get-slave-revisions_SRCS += get-slave-revisions.c
 
+ifeq ($(TEST_SLAVE_TYPES), YES)
+    PROD += test
+    test_SRCS += test-slave-types.c slave-types.c
+endif
+
 PROD += slaveinfo
-slaveinfo_SRCS += slaveinfo.c
+slaveinfo_SRCS += slaveinfo.c slave-types.c
 
 PROD += parsertest
 parsertest_SRCS += parsertest.c

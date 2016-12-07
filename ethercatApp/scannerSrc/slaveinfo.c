@@ -2,6 +2,107 @@
 #include <string.h>
 #include <ecrt.h>
 #include <unistd.h>
+#include "slave-types.h"
+
+typedef struct
+{
+    int master_index;
+    ec_master_t *master;
+    ec_slave_info_t **slave_info;
+    char **slave_names;
+    int *getslaveresult;
+    int *checkvalid;
+    ec_master_info_t master_info;
+    int all_slaves_valid;
+} businfo_t;
+
+#define SCANBUS_OK 0
+#define SCANBUS_ERROR 1
+/* return OK or ERROR */
+
+int scanbus(businfo_t *i)
+{
+    int result;
+    ec_slave_info_t *curr_slave;
+    int n;
+    int count;
+    i->all_slaves_valid = YES;
+    i->master = ecrt_open_master(i->master_index);
+    if(i->master == NULL) {
+        fprintf(stderr, "can't get ethercat master %d\n",
+                i->master_index);
+        return(SCANBUS_ERROR);
+    }
+    result = ecrt_master(i->master, &i->master_info);
+    if (result != 0)
+    {
+        fprintf(stderr, "can't get master info\n");
+        return(SCANBUS_ERROR);
+    }
+    count = i->master_info.slave_count;
+    i->slave_info     = calloc(count, sizeof(ec_slave_info_t *));
+    i->slave_names    = calloc(count, sizeof(char *));
+    i->getslaveresult = calloc(count, sizeof(int));
+    i->checkvalid     = calloc(count, sizeof(int));
+    for(n = 0; n < count; n++)
+    {
+        curr_slave = calloc(1, sizeof(ec_slave_info_t));
+        i->slave_info[n] = curr_slave;
+        i->getslaveresult[n] = ecrt_master_get_slave(i->master, n,
+                                       curr_slave);
+        i->checkvalid[n] = check_valid_slave(
+            curr_slave->name, curr_slave->revision_number);
+        if (i->checkvalid[n] == NO)
+            i->all_slaves_valid = NO;
+        if (i->getslaveresult[n] == 0)
+        {
+            i->slave_names[n] = shorten_name(curr_slave->name);
+        }
+        else
+        {
+            fprintf(stderr, "can't get info for slave %d\n", n);
+            i->slave_names[n] = "";
+        }
+    }
+    return(SCANBUS_OK);
+}
+
+/* bus information in parameter i, whether to write dcs numbers in dcs
+ * parameter */
+void writexml(businfo_t *i, int dcs)
+{
+    int n;
+    printf("<components arch=\"linux-x86_64\">\n");
+    printf("  <ethercat.EthercatMaster name=\"ECATM\""
+           " socket=\"/tmp/socket%d\" master_index=\"%d\"/>\n",
+           i->master_index, i->master_index);
+    printf("  <!-- slaves %d link up %d -->\n",
+           i->master_info.slave_count, i->master_info.link_up);
+    if (i->all_slaves_valid == NO)
+    {
+        printf("  <!-- WARNING: bus contains slaves"
+               " not supported by the EPICS module -->\n");
+        printf("  <!-- WARNING: Please contact module "
+               "maintainer -->\n");
+    }
+    for(n = 0; n < i->master_info.slave_count; n++)
+    {
+        ec_slave_info_t *curr_slave = i->slave_info[n];
+        if ((i->all_slaves_valid == NO) && (i->checkvalid[n] == NO))
+        {
+            printf("  <!-- Slave not supported -->\n");
+        }
+        printf("  <ethercat.EthercatSlave master=\"ECATM\" name=\"ERIO.%d\" ", n);
+        if (dcs) {
+            printf("position=\"DCS%08d\" ", curr_slave->serial_number);
+        } else {
+            printf("position=\"%d\" ", n);
+        }
+        printf("type_rev=\"%s rev 0x%08x\"/>\n", i->slave_names[n],
+               curr_slave->revision_number);
+    }
+    printf("</components>\n");
+}
 
 const char *usage = "Usage: slaveinfo [options]\n"
 "\n"
@@ -13,9 +114,11 @@ const char *usage = "Usage: slaveinfo [options]\n"
 "  -d                write dcs serial numbers instead of positional info\n"
 "  -m <master_index> master to use (defaults to 0)\n";
 
+
 int main(int argc, char ** argv) {
     int dcs=0;
-    int master_index = 0;
+    businfo_t thebus;
+    thebus.master_index = 0;
     opterr = 0;
     while (1)
     {
@@ -34,79 +137,22 @@ int main(int argc, char ** argv) {
             dcs = 1;
             break;
         case 'm':
-            master_index = atoi(optarg);
+            thebus.master_index = atoi(optarg);
             break;
         }
     }
-    
+
     if(argc - optind > 0)
     {
         printf(usage);
         exit(1);
     }
-    
-    ec_master_info_t master_info;
-    ec_master_t * master = ecrt_open_master(master_index);
-    if(master == NULL) {
-        fprintf(stderr, "can't get ethercat master 0\n");
+
+    read_valid_slaves();
+    if (scanbus(&thebus) != SCANBUS_OK)
+    {
         exit(1);
     }
-    if(ecrt_master(master, &master_info) != 0) {
-        fprintf(stderr, "can't get master info\n");
-        exit(1);
-    }
-    
-    printf("<components arch=\"linux-x86_64\">\n");
-    printf("  <ethercat.EthercatMaster name=\"ECATM\""
-           " socket=\"/tmp/socket%d\" master_index=\"%d\"/>\n",
-           master_index, master_index);
-    printf("  <!-- slaves %d link up %d -->\n", master_info.slave_count, master_info.link_up);
-
-    int n;
-    for(n = 0; n < master_info.slave_count; n++) {
-        ec_slave_info_t slave_info;
-        if(ecrt_master_get_slave(master, n, &slave_info) != 0) {
-            fprintf(stderr, "can't get info for slave %d\n", n);
-            continue;
-        }
-
-#if 0        
-        printf("position: %d\n", slave_info.position); /**< Offset of the slave in the ring. */
-        printf("vendor_id: %d\n", slave_info.vendor_id); /**< Vendor-ID stored on the slave. */
-        printf("product_code: %d\n", slave_info.product_code); /**< Product-Code stored on the slave. */
-        printf("revision_number: %d\n", slave_info.revision_number); /**< Revision-Number stored on the slave. */
-        printf("serial_number: %d\n", slave_info.serial_number); /**< Serial-Number stored on the slave. */
-        printf("alias: %d\n", slave_info.alias); /**< The slaves alias if not equal to 0. */
-        printf("current_on_ebus: %d\n", slave_info.current_on_ebus); /**< Used current in mA. */
-        printf("al_state: %d\n", slave_info.al_state); /**< Current state of the slave. */
-        printf("error_flag: %d\n", slave_info.error_flag); /**< Error flag for that slave. */
-        printf("sync_count: %d\n", slave_info.sync_count); /**< Number of sync managers. */
-        printf("sdo_count: %d\n", slave_info.sdo_count); /**< Number of SDOs. */
-        printf("name: %s\n", slave_info.name); /**< Name of the slave. */
-#endif
-
-        /* slave.info name shows a whole name such as  */
-        /* EL2024 4K. Dig. Ausgang 24V, 2A rev 0x00110000 */
-        /* trim to the first space. */
-        /* There's a special case for the national instruments backplane */
-#define NI9144_NAME "NI 9144"
-        char *name;
-        if (strcmp(slave_info.name, NI9144_NAME) == 0)
-          name = slave_info.name;
-        else
-          name = strtok(slave_info.name, " ");
-        
-        if(name == NULL) {
-            name = "NAME ERROR";
-        }
-        printf("  <ethercat.EthercatSlave master=\"ECATM\" name=\"ERIO.%d\" ", n);
-        if (dcs) {
-            printf("position=\"DCS%08d\" ", slave_info.serial_number);
-        } else {
-            printf("position=\"%d\" ", n);
-        }
-        printf("type_rev=\"%s rev 0x%08x\"/>\n", name, slave_info.revision_number);
-    }
-    printf("</components>\n");
+    writexml(&thebus, dcs);
     return 0;
 }
