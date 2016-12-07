@@ -6,7 +6,10 @@
 Add "version.h" to encode a module version used to verify that scanner
 and ioc are running the same release.  Unmatched releases can cause
 unexpected results to show upstream, because possible changes in the
-mapping of the packets sent from the scanner to the EPICS ioc.
+mapping of the packets sent from the scanner to the EPICS ioc. (jira bc-210)
+
+Modify serialtool and slaveinfo programs to check slaves are supported
+(jira bc-131)
 
 \section rel4_6 Release 4-6
    Changes to CSS screens
