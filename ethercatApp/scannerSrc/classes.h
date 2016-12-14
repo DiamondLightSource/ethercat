@@ -10,16 +10,16 @@
 extern "C" {
 #endif
 
-typedef struct EC_CONFIG EC_CONFIG;
-typedef struct EC_PDO_ENTRY EC_PDO_ENTRY;
-typedef struct EC_PDO EC_PDO;
-typedef struct EC_SYNC_MANAGER EC_SYNC_MANAGER;
-typedef struct EC_DEVICE_TYPE EC_DEVICE_TYPE;
-typedef struct EC_DEVICE EC_DEVICE;
+typedef struct EC_CONFIG            EC_CONFIG;
+typedef struct EC_DCS_LOOKUP        EC_DCS_LOOKUP;
+typedef struct EC_DEVICE            EC_DEVICE;
+typedef struct EC_DEVICE_TYPE       EC_DEVICE_TYPE;
+typedef struct EC_PDO               EC_PDO;
+typedef struct EC_PDO_ENTRY         EC_PDO_ENTRY;
 typedef struct EC_PDO_ENTRY_MAPPING EC_PDO_ENTRY_MAPPING;
-typedef struct EC_DCS_LOOKUP EC_DCS_LOOKUP;
-typedef struct EC_SDO EC_SDO;
-typedef struct EC_SDO_ENTRY EC_SDO_ENTRY;
+typedef struct EC_SDO               EC_SDO;
+typedef struct EC_SDO_ENTRY         EC_SDO_ENTRY;
+typedef struct EC_SYNC_MANAGER      EC_SYNC_MANAGER;
 
 // simulation types st_
 enum st_type {
@@ -116,7 +116,7 @@ struct EC_DEVICE
     int type_revid;           /*< dev revision, e.g. 0x00120000 */
     int position;             /*< position in the bus */
     char * dcs_number;        /*< position encoded as DCS number (if any) */
-    int oversampling_rate;    
+    int oversampling_rate;
     ELLLIST pdo_entry_mappings;
     // lookup device type by name
     EC_DEVICE_TYPE * device_type;
@@ -124,10 +124,10 @@ struct EC_DEVICE
     ELLLIST sdo_requests;     /*< list of sdo entries */
 };
 
-enum EC_SDO_PROC_STATE { 
-    SDO_PROC_IDLE, 
-    SDO_PROC_REQ, 
-    SDO_PROC_READ, 
+enum EC_SDO_PROC_STATE {
+    SDO_PROC_IDLE,
+    SDO_PROC_REQ,
+    SDO_PROC_READ,
     SDO_PROC_SEND,
     SDO_PROC_WRITEREQ,
     SDO_PROC_WRITE
@@ -161,7 +161,7 @@ struct EC_SDO_ENTRY
     ec_request_state_t state;
     ec_request_state_t oldstate;
     enum EC_SDO_PROC_STATE sdostate;
-    
+
     sdodata_t sdodata;
     int param_val;              /* three parameters used in asyn port */
     int param_stat;
@@ -188,7 +188,7 @@ struct EC_PDO_ENTRY_MAPPING
     int device_position;
     int shift;              /*< count of bits to right shift */
     st_signal *sim_signal;
-    char *paramname;
+    char *paramname;        /* tag used in ecAsyn */
 };
 
 struct EC_CONFIG
@@ -210,11 +210,11 @@ struct EC_DCS_LOOKUP
 };
 
 EC_DEVICE * find_device(EC_CONFIG * cfg, int position);
-EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index, 
+EC_PDO_ENTRY * find_pdo_entry(EC_DEVICE * device, int pdo_index,
                               int index, int sub_index);
-EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name, 
+EC_DEVICE_TYPE * find_device_type(EC_CONFIG * cfg, char * type_name,
                                       int revision_id);
-EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no, 
+EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
                                         int bit_length);
 
 #define INT_24BIT_MAX 8388607

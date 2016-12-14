@@ -1,0 +1,14 @@
+OPERATION OF engine.c
+=====================
+
+API in msgsock.h
+
+Methods
+server_connect
+client_connect
+
+private methods
+write_thread checks the queue server->writectrl
+Has a state machine with states CTRL_IDLE or CTRL_SHUTDOWN
+
+read_thread 

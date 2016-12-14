@@ -1,3 +1,4 @@
+#define __STDC_LIMIT_MACROS
 #include <stdint.h>
 
 struct cmd_packet

@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <errno.h>
+#define __STDC_LIMIT_MACROS
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>

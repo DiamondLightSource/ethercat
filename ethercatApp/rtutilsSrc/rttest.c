@@ -5,6 +5,7 @@
 #include <math.h>
 #include <pthread.h>
 #include <assert.h>
+#define __STDC_LIMIT_MACROS
 #include <stdint.h>
 
 #include "msgsock.h"

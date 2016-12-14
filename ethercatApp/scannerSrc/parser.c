@@ -53,7 +53,7 @@ void show(CONTEXT * ctx)
     ELLNODE * node;
     for(node = ellFirst(&ctx->config->device_types); node; node = ellNext(node))
     {
-        EC_DEVICE_TYPE * device_type = 
+        EC_DEVICE_TYPE * device_type =
           (EC_DEVICE_TYPE *)node;
         printf("name %s, ", device_type->name);
         printf(" (vendor %x, product %x, revision %d) ",
@@ -71,10 +71,10 @@ void show(CONTEXT * ctx)
         for (;node1; node1 = ellNext(node1) )
         {
             st_simspec * simspec = (st_simspec *) node1;
-            printf("simspec signal_no %d type %d bit_length %d\n", 
+            printf("simspec signal_no %d type %d bit_length %d\n",
                   simspec->signal_no, simspec->type, simspec->bit_length);
         }
-    
+
     }
 }
 
@@ -192,28 +192,28 @@ parsing_result_type_t getStr(xmlNode * node, char * name, char ** value)
 parsing_result_type_t parsePdoEntry(xmlNode * node, CONTEXT * ctx)
 {
     ctx->pdo_entry = calloc(1, sizeof(EC_PDO_ENTRY));
-    return 
+    return
         getInt(node, "index", &ctx->pdo_entry->index, PARSER_REQUIRED) &&
         getInt(node, "subindex", &ctx->pdo_entry->sub_index, PARSER_REQUIRED) &&
         getInt(node, "bit_length", &ctx->pdo_entry->bits, PARSER_REQUIRED) &&
         getStr(node, "name", &ctx->pdo_entry->name) &&
         getStr(node, "datatype", &ctx->pdo_entry->datatype) &&
         getInt(node, "oversample", &ctx->pdo_entry->oversampling, PARSER_REQUIRED) &&
-        (ctx->pdo_entry->parent = ctx->pdo) && 
+        (ctx->pdo_entry->parent = ctx->pdo) &&
         ellAddOK(&ctx->pdo->pdo_entries, &ctx->pdo_entry->node);
 }
 
 parsing_result_type_t parsePdo(xmlNode * node, CONTEXT * ctx)
 {
     ctx->pdo = calloc(1, sizeof(EC_PDO));
-    return 
+    return
         getStr(node, "name", &ctx->pdo->name) &&
         getInt(node, "index", &ctx->pdo->index, PARSER_REQUIRED) &&
         parseChildren(node, ctx, "entry", parsePdoEntry) &&
-        (ctx->pdo->parent = ctx->sync_manager) && 
+        (ctx->pdo->parent = ctx->sync_manager) &&
         ellAddOK(&ctx->sync_manager->pdos, &ctx->pdo->node);
 }
-             
+
 parsing_result_type_t parseSync(xmlNode * node, CONTEXT * ctx)
 {
     ctx->sync_manager = calloc(1, sizeof(EC_SYNC_MANAGER));
@@ -255,7 +255,7 @@ parsing_result_type_t parseDeviceType(xmlNode * node, CONTEXT * ctx)
     EC_DEVICE_TYPE *dt = ctx->device_type;
     return
         getStr(node, "name", &dt->name) &&
-        getInt(node, "dcactivate", 
+        getInt(node, "dcactivate",
                &dt->oversampling_activate, PARSER_OPTIONAL) &&
         getInt(node, "vendor", &dt->vendor_id, PARSER_REQUIRED) &&
         getInt(node, "product", &dt->product_id, PARSER_REQUIRED) &&
@@ -273,7 +273,7 @@ parsing_result_type_t parseTypes(xmlNode * node, CONTEXT * ctx)
 
 parsing_result_type_t joinDevice(EC_CONFIG * cfg, EC_DEVICE * dv)
 {
-    dv->device_type = find_device_type(cfg, dv->type_name, 
+    dv->device_type = find_device_type(cfg, dv->type_name,
                                        dv->type_revid);
     if (dv->device_type != NULL)
         return PARSING_OKAY;
@@ -284,10 +284,10 @@ parsing_result_type_t joinDevice(EC_CONFIG * cfg, EC_DEVICE * dv)
 enum st_type parseStType(char * type_str)
 {
     char *parseStrings[4] = {
-     "constant", 
-     "square_wave", 
-     "sine_wave", 
-     "ramp" 
+     "constant",
+     "square_wave",
+     "sine_wave",
+     "ramp"
     };
     int i = (int) ST_CONSTANT;
     while ( i < (int) ST_INVALID )
@@ -303,9 +303,9 @@ parsing_result_type_t parseParams(xmlNode * node, st_simspec * spec)
 {
     switch ( spec->type )
     {
-        case ST_CONSTANT: 
+        case ST_CONSTANT:
             return getDouble(node, "value", &spec->params.pconst.value);
-        case ST_SINEWAVE: 
+        case ST_SINEWAVE:
             return getDouble(node, "low_value", &spec->params.psine.low) &&
                 getDouble(node, "high_value", &spec->params.psine.high) &&
                 getDouble(node, "period_ms", &spec->params.psine.period_ms);
@@ -343,13 +343,13 @@ parsing_result_type_t parseSimulation(xmlNode * node, CONTEXT * ctx)
 {
     ctx->simspec = calloc(1, sizeof(st_simspec));
     char *type_str;
-    if ( getStr(node, "signal_type", &type_str) 
-            && getInt(node, "signal_no", &ctx->simspec->signal_no, PARSER_REQUIRED) 
+    if ( getStr(node, "signal_type", &type_str)
+            && getInt(node, "signal_no", &ctx->simspec->signal_no, PARSER_REQUIRED)
             && getInt(node, "bit_length", &ctx->simspec->bit_length, PARSER_REQUIRED) )
     {
         if ( find_duplicate(ctx, ctx->simspec->signal_no, ctx->simspec->bit_length) )
         {
-            printf("Duplicate signal number %d (bit_length %d) for device %s (position %d)\n", 
+            printf("Duplicate signal number %d (bit_length %d) for device %s (position %d)\n",
                 ctx->simspec->signal_no, ctx->simspec->bit_length,
                 ctx->device->name, ctx->device->position);
             assert(0);
@@ -378,16 +378,16 @@ parsing_result_type_t parseDevice(xmlNode * node, CONTEXT * ctx)
     ctx->device = calloc(1, sizeof(EC_DEVICE));
     EC_DEVICE * ctdev = ctx->device;
     ctdev->position = -1;
-    getStr(node, "position", &position_str);        
+    getStr(node, "position", &position_str);
     // if position string starts with DCS then lookup its actual position on the bus
     if (position_str[0] == 'D' &&
         position_str[1] == 'C' &&
-        position_str[2] == 'S') 
+        position_str[2] == 'S')
       {
-        int dcs;                
+        int dcs;
         if (sscanf(position_str, "DCS%08d", &dcs) != 1) {
             fprintf(stderr, "Can't parse DCS number '%s'\n", position_str);
-            exit(1);             
+            exit(1);
         }
         ELLNODE * lnode = ellFirst(&ctx->config->dcs_lookups);
         int found_slave = 0;
@@ -404,39 +404,39 @@ parsing_result_type_t parseDevice(xmlNode * node, CONTEXT * ctx)
                 dcs_lookup->device = ctdev;
             }
         }
-    } else { 
-        if(isOctal(position_str)) { 
-            fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n"); 
-            exit(1); 
-        } 
-       
-        ctdev->position = strtol(position_str, NULL, 0); 
+    } else {
+        if(isOctal(position_str)) {
+            fprintf(stderr, "error: constants with leading zeros are disallowed as they are parsed as octal\n");
+            exit(1);
+        }
+
+        ctdev->position = strtol(position_str, NULL, 0);
         ELLNODE * lnode = ellFirst(&ctx->config->dcs_lookups);
         int found_slave = 0;
         for(; lnode && !found_slave; lnode = ellNext(lnode))
         {
             int found_slave = 0;
             EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
-            if (ctdev->position == dcs_lookup->position) 
+            if (ctdev->position == dcs_lookup->position)
             {
                 found_slave = 1;
                 dcs_lookup->device = ctdev;
             }
         }
-    } 
+    }
     if (ctdev->position == -1) {
         fprintf(stderr, "can't find '%s' on bus\n", position_str);
-        exit(1);            
+        exit(1);
     }
-    
+
     dev_name_okay = getStr(node, "name", &ctdev->name);
     dev_type_name_okay = getStr(node, "type_name", &ctdev->type_name);
     dev_revid_okay = getInt(node, "revision", &ctdev->type_revid, 1);
     joinOkay = joinDevice(ctx->config, ctdev);
-    printf("parseDevice: name %s type_name %s rev 0x%x\n", 
+    printf("parseDevice: name %s type_name %s rev 0x%x\n",
            ctdev->name, ctdev->type_name, ctdev->type_revid);
-    return 
-        dev_name_okay && dev_type_name_okay && dev_revid_okay && 
+    return
+        dev_name_okay && dev_type_name_okay && dev_revid_okay &&
         getInt(node, "oversample", &ctdev->oversampling_rate, 0) &&
         joinOkay && parseSimspec(node, ctx) &&
         ellAddOK(&ctx->config->devices, &ctdev->node);
@@ -458,13 +458,25 @@ parsing_result_type_t joinPdoEntryMapping(EC_CONFIG * cfg, int pdo_index, EC_PDO
         printf("Can't find %d\n", mapping->device_position);
         return PARSING_ERROR;
     }
-    mapping->pdo_entry = find_pdo_entry(mapping->parent, pdo_index, 
+    mapping->pdo_entry = find_pdo_entry(mapping->parent, pdo_index,
                                        mapping->index, mapping->sub_index);
     if(mapping->pdo_entry == NULL)
     {
         return PARSING_ERROR;
     }
-    return ellAddOK(&mapping->parent->pdo_entry_mappings, &mapping->node);
+    /* global mapping copy */
+    EC_PDO_ENTRY_MAPPING *gm = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
+    assert(gm);
+    gm->offset = mapping->offset;
+    gm->bit_position = mapping->bit_position;
+    gm->pdo_entry = mapping->pdo_entry;
+    gm->parent = mapping->parent;
+    gm->index = mapping->index;
+    gm->sub_index = mapping->sub_index;
+    gm->device_position = mapping->device_position;
+    return
+        ellAddOK(&cfg->pdo_entry_mappings, &gm->node) &&
+        ellAddOK(&mapping->parent->pdo_entry_mappings, &mapping->node);
 }
 
 parsing_result_type_t parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
@@ -484,11 +496,21 @@ parsing_result_type_t parsePdoEntryMapping(xmlNode * node, CONTEXT * ctx)
     {
         printf("Skipping gap for pdo_index 0x%x\n", pdo_index);
         free(ctx->pdo_entry_mapping);
-        return 1;
+        return PARSING_OKAY;
     }
-    else return 
-        parsingIsOkay &&
-        joinPdoEntryMapping(ctx->config, pdo_index, mp);
+    else {
+        /* global mapping copy */
+        EC_PDO_ENTRY_MAPPING *gm = calloc(1, sizeof(EC_PDO_ENTRY_MAPPING));
+        gm->offset = mp->offset;
+        gm->bit_position = mp->bit_position;
+        gm->index = mp->index;
+        gm->sub_index = mp->sub_index;
+        gm->device_position = mp->device_position;
+        gm->device_position = mp->device_position;
+        return
+            parsingIsOkay &&
+            joinPdoEntryMapping(ctx->config, pdo_index, mp);
+    }
 }
 
 int parseEntriesFromBuffer(char * text, int size, EC_CONFIG * cfg)
@@ -504,7 +526,7 @@ int parseEntriesFromBuffer(char * text, int size, EC_CONFIG * cfg)
     return PARSING_ERROR;
 }
 
-parsing_result_type_t joinSlave(EC_CONFIG * cfg, char * slave, 
+parsing_result_type_t joinSlave(EC_CONFIG * cfg, char * slave,
                                 EC_SDO * sdo)
 {
     /* fill in the sdo's slave field */
@@ -522,7 +544,7 @@ parsing_result_type_t joinSlave(EC_CONFIG * cfg, char * slave,
     if (sdo->slave != NULL)
     {
         /* matched a device */
-        
+
         return PARSING_OKAY;
     }
     return PARSING_ERROR;
@@ -537,7 +559,7 @@ parsing_result_type_t  parseSdo(xmlNode * node, CONTEXT * ctx)
     parsing_result_type_t parsing_status;
     parsing_status =     getInt(node, "index", &ctx->sdo->index, PARSER_REQUIRED) &&
         getStr(node, "name", &ctx->sdo->name) &&
-        getStr(node, "slave", &slave) && 
+        getStr(node, "slave", &slave) &&
         joinSlave(ctx->config, slave, ctx->sdo);
     return parsing_status &&
         parseChildren(node, ctx, "sdoentry", parseSdoEntry) &&
@@ -586,10 +608,11 @@ int dump(xmlNode * node, CONTEXT * ctx)
  * populate an EC_CONFIG from xml document
  *
  * <code>cfg</code> - structure to be populated
- * 
+ *
  * <code>config</code> - xml document read in memory
  */
-int read_config(char * config, int size, EC_CONFIG * cfg)
+parsing_result_type_t
+read_config(char * config, int size, EC_CONFIG * cfg)
 {
     LIBXML_TEST_VERSION;
     cfg->doc = xmlReadMemory(config, size, NULL, NULL, 0);
@@ -648,39 +671,45 @@ char * regenerate_chain(EC_CONFIG * cfg)
     int ecount;
     unsigned char * ebuf;
     xmlDocDumpFormatMemory(cfg->doc, &ebuf, &ecount, 0);
-    
+
     /* alloc space for chain file*/
     char * sbuf = calloc(ecount, sizeof(char));
-    
+
     /* write in the chain file and free it */
     strncat(sbuf, (char *) ebuf, ecount-strlen(sbuf)-1);
     xmlFree(ebuf);
-    
-    return sbuf;   
+
+    return sbuf;
 }
 
 char * serialize_config(EC_CONFIG * cfg)
 {
     /* serialize PDO mapping */
     int scount = 1024*1024;
-    char * sbuf = calloc(scount, sizeof(char));
-    strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
+    char * sbuf;
     ELLNODE * node;
+    ELLNODE * node1;
+    EC_DEVICE * device;
+    EC_PDO_ENTRY_MAPPING * mp;
+    char line[1024];
+    sbuf = calloc(scount, sizeof(char));
+    strncat(sbuf, "<entries>\n", scount-strlen(sbuf)-1);
     for(node = ellFirst(&cfg->devices); node; node = ellNext(node))
     {
-        EC_DEVICE * device = (EC_DEVICE *)node;
-        ELLNODE * node1;
-        for(node1 = ellFirst(&device->pdo_entry_mappings); node1; node1 = ellNext(node1))
+        device = (EC_DEVICE *)node;
+        for(node1 = ellFirst(&device->pdo_entry_mappings);
+            node1;
+            node1 = ellNext(node1))
         {
-            EC_PDO_ENTRY_MAPPING * mp = (EC_PDO_ENTRY_MAPPING *)node1;
+            mp = (EC_PDO_ENTRY_MAPPING *)node1;
             assert( mp->pdo_entry );
-            char line[1024];
             assert(device->position != -1);
+            
             snprintf(line, sizeof(line), "<entry device_position=\"%d\" "
                       "pdo_index=\"0x%x\" index=\"0x%x\" sub_index=\"0x%x\" "
-                      "offset=\"%d\" bit=\"%d\" />\n", 
-                     device->position, mp->pdo_entry->parent->index, 
-                     mp->index, mp->sub_index, mp->offset, 
+                      "offset=\"%d\" bit=\"%d\" />\n",
+                     device->position, mp->pdo_entry->parent->index,
+                     mp->index, mp->sub_index, mp->offset,
                      mp->bit_position);
             strncat(sbuf, line, scount-strlen(sbuf)-1);
         }
@@ -688,4 +717,3 @@ char * serialize_config(EC_CONFIG * cfg)
     strncat(sbuf, "</entries>\n", scount-strlen(sbuf)-1);
     return sbuf;
 }
-

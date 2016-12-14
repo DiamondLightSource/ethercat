@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#define __STDC_LIMIT_MACROS
 #include <stdint.h>
 #include <string.h>
 #include <unistd.h>
@@ -59,9 +60,9 @@ int unpack_int(char * buffer, int * ofs)
 }
 
 /** \param [in] buffer  buffer
-    \param [ofs] ofs  offset in the buffer, increased by this function
-    \param [str] str where the string is copied to
-    \param [len] size of string in chars
+    \param [inout] ofs  offset in the buffer, increased by this function
+    \param [out] str where the string is copied to
+    \param [out] size of string in chars
     The caller has to free the memory allocated in *str (output string returned in the heap)
  */
 void unpack_string(char *buffer, int * ofs, char **str, int *len)
@@ -72,11 +73,10 @@ void unpack_string(char *buffer, int * ofs, char **str, int *len)
     memcpy(*str, buffer + *ofs, *len + 1);
     (*ofs) += sizeof(char) * ( *len + 1 );
 }
-double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer, int index)
+double cast_double(EC_PDO_ENTRY_MAPPING * mapping, char * buffer)
 {
     double value = 0;
-    int bytes = (mapping->pdo_entry->bits -1) / 8 + 1;
-    buffer += mapping->offset + index * bytes;
+    buffer += mapping->offset;
 
     /* According to the EtherCAT standard floats can come in two sizes: 32 bits
      * and 64 bits.
