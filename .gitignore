@@ -5,6 +5,7 @@ db
 dbd
 documentation/doxygen
 etc/builder/*.pyc
+etc/scripts/slave-types.txt
 ethercatApp/Db/O.*
 ethercatApp/opi/edl/O.*
 ethercatApp/opi/symbol/O.*
