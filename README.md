@@ -1,11 +1,16 @@
 # ethercat
 EPICS support to read/write to ethercat based hardware
 
-The documentation currently builds using Diamond's development environment.
+The documentation builds using doxygen based on files in the folder
+etc/makeDocumentation.
 
-http://controls.diamond.ac.uk/downloads/support/ethercat/4-3/documentation/doxygen/index.html
-
-Releases and documentation at
+Doxygen documentation for old releases (up to 4-3) is available at 
 
 http://controls.diamond.ac.uk/downloads/support/ethercat/
+
+Release notes in
+etc/makeDocumentation/release_notes.src
+
+Please email with issues as the maintainer has been know to ignore
+github notifications for months.
 
