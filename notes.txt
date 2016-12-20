@@ -1,0 +1,10 @@
+
+Maintainer notes
+
+Before making a release:
+
+1. check/update the version in version.h
+2. Write release notes in etc/makeDocumentation/release_notes.src
+
+
+
