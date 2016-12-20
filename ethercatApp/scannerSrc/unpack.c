@@ -62,10 +62,10 @@ int unpack_int(char * buffer, int * ofs)
 /** \param [in] buffer  buffer
     \param [inout] ofs  offset in the buffer, increased by this function
     \param [out] str where the string is copied to
-    \param [out] size of string in chars
+    \param [out] len of string in chars
     The caller has to free the memory allocated in *str (output string returned in the heap)
  */
-void unpack_string(char *buffer, int * ofs, char **str, int *len)
+void unpack_string(char *buffer, int *ofs, char **str, int *len)
 {
     *len = unpack_int(buffer, ofs)-1;
     *str = calloc(sizeof(char), *len +1);
