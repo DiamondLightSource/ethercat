@@ -13,27 +13,28 @@ requirements document for the VME ADCs TDI-CTRL-REQ-015.
 
 * Asyn Parameters for the Generic ADC driver
 
-| Name            | Type       | Use                                                            |
-| MODE            | Int32      | gated, trigerred or continuous                                 |
-| SAMPLES         | Int32      | number of samples in an acquisition window for continuous mode |
-| OFFSET          | Int32      | offset for trigger                                             |
-| AVERAGE         | Int32      | number of samples to average for triggered mode                |
-| TRIGGER         | Int32      | software trigger                                               |
-| BUFFERCOUNT     | Int32      | Samples in the channel's buffer                                |
-| VALUE           | Int32      | Averaged value                                                 |
-| CAPTURE         | Int32      | unknown                                                        |
-| CHANBUFF        | Int32      | unknown                                                        |
-| ENABLED         | Int32      | unknonw                                                        |
-| RETRIGGER       | Int32      | unknown                                                        |
-| CLEAR           | Int32      | unknown                                                        |
-| OVERFLOW        | Int32      | unknown                                                        |
-| AVERAGEOVERFLOW | Int32      | unknown                                                        |
-| STATE           | Int32      | unknown                                                        |
-| SUPPORT         | Int32      | unknown                                                        |
-| INFO            | Int32      | unknown                                                        |
-| PUTSAMPLE       | Int32      | unknown                                                        |
-| INTERRUPT       | Int32      | unknown                                                        |
-| WAVEFORM        | Int32Array | waveform with samples                                          |
+| Name            | Type       | Use                                        |
+| MODE            | Int32      | gated, trigerred or continuous             |
+| SAMPLES         | Int32      | number of samples in an acquisition window |
+|                 |            | for continuous mode                        |
+| OFFSET          | Int32      | offset for trigger                         |
+| AVERAGE         | Int32      | number of samples to average               |
+| TRIGGER         | Int32      | software trigger                           |
+| BUFFERCOUNT     | Int32      | Samples in the channel's buffer            |
+| VALUE           | Int32      | Averaged value                             |
+| CAPTURE         | Int32      | unknown                                    |
+| CHANBUFF        | Int32      | unknown                                    |
+| ENABLED         | Int32      | unknonw                                    |
+| RETRIGGER       | Int32      | unknown                                    |
+| CLEAR           | Int32      | unknown                                    |
+| OVERFLOW        | Int32      | unknown                                    |
+| AVERAGEOVERFLOW | Int32      | unknown                                    |
+| STATE           | Int32      | unknown                                    |
+| SUPPORT         | Int32      | unknown                                    |
+| INFO            | Int32      | unknown                                    |
+| PUTSAMPLE       | Int32      | unknown                                    |
+| INTERRUPT       | Int32      | unknown                                    |
+| WAVEFORM        | Int32Array | waveform with samples                      |
 
 These parameters are accessed using the generic adc template
 gadc.template records
@@ -89,6 +90,8 @@ This facility is not in use, because triggering is not available.
 
 I haven’t looked at how to generate a trigger from hardware (the VME
 equivalent ADCs have physical connectors in the front of the carrier).
+
+The standard sampling rate in Ethercat devices is 1 Khz.
 
 * Waveform capture in continous acquisition
 
