@@ -510,7 +510,10 @@ def getDescriptions(filename):
     '''return a dictionary of device descriptions in the file'''
     import libxml2
     doc = libxml2.parseFile(filename)
-    vendor = parseInt(doc.xpathEval("//Vendor/Id")[0].content)
+    vendornode = doc.xpathEval("/EtherCATInfo/Vendor/Id")
+    if not vendornode:
+        return None
+    vendor = parseInt(vendornode[0].content)
     dev_dictionary = {}
     for devNode in doc.xpathEval("//Device"):
         try:

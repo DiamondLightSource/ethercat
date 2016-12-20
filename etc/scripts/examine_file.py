@@ -46,15 +46,20 @@ if __name__ == "__main__":
         usage()
     ethercat.initialise()
     while len(sys.argv) > 1:
+        print("processing %s" % sys.argv[1])
         dev_set = ethercat.getDescriptions(sys.argv[1])
         # filtered set
         fset = dev_set
-        if doFilter:
+        if dev_set and doFilter:
             fset = ethercat.filteredDescriptions(dev_set)
-        print """File: %(name)s
+        if fset:
+            print """File: %(name)s
 Number of entries: %(count)d (Filter: %(filtered)s)
 """ % dict(name = sys.argv[1], count = len(fset), filtered=doFilter)
-        for k in sorted(fset.keys(), key=keyRepr):
-            print "%s rev 0x%08x" % k
+            for k in sorted(fset.keys(), key=keyRepr):
+                print "%s rev 0x%08x" % k
+        else:
+            print("File: %(name)s has no descriptions" % dict(
+                name = sys.argv[1]))
         sys.argv.pop(1)
 
