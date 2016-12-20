@@ -2,7 +2,7 @@
 <EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
 	<Vendor>
 		<Id>2</Id>
-		<Name>Beckhoff Automation GmbH</Name>
+		<Name>Beckhoff Automation GmbH &amp; Co. KG</Name>
 	</Vendor>
 	<Descriptions>
 		<Groups>
@@ -8922,6 +8922,1116 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x1af43052" RevisionNo="#x00120000" CheckRevisionNo="LW_EQ" TcSmClass="EL69XX">EL6900</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<Name LcId="1033">EL6900, TwinSAFE PLC</Name>
+				<Name LcId="1031">EL6900, TwinSAFE-PLC</Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL6900]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL6900]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>2000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+					<VendorSpecific>
+						<TcSmExtension Guid="{BFD59518-85D6-4B8B-9956-26975A27C22A}"/>
+						<TcSmExtension Guid="{CC723E71-B6E1-4737-B58F-0ACE9032A566}"/>
+					</VendorSpecific>
+				</Info>
+				<GroupType>Safety</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>6900</AddInfo>
+					<Dictionary>
+						<DataTypes>
+							<DataType>
+								<Name>BIT3</Name>
+								<BitSize>3</BitSize>
+							</DataType>
+							<DataType>
+								<Name>BOOL</Name>
+								<BitSize>1</BitSize>
+							</DataType>
+							<DataType>
+								<Name>BYTE</Name>
+								<BitSize>8</BitSize>
+							</DataType>
+							<DataType>
+								<Name>INT</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>UDINT</Name>
+								<BitSize>32</BitSize>
+							</DataType>
+							<DataType>
+								<Name>UINT</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>USINT</Name>
+								<BitSize>8</BitSize>
+							</DataType>
+							<DataType>
+								<Name>ARRAY [0..63] OF BYTE</Name>
+								<BaseType>BYTE</BaseType>
+								<BitSize>512</BitSize>
+								<ArrayInfo>
+									<LBound>0</LBound>
+									<Elements>64</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>STRING(2)</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>STRING(6)</Name>
+								<BitSize>48</BitSize>
+							</DataType>
+							<DataType>
+								<Name>DT0800EN03</Name>
+								<BaseType>USINT</BaseType>
+								<BitSize>3</BitSize>
+								<EnumInfo>
+									<Text>OFFLINE</Text>
+									<Enum>0</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>RUN</Text>
+									<Enum>1</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>STOP</Text>
+									<Enum>2</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>START</Text>
+									<Enum>3</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>RESTORE</Text>
+									<Enum>4</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>FAULT</Text>
+									<Enum>7</Enum>
+								</EnumInfo>
+							</DataType>
+							<DataType>
+								<Name>DT1018</Name>
+								<BitSize>144</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Vendor ID</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Product code</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Revision</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>80</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Serial number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>112</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C00ARR</Name>
+								<BaseType>USINT</BaseType>
+								<BitSize>32</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>4</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT1C00</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT1C00ARR</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C32</Name>
+								<BitSize>360</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Sync mode</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access WriteRestrictions="PreOP">rw</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Cycle time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access WriteRestrictions="PreOP">rw</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Shift time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>64</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Sync modes supported</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>96</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>5</SubIdx>
+									<Name>Minimum cycle time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>112</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>6</SubIdx>
+									<Name>Calc and copy time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>144</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>8</SubIdx>
+									<Name>Command</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>208</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>9</SubIdx>
+									<Name>Delay time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>224</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>11</SubIdx>
+									<Name>SM event missed counter</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>288</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>12</SubIdx>
+									<Name>Cycle exceeded counter</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>304</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>13</SubIdx>
+									<Name>Shift too short counter</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>320</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>32</SubIdx>
+									<Name>Sync error</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>352</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF000</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Module index distance</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Maximum number of modules</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF100</Name>
+								<BitSize>32</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Safety Project State</Name>
+									<Type>DT0800EN03</Type>
+									<BitSize>3</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>8</SubIdx>
+									<Name>Login Active</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>23</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>9</SubIdx>
+									<Name>Input Size Mismatch</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>24</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>10</SubIdx>
+									<Name>Output Size Mismatch</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>25</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>15</SubIdx>
+									<Name>TxPDO State</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>30</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>16</SubIdx>
+									<Name>TxPDO Toggle</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>31</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF200</Name>
+								<BitSize>32</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Control</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>R</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF880</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Serial Number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF900</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Max SafeInputData per Connection</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Max SafeOutputData per Connection</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF980</Name>
+								<BitSize>80</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>FSoE Address</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Serial Number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Project CRC</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>64</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTFA00ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>512</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>32</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTFA00</Name>
+								<BitSize>528</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTFA00ARR</Type>
+									<BitSize>512</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTFA80</Name>
+								<BitSize>80</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Temperature Primary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Temperature Secondary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Vcc Primary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Vcc Secondary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>64</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+						</DataTypes>
+						<Objects>
+							<Object>
+								<Index>#x1000</Index>
+								<Name>Device type</Name>
+								<Type>UDINT</Type>
+								<BitSize>32</BitSize>
+								<Info>
+									<DefaultData>8913f41a</DefaultData>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1008</Index>
+								<Name>Device name</Name>
+								<Type>STRING(6)</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<DefaultData>454c36393030</DefaultData>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1009</Index>
+								<Name>Hardware version</Name>
+								<Type>STRING(2)</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x100a</Index>
+								<Name>Software version</Name>
+								<Type>STRING(2)</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1018</Index>
+								<Name>Identity</Name>
+								<Type>DT1018</Type>
+								<BitSize>144</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Vendor ID</Name>
+										<Info>
+											<DefaultData>02000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Product code</Name>
+										<Info>
+											<DefaultData>5230f41a</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c00</Index>
+								<Name>Sync manager type</Name>
+								<Type>DT1C00</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 001</Name>
+										<Info>
+											<DefaultData>01</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 002</Name>
+										<Info>
+											<DefaultData>02</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 003</Name>
+										<Info>
+											<DefaultData>03</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 004</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c32</Index>
+								<Name>SM output parameter</Name>
+								<Type>DT1C32</Type>
+								<BitSize>360</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>20</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync mode</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Cycle time</Name>
+										<Info>
+											<DefaultData>40420f00</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Shift time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync modes supported</Name>
+										<Info>
+											<DefaultData>0140</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Minimum cycle time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Calc and copy time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Command</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Delay time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c33</Index>
+								<Name>SM input parameter</Name>
+								<Type>DT1C32</Type>
+								<BitSize>360</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>20</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync mode</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Cycle time</Name>
+										<Info>
+											<DefaultData>40420f00</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Shift time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync modes supported</Name>
+										<Info>
+											<DefaultData>0140</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Minimum cycle time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Calc and copy time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Command</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Delay time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x2000</Index>
+								<Name>Safe Project</Name>
+								<Type>ARRAY [0..63] OF BYTE</Type>
+								<BitSize>512</BitSize>
+								<Flags>
+									<Access>rw</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf000</Index>
+								<Name>Modular device profile</Name>
+								<Type>DTF000</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>02</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Module index distance</Name>
+										<Info>
+											<DefaultData>1000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Maximum number of modules</Name>
+										<Info>
+											<DefaultData>8000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf008</Index>
+								<Name>Code word</Name>
+								<Type>UDINT</Type>
+								<BitSize>32</BitSize>
+								<Flags>
+									<Access>rw</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf100</Index>
+								<Name>Device Status</Name>
+								<Type>DTF100</Type>
+								<BitSize>32</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>10</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf200</Index>
+								<Name>Device Control</Name>
+								<Type>DTF200</Type>
+								<BitSize>32</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>01</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf880</Index>
+								<Name>Vendor Data</Name>
+								<Type>DTF880</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>01</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>rw</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf900</Index>
+								<Name>FSOE Master Parameter</Name>
+								<Type>DTF900</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>02</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf980</Index>
+								<Name>Safe Address</Name>
+								<Type>DTF980</Type>
+								<BitSize>80</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>03</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xfa00</Index>
+								<Name>Diag Data</Name>
+								<Type>DTFA00</Type>
+								<BitSize>528</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>20</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xfa80</Index>
+								<Name>Hardware Diag</Name>
+								<Type>DTFA80</Type>
+								<BitSize>80</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+						</Objects>
+					</Dictionary>
+				</Profile>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>
+				<Sm MinSize="256" MaxSize="256" DefaultSize="256" StartAddress="#x1000" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="256" MaxSize="256" DefaultSize="256" StartAddress="#x1100" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm DefaultSize="2" StartAddress="#x1200" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm DefaultSize="2" StartAddress="#x1d00" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Slots MaxSlotCount="3" MaxSlotGroupCount="0" SlotPdoIncrement="0" SlotGroupPdoIncrement="0" SlotIndexIncrement="0" SlotGroupIndexIncrement="0">
+					<Slot MinInstances="1" MaxInstances="1" TreeView="SLOT">
+						<Name>EL6900-0000</Name>
+						<ModuleIdent Default="1">#x1af40000</ModuleIdent>
+						<Image16x14>EL69XX</Image16x14>
+					</Slot>
+					<Slot MinInstances="1" MaxInstances="1" TreeView="SLOT">
+						<Name>EL6900-0001</Name>
+						<ModuleIdent Default="1">#x1af40001</ModuleIdent>
+						<Image16x14>EL69XX</Image16x14>
+					</Slot>
+					<Slot MinInstances="1" MaxInstances="1" TreeView="SLOT">
+						<Name>EL6900-0002</Name>
+						<ModuleIdent Default="1">#x1af40002</ModuleIdent>
+						<Image16x14>EL69XX</Image16x14>
+					</Slot>
+				</Slots>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0500030000000000000000000000</ConfigData>
+					<BootStrap>0010f400f410f400</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x1b123052" RevisionNo="#x00100000" TcSmClass="EL69XX">EL6930</Type>
 				<Name LcId="1033">EL6930, TwinSAFE PLC </Name>
 				<Name LcId="1031">EL6930, TwinSAFE-PLC </Name>
@@ -17816,13 +18926,1129 @@
 					<BootStrap>0010f400f410f400</BootStrap>
 				</Eeprom>
 			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x1b123052" RevisionNo="#x00120000" TcSmClass="EL69XX">EL6930</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<Name LcId="1033">EL6930, TwinSAFE PLC </Name>
+				<Name LcId="1031">EL6930, TwinSAFE-PLC </Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL6900]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL6900]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+					<Mailbox>
+						<Timeout>
+							<RequestTimeout>100</RequestTimeout>
+							<ResponseTimeout>2000</ResponseTimeout>
+						</Timeout>
+					</Mailbox>
+					<VendorSpecific>
+						<TcSmExtension Guid="{BFD59518-85D6-4B8B-9956-26975A27C22A}"/>
+						<TcSmExtension Guid="{CC723E71-B6E1-4737-B58F-0ACE9032A566}"/>
+					</VendorSpecific>
+				</Info>
+				<GroupType>Safety</GroupType>
+				<Profile>
+					<ProfileNo>5001</ProfileNo>
+					<AddInfo>6900</AddInfo>
+					<ChannelCount>128</ChannelCount>
+					<Dictionary>
+						<DataTypes>
+							<DataType>
+								<Name>BIT3</Name>
+								<BitSize>3</BitSize>
+							</DataType>
+							<DataType>
+								<Name>BOOL</Name>
+								<BitSize>1</BitSize>
+							</DataType>
+							<DataType>
+								<Name>BYTE</Name>
+								<BitSize>8</BitSize>
+							</DataType>
+							<DataType>
+								<Name>INT</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>UDINT</Name>
+								<BitSize>32</BitSize>
+							</DataType>
+							<DataType>
+								<Name>UINT</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>USINT</Name>
+								<BitSize>8</BitSize>
+							</DataType>
+							<DataType>
+								<Name>ARRAY [0..63] OF BYTE</Name>
+								<BaseType>BYTE</BaseType>
+								<BitSize>512</BitSize>
+								<ArrayInfo>
+									<LBound>0</LBound>
+									<Elements>64</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>STRING(2)</Name>
+								<BitSize>16</BitSize>
+							</DataType>
+							<DataType>
+								<Name>STRING(6)</Name>
+								<BitSize>48</BitSize>
+							</DataType>
+							<DataType>
+								<Name>DT0800EN03</Name>
+								<BaseType>USINT</BaseType>
+								<BitSize>3</BitSize>
+								<EnumInfo>
+									<Text>OFFLINE</Text>
+									<Enum>0</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>RUN</Text>
+									<Enum>1</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>STOP</Text>
+									<Enum>2</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>START</Text>
+									<Enum>3</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>RESTORE</Text>
+									<Enum>4</Enum>
+								</EnumInfo>
+								<EnumInfo>
+									<Text>FAULT</Text>
+									<Enum>7</Enum>
+								</EnumInfo>
+							</DataType>
+							<DataType>
+								<Name>DT1018</Name>
+								<BitSize>144</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Vendor ID</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Product code</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Revision</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>80</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Serial number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>112</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C00ARR</Name>
+								<BaseType>USINT</BaseType>
+								<BitSize>32</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>4</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DT1C00</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DT1C00ARR</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DT1C32</Name>
+								<BitSize>360</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Sync mode</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access WriteRestrictions="PreOP">rw</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Cycle time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access WriteRestrictions="PreOP">rw</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Shift time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>64</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Sync modes supported</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>96</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>5</SubIdx>
+									<Name>Minimum cycle time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>112</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>6</SubIdx>
+									<Name>Calc and copy time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>144</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>8</SubIdx>
+									<Name>Command</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>208</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>9</SubIdx>
+									<Name>Delay time</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>224</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>11</SubIdx>
+									<Name>SM event missed counter</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>288</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>12</SubIdx>
+									<Name>Cycle exceeded counter</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>304</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>13</SubIdx>
+									<Name>Shift too short counter</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>320</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>32</SubIdx>
+									<Name>Sync error</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>352</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF000</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Module index distance</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Maximum number of modules</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF100</Name>
+								<BitSize>32</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Safety Project State</Name>
+									<Type>DT0800EN03</Type>
+									<BitSize>3</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>8</SubIdx>
+									<Name>Login Active</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>23</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>9</SubIdx>
+									<Name>Input Size Mismatch</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>24</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>10</SubIdx>
+									<Name>Output Size Mismatch</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>25</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>15</SubIdx>
+									<Name>TxPDO State</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>30</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>16</SubIdx>
+									<Name>TxPDO Toggle</Name>
+									<Type>BOOL</Type>
+									<BitSize>1</BitSize>
+									<BitOffs>31</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF200</Name>
+								<BitSize>32</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Control</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>R</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF880</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Serial Number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>rw</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF900</Name>
+								<BitSize>48</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Max SafeInputData per Connection</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Max SafeOutputData per Connection</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTF980</Name>
+								<BitSize>80</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>FSoE Address</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Serial Number</Name>
+									<Type>UDINT</Type>
+									<BitSize>32</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Project CRC</Name>
+									<Type>UINT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>64</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+										<PdoMapping>T</PdoMapping>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTFA00ARR</Name>
+								<BaseType>UINT</BaseType>
+								<BitSize>512</BitSize>
+								<ArrayInfo>
+									<LBound>1</LBound>
+									<Elements>32</Elements>
+								</ArrayInfo>
+							</DataType>
+							<DataType>
+								<Name>DTFA00</Name>
+								<BitSize>528</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<Name>Elements</Name>
+									<Type>DTFA00ARR</Type>
+									<BitSize>512</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+							<DataType>
+								<Name>DTFA80</Name>
+								<BitSize>80</BitSize>
+								<SubItem>
+									<SubIdx>0</SubIdx>
+									<Name>SubIndex 000</Name>
+									<Type>USINT</Type>
+									<BitSize>8</BitSize>
+									<BitOffs>0</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>1</SubIdx>
+									<Name>Temperature Primary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>16</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>2</SubIdx>
+									<Name>Temperature Secondary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>32</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>3</SubIdx>
+									<Name>Vcc Primary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>48</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+								<SubItem>
+									<SubIdx>4</SubIdx>
+									<Name>Vcc Secondary MC</Name>
+									<Type>INT</Type>
+									<BitSize>16</BitSize>
+									<BitOffs>64</BitOffs>
+									<Flags>
+										<Access>ro</Access>
+									</Flags>
+								</SubItem>
+							</DataType>
+						</DataTypes>
+						<Objects>
+							<Object>
+								<Index>#x1000</Index>
+								<Name>Device type</Name>
+								<Type>UDINT</Type>
+								<BitSize>32</BitSize>
+								<Info>
+									<DefaultData>8913f41a</DefaultData>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1008</Index>
+								<Name>Device name</Name>
+								<Type>STRING(6)</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<DefaultData>454c36393330</DefaultData>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1009</Index>
+								<Name>Hardware version</Name>
+								<Type>STRING(2)</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x100a</Index>
+								<Name>Software version</Name>
+								<Type>STRING(2)</Type>
+								<BitSize>16</BitSize>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1018</Index>
+								<Name>Identity</Name>
+								<Type>DT1018</Type>
+								<BitSize>144</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Vendor ID</Name>
+										<Info>
+											<DefaultData>02000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Product code</Name>
+										<Info>
+											<DefaultData>5230121b</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Serial number</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c00</Index>
+								<Name>Sync manager type</Name>
+								<Type>DT1C00</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 001</Name>
+										<Info>
+											<DefaultData>01</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 002</Name>
+										<Info>
+											<DefaultData>02</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 003</Name>
+										<Info>
+											<DefaultData>03</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>SubIndex 004</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c32</Index>
+								<Name>SM output parameter</Name>
+								<Type>DT1C32</Type>
+								<BitSize>360</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>20</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync mode</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Cycle time</Name>
+										<Info>
+											<DefaultData>40420f00</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Shift time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync modes supported</Name>
+										<Info>
+											<DefaultData>0140</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Minimum cycle time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Calc and copy time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Command</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Delay time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x1c33</Index>
+								<Name>SM input parameter</Name>
+								<Type>DT1C32</Type>
+								<BitSize>360</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>20</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync mode</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Cycle time</Name>
+										<Info>
+											<DefaultData>40420f00</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Shift time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Sync modes supported</Name>
+										<Info>
+											<DefaultData>0140</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Minimum cycle time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Calc and copy time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Command</Name>
+										<Info>
+											<DefaultData>0000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Delay time</Name>
+										<Info>
+											<DefaultData>00000000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#x2000</Index>
+								<Name>Safe Project</Name>
+								<Type>ARRAY [0..63] OF BYTE</Type>
+								<BitSize>512</BitSize>
+								<Flags>
+									<Access>rw</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf000</Index>
+								<Name>Modular device profile</Name>
+								<Type>DTF000</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>02</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Module index distance</Name>
+										<Info>
+											<DefaultData>1000</DefaultData>
+										</Info>
+									</SubItem>
+									<SubItem>
+										<Name>Maximum number of modules</Name>
+										<Info>
+											<DefaultData>8000</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf008</Index>
+								<Name>Code word</Name>
+								<Type>UDINT</Type>
+								<BitSize>32</BitSize>
+								<Flags>
+									<Access>rw</Access>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf100</Index>
+								<Name>Device Status</Name>
+								<Type>DTF100</Type>
+								<BitSize>32</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>10</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf200</Index>
+								<Name>Device Control</Name>
+								<Type>DTF200</Type>
+								<BitSize>32</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>01</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf880</Index>
+								<Name>Vendor Data</Name>
+								<Type>DTF880</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>01</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>rw</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf900</Index>
+								<Name>FSOE Master Parameter</Name>
+								<Type>DTF900</Type>
+								<BitSize>48</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>02</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xf980</Index>
+								<Name>Safe Address</Name>
+								<Type>DTF980</Type>
+								<BitSize>80</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>03</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xfa00</Index>
+								<Name>Diag Data</Name>
+								<Type>DTFA00</Type>
+								<BitSize>528</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>20</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+							<Object>
+								<Index>#xfa80</Index>
+								<Name>Hardware Diag</Name>
+								<Type>DTFA80</Type>
+								<BitSize>80</BitSize>
+								<Info>
+									<SubItem>
+										<Name>SubIndex 000</Name>
+										<Info>
+											<DefaultData>04</DefaultData>
+										</Info>
+									</SubItem>
+								</Info>
+								<Flags>
+									<Access>ro</Access>
+									<SdoAccess>SubIndexAccess</SdoAccess>
+								</Flags>
+							</Object>
+						</Objects>
+					</Dictionary>
+				</Profile>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Fmmu>MBoxState</Fmmu>
+				<Sm MinSize="256" MaxSize="256" DefaultSize="256" StartAddress="#x1000" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm MinSize="256" MaxSize="256" DefaultSize="256" StartAddress="#x1100" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm DefaultSize="2" StartAddress="#x1200" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm DefaultSize="2" StartAddress="#x1D00" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<Mailbox DataLinkLayer="true">
+					<CoE SdoInfo="1"/>
+					<FoE/>
+				</Mailbox>
+				<Slots MaxSlotCount="3" MaxSlotGroupCount="0" SlotPdoIncrement="0" SlotGroupPdoIncrement="0" SlotIndexIncrement="0" SlotGroupIndexIncrement="0">
+					<Slot SlotGroup="0" MinInstances="1" MaxInstances="1">
+						<Name>EL6900-0000</Name>
+						<ModuleIdent Default="1">#x1af40000</ModuleIdent>
+						<Image16x14>EL69XX</Image16x14>
+					</Slot>
+					<Slot SlotGroup="0" MinInstances="1" MaxInstances="1">
+						<Name>EL6900-0001</Name>
+						<ModuleIdent Default="1">#x1af40001</ModuleIdent>
+						<Image16x14>EL69XX</Image16x14>
+					</Slot>
+					<Slot SlotGroup="0" MinInstances="1" MaxInstances="1">
+						<Name>EL6900-0002</Name>
+						<ModuleIdent Default="1">#x1af40002</ModuleIdent>
+						<Image16x14>EL69XX</Image16x14>
+					</Slot>
+				</Slots>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0500030000000000000000000000</ConfigData>
+					<BootStrap>0010f400f410f400</BootStrap>
+				</Eeprom>
+			</Device>
 		</Devices>
 		<Modules>
 			<Module Crc32="0">
-				<Type ModuleIdent="#x1af40000" ModuleClass="EL6900-0000" ModulePdoGroup="0">FSOE</Type>
+				<Type ModuleIdent="#x1af40000" ModuleClass="EL6900-0000">FSOE</Type>
 				<Name>FSOE Messages</Name>
-				<SafetyParaMapping Fixed="true">
-					<Index>#x1E00</Index>
+				<SafetyParaMapping Fixed="1">
+					<Index>#x1e00</Index>
 					<Name>SafetyParameterSet</Name>
 					<Entry>
 						<Index>#x9001</Index>
@@ -17846,35 +20072,38 @@
 						<DataType>UINT</DataType>
 					</Entry>
 					<Entry>
-						<Index>#x10E0</Index>
+						<Index>#x10e0</Index>
 						<SubIndex>1</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Store Code</Name>
 						<DataType>UINT</DataType>
 					</Entry>
 					<Entry>
-						<Index>#x10E0</Index>
+						<Index>#x10e0</Index>
 						<SubIndex>2</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Project CRC</Name>
 						<DataType>UINT</DataType>
 					</Entry>
 				</SafetyParaMapping>
+				<Mailbox>
+					<CoE PdoUpload="1"/>
+				</Mailbox>
 				<Image16x14>EL69XX</Image16x14>
 			</Module>
-			<Module Crc32="0">
-				<Type ModuleIdent="#x1af40001" ModuleClass="EL6900-0001" ModulePdoGroup="0">FSOE</Type>
+			<Module>
+				<Type ModuleIdent="#x1af40001" ModuleClass="EL6900-0001">FSOE</Type>
 				<Name>Standard Variables</Name>
 				<Image16x14>EL69XX</Image16x14>
 			</Module>
-			<Module Crc32="0">
-				<Type ModuleIdent="#x1af40002" ModuleClass="EL6900-0002" ModulePdoGroup="0">FSOE</Type>
+			<Module>
+				<Type ModuleIdent="#x1af40002" ModuleClass="EL6900-0002">FSOE</Type>
 				<Name>Control/Status</Name>
 				<RxPdo Fixed="1" Mandatory="1" Sm="2">
 					<Index>#x17ff</Index>
 					<Name>DEVICE Outputs</Name>
 					<Entry>
-						<Index>#xf201</Index>
+						<Index>#xf200</Index>
 						<SubIndex>1</SubIndex>
 						<BitLen>16</BitLen>
 						<Name>Control</Name>
@@ -17894,12 +20123,13 @@
 					<Entry>
 						<Index>#x0</Index>
 						<BitLen>4</BitLen>
+						<Name/>
 					</Entry>
 					<Entry>
 						<Index>#xf100</Index>
 						<SubIndex>8</SubIndex>
 						<BitLen>1</BitLen>
-						<Name>Login State</Name>
+						<Name>Login Active</Name>
 						<DataType>BOOL</DataType>
 					</Entry>
 					<Entry>
@@ -17919,19 +20149,20 @@
 					<Entry>
 						<Index>#x0</Index>
 						<BitLen>4</BitLen>
+						<Name/>
 					</Entry>
 					<Entry>
-						<Index>#x1800</Index>
-						<SubIndex>7</SubIndex>
+						<Index>#xf100</Index>
+						<SubIndex>15</SubIndex>
 						<BitLen>1</BitLen>
-						<Name>TxPDO Toggle</Name>
+						<Name>TxPDO State</Name>
 						<DataType>BOOL</DataType>
 					</Entry>
 					<Entry>
-						<Index>#x1800</Index>
-						<SubIndex>9</SubIndex>
+						<Index>#xf100</Index>
+						<SubIndex>16</SubIndex>
 						<BitLen>1</BitLen>
-						<Name>TxPDO State</Name>
+						<Name>TxPDO Toggle</Name>
 						<DataType>BOOL</DataType>
 					</Entry>
 				</TxPdo>

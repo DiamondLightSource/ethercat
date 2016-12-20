@@ -2,7 +2,7 @@
 <EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
 	<Vendor>
 		<Id>2</Id>
-		<Name>Beckhoff Automation GmbH</Name>
+		<Name>Beckhoff Automation GmbH &amp; Co. KG</Name>
 	</Vendor>
 	<Descriptions>
 		<Groups>
@@ -30,6 +30,23 @@
 				<Name LcId="1031"><![CDATA[CU1128 6x EtherCAT junction]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/CU1128]]></URL>
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/CU1128]]></URL>
+				<Info>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X3</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2</Label>
+					</Port>
+				</Info>
 				<GroupType>EC_INF</GroupType>
 				<Profile/>
 				<Eeprom>
@@ -37,13 +54,30 @@
 					<ConfigData>000D00000A00	
 </ConfigData>
 				</Eeprom>
+				<ImageData16x14>424DF60000000000000076000000280000001000000010000000010004000000000080000000120B0000120B00001000000010000000411F91007F7F7F0099999900A3A3CF00B0003400D0D0D000DBDBDB00FFFFFF00C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDDDDDDDD1616161616161DD26262626262621DD25546666666623D4444446666333333D26646666666623DD20666666666623D0000006666333333D20666666666623DD20666666666623D0000006666333333D20666666666623DD23666666666623D3333336666333333D23666666666623DD2222222222222DD</ImageData16x14>
 			</Device>
 			<Device Physics="KYKY">
-				<Type ProductCode="#x04685432" RevisionNo="#x00000001">CU1128</Type>
+				<Type ProductCode="#x04685432" RevisionNo="#x00000001">CU1128-B</Type>
 				<Name LcId="1033"><![CDATA[CU1128 6x EtherCAT junction - Dev A]]></Name>
 				<Name LcId="1031"><![CDATA[CU1128 6x EtherCAT junction - Dev A]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/CU1128]]></URL>
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/CU1128]]></URL>
+				<Info>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X5</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X4</Label>
+					</Port>
+				</Info>
 				<GroupType>EC_INF</GroupType>
 				<Profile/>
 				<Eeprom>
@@ -51,13 +85,31 @@
 					<ConfigData>000D00000A00	
 </ConfigData>
 				</Eeprom>
+				<ImageData16x14>424DF60000000000000076000000280000001000000010000000010004000000000080000000120B0000120B00001000000010000000411F91007F7F7F0099999900A3A3CF00D0D0D000DBDBDB00FFFFFF0080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDDDDDDDD1515151515151DD25252525252521DD24435555555520D3333335555000000D25535555555520DD23555555555523D3333335555333333D23555555555523DD23555555555523D3333335555333333D23555555555523DD20555555555523D0000005555333333D20555555555523DD2525252525252DD</ImageData16x14>
 			</Device>
 			<Device Physics="KYYY">
-				<Type ProductCode="#x04685432" RevisionNo="#x00000002">CU1128</Type>
+				<Type ProductCode="#x04685432" RevisionNo="#x00000002">CU1128-C</Type>
 				<Name LcId="1033"><![CDATA[CU1128 6x EtherCAT junction - Dev B]]></Name>
 				<Name LcId="1031"><![CDATA[CU1128 6x EtherCAT junction - Dev B]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/CU1128]]></URL>
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/CU1128]]></URL>
+				<Info>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X7</Label>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X8 OUT</Label>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X6 </Label>
+					</Port>
+				</Info>
 				<GroupType>EC_INF</GroupType>
 				<Profile/>
 				<Eeprom>
@@ -65,6 +117,107 @@
 					<ConfigData>000D00000A00	
 </ConfigData>
 				</Eeprom>
+				<ImageData16x14>424DF60000000000000076000000280000001000000010000000010004000000000080000000120B0000120B00001000000010000000411F91007F7F7F0099999900A3A3CF00D0D0D000DBDBDB00FFFFFF0080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDDDDDDDD1111111111111DD22222222222221DD24435555555523D3333335555333333D25535555555523DD23555555555520D3333335555000000D23555555555520DD23555555555520D3333335555000000D23555555555520DD23555555555520D3333335555000000D23555555555520DD2525252525252DD</ImageData16x14>
+			</Device>
+			<Device Physics="YYKY">
+				<Type ProductCode="#x04685432" RevisionNo="#x00010000">CU1128</Type>
+				<HideType RevisionNo="#x00000000"/>
+				<HideType RevisionNo="#x00010001"/>
+				<HideType RevisionNo="#x00010002"/>
+				<SubDevice ProductCode="#x04685432" RevisionNo="#x00010001"/>
+				<SubDevice ProductCode="#x04685432" RevisionNo="#x00010002"/>
+				<Name LcId="1033"><![CDATA[CU1128 6x EtherCAT junction]]></Name>
+				<Name LcId="1031"><![CDATA[CU1128 6x EtherCAT junction]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/CU1128]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/CU1128]]></URL>
+				<Info>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X3</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2</Label>
+					</Port>
+				</Info>
+				<GroupType>EC_INF</GroupType>
+				<Profile/>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>000D00000A00	
+</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DF60000000000000076000000280000001000000010000000010004000000000080000000120B0000120B00001000000010000000411F91007F7F7F0099999900A3A3CF00B0003400D0D0D000DBDBDB00FFFFFF00C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDDDDDDDD1616161616161DD26262626262621DD25546666666623D4444446666333333D26646666666623DD20666666666623D0000006666333333D20666666666623DD20666666666623D0000006666333333D20666666666623DD23666666666623D3333336666333333D23666666666623DD2222222222222DD</ImageData16x14>
+			</Device>
+			<Device Physics="KYKY">
+				<Type ProductCode="#x04685432" RevisionNo="#x00010001">CU1128-B</Type>
+				<Name LcId="1033"><![CDATA[CU1128 6x EtherCAT junction - Dev A]]></Name>
+				<Name LcId="1031"><![CDATA[CU1128 6x EtherCAT junction - Dev A]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/CU1128]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/CU1128]]></URL>
+				<Info>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X5</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X4</Label>
+					</Port>
+				</Info>
+				<GroupType>EC_INF</GroupType>
+				<Profile/>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>000D00000A00	
+</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DF60000000000000076000000280000001000000010000000010004000000000080000000120B0000120B00001000000010000000411F91007F7F7F0099999900A3A3CF00D0D0D000DBDBDB00FFFFFF0080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDDDDDDDD1515151515151DD25252525252521DD24435555555520D3333335555000000D25535555555520DD23555555555523D3333335555333333D23555555555523DD23555555555523D3333335555333333D23555555555523DD20555555555523D0000005555333333D20555555555523DD2525252525252DD</ImageData16x14>
+			</Device>
+			<Device Physics="KYYY">
+				<Type ProductCode="#x04685432" RevisionNo="#x00010002">CU1128-C</Type>
+				<Name LcId="1033"><![CDATA[CU1128 6x EtherCAT junction - Dev B]]></Name>
+				<Name LcId="1031"><![CDATA[CU1128 6x EtherCAT junction - Dev B]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/CU1128]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/CU1128]]></URL>
+				<Info>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X7</Label>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X8 OUT</Label>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X6 </Label>
+					</Port>
+				</Info>
+				<GroupType>EC_INF</GroupType>
+				<Profile/>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>000D00000A00	
+</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DF60000000000000076000000280000001000000010000000010004000000000080000000120B0000120B00001000000010000000411F91007F7F7F0099999900A3A3CF00D0D0D000DBDBDB00FFFFFF0080808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDDDDDDDD1111111111111DD22222222222221DD24435555555523D3333335555333333D25535555555523DD23555555555520D3333335555000000D23555555555520DD23555555555520D3333335555000000D23555555555520DD23555555555520D3333335555000000D23555555555520DD2525252525252DD</ImageData16x14>
 			</Device>
 			<Device Physics="YY">
 				<Type ProductCode="#x05F15430" RevisionNo="#x00000000">CU1521</Type>

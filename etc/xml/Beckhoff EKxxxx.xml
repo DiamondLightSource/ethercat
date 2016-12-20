@@ -2,7 +2,7 @@
 <EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
 	<Vendor>
 		<Id>2</Id>
-		<Name>Beckhoff Automation GmbH</Name>
+		<Name>Beckhoff Automation GmbH &amp; Co. KG</Name>
 		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
 	</Vendor>
 	<Descriptions>
@@ -41,6 +41,17 @@
 					<Electrical>
 						<EBusCurrent>-500</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 				</Info>
 				<GroupType>SystemBk</GroupType>
 				<Eeprom>
@@ -59,6 +70,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 				</Info>
 				<GroupType>SystemBk</GroupType>
 				<Eeprom>
@@ -77,6 +99,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 				</Info>
 				<GroupType>SystemBk</GroupType>
 				<Eeprom>
@@ -119,6 +152,34 @@
 				<HideType RevisionNo="#x00110000"/>
 				<Name LcId="1033"><![CDATA[EK1100 EtherCAT Coupler (2A E-Bus)]]></Name>
 				<Name LcId="1031"><![CDATA[EK1100 EtherCAT-Koppler (2A E-Bus)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EK1100]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EK1100]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-2000</EBusCurrent>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
+				</Info>
+				<GroupType>SystemBk</GroupType>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>000D</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YKY">
+				<Type ProductCode="#x044c2c52" RevisionNo="#x00100008">EK1100-0008</Type>
+				<Name LcId="1033"><![CDATA[EK1100-0008 EtherCAT Coupler M8 (2A E-Bus)]]></Name>
+				<Name LcId="1031"><![CDATA[EK1100-0008 EtherCAT-Koppler M8 (2A E-Bus)]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EK1100]]></URL>
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EK1100]]></URL>
 				<Info>
@@ -327,6 +388,13 @@
 					<Electrical>
 						<EBusCurrent>140</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 OUT</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -346,6 +414,13 @@
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 OUT</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -366,6 +441,38 @@
 					<Electrical>
 						<EBusCurrent>130</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 OUT</Label>
+					</Port>
+				</Info>
+				<GroupType>System</GroupType>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0001</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FF00BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C080808000BFFF00BFFF00BFFF00BFFF00BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FF00BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
+			<Device Physics="KY">
+				<Type ProductCode="#x04562c52" RevisionNo="#x00100008">EK1110-0008</Type>
+				<Name LcId="1033"><![CDATA[EK1110-0008 EtherCAT extension M8]]></Name>
+				<Name LcId="1031"><![CDATA[EK1110-0008 EtherCAT-Verlängerung M8]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EK1110]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EK1110]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>130</EBusCurrent>
+					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 OUT</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -473,6 +580,38 @@
 				</Eeprom>
 				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000120B0000120B00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C080808080808080808000BFFF00BFFF00BFFF00BFFF00BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C080808080808080808000BFFF00BFFF00BFFF00BFFF00BFFF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0BBC2BBC0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0BAC2BA0BFC0BC0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FF</ImageData16x14>
 			</Device>
+			<Device Physics="KYKY">
+				<Type ProductCode="#x04622c52" RevisionNo="#x00100008">EK1122-0008</Type>
+				<Name LcId="1033"><![CDATA[EK1122-0008 2 port EtherCAT junction M8]]></Name>
+				<Name LcId="1031"><![CDATA[EK1122-0008 2-Port EtherCAT-Abzweig M8]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EK1122]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EK1122]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>220</EBusCurrent>
+					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
+				</Info>
+				<GroupType>System</GroupType>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>000D</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000120B0000120B00000000000000000000FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF808080808080808080808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C080808080808080808000BFFF00BFFF00BFFF00BFFF00BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C080808080808080808000BFFF00BFFF00BFFF00BFFF00BFFF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0808080808080808080C0C0C0C0C0C080808000BFFFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0BBC2BBC0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0BAC2BA0BFC0BC0C0C0C0C0C0C0C0C0808080FF00FFFF00FF007FFF007FFF007FFF007FFF007FFF007FFFC0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FF</ImageData16x14>
+			</Device>
 			<Device Physics="YK" Invisible="true">
 				<Type ProductCode="#x04B02C52" RevisionNo="#x00001388">EK1200</Type>
 				<Name LcId="1033"><![CDATA[EK1200-5000 EtherCAT Power supply (2A E-Bus)]]></Name>
@@ -501,6 +640,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -534,6 +684,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -567,6 +728,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -601,6 +773,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -633,6 +816,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -666,6 +860,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -700,6 +905,60 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
+					<IdentificationAdo>#x1000</IdentificationAdo>
+				</Info>
+				<GroupType>SystemBk</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>ID</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>ID</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040D00000000c000</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000BFFF00BFFFC0C0C0808080C0C0C000FFFFC0C0C000FFFF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000BFFF00BFFFC0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000BFFF00BFFFC0C0C0808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0FF0000C0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000BFFF00BFFFC0C0C0808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000BFFF00BFFFC0C0C0808080C0C0C00000FFC0C0C00000FF808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C000BFFF00BFFFC0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000000000C0C0C0808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF000000C0C0C0C0C0C0000000808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0000000000000C0C0C0808080C0C0C0008000C0C0C0008000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
+			<Device Physics="YKY">
+				<Type ProductCode="#x05DD2C52" RevisionNo="#x00100064">EK1501-0100</Type>
+				<Name LcId="1033"><![CDATA[EK1501-0100 EtherCAT Coupler (2A E-Bus, FX-MultiMode, media converter, ID switch)]]></Name>
+				<Name LcId="1031"><![CDATA[EK1501-0100 EtherCAT-Koppler (2A E-Bus, FX-MultiMode, Medienkonverter, ID-Switch)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EK1501]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EK1501]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-2000</EBusCurrent>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 FX IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 RJ45 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -732,6 +991,20 @@
 					<Electrical>
 						<EBusCurrent>400</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -751,6 +1024,20 @@
 					<Electrical>
 						<EBusCurrent>400</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -771,6 +1058,20 @@
 					<Electrical>
 						<EBusCurrent>400</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -792,6 +1093,20 @@
 					<Electrical>
 						<EBusCurrent>315</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -814,6 +1129,20 @@
 					<Electrical>
 						<EBusCurrent>350</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -837,6 +1166,20 @@
 					<Electrical>
 						<EBusCurrent>350</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -855,6 +1198,20 @@
 					<Electrical>
 						<EBusCurrent>400</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -874,6 +1231,20 @@
 					<Electrical>
 						<EBusCurrent>400</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -894,6 +1265,20 @@
 					<Electrical>
 						<EBusCurrent>400</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -915,6 +1300,20 @@
 					<Electrical>
 						<EBusCurrent>315</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -937,6 +1336,20 @@
 					<Electrical>
 						<EBusCurrent>350</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -955,6 +1368,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -988,6 +1412,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -1021,6 +1456,17 @@
 					<Electrical>
 						<EBusCurrent>-2000</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1 IN</Label>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X2 OUT</Label>
+					</Port>
 					<IdentificationAdo>#x1000</IdentificationAdo>
 				</Info>
 				<GroupType>SystemBk</GroupType>
@@ -1053,6 +1499,20 @@
 					<Electrical>
 						<EBusCurrent>200</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -1072,6 +1532,20 @@
 					<Electrical>
 						<EBusCurrent>200</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>
@@ -1091,6 +1565,20 @@
 					<Electrical>
 						<EBusCurrent>200</EBusCurrent>
 					</Electrical>
+					<Port>
+						<Type>EBUS</Type>
+						<Label/>
+					</Port>
+					<Port>
+						<Type>NONE</Type>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Label>X1</Label>
+					</Port>
 				</Info>
 				<GroupType>System</GroupType>
 				<Eeprom>

@@ -2,7 +2,7 @@
 <EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
 	<Vendor>
 		<Id>2</Id>
-		<Name>Beckhoff Automation GmbH</Name>
+		<Name>Beckhoff Automation GmbH &amp; Co. KG</Name>
 		<ImageData16x14>424DE6000000000000007600000028000000100000000E000000010004000000000070000000120B0000120B0000100000001000000000000000000080000080000000808000800000008000800080800000C0C0C000808080000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF009D9DD99DD9DDD9DD9D9D9DD9D9DDD9DD999D9DD9D999D9999D9D9DD9D9DDD9DD9D9DD99DD999D999DDDDDDDDDDDDDDDD88888888888888888888888888888888DDDDDDDDDDDDDDDD999D999DD99DD9D99D9D9DDD9DD9D9D999DD999D9DDDD99D9D9D9DDD9DD9D99D999D999DD99DD9D9</ImageData16x14>
 	</Vendor>
 	<Descriptions>
@@ -17,6 +17,604 @@
 		<Devices>
 			<Device Physics="KK">
 				<Type ProductCode="#x12683052" RevisionNo="#x00000000" TcSmClass="EL47XX">EL4712</Type>
+				<Name LcId="1033"><![CDATA[EL4712 2Ch. Ana. Output 0-20mA, Oversample]]></Name>
+				<Name LcId="1031"><![CDATA[EL4712 2K. Ana. Ausgang 0-20mA, Oversample]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4712]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4712]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>100</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaOutFast</GroupType>
+				<Fmmu OpOnly="true" Sm="0" Su="0">Outputs</Fmmu>
+				<Fmmu OpOnly="true" Sm="1" Su="1">Outputs</Fmmu>
+				<Fmmu OpOnly="false" Sm="2" Su="0">Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="#x64" Enable="1" OpOnly="true">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x64" Enable="1" OpOnly="true">Outputs</Sm>
+				<Sm StartAddress="#x0998" Virtual="true">Inputs</Sm>
+				<Su/>
+				<Su/>
+				<RxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1680</Index>
+					<Name>Ch1 CycleCount</Name>
+					<Entry>
+						<Index>#x7800</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch1 CycleCount</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0" OSFac="20" OSMin="1" OSMax="100" OSIndexInc="16" Su="0">
+					<Index>#x1600</Index>
+					<Name>Ch1 Sample</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch1 Value</Name>
+						<DataType>INT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="1" Su="1" Mandatory="1">
+					<Index>#x1780</Index>
+					<Name>Ch2 CycleCount</Name>
+					<Entry>
+						<Index>#x7800</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch2 CycleCount</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="1" OSFac="20" OSMin="1" OSMax="100" OSIndexInc="16" Su="1">
+					<Index>#x1700</Index>
+					<Name>Ch2 Sample</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch2 Value</Name>
+						<DataType>INT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="1" Sm="2" Virtual="true" Su="0">
+					<Index>#x1a82</Index>
+					<Name>StartTimeNextOutput</Name>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x98</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>StartTimeNextOutput</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>2 Channels</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="1">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="1">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT>
+								<Oversampling DefaultFactor="10" MinCycleTime="10000"/>
+							</TwinCAT>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync2</Name>
+						<Desc>2 Ch. - 2 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-2">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="2">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="2">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync3</Name>
+						<Desc>2 Ch. - 3 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-3">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="3">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="3">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync4</Name>
+						<Desc>2 Ch. - 4 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-4">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="4">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="4">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync5</Name>
+						<Desc>2 Ch. - 5 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-5">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="5">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="5">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync8</Name>
+						<Desc>2 Ch. - 8 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-8">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="8">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="8">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync10</Name>
+						<Desc>2 Ch. - 10 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-10">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="10">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="10">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync16</Name>
+						<Desc>2 Ch. - 16 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-16">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="16">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="16">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync20</Name>
+						<Desc>2 Ch. - 20 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-20">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="20">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="20">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync25</Name>
+						<Desc>2 Ch. - 25 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-25">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="25">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="25">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync32</Name>
+						<Desc>2 Ch. - 32 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-32">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="32">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="32">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync40</Name>
+						<Desc>2 Ch. - 40 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-40">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="40">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="40">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync50</Name>
+						<Desc>2 Ch. - 50 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-50">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="50">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="50">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync100</Name>
+						<Desc>2 Ch. - 100 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-100">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="100">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="100">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync-1</Name>
+						<Desc>1 Channel</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="1">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT>
+								<Oversampling DefaultFactor="10" MinCycleTime="5000"/>
+							</TwinCAT>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync2-1</Name>
+						<Desc>1 Ch. - 2 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-2">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="2">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync3-1</Name>
+						<Desc>1 Ch. - 3 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-3">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="3">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync4-1</Name>
+						<Desc>1 Ch. - 4 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-4">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="4">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync5-1</Name>
+						<Desc>1 Ch. - 5 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-5">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="5">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync8-1</Name>
+						<Desc>1 Ch. - 8 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-8">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="8">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync10-1</Name>
+						<Desc>1 Ch. - 10 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-10">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="10">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync16-1</Name>
+						<Desc>1 Ch. - 16 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-16">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="16">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync20-1</Name>
+						<Desc>1 Ch. - 20 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-20">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="20">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync25-1</Name>
+						<Desc>1 Ch. - 25 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-25">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="25">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync32-1</Name>
+						<Desc>1 Ch. - 32 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-32">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="32">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync40-1</Name>
+						<Desc>1 Ch. - 40 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-40">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="40">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync50-1</Name>
+						<Desc>1 Ch. - 50 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-50">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="50">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync100-1</Name>
+						<Desc>1 Ch. - 100 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-100">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="100">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0601000010000100</ConfigData>
+					<Category>
+						<CatNo>1</CatNo>
+						<Data>5C120500FFFF00000000FFFF00000000</Data>
+					</Category>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x12683052" RevisionNo="#x00010000" TcSmClass="EL47XX">EL4712</Type>
+				<HideType RevisionNo="#x00000000"/>
 				<Name LcId="1033"><![CDATA[EL4712 2Ch. Ana. Output 0-20mA, Oversample]]></Name>
 				<Name LcId="1031"><![CDATA[EL4712 2K. Ana. Ausgang 0-20mA, Oversample]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4712]]></URL>
@@ -1452,6 +2050,606 @@
 				<Type ProductCode="#x127C3052" RevisionNo="#x00030000" TcSmClass="EL47XX">EL4732</Type>
 				<HideType RevisionNo="#x00000001"/>
 				<HideType RevisionNo="#x00020000"/>
+				<Name LcId="1033"><![CDATA[EL4732 2Ch. Ana. Output +/-10V, Oversample]]></Name>
+				<Name LcId="1031"><![CDATA[EL4732 2K. Ana. Ausgang +/-10V, Oversample]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4732]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL4732]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>180</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>AnaOutFast</GroupType>
+				<Fmmu OpOnly="true" Sm="0" Su="0">Outputs</Fmmu>
+				<Fmmu OpOnly="true" Sm="1" Su="1">Outputs</Fmmu>
+				<Fmmu OpOnly="false" Sm="2" Su="0">Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="#x64" Enable="1" OpOnly="true">Outputs</Sm>
+				<Sm StartAddress="#x1400" ControlByte="#x64" Enable="1" OpOnly="true">Outputs</Sm>
+				<Sm StartAddress="#x0998" Virtual="true">Inputs</Sm>
+				<Su/>
+				<Su/>
+				<RxPdo Fixed="1" Sm="0" Su="0" Mandatory="1">
+					<Index>#x1680</Index>
+					<Name>Ch1 CycleCount</Name>
+					<Entry>
+						<Index>#x7800</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch1 CycleCount</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="0" OSFac="20" OSMin="1" OSMax="100" OSIndexInc="16" Su="0">
+					<Index>#x1600</Index>
+					<Name>Ch1 Sample</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch1 Value</Name>
+						<DataType>INT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="1" Su="1" Mandatory="1">
+					<Index>#x1780</Index>
+					<Name>Ch2 CycleCount</Name>
+					<Entry>
+						<Index>#x7800</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch2 CycleCount</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="1" OSFac="20" OSMin="1" OSMax="100" OSIndexInc="16" Su="1">
+					<Index>#x1700</Index>
+					<Name>Ch2 Sample</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Ch2 Value</Name>
+						<DataType>INT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="1" Sm="2" Virtual="true" Su="0">
+					<Index>#x1a82</Index>
+					<Name>StartTimeNextOutput</Name>
+					<Entry>
+						<Index>#x1d09</Index>
+						<SubIndex>#x98</SubIndex>
+						<BitLen>32</BitLen>
+						<Name>StartTimeNextOutput</Name>
+						<DataType>UDINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>2 Channels</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="1">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="1">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT>
+								<Oversampling DefaultFactor="10" MinCycleTime="10000"/>
+							</TwinCAT>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync2</Name>
+						<Desc>2 Ch. - 2 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-2">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="2">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="2">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync3</Name>
+						<Desc>2 Ch. - 3 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-3">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="3">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="3">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync4</Name>
+						<Desc>2 Ch. - 4 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-4">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="4">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="4">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync5</Name>
+						<Desc>2 Ch. - 5 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-5">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="5">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="5">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync8</Name>
+						<Desc>2 Ch. - 8 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-8">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="8">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="8">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync10</Name>
+						<Desc>2 Ch. - 10 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-10">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="10">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="10">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync16</Name>
+						<Desc>2 Ch. - 16 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-16">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="16">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="16">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync20</Name>
+						<Desc>2 Ch. - 20 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-20">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="20">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="20">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync25</Name>
+						<Desc>2 Ch. - 25 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-25">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="25">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="25">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync32</Name>
+						<Desc>2 Ch. - 32 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-32">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="32">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="32">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync40</Name>
+						<Desc>2 Ch. - 40 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-40">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="40">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="40">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync50</Name>
+						<Desc>2 Ch. - 50 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-50">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="50">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="50">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync100</Name>
+						<Desc>2 Ch. - 100 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-100">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="100">#x1600</Pdo>
+						</Sm>
+						<Sm No="1">
+							<Pdo>#x1780</Pdo>
+							<Pdo OSFac="100">#x1700</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync-1</Name>
+						<Desc>1 Channel</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="1">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT>
+								<Oversampling DefaultFactor="10" MinCycleTime="5000"/>
+							</TwinCAT>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync2-1</Name>
+						<Desc>1 Ch. - 2 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-2">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="2">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync3-1</Name>
+						<Desc>1 Ch. - 3 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-3">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="3">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync4-1</Name>
+						<Desc>1 Ch. - 4 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-4">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="4">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync5-1</Name>
+						<Desc>1 Ch. - 5 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-5">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="5">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync8-1</Name>
+						<Desc>1 Ch. - 8 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-8">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="8">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync10-1</Name>
+						<Desc>1 Ch. - 10 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-10">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="10">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync16-1</Name>
+						<Desc>1 Ch. - 16 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-16">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="16">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync20-1</Name>
+						<Desc>1 Ch. - 20 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-20">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="20">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync25-1</Name>
+						<Desc>1 Ch. - 25 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-25">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="25">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync32-1</Name>
+						<Desc>1 Ch. - 32 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-32">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="32">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync40-1</Name>
+						<Desc>1 Ch. - 40 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-40">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="40">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync50-1</Name>
+						<Desc>1 Ch. - 50 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-50">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="50">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync100-1</Name>
+						<Desc>1 Ch. - 100 times oversampling</Desc>
+						<AssignActivate>#x0730</AssignActivate>
+						<CycleTimeSync0 Factor="-100">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+						<CycleTimeSync1 Factor="-1">0</CycleTimeSync1>
+						<ShiftTimeSync1>0</ShiftTimeSync1>
+						<Sm No="0">
+							<Pdo>#x1680</Pdo>
+							<Pdo OSFac="100">#x1600</Pdo>
+						</Sm>
+						<VendorSpecific>
+							<TwinCAT IgnoreFromBuildNo="1506"/>
+						</VendorSpecific>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0601000010000100</ConfigData>
+					<Category>
+						<CatNo>1</CatNo>
+						<Data>5C120000FFFF00000000FFFF00000000</Data>
+					</Category>
+				</Eeprom>
+				<VendorSpecific>
+					<TwinCAT IgnoreFmmuSu="true" IgnorePdoSu="true"/>
+				</VendorSpecific>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x127C3052" RevisionNo="#x00040000" TcSmClass="EL47XX">EL4732</Type>
+				<HideType RevisionNo="#x00000001"/>
+				<HideType RevisionNo="#x00020000"/>
+				<HideType RevisionNo="#x00030000"/>
 				<Name LcId="1033"><![CDATA[EL4732 2Ch. Ana. Output +/-10V, Oversample]]></Name>
 				<Name LcId="1031"><![CDATA[EL4732 2K. Ana. Ausgang +/-10V, Oversample]]></Name>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL4732]]></URL>
