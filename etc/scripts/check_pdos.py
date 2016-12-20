@@ -10,7 +10,7 @@ from parseutil import getPdoName, getEntryName, parseInt, hasEntryName
 import libxml2
 import collections
 
-verbose = False
+verbose = True
 # parseOutput = {
 #     "devname" : [rev1, rev2, rev3]
 #     }
@@ -78,9 +78,6 @@ def report(data):
     print "Slave list %s" % data.keys()
     for n in data:
         print "device name: %s, revision count %d" % ( n, len(data[n]))
-        # print "revision count: %d" % len(data[n])
-        # for rev in data[n]:
-        #     print "revision: 0x%x" % rev["revision"]
         compareAllRevisions(data[n])
 
 ###### read data
@@ -148,36 +145,20 @@ def parseDeviceRev(deviceNode, devtype,product, revision):
     return devicerevdata
 
 def main():
-    prefix = "/home/rjq35657/R3.14.12.3/support/ethercat/etc/xml/Beckhoff "
     prefix = "/scratch/rjq35657/exp/Beckhoff "
-    # prefix = "/dls_sw/prod/R3.14.12.3/support/ethercat/4-3/etc/xml/Beckhoff "
     # files = {"filename": [ "dev1", "dev2"], ... }
     files = collections.OrderedDict()
-
-    files[ "EKxxxx.xml"]= ["EK1100","EK1122", "EK1100-0030", "EK1101"]
-    files[ "EL15xx.xml"]= ["EL1502"]
-    files[ "EL1xxx.xml"]= ["EL1014","EL1124"]
-    files[ "EL25xx.xml"]= ["EL2595"]
-    files[ "EL2xxx.xml"]= ["EL2612", "EL2624","EL2024","EL2024-0010","EL2124"]
-    files[ "EL31xx.xml"]= ["EL3104", "EL3124"]
-    files[ "EL32xx.xml"]= ["EL3202", "EL3202-0010"]
-    files[ "EL33xx.xml"]= ["EL3314"]
-    files[ "EL37xx.xml"]= ["EL3702"]
-    files[ "EL3xxx.xml"]= ["EL3602", "EL3202-0010"]
-
-    files[ "EL47xx.xml"]= ["EL4732"]
-
-    files[ "EL4xxx.xml"]= ["EL4134"]
-    files[ "EL9xxx.xml"]= ["EL9410","EL9512","EL9505"]
-    files[ "EP1xxx.xml"]= ["EP1122-0001"]
-    files[ "EP2xxx.xml"]= ["EP2338-0001", "EP2338-0002","EP2624", "EP2624-0002"]
-    files[ "EP3xxx.xml"]= ["EP3174-0002","EP3204-0002","EP3314-0002"]
-    files[ "EP4xxx.xml"]= ["EP4174-0002","EP4374-0002"]
-
-        # EL9011, EL9080, EL9185
+    files["EL15xx.xml"]= ["EL1502"]
+    files["EL25xx.xml"]= ["EL2595"]
+    files["EL32xx.xml"]= ["EL3202", "EL3202-0010"]
+    files["EL33xx.xml"]= ["EL3314"]
+    files["EL3xxx.xml"]= ["EL3602", "EL3202-0010"]
+    files["EL47xx.xml"]= ["EL4732"]
+    files["EP2xxx.xml"]= ["EP2338-0001", "EP2338-0002","EP2624", "EP2624-0002"]
+    files["EP3xxx.xml"]= ["EP3174-0002","EP3204-0002","EP3314-0002"]
+    files["EP4xxx.xml"]= ["EP4174-0002","EP4374-0002"]
 
     for f in files:
-        print(prefix + f)
         data = parseFile(prefix + f, files[f])
         report(data)
 
