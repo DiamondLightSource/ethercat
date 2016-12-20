@@ -29,6 +29,7 @@ char *read_slave_types();
 int copy_section(char *dest, char * start, char * end);
 int get_slave_type(slave_t *slave);
 void read_valid_slaves();
+int set_slave_list(char *slave_list);
 int check_valid_slave(char *name, int32_t revision);
 char *shorten_name(char *name);
 extern slave_t *valid_slaves[SLAVE_TYPES_MAXCOUNT];

@@ -14,29 +14,47 @@
 slave_t *valid_slaves[SLAVE_TYPES_MAXCOUNT];
 int valid_slaves_count;
 
-// TODO enable the client to specify an alternate file 
+/* slave_list is the filename of the slave list being used */
+static char *slave_list;
+
+/* set slave_list file 
+   returns YES if okay, NO if allocation fails */
+int set_slave_list(char *slave_list_arg)
+{
+    if (slave_list!=NULL)
+    {
+        free(slave_list);
+    }
+    slave_list = calloc(sizeof(char),strlen(slave_list_arg)+1);
+    if (!slave_list)
+        return NO;
+    strcpy(slave_list, slave_list_arg);
+    return YES;
+}
+
 char *read_slave_types()
 {
     char *buffer;
     char error_msg[250];
     FILE *f;
     char *filename;
-    char filename1[] = SLAVE_LIST_FILE;
     char filename2[] = BACKUP_LIST_FILE;
     struct stat fstat;
     size_t size;
     int result;
     int backup_list = NO;
 
-    filename = filename1;
-    result = stat(filename1,&fstat);
+    if (slave_list==NULL)
+        set_slave_list(SLAVE_LIST_FILE);
+    filename = slave_list;
+    result = stat(slave_list,&fstat);
     if (result)
     {
         backup_list = YES;
         filename = filename2;        
         result = stat(filename2,&fstat);
         if (result) {
-            sprintf(error_msg, ERRMSGFMT, filename1, filename2);
+            sprintf(error_msg, ERRMSGFMT, slave_list, filename2);
             perror(error_msg);
             exit(EXIT_FAILURE);
         }

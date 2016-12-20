@@ -21,7 +21,8 @@ char * usage =
     "Usage: %s [OPTION]...\n"
     "EtherCAT Serial Number Display Tool\n\n"
     "-w BASE      write increasing serial numbers starting from BASE\n"
-    "-p POS       program one slave at POS (default is all slaves after coupler)\n";
+    "-p POS       program one slave at POS (default is all slaves after coupler)\n"
+    "-s <slave-list>  use slave-list file.\n";
 
 int writeserial(int action, int base, int pos)
 {
@@ -133,7 +134,7 @@ int main(int argc, char ** argv)
     int action = READ_ACTION;
     while(1)
     {
-        int c = getopt(argc, argv, "w:p:");
+        int c = getopt(argc, argv, "w:p:s:");
         if(c == -1)
         {
             break;
@@ -146,6 +147,13 @@ int main(int argc, char ** argv)
         case 'w':
             action = WRITE_ACTION;
             base = atoi(optarg);
+            break;
+        case 's':
+            if (set_slave_list(optarg) != YES)
+            {
+                printf("Error: could not set slave list file\n");
+                exit(1);
+            }
             break;
         default:
             fprintf(stderr, usage, argv[0]);

@@ -113,7 +113,8 @@ const char *usage = "Usage: slaveinfo [options]\n"
 "Options:\n"
 "  -h                show this help message and exit\n"
 "  -d                write dcs serial numbers instead of positional info\n"
-"  -m <master_index> master to use (defaults to 0)\n";
+"  -m <master_index> master to use (defaults to 0)\n"
+"  -s <slave-list>   use slave-list file";
 
 
 int main(int argc, char ** argv) {
@@ -123,7 +124,7 @@ int main(int argc, char ** argv) {
     opterr = 0;
     while (1)
     {
-        int cmd = getopt (argc, argv, "hdm:");
+        int cmd = getopt (argc, argv, "hdm:s:");
         if(cmd == -1)
         {
             break;
@@ -139,6 +140,13 @@ int main(int argc, char ** argv) {
             break;
         case 'm':
             thebus.master_index = atoi(optarg);
+            break;
+        case 's':
+            if (set_slave_list(optarg) != YES)
+            {
+                printf("Error: could not set slave list file\n");
+                exit(1);
+            }
             break;
         }
     }
