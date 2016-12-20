@@ -3,6 +3,7 @@
 #include <ecrt.h>
 #include <unistd.h>
 #include "slave-types.h"
+#include "version.h"
 
 typedef struct
 {
@@ -80,10 +81,10 @@ void writexml(businfo_t *i, int dcs)
            i->master_info.slave_count, i->master_info.link_up);
     if (i->all_slaves_valid == NO)
     {
-        printf("  <!-- WARNING: bus contains slaves"
-               " not supported by the EPICS module -->\n");
-        printf("  <!-- WARNING: Please contact module "
-               "maintainer -->\n");
+        printf("  <!-- WARNING: bus contains slaves not supported by "
+               "the EPICS module at release %s-->\n", VERSION_STRING);
+        printf("  <!-- WARNING: Please attempt upgrade or contact "
+               "module maintainer -->\n");
     }
     for(n = 0; n < i->master_info.slave_count; n++)
     {
