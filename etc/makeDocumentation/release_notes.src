@@ -1,6 +1,21 @@
 /**
 \page release_notes Release notes
 
+\section rel4_8 Release 4-8
+
+Update documentation and merge in modifications needed to support
+ADEthercat module.
+
+Merged updated Beckhoff slave description files to allow use of slaves
+with newer revisions. In particular the slaves below.
+
+EL2595 revision 0x130000
+EL3702 revision 0x30000,
+EL3104 revision 0x130000
+EL3602 revision 0x130000
+EL1014 revision 0x130000
+EL2124 revision 0x110000
+
 \section rel4_7 Release 4-7
 
 Add "version.h" to encode a module version used to verify that scanner
