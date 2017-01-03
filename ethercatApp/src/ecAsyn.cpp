@@ -493,18 +493,23 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return status;
 }
 
-
-
 /*
  *  read configuration sent by scanner and populate "config" in
- *  ENGINE_USER structure
- *  These are components 2 and 
+ *  ENGINE_USER structure 
+ * 
+ *  The components expected are 
+ *  1 version number
+ *  2 slave chain description and 
+ *  3 serialised pdo mapping
+ *
+ *  These components are encoded in the configuration message
  */
-static int init_unpack(ENGINE_USER * usr, char * buffer)
+static parsing_result_type_t init_unpack(ENGINE_USER * usr, char * buffer)
 {
     EC_CONFIG * cfg = usr->config;
     int ofs = 0;
     int tag = unpack_int(buffer, &ofs);
+    parsing_result_type_t result;
     assert(tag == MSG_CONFIG);
     char *scanner_version;
     int scanner_version_len;
@@ -516,7 +521,9 @@ static int init_unpack(ENGINE_USER * usr, char * buffer)
     free(scanner_version);
     
     int scanner_config_size = unpack_int(buffer, &ofs);
-    read_config(buffer + ofs, scanner_config_size, cfg);
+    result = read_config(buffer + ofs, scanner_config_size, cfg);
+    if (result != PARSING_OKAY)
+        return PARSING_ERROR;
     ofs += scanner_config_size;
     int mapping_config_size = unpack_int(buffer, &ofs);
     parseEntriesFromBuffer(buffer + ofs, mapping_config_size, cfg);
@@ -540,7 +547,7 @@ static int init_unpack(ENGINE_USER * usr, char * buffer)
             }
         }
     }
-    return 0;
+    return PARSING_OKAY;
 }
 
 static void readConfig(ENGINE_USER * usr)
@@ -582,17 +589,19 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
     printf("getting config\n");
     ENGINE_USER * usr = (ENGINE_USER *)engine->usr;
     int ack = 0;
-    int size = rtSockReceive(sock, engine->receive_buffer, engine->max_message);
+    int size = rtSockReceive(sock, engine->receive_buffer,
+                             engine->max_message);
     if(size > 0)
     {
         if(usr->config_buffer == NULL)
         {
             usr->config_size = size;
-            usr->config_buffer = callocMustSucceed
-                (size, sizeof(char), "can't allocate config XML receive buffer");
+            usr->config_buffer = callocMustSucceed (size, sizeof(char),
+                 "can't allocate config XML receive buffer");
             memcpy(usr->config_buffer, engine->receive_buffer, size);
             printf("config-file size:%d\n", size);
-            init_unpack(usr, engine->receive_buffer);
+            assert( init_unpack(usr, engine->receive_buffer)
+                    == PARSING_OKAY);
             readConfig(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
         }
@@ -601,7 +610,6 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
             // check that the config hasn't changed
             assert(size == usr->config_size &&
                    memcmp(usr->config_buffer, engine->receive_buffer, size) == 0);
-            // check that the scanner version matches
         }
     }
     return !(size > 0);
