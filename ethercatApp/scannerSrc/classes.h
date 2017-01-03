@@ -220,7 +220,7 @@ EC_PDO_ENTRY_MAPPING * find_mapping(EC_DEVICE * device, int signal_no,
 #define INT_24BIT_MAX 8388607
 #define INT_24BIT_MIN -8388608
 
-
+/* better name would have been "parsing_result" */
 enum parsing_result_type {
     PARSING_ERROR, PARSING_OKAY
 };
