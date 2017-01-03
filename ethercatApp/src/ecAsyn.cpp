@@ -504,7 +504,7 @@ asynStatus ecAsyn::writeInt32(asynUser *pasynUser, epicsInt32 value)
  *
  *  These components are encoded in the configuration message
  */
-static parsing_result_type_t init_unpack(ENGINE_USER * usr, char * buffer)
+static parsing_result_type_t ecasyn_unpack(ENGINE_USER * usr, char * buffer)
 {
     EC_CONFIG * cfg = usr->config;
     int ofs = 0;
@@ -583,8 +583,8 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
        packet originates in the scanner
        What the ioc expects is
        1. version
-       2. slave chain description - parsed in init_unpack
-       3. serialised pdo mapping - parsed in init_unpack
+       2. slave chain description - parsed in ecasyn_unpack
+       3. serialised pdo mapping - parsed in ecasyn_unpack
      */
     printf("getting config\n");
     ENGINE_USER * usr = (ENGINE_USER *)engine->usr;
@@ -600,7 +600,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
                  "can't allocate config XML receive buffer");
             memcpy(usr->config_buffer, engine->receive_buffer, size);
             printf("config-file size:%d\n", size);
-            assert( init_unpack(usr, engine->receive_buffer)
+            assert( ecasyn_unpack(usr, engine->receive_buffer)
                     == PARSING_OKAY);
             readConfig(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
