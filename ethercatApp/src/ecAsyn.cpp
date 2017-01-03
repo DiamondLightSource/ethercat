@@ -550,7 +550,13 @@ static parsing_result_type_t ecasyn_unpack(ENGINE_USER * usr, char * buffer)
     return PARSING_OKAY;
 }
 
-static void readConfig(ENGINE_USER * usr)
+/**
+ *  create_ports
+ *  creates the asyn ports for the slaves read in the configuration
+ *  message
+ *  creates the sdo ports for registered sdo ports
+ */
+static void create_ports(ENGINE_USER * usr)
 {
     EC_CONFIG * cfg = usr->config;
     ELLNODE * node;
@@ -602,7 +608,7 @@ static int receive_config_on_connect(ENGINE * engine, int sock)
             printf("config-file size:%d\n", size);
             assert( ecasyn_unpack(usr, engine->receive_buffer)
                     == PARSING_OKAY);
-            readConfig(usr);
+            create_ports(usr);
             rtMessageQueueSend(usr->config_ready, &ack, sizeof(int));
         }
         else
