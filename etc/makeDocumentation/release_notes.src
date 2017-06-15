@@ -1,6 +1,18 @@
 /**
 \page release_notes Release notes
 
+\section rel4_9 Release 4-9
+
+Rename template for EP3314-0002 slave.<br>
+
+It was found that a possible upgrade of the module to revision 13
+(0x0130002) would cause the template to no longer work. This is because
+between revision 12 and 13 (0x00120002 and 0x00130002) of this model
+of slave, the PDO names have changed.  The slave description files
+include the pdo names, the names are propagated as parameter names for
+the slave's asyn port. Solves DLS jira issue BC-376.  Further notes in
+<a href="http://confluence.diamond.ac.uk/x/3YPtAw">DLS confluence</a>.
+
 \section rel4_8 Release 4-8
 
 Update documentation and merge in modifications needed to support
