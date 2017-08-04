@@ -149,7 +149,7 @@ def main():
     # files = {"filename": [ "dev1", "dev2"], ... }
     files = collections.OrderedDict()
     files["EL15xx.xml"]= ["EL1502"]
-    files["EL25xx.xml"]= ["EL2595"]
+    files["EL25xx.xml"]= ["EL2502", "EL2595"]
     files["EL32xx.xml"]= ["EL3202", "EL3202-0010"]
     files["EL33xx.xml"]= ["EL3314"]
     files["EL3xxx.xml"]= ["EL3602", "EL3202-0010"]
