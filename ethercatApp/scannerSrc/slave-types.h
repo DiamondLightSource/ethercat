@@ -10,8 +10,8 @@
 #define YES 1
 #define NO 0
 #define MAX_SLAVE_STRLEN 81
-#define SLAVE_LIST_FILE "/dls_sw/prod/R3.14.12.3/support/ethercat/" \
-                  "Rx-y/etc/scripts/slave-types.txt"
+#define SLAVE_LIST_FILE "/home/xfz39520/dev/EL2502/ethercat/" \
+                   "etc/scripts/slave-types.txt"
 #define BACKUP_LIST_FILE "/home/rjq35657/R3.14.12.3/support/" \
                   "ethercat/etc/scripts/slave-types.txt"
 #define SLAVE_TYPES_MAXCOUNT 500
