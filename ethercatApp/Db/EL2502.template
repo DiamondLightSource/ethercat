@@ -38,6 +38,7 @@ record(longout, "$(DEVICE):PWMOUTPUTSCHANNEL1:PWMOUTPUT")
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))PWMOutputsChannel1.PWMoutput")
   field("OMSL", "supervisory")
+  field(SCAN, "Passive")
 }
 
 
@@ -46,5 +47,75 @@ record(longout, "$(DEVICE):PWMOUTPUTSCHANNEL2:PWMOUTPUT")
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))PWMOutputsChannel2.PWMoutput")
   field("OMSL", "supervisory")
+  field(SCAN, "PASSIVE")
 }
 
+
+record(bo, "$(DEVICE):CHANNEL1:TOGGLE")
+{
+  field(DESC, "Toggle 1 between 0 and demand")
+  field(ZNAM, "off")
+  field(ONAM, "on")
+  field(VAL,  "0") # starting value is off
+}
+
+
+record(bo, "$(DEVICE):CHANNEL2:TOGGLE")
+{
+  field(DESC, "Toggle 2 between 0 and demand")
+  field(ZNAM, "off")
+  field(ONAM, "on")
+  field(VAL,  "0") # starting value is off
+}
+
+
+record(ao, "$(DEVICE):CHANNEL1:PWMLEVEL")
+{
+  field(DESC, "PWM 1 level in percent")
+  field(DTYP, "Soft Channel")
+  field(SCAN, "Passive")
+  field(DRVH, "100")
+  field(DRVL, "0")
+  field(PREC, "2")
+  field(EGU,  "%")
+  field(VAL,  "0")
+  field(PINI, "YES")
+}
+
+
+record(ao, "$(DEVICE):CHANNEL2:PWMLEVEL")
+{
+  field(DESC, "PWM 2 level in percent")
+  field(DTYP, "Soft Channel")
+  field(SCAN, "Passive")
+  field(DRVH, "100")
+  field(DRVL, "0")
+  field(PREC, "2")
+  field(EGU,  "%")
+  field(VAL,  "0")
+  field(PINI, "YES")
+}
+
+
+record(calcout, "$(DEVICE):CHANNEL1:PWMCALC")
+{
+  field(DESC, "calc output with demand/toggle")
+  field(INPA, "$(DEVICE):CHANNEL1:TOGGLE CP")
+  field(INPB, "$(DEVICE):CHANNEL1:PWMLEVEL CP")
+  field(CALC, "A?(B*32767/100):0")
+  field(OOPT, "On Change")
+  field(PINI, "YES")
+  field(OUT,  "$(DEVICE):PWMOUTPUTSCHANNEL1:PWMOUTPUT PP")
+}
+
+
+record(calcout, "$(DEVICE):CHANNEL2:PWMCALC")
+{
+  field(DESC, "calc output with demand/toggle")
+  field(INPA, "$(DEVICE):CHANNEL2:TOGGLE CP")
+  field(INPB, "$(DEVICE):CHANNEL2:PWMLEVEL CP")
+  field(CALC, "A?(B*32767/100):0")
+  field(OOPT, "On Change")
+  field(PINI, "YES")
+  field(OUT,  "$(DEVICE):PWMOUTPUTSCHANNEL2:PWMOUTPUT PP")
+}
