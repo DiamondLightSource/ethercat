@@ -1,0 +1,98 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 653
+y 924
+w 230
+h 20
+font "arial-medium-r-18.0"
+ctlFont "arial-medium-r-18.0"
+btnFont "arial-medium-r-18.0"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 0
+ctlBgColor1 index 0
+ctlBgColor2 index 14
+topShadowColor index 0
+botShadowColor index 14
+showGrid
+snapToGrid
+gridSize 5
+endScreenProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 0
+y 0
+w 120
+h 20
+fgColor index 14
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-medium-r-10.0"
+buttonLabel "$(label)"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "el2595"
+}
+symbols {
+  0 "DEVICE=$(DEVICE)"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 120
+y 0
+w 90
+h 20
+fgColor index 25
+bgColor index 3
+selectColor index 3
+inconsistentColor index 0
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):DOXCONTROL:CONTROL__OUTPUT"
+indicatorPv "$(DEVICE):DOXCONTROL:CONTROL__OUTPUT"
+font "arial-medium-r-16.0"
+orientation "horizontal"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 210
+y 0
+w 20
+h 20
+controlPv "$(DEVICE):DOXSTATUS:STATUS__OUTPUTACTIVE"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
