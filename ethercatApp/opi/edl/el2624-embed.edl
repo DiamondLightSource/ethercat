@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 653
-y 924
+x 380
+y 406
 w 230
 h 20
 font "arial-medium-r-18.0"
@@ -24,45 +24,13 @@ snapToGrid
 gridSize 5
 endScreenProperties
 
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 4
-release 0
-x 0
-y 0
-w 120
-h 20
-fgColor index 14
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-medium-r-10.0"
-buttonLabel "$(label)"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "el2595"
-}
-symbols {
-  0 "DEVICE=$(DEVICE)"
-}
-replaceSymbols {
-  0 1
-}
-propagateMacros {
-  0 0
-}
-endObjectProperties
-
 # (Choice Button)
 object activeChoiceButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 120
+x 110
 y 0
 w 90
 h 20
@@ -72,8 +40,8 @@ selectColor index 3
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(DEVICE):DOXCONTROL:CONTROL__OUTPUT"
-indicatorPv "$(DEVICE):DOXCONTROL:CONTROL__OUTPUT"
+controlPv "$(DEVICE):CHANNEL$(channel):OUTPUT"
+indicatorPv "$(DEVICE):CHANNEL$(channel):OUTPUT"
 font "arial-medium-r-16.0"
 orientation "horizontal"
 endObjectProperties
@@ -88,11 +56,30 @@ x 210
 y 0
 w 20
 h 20
-controlPv "$(DEVICE):DOXSTATUS:STATUS__OUTPUTACTIVE"
+controlPv "$(DEVICE):CHANNEL$(channel):OUTPUT"
 lineColor index 14
 onColor index 15
 offColor index 19
 lineWidth 2
 numBits 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 0
+y 0
+w 120
+h 20
+font "arial-medium-r-18.0"
+fgColor index 14
+bgColor index 17
+useDisplayBg
+value {
+  "$(label)"
+}
 endObjectProperties
 
