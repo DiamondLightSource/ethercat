@@ -1,0 +1,45 @@
+# Template to control a single channel of a 2-channel
+# el2502 module.
+# Requires a EL2502 device to have been instantianted
+# already.
+#
+# % macro, PWMDEVICE, device name of EL2502 module
+# % macro, CHANNEL, channel of EL2502 to control (1 or 2)
+# % macro, DEVICE, device name
+# % macro, name, object and gui name
+# % macro, label, device connected to this channel
+# % macro, shortlabel, label for top left corner of screen just a few letters
+# % gui, $(name).embed, edmembed, el2502-embed.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
+# % gui, $(name), edm, el2502.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
+
+record(bo, "$(DEVICE):TOGGLE")
+{
+    field(DESC, "toggle between off and demand")
+    field(ZNAM, "off")
+    field(ONAM, "on")
+    field(VAL,  "0")  # starting value is off
+}
+
+record(ao, "$(DEVICE):PWMDEMAND")
+{
+    field(DESC, "PWM level in percent")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "Passive")
+    field(DRVH, "100")
+    field(DRVL, "0")
+    field(PREC, "2")
+    field(EGU,  "5")
+    field(VAL,  "0")  # starting value is zero
+    field(PINI, "YES")
+}
+
+record(calcout, "$(DEVICE):PWMCALC")
+{
+    field(DESC, "calc output using demand/toggle")
+    field(INPA, "$(DEVICE):TOGGLE CP")
+    field(INPB, "$(DEVICE):PWMDEMAND CP")
+    field(CALC, "A?(B*32767/100):0")
+    field(OOPT, "On Change")
+    field(PINI, "YES")
+    field(OUT,  "$(PWMDEVICE):PWMOUTPUTSCHANNEL$(CHANNEL):PWMOUTPUT PP")
+}
