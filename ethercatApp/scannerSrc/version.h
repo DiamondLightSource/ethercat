@@ -1,5 +1,5 @@
 #ifndef _version_H_
 #define _version_H_
-#define VERSION_STRING "4-9"
+#define VERSION_STRING "4-10alpha"
 #endif
 

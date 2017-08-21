@@ -1,6 +1,12 @@
 /**
 \page release_notes Release notes
 
+\section rel4_10alpha Release 4-10alpha
+
+Added gui screem for el2624 (4-channel relay), with macros in the 
+el2624 template file. There are now 4 instances of the embedded edm 
+file that come with an instance of the el2624 template.
+
 \section rel4_9 Release 4-9
 
 Rename template for EP3314-0002 slave.<br>
