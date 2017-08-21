@@ -3,9 +3,19 @@
 # from XML files at ../../etc/xml
 # for device EL2624 revision 0x100000 
 #
+# % macro, name, object and gui name
 # % macro, DEVICE, device name
 # % macro, PORT,   asyn port for device
 # % macro, SCAN,   scan rate
+# % macro, desc1,  descriptive label for output 1 control
+# % macro, desc2,  descriptive label for output 2 control
+# % macro, desc3,  descriptive label for output 3 control
+# % macro, desc4,  descriptive label for output 4 control
+#
+# % gui, $(name=EL2624).1, edmembed, el2624-embed.edl, DEVICE=$(DEVICE),channel=1,desc=$(desc1=channel1)
+# % gui, $(name=EL2624).2, edmembed, el2624-embed.edl, DEVICE=$(DEVICE),channel=2,desc=$(desc2=channel2)
+# % gui, $(name=EL2624).3, edmembed, el2624-embed.edl, DEVICE=$(DEVICE),channel=3,desc=$(desc3=channel3)
+# % gui, $(name=EL2624).4, edmembed, el2624-embed.edl, DEVICE=$(DEVICE),channel=4,desc=$(desc4=channel4)
 
 
 record(mbbi, "$(DEVICE):AL_STATE")
