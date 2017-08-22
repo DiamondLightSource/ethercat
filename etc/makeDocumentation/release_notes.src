@@ -1,6 +1,13 @@
 /**
 \page release_notes Release notes
 
+\section rel4_11 Release 4-11
+
+New module, el2502 (0x001a0000)), a 2-channel PWM output using 
+24 volts and 16-bit control of each channel.
+Includes a template for the module itself, a template for an 
+individual channel of the module that comes with edm screens.
+
 \section rel4_10 Release 4-10
 
 Added gui screem for el2624 (4-channel relay), with macros in the 
