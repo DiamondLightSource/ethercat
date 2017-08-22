@@ -9,7 +9,7 @@
 # % macro, name, object and gui name
 # % macro, label, device connected to this channel
 # % macro, shortlabel, label for top left corner of screen just a few letters
-# % gui, $(name).embed, edmembed, el2502-embed.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
+# % gui, $(name)-embed, edmembed, el2502-embed.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
 # % gui, $(name), edm, el2502.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
 
 record(bo, "$(DEVICE):TOGGLE")

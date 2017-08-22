@@ -8,6 +8,9 @@ New module, el2502 (0x001a0000)), a 2-channel PWM output using
 Includes a template for the module itself, a template for an 
 individual channel of the module that comes with edm screens.
 
+The screens can be referred to as $(name) for the main screen,
+and $(name)-embed for the embedded screen.
+
 \section rel4_10 Release 4-10
 
 Added gui screem for el2624 (4-channel relay), with macros in the 

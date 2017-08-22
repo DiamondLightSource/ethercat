@@ -19,7 +19,7 @@ ctlBgColor1 index 3
 ctlBgColor2 index 5
 topShadowColor index 1
 botShadowColor index 11
-title "Thorlabs Backlight LED"
+title "EL2502 PWM channel $(label)"
 showGrid
 snapToGrid
 gridSize 5
