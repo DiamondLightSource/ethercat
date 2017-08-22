@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1678
-y 995
+x 383
+y 501
 w 230
 h 21
 font "arial-medium-r-18.0"
@@ -39,14 +39,14 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-medium-r-10.0"
-buttonLabel "$(label)"
+buttonLabel "$(longlabel)"
 numPvs 4
 numDsps 1
 displayFileName {
   0 "el2502"
 }
 symbols {
-  0 "DEVICE=$(DEVICE),label=$(label),shortlabel=$(shortlabel)"
+  0 "DEVICE=$(DEVICE),longlabel=$(longlabel),shortlabel=$(shortlabel)"
 }
 replaceSymbols {
   0 1
@@ -64,7 +64,7 @@ minor 0
 release 0
 x 125
 y 0
-w 80
+w 85
 h 20
 fgColor index 25
 bgColor index 3

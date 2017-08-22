@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1272
-y 826
+x 1274
+y 852
 w 400
 h 185
 font "arial-medium-r-16.0"
@@ -19,7 +19,7 @@ ctlBgColor1 index 3
 ctlBgColor2 index 5
 topShadowColor index 1
 botShadowColor index 11
-title "EL2502 PWM channel $(label)"
+title "$(longlabel) EL2502 PWM channel"
 showGrid
 snapToGrid
 gridSize 5
@@ -63,7 +63,7 @@ x 30
 y 3
 w 365
 h 24
-controlPv "$(label)"
+controlPv "$(longlabel)"
 fgColor index 14
 fgAlarm
 bgColor index 48

@@ -7,16 +7,16 @@
 # % macro, CHANNEL, channel of EL2502 to control (1 or 2)
 # % macro, DEVICE, device name
 # % macro, name, object and gui name
-# % macro, label, device connected to this channel
+# % macro, longlabel, device connected to this channel
 # % macro, shortlabel, label for top left corner of screen just a few letters
-# % gui, $(name)-embed, edmembed, el2502-embed.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
-# % gui, $(name), edm, el2502.edl, DEVICE=$(DEVICE), label=$(label), shortlabel=$(shortlabel)
+# % gui, $(name)-embed, edmembed, el2502-embed.edl, DEVICE=$(DEVICE), longlabel=$(longlabel), shortlabel=$(shortlabel)
+# % gui, $(name), edm, el2502.edl, DEVICE=$(DEVICE), longlabel=$(longlabel), shortlabel=$(shortlabel)
 
 record(bo, "$(DEVICE):TOGGLE")
 {
     field(DESC, "toggle between off and demand")
-    field(ZNAM, "off")
-    field(ONAM, "on")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
     field(VAL,  "0")  # starting value is off
 }
 
