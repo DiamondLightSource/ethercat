@@ -39,6 +39,12 @@ record(longout, "$(DEVICE):AOOUTPUTCHANNEL1:ANALOGOUTPUT")
   field("OMSL", "supervisory")
 }
 
+record(longout, "$(DEVICE):CH1:AO")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))AOOutputChannel1.Analogoutput")
+  field("OMSL", "supervisory")
+}
 
 record(longout, "$(DEVICE):AOOUTPUTCHANNEL2:ANALOGOUTPUT")
 {
@@ -47,8 +53,21 @@ record(longout, "$(DEVICE):AOOUTPUTCHANNEL2:ANALOGOUTPUT")
   field("OMSL", "supervisory")
 }
 
+record(longout, "$(DEVICE):CH2:AO")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))AOOutputChannel2.Analogoutput")
+  field("OMSL", "supervisory")
+}
 
 record(longout, "$(DEVICE):AOOUTPUTCHANNEL3:ANALOGOUTPUT")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))AOOutputChannel3.Analogoutput")
+  field("OMSL", "supervisory")
+}
+
+record(longout, "$(DEVICE):CH3:AO")
 {
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))AOOutputChannel3.Analogoutput")
@@ -62,4 +81,12 @@ record(longout, "$(DEVICE):AOOUTPUTCHANNEL4:ANALOGOUTPUT")
   field("OUT",  "@asyn($(PORT))AOOutputChannel4.Analogoutput")
   field("OMSL", "supervisory")
 }
+
+record(longout, "$(DEVICE):CH4:AO")
+{
+  field("DTYP", "asynInt32")
+  field("OUT",  "@asyn($(PORT))AOOutputChannel4.Analogoutput")
+  field("OMSL", "supervisory")
+}
+
 
