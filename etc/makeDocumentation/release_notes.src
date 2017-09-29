@@ -1,6 +1,13 @@
 /**
 \page release_notes Release notes
 
+\section rel4_12 Release 4-12
+
+The EL4134 template's 4 output records had lengthy names, duplicate
+records have been added for these 4 channels with shorter names
+that should fit inside the EPICS 40 character limit when linking
+records.
+
 \section rel4_11 Release 4-11
 
 New module, el2502 (0x001a0000)), a 2-channel PWM output using 
