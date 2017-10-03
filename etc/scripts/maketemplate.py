@@ -96,6 +96,8 @@ def shortenname(name):
             "RTDRTDINPUTSCHANNEL": "INPUT",
             "STATUS__LIMIT" : "SLIMIT",
             "AOOUTPUTSCHANNEL": "OUTPUT",
+            "AOOUTPUTCHANNEL": "OUTPUT",
+            "ANALOGOUTPUT": "ANALOG",
             "STATUS__UNDERRANGE" : "SUNDERRANGE",
             "STATUS__OVERRANGE" : "SOVERRANGE",
             "STATUS__SYNCERROR": "SSYNCERROR",
