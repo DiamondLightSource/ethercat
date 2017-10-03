@@ -1,6 +1,14 @@
 /**
 \page release_notes Release notes
 
+\section rel5_0 Release 5-0
+
+BREAKING CHANGE the EL4134 template now has shorter PV names,
+using the amended maketemplate script to generate it so the
+long pv names are substituted for this device.
+
+This changes the output pv names for the EL4134
+
 \section rel4_12 Release 4-12
 
 The EL4134 template's 4 output records had lengthy names, duplicate
