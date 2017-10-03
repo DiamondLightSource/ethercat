@@ -29,9 +29,9 @@ include $(TOP)/configure/RULES
 
 templates:
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL3314 -r 0x120000 -o EL3314.template
-	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EK1100 -r  0x110000 -o EK1100.template
-	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EK1101 -r  0x110000 -o EK1101.template
-	../../etc/scripts/maketemplate.py -b ../../etc/xml -d  EK1122 -r 0x110000 -o EK1122.template
+	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EK1100 -r 0x110000 -o EK1100.template
+	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EK1101 -r 0x110000 -o EK1101.template
+	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EK1122 -r 0x110000 -o EK1122.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL1004 -r 0x100000 -o EL1004.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL1014 -r 0x100000 -o EL1014.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL1124 -r 0x100000 -o EL1124.template
@@ -46,9 +46,9 @@ templates:
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL3201 -r 0x100000 -o EL3201.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL3202-0010 -r 0x11000a -o EL3202-0010.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL3314 -r 0x120000 -o EL3314.template
-	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL3702 -r 0x20000 -o EL3702.template
+	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL3702 -r 0x20000  -o EL3702.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL4134 -r 0x3f90000 -o EL4134.template
-	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL4732 -r 0x30000 -o EL4732.template
+	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL4732 -r 0x30000  -o EL4732.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL9410 -r 0x100000 -o EL9410.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL9505 -r 0x100000 -o EL9505.template
 	../../etc/scripts/maketemplate.py -b ../../etc/xml -d EL9512 -r 0x100000 -o EL9512.template
