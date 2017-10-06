@@ -4,6 +4,10 @@
 # for device EL4134 revision 0x3fb0000 
 # non-default pdo assignments: None
 #
+# Use the :VOLTAGE pv's to control the channels in volts
+# These PV's convert voltage to the int16 required for
+# the :ANALOG pv's.
+#
 # % macro, DEVICE, device name
 # % macro, PORT,   asyn port for device
 # % macro, SCAN,   scan rate
@@ -62,5 +66,89 @@ record(longout, "$(DEVICE):OUTPUT4:ANALOG")
   field("DTYP", "asynInt32")
   field("OUT",  "@asyn($(PORT))AOOutputChannel4.Analogoutput")
   field("OMSL", "supervisory")
+}
+
+
+record(ao, "$(DEVICE):OUTPUT1:VOLTAGE")
+{
+    field(DESC, "output 1 demand in volts")
+    field(DRVH, "10")
+    field(DRVL, "-10")
+    field(HOPR, "10")
+    field(LOPR, "-10")
+    field(VAL,  "0")  # starting value of 0
+    field(EGU,  "V")
+    #field(OUT,  "$(DEVICE):OUTPUT1:CALCANALOG PP")
+}
+
+record(calcout, "$(DEVICE):OUTPUT1:CALCANALOG")
+{
+    field(DESC, "convert voltage to int16")
+    field(INPA, "$(DEVICE):OUTPUT1:VOLTAGE CP")
+    field(CALC, "A*32767/10.0")
+    field(OUT,  "$(DEVICE):OUTPUT1:ANALOG PP")
+}
+
+
+record(ao, "$(DEVICE):OUTPUT2:VOLTAGE")
+{
+    field(DESC, "output 2 demand in volts")
+    field(DRVH, "10")
+    field(DRVL, "-10")
+    field(HOPR, "10")
+    field(LOPR, "-10")
+    field(VAL,  "0")  # starting value of 0
+    field(EGU,  "V")
+    #field(OUT,  "$(DEVICE):OUTPUT2:CALCANALOG PP")
+}
+
+record(calcout, "$(DEVICE):OUTPUT2:CALCANALOG")
+{
+    field(DESC, "convert voltage to int16")
+    field(INPA, "$(DEVICE):OUTPUT2:VOLTAGE CP")
+    field(CALC, "A*32767/10.0")
+    field(OUT,  "$(DEVICE):OUTPUT2:ANALOG PP")
+}
+
+
+record(ao, "$(DEVICE):OUTPUT3:VOLTAGE")
+{
+    field(DESC, "output 3 demand in volts")
+    field(DRVH, "10")
+    field(DRVL, "-10")
+    field(HOPR, "10")
+    field(LOPR, "-10")
+    field(VAL,  "0")  # starting value of 0
+    field(EGU,  "V")
+    #field(OUT,  "$(DEVICE):OUTPUT3:CALCANALOG PP")
+}
+
+record(calcout, "$(DEVICE):OUTPUT3:CALCANALOG")
+{
+    field(DESC, "convert voltage to int16")
+    field(INPA, "$(DEVICE):OUTPUT3:VOLTAGE CP")
+    field(CALC, "A*32767/10.0")
+    field(OUT,  "$(DEVICE):OUTPUT3:ANALOG PP")
+}
+
+
+record(ao, "$(DEVICE):OUTPUT4:VOLTAGE")
+{
+    field(DESC, "output 4 demand in volts")
+    field(DRVH, "10")
+    field(DRVL, "-10")
+    field(HOPR, "10")
+    field(LOPR, "-10")
+    field(VAL,  "0")  # starting value of 0
+    field(EGU,  "V")
+    #field(OUT,  "$(DEVICE):OUTPUT4:CALCANALOG PP")
+}
+
+record(calcout, "$(DEVICE):OUTPUT4:CALCANALOG")
+{
+    field(DESC, "convert voltage to int16")
+    field(INPA, "$(DEVICE):OUTPUT4:VOLTAGE CP")
+    field(CALC, "A*32767/10.0")
+    field(OUT,  "$(DEVICE):OUTPUT4:ANALOG PP")
 }
 
