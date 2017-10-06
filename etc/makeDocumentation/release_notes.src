@@ -1,6 +1,13 @@
 /**
 \page release_notes Release notes
 
+\section rel5_1 Release 5-1
+
+Added control pvs to EL4134 template so demand value can be
+set in volts (-10 o 10 V) using the :VOLTAGE records, which
+are then converted to 16 bit integer used by the :ANALOG records
+which were introduced in version 5-0
+
 \section rel5_0 Release 5-0
 
 BREAKING CHANGE the EL4134 template now has shorter PV names,
