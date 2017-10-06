@@ -1,0 +1,83 @@
+# Template to control a single channel of a 4-channel
+# el4134 module, analogue output -10 V to +10 V.
+# Requires an existing output PV to write to.
+#
+# % macro, P, PV prefix for this device
+# % macro, name, object and gui name
+# % macro, OUTPUTPV, PV of voltage output channel of el4134
+# % macro, LOLIMIT, low limit of output voltage
+# % macro, HILIMIT, high limit of output voltage
+# % macro, OFFVALUE, output voltage when TOGGLE is OFF
+# % macro, longlabel, describes device connected to this channel
+# % macro, shortlabel, label for top left corner of screen just a few letters
+
+# % gui, $(name)-embed, edmembed, el4134-single-channel-control-embed.edl, P=$(P), longlabel=$(longlabel), shortlabel=$(shortlabel)
+# % gui, $(name), edm, el4134-single-channel-control.edl, P=$(P), longlabel=$(longlabel), shortlabel=$(shortlabel)
+
+record(ao, "$(P):HILIMIT")
+{
+    field(DESC, "high limit output voltage")
+    field(OUT,  "$(P):DEMAND.DRVH PP")
+    field(DRVH, 10)
+    field(DRVL, -10)
+    field(VAL,  "$(HILIMIT=10)")
+}
+
+record(ao, "$(P):LOLIMIT")
+{
+    field(DESC, "low limit output voltage")
+    field(OUT,  "$(P):DEMAND.DRVL PP")
+    field(DRVH, 10)
+    field(DRVL, -10)
+    field(VAL,  "$(LOLIMIT=0)")
+}
+
+record(calcout, "$(P):HILIMIT2HOPR")
+{
+    field(DESC, "copy DRVH to HOPR")
+    field(INPA, "$(P):HILIMIT CP")
+    field(CALC, "A")
+    field(OUT,  "$(P):DEMAND.HOPR PP")
+}
+
+record(calcout, "$(P):LOLIMIT2LOPR")
+{
+    field(DESC, "copy DRVL to LOPR")
+    field(INPA, "$(P):LOLIMIT CP")
+    field(CALC, "A")
+    field(OUT,  "$(P):DEMAND.LOPR PP")
+}
+
+record(bo, "$(P):TOGGLE")
+{
+    field(DESC, "toggle between off and demand")
+    field(ZNAM, "OFF")
+    field(ONAM, "ON")
+    field(VAL,  "0")  # starting value is off
+}
+
+record(ao, "$(P):DEMAND")
+{
+    field(DESC, "AO level in Volts")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "Passive")
+    field(HOPR, "$(HILIMIT=10)")
+    field(LOPR, "$(LOLIMIT=0)")
+    field(PREC, "2")
+    field(EGU,  "V")
+    field(VAL,  "0")  # starting value is zero
+    field(PINI, "YES")
+}
+
+record(calcout, "$(P):CALC")
+{
+    field(DESC, "calc output using demand/toggle")
+    field(INPA, "$(P):TOGGLE CP")
+    field(INPB, "$(P):DEMAND CP")
+    field(CALC, "A?(B):$(OFFVALUE=$(LOLIMIT))")
+    field(EGU,  "V")
+    field(PINI, "YES")
+    field(PREC, "2")
+    field(OUT,  "$(OUTPUTPV) PP")
+}
+
