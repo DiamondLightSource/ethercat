@@ -1,6 +1,11 @@
 /**
 \page release_notes Release notes
 
+\section rel5_2 Release 5-2
+
+Added template for single channel control for EL4134 module,
+includes embedded and standalone edm gui
+
 \section rel5_1 Release 5-1
 
 Added control pvs to EL4134 template so demand value can be
