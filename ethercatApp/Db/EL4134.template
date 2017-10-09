@@ -37,118 +37,77 @@ record(longin, "$(DEVICE):ERROR_FLAG")
 }
 
 
-record(longout, "$(DEVICE):OUTPUT1:ANALOG")
+record(ao, "$(DEVICE):OUTPUT1:ANALOG")
 {
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))AOOutputChannel1.Analogoutput")
-  field("OMSL", "supervisory")
-}
-
-
-record(longout, "$(DEVICE):OUTPUT2:ANALOG")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))AOOutputChannel2.Analogoutput")
-  field("OMSL", "supervisory")
-}
-
-
-record(longout, "$(DEVICE):OUTPUT3:ANALOG")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))AOOutputChannel3.Analogoutput")
-  field("OMSL", "supervisory")
-}
-
-
-record(longout, "$(DEVICE):OUTPUT4:ANALOG")
-{
-  field("DTYP", "asynInt32")
-  field("OUT",  "@asyn($(PORT))AOOutputChannel4.Analogoutput")
-  field("OMSL", "supervisory")
-}
-
-
-record(ao, "$(DEVICE):OUTPUT1:VOLTAGE")
-{
-    field(DESC, "output 1 demand in volts")
+    field(DESC, "Analogue Output 1")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT))AOOutputChannel1.Analogoutput")
+    field(OMSL, "supervisory")
+    field(SCAN, "Passive")
+    field(LINR, "LINEAR")
+    field(EGUF, "10")
+    field(EGUL, "-10")
     field(DRVH, "10")
     field(DRVL, "-10")
-    field(HOPR, "10")
-    field(LOPR, "-10")
-    field(VAL,  "0")  # starting value of 0
     field(EGU,  "V")
-    #field(OUT,  "$(DEVICE):OUTPUT1:CALCANALOG PP")
-}
-
-record(calcout, "$(DEVICE):OUTPUT1:CALCANALOG")
-{
-    field(DESC, "convert voltage to int16")
-    field(INPA, "$(DEVICE):OUTPUT1:VOLTAGE CP")
-    field(CALC, "A*32767/10.0")
-    field(OUT,  "$(DEVICE):OUTPUT1:ANALOG PP")
+    field(PINI, "NO")
+    field(PREC, "3")
+    field(VAL,  "0")
 }
 
 
-record(ao, "$(DEVICE):OUTPUT2:VOLTAGE")
+record(ao, "$(DEVICE):OUTPUT2:ANALOG")
 {
-    field(DESC, "output 2 demand in volts")
+    field(DESC, "Analogue Output 2")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT))AOOutputChannel2.Analogoutput")
+    field(OMSL, "supervisory")
+    field(SCAN, "Passive")
+    field(LINR, "LINEAR")
+    field(EGUF, "10")
+    field(EGUL, "-10")
     field(DRVH, "10")
     field(DRVL, "-10")
-    field(HOPR, "10")
-    field(LOPR, "-10")
-    field(VAL,  "0")  # starting value of 0
     field(EGU,  "V")
-    #field(OUT,  "$(DEVICE):OUTPUT2:CALCANALOG PP")
-}
-
-record(calcout, "$(DEVICE):OUTPUT2:CALCANALOG")
-{
-    field(DESC, "convert voltage to int16")
-    field(INPA, "$(DEVICE):OUTPUT2:VOLTAGE CP")
-    field(CALC, "A*32767/10.0")
-    field(OUT,  "$(DEVICE):OUTPUT2:ANALOG PP")
+    field(PINI, "NO")
+    field(PREC, "3")
+    field(VAL,  "0")
 }
 
 
-record(ao, "$(DEVICE):OUTPUT3:VOLTAGE")
+record(ao, "$(DEVICE):OUTPUT3:ANALOG")
 {
-    field(DESC, "output 3 demand in volts")
+    field(DESC, "Analogue Output 3")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT))AOOutputChannel3.Analogoutput")
+    field(OMSL, "supervisory")
+    field(SCAN, "Passive")
+    field(LINR, "LINEAR")
+    field(EGUF, "10")
+    field(EGUL, "-10")
     field(DRVH, "10")
     field(DRVL, "-10")
-    field(HOPR, "10")
-    field(LOPR, "-10")
-    field(VAL,  "0")  # starting value of 0
     field(EGU,  "V")
-    #field(OUT,  "$(DEVICE):OUTPUT3:CALCANALOG PP")
-}
-
-record(calcout, "$(DEVICE):OUTPUT3:CALCANALOG")
-{
-    field(DESC, "convert voltage to int16")
-    field(INPA, "$(DEVICE):OUTPUT3:VOLTAGE CP")
-    field(CALC, "A*32767/10.0")
-    field(OUT,  "$(DEVICE):OUTPUT3:ANALOG PP")
+    field(PINI, "NO")
+    field(PREC, "3")
+    field(VAL,  "0")
 }
 
 
-record(ao, "$(DEVICE):OUTPUT4:VOLTAGE")
+record(ao, "$(DEVICE):OUTPUT4:ANALOG")
 {
-    field(DESC, "output 4 demand in volts")
+    field(DESC, "Analogue Output 4")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT))AOOutputChannel4.Analogoutput")
+    field(OMSL, "supervisory")
+    field(SCAN, "Passive")
+    field(LINR, "LINEAR")
+    field(EGUF, "10")
+    field(EGUL, "-10")
     field(DRVH, "10")
     field(DRVL, "-10")
-    field(HOPR, "10")
-    field(LOPR, "-10")
-    field(VAL,  "0")  # starting value of 0
     field(EGU,  "V")
-    #field(OUT,  "$(DEVICE):OUTPUT4:CALCANALOG PP")
+    field(PINI, "NO")
+    field(PREC, "3")
+    field(VAL,  "0")
 }
-
-record(calcout, "$(DEVICE):OUTPUT4:CALCANALOG")
-{
-    field(DESC, "convert voltage to int16")
-    field(INPA, "$(DEVICE):OUTPUT4:VOLTAGE CP")
-    field(CALC, "A*32767/10.0")
-    field(OUT,  "$(DEVICE):OUTPUT4:ANALOG PP")
-}
-
