@@ -109,6 +109,14 @@ record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
    field(SCAN, "$(SCAN)")
 }
 
+record(ai, "$(DEVICE):ADC$(CHANNEL)_INTEGRAL")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))INTEGRAL")
+   field(PREC, "3")
+   field(SCAN, "$(SCAN)")
+}
+
 record(mbbi, "$(DEVICE):ADC$(CHANNEL)_STATE")
 {
    field(DTYP, "asynInt32")
