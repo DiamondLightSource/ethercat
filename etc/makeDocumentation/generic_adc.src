@@ -4,6 +4,7 @@
 * Notes on generic ADC implementation on Ethercat
 Ronaldo Mercado
 Original: December 2013
+Release 5-3: Add integral (jira issue I21-389)
 Release 4-1: January 2015 Add note that no triggering is available.
 
 The gadc "generic adc" is an asyn port driver that accumulates samples
@@ -13,28 +14,28 @@ requirements document for the VME ADCs TDI-CTRL-REQ-015.
 
 * Asyn Parameters for the Generic ADC driver
 
-| Name            | Type       | Use                                        |
-| MODE            | Int32      | gated, trigerred or continuous             |
-| SAMPLES         | Int32      | number of samples in an acquisition window |
-|                 |            | for continuous mode                        |
-| OFFSET          | Int32      | offset for trigger                         |
-| AVERAGE         | Int32      | number of samples to average               |
-| TRIGGER         | Int32      | software trigger                           |
-| BUFFERCOUNT     | Int32      | Samples in the channel's buffer            |
-| VALUE           | Int32      | Averaged value                             |
-| CAPTURE         | Int32      | unknown                                    |
-| CHANBUFF        | Int32      | unknown                                    |
-| ENABLED         | Int32      | unknonw                                    |
-| RETRIGGER       | Int32      | unknown                                    |
-| CLEAR           | Int32      | unknown                                    |
-| OVERFLOW        | Int32      | unknown                                    |
-| AVERAGEOVERFLOW | Int32      | unknown                                    |
-| STATE           | Int32      | unknown                                    |
-| SUPPORT         | Int32      | unknown                                    |
-| INFO            | Int32      | unknown                                    |
-| PUTSAMPLE       | Int32      | unknown                                    |
-| INTERRUPT       | Int32      | unknown                                    |
-| WAVEFORM        | Int32Array | waveform with samples                      |
+| Name            | Type       | Use                                                            |
+| MODE            | Int32      | gated, triggered or continuous                                 |
+| SAMPLES         | Int32      | number of samples in an acquisition window for continuous mode |
+| OFFSET          | Int32      | offset for trigger                                             |
+| AVERAGE         | Int32      | number of samples to average for triggered mode                |
+| TRIGGER         | Int32      | software trigger                                               |
+| BUFFERCOUNT     | Int32      | Samples in the channel's buffer                                |
+| VALUE           | Int32      | Averaged value                                                 |
+| CAPTURE         | Int32      | unknown                                                        |
+| CHANBUFF        | Int32      | unknown                                                        |
+| ENABLED         | Int32      | unknown                                                        |
+| RETRIGGER       | Int32      | unknown                                                        |
+| CLEAR           | Int32      | unknown                                                        |
+| OVERFLOW        | Int32      | unknown                                                        |
+| AVERAGEOVERFLOW | Int32      | unknown                                                        |
+| STATE           | Int32      | unknown                                                        |
+| SUPPORT         | Int32      | unknown                                                        |
+| INFO            | Int32      | unknown                                                        |
+| PUTSAMPLE       | Int32      | unknown                                                        |
+| INTERRUPT       | Int32      | unknown                                                        |
+| WAVEFORM        | Int32Array | waveform with samples                                          |
+| INTEGRAL        | Float64    | Sum of samples acquired                                        |
 
 These parameters are accessed using the generic adc template
 gadc.template records
@@ -60,10 +61,11 @@ gadc.template records
 | $(DEVICE):ADC$(CHANNEL)_RETRIGGER   | bo          | out    | RETRIGGER      |
 | $(DEVICE):ADC$(CHANNEL)_INTERRUPT   | longout     | out    | INTERRUPT      |
 | $(DEVICE):ADC$(CHANNEL)_CLEAR       | longout     | out    | CLEAR          |
+| $(DEVICE):ADC$(CHANNEL)_INTEGRAL    | ai          | in     | INTEGRAL       |
 
 
 The $(DEVICE):ADC1_SAMPLES record sets the driver’s sample count for
-whenthe interrupts are generated (MODE set to continuous acquisition
+when the interrupts are generated (MODE set to continuous acquisition
 and the VALUE record has to be set to I/O Interrupt). The units are
 samples at the driver sampling frequency, 1 KHz.
 
