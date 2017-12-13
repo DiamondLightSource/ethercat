@@ -73,6 +73,7 @@ WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAP
     createParam("INFO", asynParamInt32, &P_Info);
     createParam("PUTSAMPLE", asynParamInt32, &P_Putsample);
     createParam("VALUE", asynParamInt32, &P_Value);
+    createParam("INTEGRAL", asynParamFloat64, &P_Integral);
     createParam("INTERRUPT", asynParamInt32, &P_Interrupt);
     createParam("WAVEFORM", asynParamInt32Array, &P_Waveform);
     setIntegerParam(P_State, GADC_STATE_WAITING);
@@ -255,9 +256,11 @@ asynStatus WaveformPort::setInterrupt(epicsInt32 dummy)
 {
     size_t nIn;
     epicsInt32 value;
-    if(getValue(pasynUserSelf, &value) == asynSuccess)
+    epicsFloat64 integral;
+    if(getValue(pasynUserSelf, &value, &integral) == asynSuccess)
     {
         setIntegerParam(P_Value, value);
+        setDoubleParam(P_Integral, integral);
     }
     getArrayValue(pasynUserSelf, outbuffer, bsize, &nIn);
     doCallbacksInt32Array(outbuffer, nIn, P_Waveform, 0);
@@ -349,7 +352,7 @@ asynStatus WaveformPort::getArrayValue(
     return asynSuccess;
 }
 
-asynStatus WaveformPort::getValue(asynUser * pasynUser, epicsInt32 * value)
+asynStatus WaveformPort::getValue(asynUser * pasynUser, epicsInt32 * value, epicsFloat64 * pIntegral)
 {
     if(bsize == 0)
     {
@@ -368,6 +371,7 @@ asynStatus WaveformPort::getValue(asynUser * pasynUser, epicsInt32 * value)
             ofs = 0;
         }
     }
+    *pIntegral = sum;
     sum /= size;
     *value = (epicsInt32)sum;
     return asynSuccess;

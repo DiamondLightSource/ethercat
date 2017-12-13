@@ -61,6 +61,7 @@ class WaveformPort : public asynPortDriver
     int P_Info;
     int P_Putsample;
     int P_Value;
+    int P_Integral;
     int P_Interrupt;
     int P_Waveform;
 
@@ -98,7 +99,7 @@ public:
     /* does NOT support SCAN */
     asynStatus getArrayValue(asynUser *pasynUser, epicsInt32 *value,
                              size_t nElements, size_t *nIn);
-    asynStatus getValue(asynUser * pasynUser, epicsInt32 * value);
+    asynStatus getValue(asynUser * pasynUser, epicsInt32 * value, epicsFloat64 *pIntegral);
     asynStatus setMode(epicsInt32 value);
     asynStatus setSamples(epicsInt32 value);
     asynStatus setOffset(epicsInt32 value);
