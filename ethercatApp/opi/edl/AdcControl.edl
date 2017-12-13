@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 398
-y 308
+x 400
+y 334
 w 447
-h 544
+h 575
 font "arial-bold-r-14.0"
 ctlFont "arial-bold-r-14.0"
 btnFont "arial-bold-r-14.0"
@@ -46,7 +46,7 @@ major 4
 minor 1
 release 0
 x 350
-y 500
+y 530
 w 90
 h 30
 fgColor index 46
@@ -62,7 +62,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 290
@@ -89,7 +89,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 240
@@ -117,7 +117,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 290
 w 59
@@ -137,7 +137,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 80
 w 39
@@ -157,7 +157,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 240
 w 63
@@ -177,7 +177,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 140
 w 69
@@ -197,7 +197,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 110
 w 49
@@ -217,7 +217,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 270
 w 43
@@ -236,7 +236,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 270
@@ -264,7 +264,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 200
 w 64
@@ -284,7 +284,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 70
 y 10
 w 221
@@ -367,7 +367,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 90
 y 210
@@ -409,7 +409,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 310
@@ -437,7 +437,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 310
 w 91
@@ -456,7 +456,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 340
@@ -484,7 +484,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 340
 w 107
@@ -503,7 +503,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 400
@@ -531,7 +531,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 400
 w 56
@@ -546,11 +546,168 @@ value {
 autoSize
 endObjectProperties
 
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 270
+y 250
+w 90
+h 20
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):ADC$(CHANNEL)_CLEAR"
+pressValue "1"
+onLabel "CLEAR"
+offLabel "CLEAR"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 280
+y 150
+w 100
+h 70
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Plot"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "AdcPlot"
+}
+symbols {
+  0 "P=$(DEVICE),R=:ADC$(CHANNEL)_,DATA=WAVEFORM"
+}
+endObjectProperties
+
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
+release 0
+x 140
+y 490
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_STATE"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 490
+w 71
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ADC state"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 140
+y 520
+w 80
+h 20
+controlPv "$(DEVICE):ADC$(CHANNEL)_INTERRUPT"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 6
+editable
+limitsFromDb
+nullColor index 14
+nullCondition "nullEq0"
+useKp
+useHexPrefix
+newPos
+objType "controls"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 520
+w 96
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ADC Interrupt"
+}
+autoSize
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 430
+w 210
+h 20
+
+beginGroup
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 6
 release 0
 x 140
 y 430
@@ -578,7 +735,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 430
 w 75
@@ -593,17 +750,21 @@ value {
 autoSize
 endObjectProperties
 
+endGroup
+
+endObjectProperties
+
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 140
 y 460
 w 80
 h 20
-controlPv "$(DEVICE):ADC$(CHANNEL)_STATE"
+controlPv "$(DEVICE):ADC$(CHANNEL)_INTEGRAL"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 25
@@ -625,115 +786,18 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 460
-w 71
-h 16
+w 110
+h 20
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 3
 useDisplayBg
 value {
-  "ADC state"
+  "ADC Integral"
 }
 autoSize
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 140
-y 490
-w 80
-h 20
-controlPv "$(DEVICE):ADC$(CHANNEL)_INTERRUPT"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 25
-fgAlarm
-bgColor index 6
-editable
-limitsFromDb
-nullColor index 14
-nullCondition "nullEq0"
-useKp
-useHexPrefix
-newPos
-objType "controls"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 490
-w 96
-h 16
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "ADC Interrupt"
-}
-autoSize
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 270
-y 250
-w 90
-h 20
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(DEVICE):ADC$(CHANNEL)_CLEAR"
-pressValue "1"
-onLabel "CLEAR"
-offLabel "CLEAR"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 150
-w 100
-h 70
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Plot"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "AdcPlot"
-}
-symbols {
-  0 "P=$(DEVICE),R=:ADC$(CHANNEL)_,DATA=WAVEFORM"
-}
 endObjectProperties
 
