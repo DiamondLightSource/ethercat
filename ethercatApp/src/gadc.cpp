@@ -46,8 +46,8 @@ WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAP
     name,
     1, /* maxAddr */
     NUM_WAVEFORM_PARAMS, /* max parameters */
-    asynInt32Mask | asynInt32ArrayMask | asynDrvUserMask, /* interface mask*/
-    asynInt32Mask | asynInt32ArrayMask, /* interrupt mask */
+    asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask| asynDrvUserMask, /* interface mask*/
+    asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
     0, /* non-blocking, no addresses */
     1, /* autoconnect */
     0, /* default priority */
