@@ -1,4 +1,5 @@
 from iocbuilder.modules.asyn import Asyn
+from iocbuilder.modules.busy import Busy
 from iocbuilder import Device, IocDataStream, AutoSubstitution
 from iocbuilder.arginfo import makeArgInfo, Simple, Ident, Choice
 from . import ethercat
@@ -45,7 +46,7 @@ class EthercatDevice(Device):
       of library and dbd dependencies
       '''
     AutoInstantiate = True
-    Dependencies = ( Asyn, )
+    Dependencies = ( Asyn, Busy)
     LibFileList = [ 'ecAsyn' ]
     DbdFileList = [ 'ecAsyn' ]
 

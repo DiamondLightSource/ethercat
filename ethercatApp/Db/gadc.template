@@ -65,10 +65,13 @@ record(mbbo, "$(DEVICE):ADC$(CHANNEL)_MODE")
    field(VAL,  "0")
 }
 
-record(longout, "$(DEVICE):ADC$(CHANNEL)_TRIGGER")
+record(busy, "$(DEVICE):ADC$(CHANNEL)_TRIGGER")
 {
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))TRIGGER")
+   field(ZNAM, "Done")
+   field(ONAM, "Acquire")
+   field(VAL,  "0")
 }
 
 record(longout, "$(DEVICE):ADC$(CHANNEL)_CAPTURE")
