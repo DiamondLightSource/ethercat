@@ -65,13 +65,10 @@ WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAP
     createParam("ENABLED", asynParamInt32, &P_Enabled);
     createParam("RETRIGGER", asynParamInt32, &P_Retrigger);
     createParam("CLEAR", asynParamInt32, &P_Clear);
-    createParam("OVERFLOW", asynParamInt32, &P_Overflow);
-    createParam("AVERAGEOVERFLOW", asynParamInt32, &P_Averageoverflow);
     createParam("BUFFERCOUNT", asynParamInt32, &P_Buffercount);
     createParam("STATE", asynParamInt32, &P_State);
     createParam("SUPPORT", asynParamInt32, &P_Support);
     createParam("INFO", asynParamInt32, &P_Info);
-    createParam("PUTSAMPLE", asynParamInt32, &P_Putsample);
     createParam("VALUE", asynParamInt32, &P_Value);
     createParam("INTEGRAL", asynParamFloat64, &P_Integral);
     createParam("INTERRUPT", asynParamInt32, &P_Interrupt);
@@ -130,10 +127,6 @@ asynStatus WaveformPort::writeInt32(asynUser * pasynUser, epicsInt32 value)
     else if(cmd == P_Interrupt)
     {
         return setInterrupt(value);
-    }
-    else if(cmd == P_Putsample)
-    {
-        return setPutsample(value);
     }
     return asynSuccess;
 }
@@ -312,6 +305,7 @@ asynStatus WaveformPort::setPutsample(epicsInt32 sample)
     {
         setInterrupt(1);
         setIntegerParam(P_Buffercount, 0);
+        setIntegerParam(P_Trigger, 0);
     }
     callParamCallbacks();
     return asynSuccess;
