@@ -1,6 +1,12 @@
 /**
 \page release_notes Release notes
 
+\section rel5_3_alpha1 Release 5-3 alpha 1
+
+Add integral parameter to generic ADC.
+Use busy record for triggered acquisition.
+Update GADC documentation. Fixes jira issue I21-389.
+
 \section rel5_2 Release 5-2
 
 Added template for single channel control for EL4134 module,
