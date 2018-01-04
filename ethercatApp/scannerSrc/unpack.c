@@ -60,7 +60,7 @@ int unpack_int(char * buffer, int * ofs)
 }
 
 /** \param [in] buffer  buffer
-    \param [inout] ofs  offset in the buffer, increased by this function
+    \param [in,out] ofs  offset in the buffer, increased by this function
     \param [out] str where the string is copied to
     \param [out] len of string in chars
     The caller has to free the memory allocated in *str (output string returned in the heap)
