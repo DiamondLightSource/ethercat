@@ -1,7 +1,7 @@
 /**
 \page release_notes Release notes
 
-\section rel5_3_alpha1 Release 5-3 alpha 1
+\section rel5_3 Release 5-3
 
 Add integral parameter to generic ADC.
 Use busy record for triggered acquisition.
