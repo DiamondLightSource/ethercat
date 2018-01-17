@@ -855,6 +855,699 @@
 					<BootStrap>0010140200181402</BootStrap>
 				</Eeprom>
 			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x051F0862" RevisionNo="#x0064008E">FB1311 Dig. In/Out</Type>
+				<Name LcId="1033"><![CDATA[FB1311 16 Ch. Dig. In-/Output 2xMII]]></Name>
+				<Name LcId="1031"><![CDATA[FB1311 16 K. Dig. Ein-/Ausgang 2xMII]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FB1311]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FB1311]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">1.44</Current>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>FB1XXX</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x0f02" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm StartAddress="#x0f03" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="1">
+					<Index>#x1a01</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Fixed="1" Sm="2">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="2">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040F0044102700FF</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x051F0862" RevisionNo="#x0190008E">FB1311 Dig. In</Type>
+				<Name LcId="1033"><![CDATA[FB1311 32 Ch. Dig. Input 2xMII]]></Name>
+				<Name LcId="1031"><![CDATA[FB1311 32 K. Dig. Eingang 2xMII]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FB1311]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FB1311]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">1.44</Current>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>FB1XXX</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1600</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1601</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1602</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Sm="0">
+					<Index>#x1603</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3001</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Input</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</TxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040F004410270000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x051F0862" RevisionNo="#x01F4008E">FB1311 Dig. Out</Type>
+				<Name LcId="1033"><![CDATA[FB1311 32 Ch. Dig. Output 2xMII]]></Name>
+				<Name LcId="1031"><![CDATA[FB1311 32 K. Dig. Ausgang 2xMII]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FB1311]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FB1311]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">1.44</Current>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>FB1XXX</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm StartAddress="#x0f01" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm StartAddress="#x0f02" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm StartAddress="#x0f03" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<RxPdo Fixed="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Byte 0</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="1">
+					<Index>#x1a01</Index>
+					<Name>Byte 1</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="2">
+					<Index>#x1a02</Index>
+					<Name>Byte 2</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>3</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Sm="3">
+					<Index>#x1a03</Index>
+					<Name>Byte 3</Name>
+					<Entry>
+						<Index>#x3101</Index>
+						<SubIndex>4</SubIndex>
+						<BitLen>8</BitLen>
+						<Name>Output</Name>
+						<DataType>BITARR8</DataType>
+					</Entry>
+				</RxPdo>
+				<Dc>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040F00441027FFFF</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x051F0862" RevisionNo="#x0258008D">FB1311 SPI-Slave</Type>
+				<Name LcId="1033"><![CDATA[FB1311 SPI-Slave 2xMII]]></Name>
+				<Name LcId="1031"><![CDATA[FB1311 SPI-Slave 2xMII]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FB1311]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FB1311]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">1.44</Current>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>FB1XXX</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="128" StartAddress="#x1000" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm DefaultSize="128" StartAddress="#x1080" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1180" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+				</TxPdo>
+				<Mailbox>
+					<CoE/>
+				</Mailbox>
+				<Dc>
+					<OpMode>
+						<Name>DcOff</Name>
+						<Desc>DC unused</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+					<OpMode>
+						<Name>DcSync</Name>
+						<Desc>DC for synchronization</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+						<CycleTimeSync0 Factor="1">0</CycleTimeSync0>
+						<ShiftTimeSync0>0</ShiftTimeSync0>
+					</OpMode>
+				</Dc>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>050E0300</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x051F0862" RevisionNo="#x0320008C">FB1311 MCI8 DC</Type>
+				<Name LcId="1033"><![CDATA[FB1311 MCI8 DC 2xMII]]></Name>
+				<Name LcId="1031"><![CDATA[FB1311 MCI8 DC 2xMII]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FB1311]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FB1311]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">1.44</Current>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>FB1XXX</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="128" StartAddress="#x1000" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm DefaultSize="128" StartAddress="#x1080" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1180" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test Out1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test Out2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test In1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test In2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<EoE/>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="1"/>
+					<FoE/>
+				</Mailbox>
+				<Dc>
+					<OpMode>
+						<Name>Synchron</Name>
+						<Desc>Synchron with SM2 Event</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+					<OpMode>
+						<Name>Distributed Clocks</Name>
+						<Desc>Synchron with SYNC0 Event</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+					</OpMode>
+				</Dc>
+				<ESC>
+					<Reg0400>25000</Reg0400>
+					<Reg0420>100</Reg0420>
+				</ESC>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>090E02880000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
+			<Device Physics="YY">
+				<Type ProductCode="#x051F0862" RevisionNo="#x03E8008C">FB1311 MCI16 DC</Type>
+				<Name LcId="1033"><![CDATA[FB1311 MCI16 DC 2xMII]]></Name>
+				<Name LcId="1031"><![CDATA[FB1311 MCI16 DC 2xMII]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/FB1311]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/FB1311]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">1.44</Current>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.042</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>FB1XXX</GroupType>
+				<Fmmu>Outputs</Fmmu>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="128" StartAddress="#x1000" ControlByte="#x26" Enable="1">MBoxOut</Sm>
+				<Sm DefaultSize="128" StartAddress="#x1080" ControlByte="#x22" Enable="1">MBoxIn</Sm>
+				<Sm StartAddress="#x1100" ControlByte="#x24" Enable="1">Outputs</Sm>
+				<Sm StartAddress="#x1180" ControlByte="#x20" Enable="1">Inputs</Sm>
+				<RxPdo Fixed="0" Sm="2">
+					<Index>#x1a00</Index>
+					<Name>Outputs</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test Out1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test Out2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</RxPdo>
+				<TxPdo Sm="3">
+					<Index>#x1600</Index>
+					<Name>Inputs</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test In1</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>2</SubIndex>
+						<BitLen>16</BitLen>
+						<Name>Test In2</Name>
+						<DataType>UINT</DataType>
+					</Entry>
+				</TxPdo>
+				<Mailbox>
+					<EoE/>
+					<CoE SdoInfo="1" PdoAssign="1" PdoConfig="1"/>
+					<FoE/>
+				</Mailbox>
+				<Dc>
+					<OpMode>
+						<Name>Synchron</Name>
+						<Desc>Synchron with SM2 Event</Desc>
+						<AssignActivate>#x0000</AssignActivate>
+					</OpMode>
+					<OpMode>
+						<Name>Distributed Clocks</Name>
+						<Desc>Synchron with SYNC0 Event</Desc>
+						<AssignActivate>#x0100</AssignActivate>
+					</OpMode>
+				</Dc>
+				<ESC>
+					<Reg0400>25000</Reg0400>
+					<Reg0420>100</Reg0420>
+				</ESC>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>080E02880000</ConfigData>
+					<BootStrap>0010140200181402</BootStrap>
+				</Eeprom>
+			</Device>
 		</Devices>
 	</Descriptions>
 </EtherCATInfo>
