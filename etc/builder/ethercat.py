@@ -27,8 +27,8 @@ diamondFilter = [
         "EL2024", "EP4174-0002", "EX250-SEN1-X156", "EP2338-0002", 
         "EP2338-0001", "EK1100", "EK1101", "EX260-SEC1", "EK1122", "EP1122-0001",
         "EL1124", "EP3314-0002", "EL3602", "NI 9144", "EL9410", "EP2624", 
-        "EL2124", "EL4134", "EL9512", "EL3202-0010", "EL3104", "EL3602-0010",
-        "EL2612", "EL2595", "EL3124", "EL2502"]
+        "EL2124", "EL4134", "EL9510", "EL9512", "EL3202-0010", "EL3104",
+        "EL3602-0010", "EL2612", "EL2595", "EL3124", "EL2502", "EL3356-0010"]
 #The entries in the wiki with these names don't show up in the database
 # EL9011 EL9080 EL9185 ZS2000-3712
 # I23 has an EL2612 that is not in the list of supported modules
