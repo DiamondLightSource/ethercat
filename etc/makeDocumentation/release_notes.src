@@ -1,6 +1,15 @@
 /**
 \page release_notes Release notes
 
+\section rel6_0 Release 6-0
+
+BREAKING CHANGE for EL4134.template
+The scaling records :VOLTAGE were removed, as scaling from
+engineering units (-10V to 10V) to the raw integer for
+device output can be done directly in the AO :ANALOG records.
+Note that this doesn't change any macros, the only change is
+the 4 :VOLTAGE and 4 :CALCANALOG records have been removed.
+
 \section rel5_3 Release 5-3
 
 Add integral parameter to generic ADC.
