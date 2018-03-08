@@ -148,7 +148,7 @@ void WaveformPort::reset()
 {
     setIntegerParam(P_Buffercount, 0);
     setIntegerParam(P_State, GADC_STATE_WAITING);
-    callParamCallbacks();
+    setIntegerParam(P_Trigger, 0);
 }
 
 asynStatus WaveformPort::resize()
@@ -158,6 +158,7 @@ asynStatus WaveformPort::resize()
     bsize = 0;
     bofs = 0;
     reset();
+    callParamCallbacks();
     int size = _max(IP(P_Samples), -IP(P_Offset));
     printf("resize %d\n", size);
     if(size > IP(P_Chanbuff))
