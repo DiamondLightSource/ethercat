@@ -1,6 +1,13 @@
 /**
 \page release_notes Release notes
 
+\section rel6_1 Release 6-1
+
+Update xml slave information files to support <a href="https://www.beckhoff.com/english.asp?ethercat/el3356.htm">EL3356-0010 load cell analysis</a>
+slave. Fixes jira issue BC-595.
+
+Fixes to generic adc. 
+
 \section rel6_0 Release 6-0
 
 BREAKING CHANGE for EL4134.template
