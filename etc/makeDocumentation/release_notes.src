@@ -6,7 +6,9 @@
 Update xml slave information files to support <a href="https://www.beckhoff.com/english.asp?ethercat/el3356.htm">EL3356-0010 load cell analysis</a>
 slave. Fixes jira issue BC-595.
 
-Fixes to generic adc. 
+Fixes to generic adc to reset the trigger correctly. Previously the
+sampling turned off, but the trigger light stayed on when pressing the
+'Clear' button.
 
 \section rel6_0 Release 6-0
 
