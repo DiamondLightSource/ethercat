@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--1.12 (ETG.2000 1.0.8)-->
+<!--1.14 (ETG.2000 1.0.10)-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="EtherCATBase.xsd"/>
 	<xs:element name="EtherCATDiag">

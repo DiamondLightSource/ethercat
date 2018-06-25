@@ -21,6 +21,118 @@
 			</Group>
 		</Groups>
 		<Devices>
+			<Device Physics="YKY">
+				<Type ProductCode="#x05142C52" RevisionNo="#x00110000">EK1300</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EK1300 EtherCAT P Coupler (2A E-Bus)]]></Name>
+				<Name LcId="1031"><![CDATA[EK1300 EtherCAT P-Koppler (2A E-Bus)]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EK1300]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EK1300]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>-2000</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">0.04</Current>
+									<External>
+										<Channel>
+											<Name>Us Out</Name>
+											<Voltage Type="Resistor">24</Voltage>
+										</Channel>
+										<Channel>
+											<Name>EBus</Name>
+											<Voltage Type="SwitchingRegulator">5</Voltage>
+										</Channel>
+									</External>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="Resistor">0.004</Current>
+									<External>
+										<Channel>
+											<Name>Up Out</Name>
+											<Voltage Type="Resistor">24</Voltage>
+										</Channel>
+									</External>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1"/>
+						<Label>X1 IN</Label>
+						<EtherCATp>
+							<Us>
+								<PowerSupply>false</PowerSupply>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.098</Resistance>
+							</Us>
+							<Up>
+								<PowerSupply>false</PowerSupply>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.098</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>EBUS</Type>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1"/>
+						<Label>X2 OUT</Label>
+						<EtherCATp>
+							<Us>
+								<PowerSupply>false</PowerSupply>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>-0.037</Resistance>
+							</Us>
+							<Up>
+								<PowerSupply>false</PowerSupply>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>-0.037</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+				</Info>
+				<GroupType>SystemBk</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm StartAddress="#x1000" ControlByte="0" Enable="0">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Status Us</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Undervoltage</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Status Up</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Undervoltage</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040F00000A00FEFF	
+</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E0000000100180000000000A0020000C40E0000C40E00000000000000000000FF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080808080808080808080808080808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF0000FFC0C0C0808080808080808080808080C0C0C00000FFC0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FF0000FF0000FF8080800000FF808080808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF0000FFC0C0C0808080808080808080808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0FF0000C0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FF0000FFC0C0C0808080808080808080808080C0C0C00000FFC0C0C00000FF808080FF00FFFF00FFFF00FFFF00FFFF00FF0000FF0000FF8080800000FF808080808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF0000FFC0C0C0808080808080808080808080C0C0C0000000C0C0C0000000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C00000FFC0C0C0FF0000808080FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFC0C0C0C0C0C0C0C0C0C0C0C0808080C0C0C0C0C0C0C0C0C0C0C0C0808080FF00FFFF00FFFF00FFFF00FFFF00FF</ImageData16x14>
+			</Device>
 			<Device Physics="KY">
 				<Type ProductCode="#x051E2C52" RevisionNo="#x00110000">EK1310</Type>
 				<HideType RevisionNo="#x00100000"/>

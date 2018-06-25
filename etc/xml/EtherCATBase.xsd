@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--1.12.P (ETG.2000 1.0.8)-->
-<!--
-
-PLUS:
-EtherCAT P Enhancements according current Draft version of
-ETG.2000.P (EtherCAT P) shown in Technical Committee Meeting
-Fall 2016
--> www.ethercat.org/p
-
-Details:
-- Type EtherCATPLoadType........................... added
-
+<!--1.14 (ETG.2000 1.0.10)
 -->
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:complexType name="AccessType">
 		<xs:simpleContent>
@@ -198,7 +186,14 @@ Details:
 	<xs:complexType name="EnumInfoType">
 		<xs:sequence>
 			<xs:element name="Text" type="NameType" maxOccurs="unbounded"/>
-			<xs:element name="Enum" type="xs:int"/>
+			<xs:element name="Enum">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="-2147483648"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
 			<xs:element name="Comment" type="NameType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
@@ -491,6 +486,7 @@ Details:
 										<xs:enumeration value="0-50"/>
 										<xs:enumeration value="+/-5"/>
 										<xs:enumeration value="+/-2.5"/>
+										<xs:enumeration value="+/-20"/>
 										<xs:enumeration value="+/-100"/>
 										<xs:enumeration value="0-5(16)"/>
 										<xs:enumeration value="0-30(16)"/>
@@ -542,6 +538,7 @@ Details:
 					<xs:complexContent>
 						<xs:extension base="EntryType">
 							<xs:attribute name="Fixed" type="xs:boolean" use="optional"/>
+							<xs:attribute name="SafetyConnNumber" type="xs:int" use="optional"/>
 						</xs:extension>
 					</xs:complexContent>
 				</xs:complexType>
@@ -564,6 +561,17 @@ Details:
 		<xs:attribute name="OSIndexInc" type="xs:int" use="optional"/>
 		<xs:attribute name="OverwrittenByModule" type="xs:boolean" use="optional"/>
 		<xs:attribute name="SRA_Parameter" type="xs:boolean" use="optional"/>
+		<xs:attribute name="SafetyPdoType" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="FSoESlave"/>
+					<xs:pattern value="FSoEMultipleSlave"/>
+					<xs:pattern value="FSoEMaster"/>
+					<xs:pattern value="FSoEMultipleMaster"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SafetyConnNumber" type="xs:int" use="optional"/>
 	</xs:complexType>
 	<xs:complexType name="VendorSpecificType">
 		<xs:sequence>
@@ -584,6 +592,7 @@ Details:
 							<xs:element name="DisplayName" type="NameType" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
 						<xs:attribute name="OverwrittenByModule" type="xs:boolean" use="optional"/>
+						<xs:attribute name="ChannelGroup" type="xs:integer" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:choice>

@@ -11756,7 +11756,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -11870,7 +11870,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -11984,7 +11984,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12098,7 +12098,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12212,7 +12212,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5118-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12326,7 +12326,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5125-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12440,7 +12440,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12583,7 +12583,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12726,7 +12726,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0012 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12872,7 +12872,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -12988,7 +12988,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13104,7 +13104,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13220,7 +13220,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13336,7 +13336,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5118-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13452,7 +13452,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5125-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13568,7 +13568,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13713,7 +13713,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -13858,7 +13858,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0011 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14003,7 +14003,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14118,7 +14118,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14233,7 +14233,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14348,7 +14348,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14463,7 +14463,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5118-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14578,7 +14578,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5125-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14693,7 +14693,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14837,7 +14837,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -14981,7 +14981,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0010 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15123,7 +15123,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15235,7 +15235,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15347,7 +15347,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15459,7 +15459,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15571,7 +15571,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5118-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15683,7 +15683,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5125-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15795,7 +15795,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -15936,7 +15936,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16077,7 +16077,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0009 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16219,7 +16219,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16331,7 +16331,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16443,7 +16443,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16555,7 +16555,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16667,7 +16667,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5118-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16779,7 +16779,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5125-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -16891,7 +16891,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17032,7 +17032,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17173,7 +17173,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0008 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17315,7 +17315,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17427,7 +17427,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17539,7 +17539,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17651,7 +17651,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17762,7 +17762,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5118-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17873,7 +17873,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5125-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -17985,7 +17985,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18126,7 +18126,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18267,7 +18267,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0007 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18409,7 +18409,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18521,7 +18521,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18633,7 +18633,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18745,7 +18745,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5112-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18857,7 +18857,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -18998,7 +18998,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19139,7 +19139,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0006 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19281,7 +19281,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0005 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19393,7 +19393,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0005 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19505,7 +19505,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0005 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19617,7 +19617,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0005 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19758,7 +19758,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0005 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -19899,7 +19899,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0005 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20041,7 +20041,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0004 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20153,7 +20153,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0004 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20265,7 +20265,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0004 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20377,7 +20377,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0004 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20518,7 +20518,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0004 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20659,7 +20659,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0004 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20801,7 +20801,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5101-xxxx-0003 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -20913,7 +20913,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5103-xxxx-0003 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -21025,7 +21025,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5106-xxxx-0003 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -21137,7 +21137,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5201-xxxx-0003 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -21278,7 +21278,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5203-xxxx-0003 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -21419,7 +21419,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5206-xxxx-0003 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -21564,7 +21564,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5021-xxxx-0002 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>
@@ -21661,7 +21661,7 @@
 						<TcSmExtension Guid="{35F950AC-C345-43FA-8AA9-F170E88E7EA0}"/>
 					</VendorSpecific>
 				</Info>
-				<GroupType>Drive AX5000 Hw1 </GroupType>
+				<GroupType>Drive AX5000 Hw1</GroupType>
 				<Profile>
 					<DictionaryFile>Beckhoff AX5xxx\Beckhoff AX5021-xxxx-0001 Dict.xml</DictionaryFile>
 					<DiagFile>Beckhoff AX5xxx\Beckhoff AX5xxx-xxxx-xxxx Diag.xml</DiagFile>

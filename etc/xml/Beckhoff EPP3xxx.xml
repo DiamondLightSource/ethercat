@@ -51463,6 +51463,27 @@ Bit1: Value is greater than or equal to limit 2</Comment>
 				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EPP3632]]></URL>
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EPP3632]]></URL>
 				<Info>
+					<Electrical>
+						<EBusCurrent>0</EBusCurrent>
+						<EtherCATp>
+							<Device>
+								<Us>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+									<Current Type="SwitchingRegulator">0.1</Current>
+									<External>
+										<Channel>
+											<Name LcId="1033">Analog Supply</Name>
+										</Channel>
+									</External>
+								</Us>
+								<Up>
+									<PowerSupply>false</PowerSupply>
+									<MinVoltage>20.4</MinVoltage>
+								</Up>
+							</Device>
+						</EtherCATp>
+					</Electrical>
 					<StateMachine>
 						<Behavior StartToSafeopNoSync="1"/>
 					</StateMachine>
@@ -51472,6 +51493,34 @@ Bit1: Value is greater than or equal to limit 2</Comment>
 							<ResponseTimeout>2000</ResponseTimeout>
 						</Timeout>
 					</Mailbox>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.108</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.108</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
+					<Port>
+						<Type>MII</Type>
+						<Connector VendorId="1">M8P</Connector>
+						<EtherCATp>
+							<Us>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.108</Resistance>
+							</Us>
+							<Up>
+								<MaxCurrent>3</MaxCurrent>
+								<Resistance>0.108</Resistance>
+							</Up>
+						</EtherCATp>
+					</Port>
 					<VendorSpecific>
 						<TwinCAT>
 							<AlternativeSmMapping Default="1">

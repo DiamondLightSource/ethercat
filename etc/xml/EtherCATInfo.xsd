@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--1.12.P (ETG.2000 1.0.8)-->
-<!--
-
-PLUS:
-EtherCAT P Enhancements according current Draft version of
-ETG.2000.P (EtherCAT P) shown in Technical Committee Meeting
-Fall 2016
--> www.ethercat.org/p
-
-Details:
-- Element Infotype:Electrical:EtherCATp ........... added
-- Element Infotype:Port:Connector ................. comment "for furure use" deleted
-- Attribute Infotype:Port:Connector@VendorID ...... added
-- Element Infotype:Port:EtherCATp ................. added
-
- -->
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by FlorianHa (Beckhoff Automation GmbH) -->
+<!--1.14 (ETG.2000 1.0.10)-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="EtherCATBase.xsd"/>
 	<xs:element name="EtherCATInfo">
@@ -41,11 +27,7 @@ Details:
 												<xs:complexContent>
 													<xs:extension base="GroupType">
 														<xs:attribute name="SortOrder" type="xs:int" use="optional"/>
-														<xs:attribute name="ParentGroup" use="optional">
-															<xs:annotation>
-																<xs:documentation>for future use</xs:documentation>
-															</xs:annotation>
-														</xs:attribute>
+														<xs:attribute name="ParentGroup" type="xs:string" use="optional"/>
 													</xs:extension>
 												</xs:complexContent>
 											</xs:complexType>
@@ -89,7 +71,11 @@ Details:
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="Version" type="xs:string" use="optional"/>
+			<xs:attribute name="Version" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>1.14</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="DeviceType">
@@ -771,13 +757,10 @@ Details:
 					<xs:sequence>
 						<xs:element name="EBusCurrent" type="xs:int">
 							<xs:annotation>
-								<xs:documentation>This element is mandatory. Set value = 0, in case of EBus is not used</xs:documentation>
+								<xs:documentation>Set Value = 0, in case of only EtherCATp is needed</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="EtherCATp" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>draft</xs:documentation>
-							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="Device">
@@ -791,10 +774,17 @@ Details:
 																	<xs:documentation>If power comes from PowerSupply instead of Port 0</xs:documentation>
 																</xs:annotation>
 															</xs:element>
-															<xs:element name="MinVoltage" type="xs:float" minOccurs="0">
+															<xs:element name="MinVoltage" minOccurs="0">
 																<xs:annotation>
 																	<xs:documentation>wenn nicht angegeben, wird die MinVoltage von 20,4 V angenommen</xs:documentation>
 																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:float">
+																		<xs:pattern value="\d{1,2}\.\d{1,4}"/>
+																		<xs:pattern value="\d{1,2}"/>
+																		<xs:pattern value=""/>
+																	</xs:restriction>
+																</xs:simpleType>
 															</xs:element>
 															<xs:element name="Current" minOccurs="0">
 																<xs:annotation>
@@ -1008,11 +998,7 @@ Falls nichts angegeben wird, wird Us untranfsormiert ausgegeben.</xs:documentati
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="xs:string">
-										<xs:attribute name="VendorId" type="HexDecValue" use="optional">
-											<xs:annotation>
-												<xs:documentation>draft</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
+										<xs:attribute name="VendorId" type="HexDecValue" use="optional"/>
 									</xs:extension>
 								</xs:simpleContent>
 							</xs:complexType>
@@ -1030,9 +1016,6 @@ Falls nichts angegeben wird, wird Us untranfsormiert ausgegeben.</xs:documentati
 						</xs:element>
 						<xs:element name="PhysicalPhyAddr" type="xs:int" minOccurs="0"/>
 						<xs:element name="EtherCATp" minOccurs="0">
-							<xs:annotation>
-								<xs:documentation>draft</xs:documentation>
-							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="Us" minOccurs="0">

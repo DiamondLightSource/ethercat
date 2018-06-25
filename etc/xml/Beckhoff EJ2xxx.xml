@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Mit XMLSpy v2013 rel. 2 sp2 (http://www.altova.com) von MartinP (Beckhoff Automation GmbH) bearbeitet -->
 <EtherCATInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EtherCATInfo.xsd" Version="1.2">
 	<Vendor>
 		<Id>2</Id>
@@ -24,6 +25,116 @@
 				<Info>
 					<Electrical>
 						<EBusCurrent>190</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>EJ</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm StartAddress="#x0f00" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1600</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1601</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x7010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1602</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x7020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1603</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x7030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1604</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x7040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1605</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x7050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1606</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x7060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1607</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x7070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000f00</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E000000010018000000000000000000C40E0000C40E00000000000000000000FFFFFFFFFCFFFFFEFFFFFFFFFFFFFFFFFFFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFCFFFFFCFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFFFFFFFFFFF9FFFFFDFFFFFCFFFFFCFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7FFFFF7FFFFFDFFFFFDFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0002FD0001FE0001FE0001FE0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0001FE0000FF0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0001FE0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</ImageData16x14>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x07d82852" RevisionNo="#x00120000" CheckRevisionNo="LW_EQ">EJ2008</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<Name LcId="1033"><![CDATA[EJ2008 8Ch. Dig. Output 24V, 0.5A]]></Name>
+				<Name LcId="1031"><![CDATA[EJ2008 8K. Dig. Ausgang 24V, 0.5A]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EJ2008]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EJ2008]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
 					</Electrical>
 				</Info>
 				<GroupType>EJ</GroupType>
@@ -4118,7 +4229,7 @@
 				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EJ2521]]></URL>
 				<Info>
 					<Electrical>
-						<EBusCurrent>190</EBusCurrent>
+						<EBusCurrent>135</EBusCurrent>
 					</Electrical>
 					<Mailbox>
 						<Timeout>
@@ -8278,6 +8389,7 @@
 					<ConfigData>0504030c32000000000000000000</ConfigData>
 					<BootStrap>0010f400f410f400</BootStrap>
 				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E000000010018000000000000000000C40E0000C40E00000000000000000000FFFFFFFFFCFFFFFEFFFFFFFFFFFFFFFFFFFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFCFFFFFCFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFFFFFFFFFFF9FFFFFDFFFFFCFFFFFCFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7FFFFF7FFFFFDFFFFFDFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0002FD0001FE0001FE0001FE0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0001FE0000FF0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0001FE0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</ImageData16x14>
 			</Device>
 			<Device Physics="KK">
 				<Type ProductCode="#x0AF92852" RevisionNo="#x00110000">EJ2809</Type>
@@ -8486,6 +8598,205 @@
 				<Info>
 					<Electrical>
 						<EBusCurrent>110</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>EJ</GroupType>
+				<Fmmu OpOnly="1">Outputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x0f00" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Sm DefaultSize="1" StartAddress="#x0f01" ControlByte="#x44" Enable="1" OpOnly="1">Outputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1600</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x7000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1601</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x7010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1602</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x7020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1603</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x7030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1604</Index>
+					<Name>Channel 5</Name>
+					<Entry>
+						<Index>#x7040</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1605</Index>
+					<Name>Channel 6</Name>
+					<Entry>
+						<Index>#x7050</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1606</Index>
+					<Name>Channel 7</Name>
+					<Entry>
+						<Index>#x7060</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1607</Index>
+					<Name>Channel 8</Name>
+					<Entry>
+						<Index>#x7070</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1608</Index>
+					<Name>Channel 9</Name>
+					<Entry>
+						<Index>#x7080</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x1609</Index>
+					<Name>Channel 10</Name>
+					<Entry>
+						<Index>#x7090</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x160a</Index>
+					<Name>Channel 11</Name>
+					<Entry>
+						<Index>#x70a0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x160b</Index>
+					<Name>Channel 12</Name>
+					<Entry>
+						<Index>#x70b0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x160c</Index>
+					<Name>Channel 13</Name>
+					<Entry>
+						<Index>#x70c0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x160d</Index>
+					<Name>Channel 14</Name>
+					<Entry>
+						<Index>#x70d0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x160e</Index>
+					<Name>Channel 15</Name>
+					<Entry>
+						<Index>#x70e0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<RxPdo Fixed="1" Mandatory="1" Sm="1">
+					<Index>#x160f</Index>
+					<Name>Channel 16</Name>
+					<Entry>
+						<Index>#x70f0</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Output</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</RxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>040100000000ff00</ConfigData>
+				</Eeprom>
+				<ImageData16x14>424DD6020000000000003600000028000000100000000E000000010018000000000000000000C40E0000C40E00000000000000000000FFFFFFFFFCFFFFFEFFFFFFFFFFFFFFFFFFFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFCFFFFFCFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFFFFFFFFFFF9FFFFFDFFFFFCFFFFFCFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7FFFFF7FFFFFDFFFFFDFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0002FD0001FE0001FE0001FE0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0001FE0000FF0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF0000FF0000FF0000FF0000FFDCDCDC00FF00DCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0001FE0000FF0000FF0000FF0000FFDCDCDCDCDCDCDCDCDC0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</ImageData16x14>
+			</Device>
+			<Device Physics="KK">
+				<Type ProductCode="#x0B492852" RevisionNo="#x00110000" CheckRevisionNo="LW_EQ">EJ2889</Type>
+				<HideType RevisionNo="#x00100000"/>
+				<Name LcId="1033"><![CDATA[EJ2889 16Ch. Dig. Output 24V, 0.5A, negative]]></Name>
+				<Name LcId="1031"><![CDATA[EJ2889 16K. Dig. Ausgang 24V, 0.5A, negativ]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EJ2889]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EJ2889]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>130</EBusCurrent>
 					</Electrical>
 				</Info>
 				<GroupType>EJ</GroupType>
