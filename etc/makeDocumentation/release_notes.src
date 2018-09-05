@@ -1,6 +1,17 @@
 /**
 \page release_notes Release notes
 
+\section rel6_5 Release 6-5
+
+Add release notes.
+Update version.h as per "notes.txt"
+Fix release 6-4 which was missing commits between releases 6-2 and 6-3.
+Build against asyn 4-31
+
+\section rel6_4 Release 6-4
+
+Build against asyn 4-31
+
 \section rel6_3 Release 6-3
 
 Maintenance steps from notes.txt: release notes and version.h update
