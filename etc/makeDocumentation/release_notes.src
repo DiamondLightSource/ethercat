@@ -1,6 +1,15 @@
 /**
 \page release_notes Release notes
 
+\section rel6_3 Release 6-3
+
+Maintenance steps from notes.txt: release notes and version.h update
+
+\section rel6_2 Release 6-2
+
+Update xml slave information files to support a new revision of <a href="https://www.beckhoff.com/english.asp?ethercat/el3356.htm">EL3356-0010 load cell analysis</a> 
+slave. Fixes jira issue CGP-81.
+
 \section rel6_1 Release 6-1
 
 Update xml slave information files to support <a href="https://www.beckhoff.com/english.asp?ethercat/el3356.htm">EL3356-0010 load cell analysis</a>
