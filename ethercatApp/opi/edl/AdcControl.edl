@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 400
-y 334
+x 1329
+y 168
 w 447
 h 575
 font "arial-bold-r-14.0"
@@ -266,7 +266,7 @@ major 4
 minor 1
 release 1
 x 10
-y 200
+y 210
 w 64
 h 16
 font "arial-bold-r-14.0"
@@ -552,8 +552,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 270
-y 250
+x 300
+y 460
 w 90
 h 20
 fgColor index 25
@@ -576,8 +576,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 280
-y 150
+x 300
+y 370
 w 100
 h 70
 fgColor index 43
@@ -789,8 +789,8 @@ minor 1
 release 1
 x 10
 y 460
-w 110
-h 20
+w 90
+h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 3
@@ -799,5 +799,68 @@ value {
   "ADC Integral"
 }
 autoSize
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 90
+y 170
+w 120
+h 20
+fgColor index 25
+fgAlarm
+bgColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(DEVICE):FREQ$(CHANNEL)"
+indicatorPv "$(DEVICE):FREQ$(CHANNEL)"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 170
+w 75
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Frequency"
+}
+autoSize
+endObjectProperties
+
+# (Shell Command)
+object shellCmdClass
+beginObjectProperties
+major 4
+minor 3
+release 0
+x 270
+y 120
+w 150
+h 50
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Femto $(CHANNEL)"
+numCmds 1
+command {
+  0 "buildStripToolconfig.py $(DEVICE):I Amps"
+}
 endObjectProperties
 

@@ -41,8 +41,6 @@ record(longout, "$(DEVICE):ADC$(CHANNEL)_SAMPLES")
 {
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))SAMPLES")
-   field(DOL,  "$(SAMPLES)")
-   field(PINI, "YES")
 }
 
 record(longout, "$(DEVICE):ADC$(CHANNEL)_OFFSET")
@@ -174,4 +172,50 @@ record(longout, "$(DEVICE):ADC$(CHANNEL)_CLEAR")
 {
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT)_ADC$(CHANNEL))CLEAR")
+}
+
+record(mbbo, "$(DEVICE):FREQ$(CHANNEL)")
+{
+   field(DTYP, "Raw Soft Channel")
+   field(SCAN, "Passive")
+   field(PINI, "YES")
+   field(DOL, "0")
+   field(ZRST, "200Hz")
+   field(ONST, "100Hz")
+   field(TWST, "50Hz")
+   field(THST, "40Hz")
+   field(FRST, "25Hz")
+   field(FVST, "20Hz")
+   field(SXST, "10Hz")
+   field(SVST, "5Hz")
+   field(EIST, "4Hz")
+   field(NIST, "2Hz")
+   field(TEST, "1Hz")
+   field(ZRVL, "5")
+   field(ONVL, "10")
+   field(TWVL, "20")
+   field(THVL, "25")
+   field(FRVL, "40")
+   field(FVVL, "50")
+   field(SXVL, "100")
+   field(SVVL, "200")
+   field(EIVL, "250")
+   field(NIVL, "500")
+   field(TEVL, "1000")
+   field(FLNK, "$(DEVICE):SET_SAMPLES$(CHANNEL)")
+}
+
+record(ao, "$(DEVICE):SET_SAMPLES$(CHANNEL)")
+{
+   field(DOL,  "$(DEVICE):FREQ$(CHANNEL).RVAL")
+   field(OMSL, "closed_loop")
+   field(OUT,  "$(DEVICE):ADC$(CHANNEL)_SAMPLES PP")
+   field(FLNK, "$(DEVICE):SET_AVERAGE$(CHANNEL)")
+}
+
+record(ao, "$(DEVICE):SET_AVERAGE$(CHANNEL)")
+{
+   field(DOL,  "$(DEVICE):FREQ$(CHANNEL).RVAL")
+   field(OMSL, "closed_loop")
+   field(OUT,  "$(DEVICE):ADC$(CHANNEL)_AVERAGE PP")
 }
