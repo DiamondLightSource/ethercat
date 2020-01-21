@@ -1,6 +1,10 @@
 /**
 \page release_notes Release notes
 
+\section rel6_7 Release 6-7
+
+Added template for EL1084 (4 channel digital input)
+
 \section rel6_5 Release 6-5
 
 Add release notes.
