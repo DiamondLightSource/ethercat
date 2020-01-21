@@ -21,7 +21,7 @@ pdo_entry_choices = None
 # http://www.cs.diamond.ac.uk/cgi-bin/wiki.cgi/SupportedEtherCATModules
 diamondFilter = [
         "EL1502", "EP3174-0002", "EL2624", "EK1100-0030", "EL2024-0010",
-        "EL3202", "EL1014", "EP4374-0002", "EL4732",
+        "EL3202", "EL1014", "EP4374-0002", "EL4732", "EL1084",
         "EL9505", "EP2624-0002", "EL1014-0010", "EX260-SEC3", "EX260-SEC2", 
         "EX260-SEC4", "EL3314", "EP3204-0002", "EL3702",
         "EL2024", "EP4174-0002", "EX250-SEN1-X156", "EP2338-0002", 

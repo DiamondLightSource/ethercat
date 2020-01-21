@@ -148,6 +148,7 @@ def main():
     prefix = "/scratch/rjq35657/exp/Beckhoff "
     # files = {"filename": [ "dev1", "dev2"], ... }
     files = collections.OrderedDict()
+    files["EL1xxx.xml"]= ["EL1014", "EL1084"]
     files["EL15xx.xml"]= ["EL1502"]
     files["EL25xx.xml"]= ["EL2502", "EL2595"]
     files["EL32xx.xml"]= ["EL3202", "EL3202-0010"]
