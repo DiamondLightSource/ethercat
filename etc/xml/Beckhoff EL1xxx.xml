@@ -4629,6 +4629,71 @@
 				</Eeprom>
 			</Device>
 			<Device Physics="KK">
+				<Type ProductCode="#x046e3052" RevisionNo="#x00120000">EL1134</Type>
+				<HideType RevisionNo="#x00110000"/>
+				<Name LcId="1033"><![CDATA[EL1134 4Ch. Dig. Input 48V, 10µs, Sensor Power]]></Name>
+				<Name LcId="1031"><![CDATA[EL1134 4K. Dig. Eingang 48V, 10µs, Sensorversorgung]]></Name>
+				<URL LcId="1033"><![CDATA[http://www.beckhoff.com/EL1134]]></URL>
+				<URL LcId="1031"><![CDATA[http://www.beckhoff.de/EL1134]]></URL>
+				<Info>
+					<Electrical>
+						<EBusCurrent>90</EBusCurrent>
+					</Electrical>
+				</Info>
+				<GroupType>DigIn</GroupType>
+				<Fmmu>Inputs</Fmmu>
+				<Sm DefaultSize="1" StartAddress="#x1000" ControlByte="0" Enable="1">Inputs</Sm>
+				<Su FrameRepeatSupport="1"/>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a00</Index>
+					<Name>Channel 1</Name>
+					<Entry>
+						<Index>#x6000</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a01</Index>
+					<Name>Channel 2</Name>
+					<Entry>
+						<Index>#x6010</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a02</Index>
+					<Name>Channel 3</Name>
+					<Entry>
+						<Index>#x6020</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<TxPdo Fixed="1" Mandatory="1" Sm="0">
+					<Index>#x1a03</Index>
+					<Name>Channel 4</Name>
+					<Entry>
+						<Index>#x6030</Index>
+						<SubIndex>1</SubIndex>
+						<BitLen>1</BitLen>
+						<Name>Input</Name>
+						<DataType>BOOL</DataType>
+					</Entry>
+				</TxPdo>
+				<Eeprom>
+					<ByteSize>2048</ByteSize>
+					<ConfigData>0401000000000000</ConfigData>
+				</Eeprom>
+			</Device>
+			<Device Physics="KK">
 				<Type ProductCode="#x04783052" RevisionNo="#x00100000">EL1144</Type>
 				<Name LcId="1033"><![CDATA[EL1144 4Ch. Dig. Input 12V, 10µs, Sensor Power]]></Name>
 				<Name LcId="1031"><![CDATA[EL1144 4K. Dig. Eingang 12V, 10µs, Sensorversorgung]]></Name>
