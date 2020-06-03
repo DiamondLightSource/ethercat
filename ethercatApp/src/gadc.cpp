@@ -253,7 +253,9 @@ asynStatus WaveformPort::setInterrupt(epicsInt32 dummy)
     epicsFloat64 integral;
     if(getValue(pasynUserSelf, &value, &integral) == asynSuccess)
     {
+        setIntegerParam(P_Value, value + 1);
         setIntegerParam(P_Value, value);
+        setDoubleParam(P_Integral, integral + 1);
         setDoubleParam(P_Integral, integral);
     }
     getArrayValue(pasynUserSelf, outbuffer, bsize, &nIn);
