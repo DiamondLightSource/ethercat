@@ -4,6 +4,7 @@
 # % macro, PORT, asyn port for EtherCAT slave
 # % macro, SAMPLES, number of samples in waveform
 # % macro, SCAN, polling period
+# % macro, MDEL, MDEL for VALUE and INTEGRAL fields
 # % macro, INTSCAN, polling period for the INTERRUPT parameter
 # % macro, name, name for gui element
 # % gui, $(name=), edm, AdcControl.edl, DEVICE=$(DEVICE),CHANNEL=$(CHANNEL)
@@ -108,6 +109,7 @@ record(longin, "$(DEVICE):ADC$(CHANNEL)_VALUE")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))VALUE")
    field(SCAN, "$(SCAN)")
+   field(MDEL, "$(MDEL=-1)")
 }
 
 record(ai, "$(DEVICE):ADC$(CHANNEL)_INTEGRAL")
@@ -116,6 +118,7 @@ record(ai, "$(DEVICE):ADC$(CHANNEL)_INTEGRAL")
    field(INP,  "@asyn($(PORT)_ADC$(CHANNEL))INTEGRAL")
    field(PREC, "3")
    field(SCAN, "$(SCAN)")
+   field(MDEL, "$(MDEL=-1)")
 }
 
 record(mbbi, "$(DEVICE):ADC$(CHANNEL)_STATE")

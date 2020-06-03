@@ -1,6 +1,10 @@
 /**
 \page release_notes Release notes
 
+\section rel6_8 Release 6-8
+
+Change default MDEL from 0 to -1 for the VALUE and INTEGRAL fields in Generic ADC template, and add macro to override
+
 \section rel6_7 Release 6-7
 
 Added template for EL1084 (4 channel digital input)
