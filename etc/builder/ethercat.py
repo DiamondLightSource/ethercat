@@ -296,7 +296,6 @@ class EthercatDevice:
 class EthercatChainElem:
     # Set of allocated positions to avoid accidential duplication
     __Positions = set()
-    _class_initialised = False
 
     '''an ethercat device in a chain position'''
     def __init__(self, type_rev, position, portname, oversample):
@@ -399,13 +398,13 @@ class EthercatChain:
 
 ############### module functions
 
-def initialise(forceInitialisation = False):
+def initialise():
     global all_dev_descriptions
     global stypes
     global types_choice
     global types_dict
     global pdo_entry_choices
-    if not initialised or forceInitialisation:
+    if not initialised:
         all_dev_descriptions = None
         stypes = None
         all_dev_descriptions = getAllDevices()
@@ -509,6 +508,7 @@ def parseSyncManager(smNode):
 def getDescriptions(filename):
     '''return a dictionary of device descriptions in the file'''
     import libxml2
+    print("processing file %s" % filename)
     doc = libxml2.parseFile(filename)
     vendornode = doc.xpathEval("/EtherCATInfo/Vendor/Id")
     if not vendornode:
@@ -549,6 +549,11 @@ def getDescriptions(filename):
         dev_dictionary[key] = device
     return dev_dictionary
 
+dev_descriptions = None
+slaveInfoFiles = [
+    "Beckhoff EL2xxx.xml",
+    "Beckhoff EL1xxx.xml"
+    ]
 def getAllDevices():
    '''create a dictionary of possible devices from the xml description files
       The keys are of the form (typename, revision) and the entries are whole device
@@ -559,7 +564,7 @@ def getAllDevices():
    if not all_dev_descriptions:
        dev_descriptions = dict()
        for f in os.listdir(base):
-           if f.endswith("xml"):
+           if f in slaveInfoFiles:
                filename = os.path.join(base, f)
                for key, dev in getDescriptions(filename).iteritems():
                    typename = key[0]
