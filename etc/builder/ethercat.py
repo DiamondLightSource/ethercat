@@ -1,5 +1,6 @@
 
 import os
+import libxml2
 
 ### module variables
 builder_dir = os.path.dirname(__file__)
@@ -507,7 +508,6 @@ def parseSyncManager(smNode):
 
 def getDescriptions(filename):
     '''return a dictionary of device descriptions in the file'''
-    import libxml2
     print("processing file %s" % filename)
     doc = libxml2.parseFile(filename)
     vendornode = doc.xpathEval("/EtherCATInfo/Vendor/Id")
@@ -552,7 +552,24 @@ def getDescriptions(filename):
 dev_descriptions = None
 slaveInfoFiles = [
     "Beckhoff EL2xxx.xml",
-    "Beckhoff EL1xxx.xml"
+    "Beckhoff EL1xxx.xml",
+    "Beckhoff EL31xx.xml",
+    "Beckhoff EK11xx.xml",
+    "Beckhoff EL15xx.xml",
+    "Beckhoff EL32xx.xml",
+    "Beckhoff EL33xx.xml",
+    "Beckhoff EL3xxx.xml",
+    "Beckhoff EL37xx.xml",
+    "Beckhoff EL4xxx.xml",
+    "Beckhoff EL47xx.xml",
+    "Beckhoff EL9xxx.xml",
+    "Beckhoff EP1xxx.xml",
+    "Beckhoff EP2xxx.xml",
+    "Beckhoff EP3xxx.xml",
+    "Beckhoff EP4xxx.xml",
+    "SMC EX250-SEN1-X156.xml",
+    "SMC EX260-SECx_V11.xml",
+    "NI9144.xml"
     ]
 def getAllDevices():
    '''create a dictionary of possible devices from the xml description files
@@ -570,6 +587,7 @@ def getAllDevices():
                    typename = key[0]
                    revision = key[1]
                    dev_descriptions[key] = dev
+                   print(key)
    return dev_descriptions 
 
 def getPdoEntryChoices(all_devices):
