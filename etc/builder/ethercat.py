@@ -18,16 +18,16 @@ types_choice = None
 # entries valid for a GenericAdc parameter
 pdo_entry_choices = None
 
-# filter for ethercat device types supported at DLS, according to the entries in 
+# filter for ethercat device types supported at DLS, according to the entries in
 # http://www.cs.diamond.ac.uk/cgi-bin/wiki.cgi/SupportedEtherCATModules
 diamondFilter = [
         "EL1502", "EP3174-0002", "EL2624", "EK1100-0030", "EL2024-0010",
         "EL3202", "EL1014", "EP4374-0002", "EL4732", "EL1084",
         "EL9505", "EP2624-0002", "EL1014-0010", "EX260-SEC3", "EX260-SEC2", 
         "EX260-SEC4", "EL3314", "EP3204-0002", "EL3702",
-        "EL2024", "EP4174-0002", "EX250-SEN1-X156", "EP2338-0002", 
+        "EL2024", "EP4174-0002", "EX250-SEN1-X156", "EP2338-0002",
         "EP2338-0001", "EK1100", "EK1101", "EX260-SEC1", "EK1122", "EP1122-0001",
-        "EL1124", "EP3314-0002", "EL3602", "NI 9144", "EL9410", "EP2624", 
+        "EL1124", "EP3314-0002", "EL3602", "NI 9144", "EL9410", "EP2624",
         "EL2124", "EL4134", "EL9510", "EL9512", "EL3202-0010", "EL3104",
         "EL3602-0010", "EL2612", "EL2595", "EL3124", "EL2502", "EL3356-0010"]
 #The entries in the wiki with these names don't show up in the database
@@ -83,7 +83,7 @@ class PdoEntry:
         self.bitlen = bitlen
         self.datatype = datatype
         self.oversample = oversample
-        
+
     # The sample is a pdo entry in the format pdo_name.entry_name
     def makeParamName(self):
         ''' sample signal for Generic ADCs '''
@@ -127,7 +127,7 @@ class PaddingEntry(PdoEntry):
 
 class Pdo:
     '''A device's pdo entry
-       direction can be "Tx" for input from slaves 
+       direction can be "Tx" for input from slaves
        or "Rx" for output to slaves
        syncmanager can be None for non-default pdos
     '''
@@ -145,12 +145,12 @@ class Pdo:
             pdoentry.parent = self
     def generatePdoXml(self):
         ''' xml description for the ethercat scanner '''
-        o = "      <pdo name=\"%(name)s\"" % self.__dict__ 
+        o = "      <pdo name=\"%(name)s\"" % self.__dict__
         o = o + " index=\"0x%(index)08x\">\n" % self.__dict__
         for entry in self.entries:
             o = o + entry.generatePdoEntryXml()
         o = o + "      </pdo>\n"
-        
+
         return o
     def getPdoSignals(self):
         ''' list of sample signals for Generic ADCs '''
@@ -193,9 +193,9 @@ class SyncManager:
         # else:
         #     print "Duplicate pdo skipped (index = %d, name %s)" % \
         #         (pdo.index, pdo.name)
-        
+
 class EthercatDevice:
-    ''' An EtherCAT device description, 
+    ''' An EtherCAT device description,
         parsed from the manufacturer's description'''
     def __init__(self, type, vendor, product, revision ):
         self.type = type
@@ -245,7 +245,7 @@ class EthercatDevice:
                 print "Syncmanager %d not found in device. " % pdo.syncmanager
             a = (pdo.syncmanager, self.syncmanagers[pdo.syncmanager].direction)
             print "Adding pdo for syncmanager %s, direction %s" % a
-        if pdo.rxtx == "tx": 
+        if pdo.rxtx == "tx":
             #assert self.syncmanagers[pdo.syncmanager].direction == "Inputs"
             self.txpdos.append(pdo)
         else:
@@ -257,9 +257,9 @@ class EthercatDevice:
 
     def generateDeviceXml(self):
         ''' xml description for the ethercat scanner '''
-        o = "  <!-- parsed from file %(file)s -->\n" % self.__dict__ 
+        o = "  <!-- parsed from file %(file)s -->\n" % self.__dict__
         o = o + '  <device name="%(type)s" ' % self.__dict__
-        o = o + 'vendor="0x%(vendor)08x" ' % self.__dict__ 
+        o = o + 'vendor="0x%(vendor)08x" ' % self.__dict__
         o = o + 'product="0x%(product)08x" ' % self.__dict__
         o = o + 'revision="0x%(revision)08x"' % self.__dict__
         if self.assign_activate:
@@ -284,8 +284,8 @@ class EthercatDevice:
         return r
 
     def getTypicalDeviceSignals(self):
-        """filter to typical ADC signals. The criteria is: 
-           signals whose name includes 'value' or for the ni 9144, 
+        """filter to typical ADC signals. The criteria is:
+           signals whose name includes 'value' or for the ni 9144,
            signals whose name have 'in'"""
         allSignals = self.getDeviceSignals()
         signals = [item for item in allSignals if "value" in item.lower()]
@@ -304,7 +304,7 @@ class EthercatChainElem:
         self.type, self.revision = parseTypeRev(type_rev)
         self.position = position
         self.portname = portname
-        self.oversample = oversample 
+        self.oversample = oversample
         self.device = None
         assert position not in self.__Positions, \
             "Slave position %d already taken" % position
@@ -314,7 +314,7 @@ class EthercatChainElem:
                              1: set(),
                              2: set(),
                              3: set() }
-        # record whether device descriptions were processed for 
+        # record whether device descriptions were processed for
         # non default PDOs
         self.processedAssignedPdos = True
         # list of sdos - specific to a chain element, not to the device type
@@ -340,7 +340,7 @@ class EthercatChainElem:
             o = o + sdo.getSdoXml()
         return o
 
-        
+
 class EthercatChain:
     '''a collection of slaves with positions and driver information'''
     def __init__(self):
@@ -377,7 +377,7 @@ class EthercatChain:
             o = o + " />\n"
         o = o + "</chain>\n"
         return o
-        
+
     def generateSdorequestsXml(self):
         o = '<sdorequests>\n'
         for chainelem in [ self.chain[position] for position in self.chainlist ]:
@@ -388,7 +388,7 @@ class EthercatChain:
     def generateMasterXml(self):
         assert self.dev_descriptions , "device descriptions not populated. should call getDeviceDescriptions"
         o = "<scanner>\n"
-        o = o + "<devices>\n" 
+        o = o + "<devices>\n"
         for key, dev_description in self.dev_descriptions.iteritems():
             o = o + dev_description.generateDeviceXml()
         o = o + "</devices>\n"
@@ -416,7 +416,7 @@ def initialise():
         pdo_entry_choices =  ["%s : %s rev 0x%08x" % k for k in getPdoEntryChoices(types_dict) ]
 
 def filteredDescriptions(dev_descriptions = None,filter = None):
-    '''returns a dictionary of devices filtered by typename''' 
+    '''returns a dictionary of devices filtered by typename'''
     if filter == None:
         filter = diamondFilter
     filtered_descriptions = {}
@@ -434,7 +434,7 @@ def parseInt(text):
         return int(text.replace("#x", ""), 16)
     else:
         return int(text)
-        
+
 def parsePadding(entry):
     ''' parse a padding pdo entry'''
     name = ""
@@ -471,7 +471,7 @@ def parsePdoEntry(entry, oversample):
 
 def parsePdo(pdoNode, os, rxtx):
     '''read pdo description from an xml pdo node'''
-        
+
     # some pdos don't have a name, ignore
     if not pdoNode.xpathEval("Name"):
         return None
@@ -541,11 +541,11 @@ def getDescriptions(filename):
             smCount = smCount + 1
             device.addSyncManager(sm)
         for txpdo in devNode.xpathEval("TxPdo"):
-            pdo = parsePdo(txpdo, oversampling, "tx")  
-            device.addPdo( pdo ) 
+            pdo = parsePdo(txpdo, oversampling, "tx")
+            device.addPdo( pdo )
         for rxpdo in devNode.xpathEval("RxPdo"):
-            pdo = parsePdo(rxpdo, oversampling, "rx")  
-            device.addPdo(pdo) 
+            pdo = parsePdo(rxpdo, oversampling, "rx")
+            device.addPdo(pdo)
         dev_dictionary[key] = device
     return dev_dictionary
 
@@ -587,8 +587,7 @@ def getAllDevices():
                    typename = key[0]
                    revision = key[1]
                    dev_descriptions[key] = dev
-                   print(key)
-   return dev_descriptions 
+   return dev_descriptions
 
 def getPdoEntryChoices(all_devices):
     'typical pdo entry choices for Generic ADC sample signals'
