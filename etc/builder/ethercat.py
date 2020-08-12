@@ -1,6 +1,7 @@
 
 import os
 import libxml2
+from . import offline
 
 ### module variables
 builder_dir = os.path.dirname(__file__)
@@ -549,45 +550,18 @@ def getDescriptions(filename):
         dev_dictionary[key] = device
     return dev_dictionary
 
-dev_descriptions = None
-slaveInfoFiles = [
-    "Beckhoff EL2xxx.xml",
-    "Beckhoff EL1xxx.xml",
-    "Beckhoff EL31xx.xml",
-    "Beckhoff EK11xx.xml",
-    "Beckhoff EL15xx.xml",
-    "Beckhoff EL32xx.xml",
-    "Beckhoff EL33xx.xml",
-    "Beckhoff EL3xxx.xml",
-    "Beckhoff EL37xx.xml",
-    "Beckhoff EL4xxx.xml",
-    "Beckhoff EL47xx.xml",
-    "Beckhoff EL9xxx.xml",
-    "Beckhoff EP1xxx.xml",
-    "Beckhoff EP2xxx.xml",
-    "Beckhoff EP3xxx.xml",
-    "Beckhoff EP4xxx.xml",
-    "SMC EX250-SEN1-X156.xml",
-    "SMC EX260-SECx_V11.xml",
-    "NI9144.xml"
-    ]
+
 def getAllDevices():
    '''create a dictionary of possible devices from the xml description files
       The keys are of the form (typename, revision) and the entries are whole device
       description objects
    '''
-   global dev_descriptions
-   base = os.path.join(etcdir,'xml')
+   global all_dev_descriptions
+   import pickle
    if not all_dev_descriptions:
-       dev_descriptions = dict()
-       for f in os.listdir(base):
-           if f in slaveInfoFiles:
-               filename = os.path.join(base, f)
-               for key, dev in getDescriptions(filename).iteritems():
-                   typename = key[0]
-                   revision = key[1]
-                   dev_descriptions[key] = dev
-   return dev_descriptions
+       with open(offline.cache, "r") as cachefile:
+           all_dev_descriptions = pickle.load(cachefile)
+   return all_dev_descriptions
 
 def getPdoEntryChoices(all_devices):
     'typical pdo entry choices for Generic ADC sample signals'
