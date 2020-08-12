@@ -1,4 +1,4 @@
-
+from __future__ import print_function
 import os
 import libxml2
 
@@ -224,7 +224,7 @@ class EthercatDevice:
     def transferAssignments(self, elem):
         """transfer pdo assignments from an EthercatChainElem object"""
         if Debug:
-            print "transferAssignments for elem %s" % elem.portname
+            print("transferAssignments for elem %s" % elem.portname)
         if not elem.processedAssignedPdos:
             for smnumber in range(4):
                 for pdo_index in elem.assignedPdos[smnumber]:
@@ -242,9 +242,9 @@ class EthercatDevice:
             return
         if Debug:
             if not pdo.syncmanager in self.syncmanagers:
-                print "Syncmanager %d not found in device. " % pdo.syncmanager
+                print("Syncmanager %d not found in device. " % pdo.syncmanager)
             a = (pdo.syncmanager, self.syncmanagers[pdo.syncmanager].direction)
-            print "Adding pdo for syncmanager %s, direction %s" % a
+            print("Adding pdo for syncmanager %s, direction %s" % a)
         if pdo.rxtx == "tx":
             #assert self.syncmanagers[pdo.syncmanager].direction == "Inputs"
             self.txpdos.append(pdo)
@@ -422,7 +422,7 @@ def filteredDescriptions(dev_descriptions = None,filter = None):
     filtered_descriptions = {}
     for key in dev_descriptions:
         if key in filtered_descriptions.keys():
-            print "Duplicate key", key
+            print("Duplicate key", key)
             continue
         typename = key[0]
         if typename in filter:
@@ -479,7 +479,7 @@ def parsePdo(pdoNode, os, rxtx):
     index = parseInt(pdoNode.xpathEval("Index")[0].content)
     if Debug:
         a = (name, index, syncmanager)
-        print "Creating pdo name %s index %x syncmanager %s" % a
+        print("Creating pdo name %s index %x syncmanager %s" % a)
     defaultPdo = False
     #Some Pdos have a sync manager - those are marked defaultPdo
     sm = pdoNode.xpathEval("@Sm")
@@ -502,7 +502,7 @@ def parseSyncManager(smNode):
     index = parseInt(smNode.xpathEval("@StartAddress")[0].content)
     if Debug:
         a = (index, direction, watchdog)
-        print "found syncmanager index=%x direction=%s watchdog=%d" % a
+        print("found syncmanager index=%x direction=%s watchdog=%d" % a)
     sm = SyncManager(index, direction, watchdog)
     return sm
 
@@ -549,7 +549,6 @@ def getDescriptions(filename):
         dev_dictionary[key] = device
     return dev_dictionary
 
-
 def getAllDevices():
    '''create a dictionary of possible devices from the xml description files
       The keys are of the form (typename, revision) and the entries are whole device
@@ -558,9 +557,20 @@ def getAllDevices():
    global all_dev_descriptions
    import pickle
    import offline
+   import sys
+   cache_loaded = True
    if not all_dev_descriptions:
-       with open(os.path.join(builder_dir,offline.cache), "r") as cachefile:
-           all_dev_descriptions = pickle.load(cachefile)
+       try:
+           with open(os.path.join(builder_dir,offline.cache), "r") as cachefile:
+               all_dev_descriptions = pickle.load(cachefile)
+       except ImportError:
+           cache_loaded = False
+       if not cache_loaded:
+           print("Import error loading %s. Will attempt to load %s." %(
+               offline.cache, offline.cache1),
+                 file=sys.stderr)
+           with open(os.path.join(builder_dir,offline.cache1), "r") as cachefile:
+               all_dev_descriptions = pickle.load(cachefile)
    return all_dev_descriptions
 
 def getPdoEntryChoices(all_devices):

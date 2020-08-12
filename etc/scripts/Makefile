@@ -5,6 +5,8 @@ include $(TOP)/configure/CONFIG
 include $(TOP)/configure/RULES
 
 build: ../diamond_types.py
+	dls-python ../../builder/offline.py
+	dls-python ../../builder/offline1.py
 	../diamond_types.py > slave-types.txt
 	cp slave-types.txt ../slave-types.txt
 

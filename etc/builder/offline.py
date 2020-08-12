@@ -1,5 +1,13 @@
 
+#cache files
+# using class "iocbuilder.module.ethercat"
+# this is generated in this file offline.py
 cache = "cache.pkl"
+
+# this is generated in offline1.py
+# using class "ethercat"
+cache1 = "cache1.pkl"
+
 slaveInfoFiles = [
     "Beckhoff EL2xxx.xml",
     "Beckhoff EL1xxx.xml",
@@ -27,8 +35,6 @@ def main():
     import pickle
     import pkg_resources
     pkg_resources.require('iocbuilder==3.70')
-    #import sys
-    #sys.path.insert(0,"/home/rjq35657/common/python/iocbuilder")
 
     import iocbuilder
     iocbuilder.ConfigureIOC(architecture = 'linux-x86_64')
