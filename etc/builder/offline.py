@@ -1,13 +1,4 @@
 
-
-# build offline a set of device descrptions for getAllDevices
-
-base = "/dls_sw/work/R3.14.12.7/support/ethercat/etc/xml"
-
-import ethercat
-import os
-import pickle
-
 cache = "cache.pkl"
 slaveInfoFiles = [
     "Beckhoff EL2xxx.xml",
@@ -31,17 +22,38 @@ slaveInfoFiles = [
     "NI9144.xml"
     ]
 
-if __name__ == "__main__":
+def main():
+    import os
+    import pickle
+    import pkg_resources
+    pkg_resources.require('iocbuilder==3.70')
+    #import sys
+    #sys.path.insert(0,"/home/rjq35657/common/python/iocbuilder")
+
+    import iocbuilder
+    iocbuilder.ConfigureIOC(architecture = 'linux-x86_64')
+    from iocbuilder import ModuleVersion
+    ModuleVersion('asyn', '4-34')
+    ModuleVersion('busy', '1-7dls1')
+    ModuleVersion('ethercat', home='/dls_sw/work/R3.14.12.7/support')
+
+    from iocbuilder.modules import ethercat
+
+    base = ethercat.ethercat.builder_dir
     dev_descriptions = dict()
     for f in slaveInfoFiles:
         filename = os.path.join(base, f)
-        for key, dev in ethercat.getDescriptions(filename).iteritems():
+        for key, dev in ethercat.ethercat.getDescriptions(filename).iteritems():
             typename = key[0]
             revision = key[1]
             dev_descriptions[key] = dev
 
-    #print(dev_descriptions)
     with open(cache,"w") as cachefile:
         pickle.dump(dev_descriptions,cachefile)
+    
+if __name__ == "__main__":
+    main()
+    
+
 
 

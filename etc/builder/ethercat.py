@@ -1,7 +1,6 @@
 
 import os
 import libxml2
-from . import offline
 
 ### module variables
 builder_dir = os.path.dirname(__file__)
@@ -558,8 +557,9 @@ def getAllDevices():
    '''
    global all_dev_descriptions
    import pickle
+   import offline
    if not all_dev_descriptions:
-       with open(offline.cache, "r") as cachefile:
+       with open(os.path.join(builder_dir,offline.cache), "r") as cachefile:
            all_dev_descriptions = pickle.load(cachefile)
    return all_dev_descriptions
 
