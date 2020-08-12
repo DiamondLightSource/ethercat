@@ -33,22 +33,29 @@ def main():
     import iocbuilder
     iocbuilder.ConfigureIOC(architecture = 'linux-x86_64')
     from iocbuilder import ModuleVersion
+    builder_dir = os.path.dirname(__file__)
+    etc_dir = os.path.realpath(os.path.join(builder_dir,'..'))
+    home_dir = os.path.realpath(os.path.join(
+        etc_dir,'..','..'))
+    xml_dir = os.path.realpath(os.path.join(
+        etc_dir,'xml'))
+    fullpath=os.path.join(builder_dir,cache)
+
     ModuleVersion('asyn', '4-34')
     ModuleVersion('busy', '1-7dls1')
-    ModuleVersion('ethercat', home='/dls_sw/work/R3.14.12.7/support')
+    ModuleVersion('ethercat', home=home_dir)
 
     from iocbuilder.modules import ethercat
 
-    base = ethercat.ethercat.builder_dir
     dev_descriptions = dict()
     for f in slaveInfoFiles:
-        filename = os.path.join(base, f)
+        filename = os.path.join(xml_dir, f)
         for key, dev in ethercat.ethercat.getDescriptions(filename).iteritems():
             typename = key[0]
             revision = key[1]
             dev_descriptions[key] = dev
 
-    with open(cache,"w") as cachefile:
+    with open(fullpath,"w") as cachefile:
         pickle.dump(dev_descriptions,cachefile)
     
 if __name__ == "__main__":
