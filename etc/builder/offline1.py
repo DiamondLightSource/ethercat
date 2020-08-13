@@ -1,14 +1,14 @@
-# build the second type of cache that uses ethercat w/o iocbuilder
+# build the cache for ethercat w/o iocbuilder
 import offline
 
-def main():
+def build_cache():
     import ethercat
     import os
     import pickle
     builder_dir = os.path.dirname(__file__)
     etc_dir = os.path.realpath(os.path.join(builder_dir,'..'))
     xml_dir = os.path.realpath(os.path.join(etc_dir,'xml'))
-    fullpath=os.path.join(builder_dir,offline.cache1)
+    fullpath=os.path.join(builder_dir,offline.cache)
 
     dev_descriptions = dict()
     for f in offline.slaveInfoFiles:
@@ -22,6 +22,4 @@ def main():
         pickle.dump(dev_descriptions,cachefile)
 
 if __name__ == "__main__":
-    main()
-
-
+    build_cache()

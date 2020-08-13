@@ -554,24 +554,35 @@ def getAllDevices():
       The keys are of the form (typename, revision) and the entries are whole device
       description objects
    '''
-   global all_dev_descriptions
-   import pickle
-   import offline
-   import sys
-   cache_loaded = True
-   if not all_dev_descriptions:
-       try:
-           with open(os.path.join(builder_dir,offline.cache), "r") as cachefile:
-               all_dev_descriptions = pickle.load(cachefile)
-       except ImportError:
-           cache_loaded = False
-       if not cache_loaded:
-           print("Import error loading %s. Will attempt to load %s." %(
-               offline.cache, offline.cache1),
-                 file=sys.stderr)
-           with open(os.path.join(builder_dir,offline.cache1), "r") as cachefile:
-               all_dev_descriptions = pickle.load(cachefile)
-   return all_dev_descriptions
+    global all_dev_descriptions
+    import pickle
+    import offline
+    import sys
+    cache_loaded = True
+    
+    iocbuilder_cache=os.path.join(builder_dir,
+                                  offline.iocbuilder_cache)
+    cache=os.path.join(builder_dir,
+                       offline.cache)
+    if os.path.exists(iocbuilder_cache) \
+       and os.paths.exists(cache) \
+       and not all_dev_descriptions:
+        try:
+            with open(fullpath, "r") as cachefile:
+                all_dev_descriptions = pickle.load(cachefile)
+        except ImportError:
+            cache_loaded = False
+        if not cache_loaded:
+            print("Import error loading %s. Will attempt to load %s." %(
+                offline.cache, offline.cache1),
+                  file=sys.stderr)
+            with open(os.path.join(builder_dir,offline.cache1), "r") as cachefile:
+                all_dev_descriptions = pickle.load(cachefile)
+    else:
+        # this gets called as part of the build of the
+        # module when the cache has not been generated
+        all_dev_descriptions = dict() #empty dictionary
+    return all_dev_descriptions
 
 def getPdoEntryChoices(all_devices):
     'typical pdo entry choices for Generic ADC sample signals'
