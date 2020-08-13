@@ -5,6 +5,8 @@ db
 dbd
 documentation/doxygen
 etc/builder/*.pyc
+etc/builder/cache.pkl
+etc/builder/iocbuilder_cache.pkl
 etc/scripts/slave-types.txt
 etc/scripts/O.*
 ethercatApp/Db/O.*
