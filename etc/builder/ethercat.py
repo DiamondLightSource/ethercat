@@ -550,10 +550,10 @@ def getDescriptions(filename):
     return dev_dictionary
 
 def getAllDevices():
-   '''create a dictionary of possible devices from the xml description files
-      The keys are of the form (typename, revision) and the entries are whole device
-      description objects
-   '''
+    '''create a dictionary of possible devices from the xml description files
+       The keys are of the form (typename, revision) and the entries are whole device
+       description objects
+    '''
     global all_dev_descriptions
     import pickle
     import offline
@@ -562,26 +562,36 @@ def getAllDevices():
     
     iocbuilder_cache=os.path.join(builder_dir,
                                   offline.iocbuilder_cache)
-    cache=os.path.join(builder_dir,
+    non_iocbuilder_cache=os.path.join(builder_dir,
                        offline.cache)
     if os.path.exists(iocbuilder_cache) \
-       and os.paths.exists(cache) \
+       and os.path.exists(non_iocbuilder_cache) \
        and not all_dev_descriptions:
         try:
-            with open(fullpath, "r") as cachefile:
+            with open(iocbuilder_cache, "r") as cachefile:
                 all_dev_descriptions = pickle.load(cachefile)
         except ImportError:
             cache_loaded = False
         if not cache_loaded:
             print("Import error loading %s. Will attempt to load %s." %(
-                offline.cache, offline.cache1),
+                offline.iocbuilder_cache, offline.cache),
                   file=sys.stderr)
-            with open(os.path.join(builder_dir,offline.cache1), "r") as cachefile:
+            with open(non_iocbuilder_cache, "r") as cachefile:
                 all_dev_descriptions = pickle.load(cachefile)
     else:
-        # this gets called as part of the build of the
-        # module when the cache has not been generated
-        all_dev_descriptions = dict() #empty dictionary
+        # this gets called from offline.py when building
+        # the module when the cache has not yet been generated
+        dev_descriptions = dict()
+        etc_dir = os.path.realpath(os.path.join(builder_dir,'..'))
+        xml_dir = os.path.realpath(os.path.join(etc_dir,'xml'))
+        for f in offline.slaveInfoFiles:
+            filename = os.path.join(xml_dir, f)
+            for key, dev in getDescriptions(filename).iteritems():
+                typename = key[0]
+                revision = key[1]
+                dev_descriptions[key] = dev
+        
+        all_dev_descriptions = dev_descriptions
     return all_dev_descriptions
 
 def getPdoEntryChoices(all_devices):
