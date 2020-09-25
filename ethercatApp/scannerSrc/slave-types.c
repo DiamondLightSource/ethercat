@@ -191,15 +191,10 @@ int check_valid_slave(char *name, int32_t revision)
     {
         curr_slave = valid_slaves[i];
         if (strcmp(shortname, curr_slave->type) == 0) {
-            printf("Found matching valid slave for %s\n", shortname);
             if (revision == curr_slave->revision) {
-                printf("Revision also matches\n");
                 free(shortname);
                 return(YES);
             }
-        }
-        else {
-            // printf("Name %s does not match our module %s\n", curr_slave->type, shortname);
         }
         ++i;
     }
