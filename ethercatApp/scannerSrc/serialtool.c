@@ -10,6 +10,7 @@
 #include <sys/ioctl.h>
 
 #include "slave-types.h"
+#include "slave-list-path.h"
 
 // IOCTL API exposes some features not present in the C API
 #include "ioctl.h"
@@ -112,11 +113,13 @@ int writeserial(int action, int base, int pos)
             {
                 *serial = base;
             }
-            if(ioctl(fd, EC_IOCTL_SLAVE_SII_WRITE, &sii) < 0)
+            int error = ioctl(fd, EC_IOCTL_SLAVE_SII_WRITE, &sii) < 0;
+            if(error < 0)
             {
                 perror("EC_IOCTL_SLAVE_SII_WRITE");
                 exit(1);
             }
+            printf("error:   %i\n", error);
             printf("WRITE:   %d\n", *serial);
         }
         printf("\n");
@@ -127,11 +130,13 @@ int writeserial(int action, int base, int pos)
     return 0;
 }
 
+
 int main(int argc, char ** argv)
 {
     int pos = -1;
     int base = 0;
     int action = READ_ACTION;
+
     while(1)
     {
         int c = getopt(argc, argv, "w:p:s:");
@@ -165,8 +170,12 @@ int main(int argc, char ** argv)
         fprintf(stderr, usage, argv[0]);
         exit(1);
     }
-    read_valid_slaves();
+
+    char *slave_list_filename = get_slave_list_filename(argv[0]);
+    read_valid_slaves(slave_list_filename);
+    free(slave_list_filename);
 
     writeserial(action, base, pos);
+
     return 0;
 }
