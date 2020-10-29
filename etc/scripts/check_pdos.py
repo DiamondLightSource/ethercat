@@ -153,7 +153,7 @@ def main():
     files["EL25xx.xml"]= ["EL2502", "EL2595"]
     files["EL32xx.xml"]= ["EL3202", "EL3202-0010"]
     files["EL33xx.xml"]= ["EL3314"]
-    files["EL3xxx.xml"]= ["EL3602", "EL3202-0010"]
+    files["EL3xxx.xml"]= ["EL3602", "EL3202-0010", "ELM3004"]
     files["EL47xx.xml"]= ["EL4732"]
     files["EP2xxx.xml"]= ["EP2338-0001", "EP2338-0002","EP2624", "EP2624-0002"]
     files["EP3xxx.xml"]= ["EP3174-0002","EP3204-0002","EP3314-0002"]
