@@ -102,7 +102,7 @@ class SdoEntry:
 
 class PdoEntry:
     '''An entry in a devices's PDO'''
-    def __init__(self, name, index, subindex, bitlen, datatype,oversample):
+    def __init__(self, name, index, subindex, bitlen, datatype, oversample):
         self.name = name
         self.index = index
         self.subindex = subindex
