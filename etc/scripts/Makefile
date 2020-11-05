@@ -10,7 +10,9 @@ build: ../diamond_types.py
 	../diamond_types.py > slave-types.txt
 	cp slave-types.txt ../slave-types.txt
 
-# # rule for building slave types list 
+uninstall:
+	-rm ../../builder/*.pkl
+
+# # rule for building slave types list
 # slave-types.txt:
 # 	../diamond_types.py > $@
-
