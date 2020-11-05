@@ -18,3 +18,9 @@ etc/makeDocumentation/release_notes.src
 Please email with issues as the maintainer has been know to ignore
 github notifications for months.
 
+Maintainer notes
+
+Before making a release:
+
+1. Check/update the version in ethercatApp/scannerSrc/version.h
+2. Write release notes in etc/makeDocumentation/release_notes.src

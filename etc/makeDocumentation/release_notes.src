@@ -1,6 +1,24 @@
 /**
 \page release_notes Release notes
 
+\section rel7_3 Release 7-3
+
+Changes to speed up iocbuilder by using pickled xml info
+(jira CPG-258)
+
+\section rel7_2 Release 7-2
+
+Cherry pick changes from r3.14.12.3 releases 6-7 and 6-8
+
+\section rel7_1 Release 7-1
+
+Update dependencies (asyn)
+
+\section rel7_0 Release 7-0
+
+Use different epics base R3.14.12.7
+
+
 \section rel6_8 Release 6-8
 
 Change default MDEL from 0 to -1 for the VALUE and INTEGRAL fields in Generic ADC template, and add macro to override
