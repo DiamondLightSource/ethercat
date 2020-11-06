@@ -2,12 +2,12 @@
 
 # cache files
 # using class "iocbuilder.module.ethercat"
-# this is generated in this file offline.py
-iocbuilder_cache = "iocbuilder_cache.pkl"
+# this is generated in this file build_iocbuilder_descriptions.py
+iocbuilder_descriptions = "iocbuilder_descriptions.pkl"
 
-# this is generated in offline1.py
+# this is generated in build_ethercat_descriptions.py
 # using class "ethercat"
-cache = "cache.pkl"
+ethercat_descriptions = "ethercat_descriptions.pkl"
 
 slaveInfoFiles = [
     "Beckhoff EL2xxx.xml",
@@ -31,7 +31,7 @@ slaveInfoFiles = [
     "NI9144.xml"
     ]
 
-def build_iocbuilder_cache():
+def build_iocbuilder_descriptions():
     import os
     import pickle
     import pkg_resources
@@ -46,7 +46,7 @@ def build_iocbuilder_cache():
         etc_dir,'..','..'))
     xml_dir = os.path.realpath(os.path.join(
         etc_dir,'xml'))
-    fullpath=os.path.join(builder_dir,iocbuilder_cache)
+    fullpath=os.path.join(builder_dir,iocbuilder_descriptions)
 
     ModuleVersion('asyn', '4-34')
     ModuleVersion('busy', '1-7dls1')
@@ -66,4 +66,4 @@ def build_iocbuilder_cache():
         pickle.dump(dev_descriptions,cachefile)
 
 if __name__ == "__main__":
-    build_iocbuilder_cache()
+    build_iocbuilder_descriptions()
