@@ -38,14 +38,14 @@ def build_iocbuilder_descriptions():
     builder_dir = os.path.dirname(__file__)
     etc_dir = os.path.realpath(os.path.join(builder_dir,'..'))
     home_dir = os.path.realpath(os.path.join(
-        etc_dir,'..','..'))
+        etc_dir,'..'))
     xml_dir = os.path.realpath(os.path.join(
         etc_dir,'xml'))
     fullpath=os.path.join(builder_dir,iocbuilder_descriptions)
 
     ModuleVersion('asyn', '4-34')
     ModuleVersion('busy', '1-7dls1')
-    ModuleVersion('ethercat', home=home_dir)
+    ModuleVersion('ethercat', home=home_dir, use_name=False)
 
     from iocbuilder.modules import ethercat
 
