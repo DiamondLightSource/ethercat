@@ -1,13 +1,8 @@
-# build the cache for ethercat with iocbuilder
+# build the ethercat desciptions from the ESI xml files
 
-# cache files
 # using class "iocbuilder.module.ethercat"
-# this is generated in this file build_iocbuilder_descriptions.py
+# pickled descriptions in this file build_iocbuilder_descriptions.py
 iocbuilder_descriptions = "iocbuilder_descriptions.pkl"
-
-# this is generated in build_ethercat_descriptions.py
-# using class "ethercat"
-ethercat_descriptions = "ethercat_descriptions.pkl"
 
 slaveInfoFiles = [
     "Beckhoff EL2xxx.xml",
@@ -62,8 +57,8 @@ def build_iocbuilder_descriptions():
             revision = key[1]
             dev_descriptions[key] = dev
 
-    with open(fullpath,"w") as cachefile:
-        pickle.dump(dev_descriptions,cachefile)
+    with open(fullpath,"w") as descriptionsfile:
+        pickle.dump(dev_descriptions,descriptionsfile)
 
 if __name__ == "__main__":
     build_iocbuilder_descriptions()

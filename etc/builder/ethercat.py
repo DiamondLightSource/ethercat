@@ -580,35 +580,36 @@ def getAllDevices():
     '''
     global all_dev_descriptions
     import pickle
-    import offline
+    import build_iocbuilder_descriptions as i_descriptions
+    import build_ethercat_descriptions as e_descriptions
     import sys
-    cache_loaded = True
+    descriptions_loaded = True
     
     iocbuilder_descriptions=os.path.join(builder_dir,
-                                         offline.iocbuilder_descriptions)
-    non_iocbuilder_descriptions=os.path.join(builder_dir,
-                                             offline.descriptions)
+                                         i_descriptions.iocbuilder_descriptions)
+    ethercat_descriptions=os.path.join(builder_dir,
+                                       e_descriptions.ethercat_descriptions)
     if os.path.exists(iocbuilder_descriptions) \
-       and os.path.exists(non_iocbuilder_descriptions) \
+       and os.path.exists(ethercat_descriptions) \
        and not all_dev_descriptions:
         try:
-            with open(iocbuilder_descriptions, "r") as cachefile:
-                all_dev_descriptions = pickle.load(cachefile)
+            with open(iocbuilder_descriptions, "r") as descriptions_file:
+                all_dev_descriptions = pickle.load(descriptions_file)
         except ImportError:
-            cache_loaded = False
-        if not cache_loaded:
+            descriptions_loaded = False
+        if not descriptions_loaded:
             print("Import error loading %s. Will attempt to load %s." %(
-                offline.iocbuilder_descriptions, offline.descriptions),
+                i_descriptions.iocbuilder_descriptions, e_descriptions.ethercat_descriptions),
                   file=sys.stderr)
-            with open(non_iocbuilder_descriptions, "r") as cachefile:
-                all_dev_descriptions = pickle.load(cachefile)
+            with open(ethercat_descriptions, "r") as descriptions_file:
+                all_dev_descriptions = pickle.load(descriptions_file)
     else:
-        # this gets called from offline.py when building
-        # the module when the ocache has not yet been generated
+        # this gets called from build_iocbuilder_descriptions.py when building
+        # the module when the descriptions has not yet been generated
         dev_descriptions = dict()
         etc_dir = os.path.realpath(os.path.join(builder_dir,'..'))
         xml_dir = os.path.realpath(os.path.join(etc_dir,'xml'))
-        for f in offline.slaveInfoFiles:
+        for f in i_descriptions.slaveInfoFiles:
             filename = os.path.join(xml_dir, f)
             for key, dev in getDescriptions(filename).iteritems():
                 typename = key[0]
