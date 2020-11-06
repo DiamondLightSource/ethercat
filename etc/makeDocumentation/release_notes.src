@@ -3,7 +3,7 @@
 
 \section rel7_3 Release 7-3
 
-Changes to speed up iocbuilder by using pickled xml info
+Changes to speed up iocbuilder by using pickled xml info descriptions
 (jira CPG-258)
 
 \section rel7_2 Release 7-2
