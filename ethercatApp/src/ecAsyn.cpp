@@ -185,7 +185,6 @@ struct ENGINE_USER
 ecMaster::ecMaster(char * name) :
     asynPortDriver(name,
                    1, /* maxAddr */
-                   NUM_MASTER_PARAMS, /* max parameters */
                    asynInt32Mask | asynDrvUserMask, /* interface mask*/
                    asynInt32Mask, /* interrupt mask */
                    0, /* non-blocking, no addresses */
@@ -208,7 +207,6 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
                ENGINE_USER * usr, int devid) :
     asynPortDriver(device->name,
                    1, /* maxAddr */
-                   NUM_SLAVE_PARAMS + pdos, /* max parameters */
                    asynOctetMask | asynInt32Mask | asynInt32ArrayMask
                    | asynFloat64Mask | asynDrvUserMask, /* interface mask*/
                    asynOctetMask| asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
@@ -811,7 +809,6 @@ extern "C"
 XFCPort::XFCPort(const char * name) : asynPortDriver(
         name,
         1, /* maxAddr */
-        1, /* max parameters */
         asynInt32Mask | asynDrvUserMask, /* interface mask*/
         asynInt32Mask, /* interrupt mask */
         0, /* non-blocking, no addresses */
@@ -830,7 +827,6 @@ XFCPort::XFCPort(const char * name) : asynPortDriver(
 ecSdoAsyn::ecSdoAsyn(char * sdoport, ecAsyn * parent):
     asynPortDriver(sdoport,
                    1,           // maxAddr
-                   parent->sdos * 3, // max parameters
                    asynInt32Mask | asynDrvUserMask, /* interface mask */
                    asynInt32Mask, /* interrupt mask */
                    0,  /* ASYN_CANBLOCK=0, non blocking, no addresses */

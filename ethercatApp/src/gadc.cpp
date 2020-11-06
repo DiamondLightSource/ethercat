@@ -45,7 +45,6 @@ static int posmod(int a, int b)
 WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAPPING *m) : asynPortDriver(
     name,
     1, /* maxAddr */
-    NUM_WAVEFORM_PARAMS, /* max parameters */
     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask| asynDrvUserMask, /* interface mask*/
     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask, /* interrupt mask */
     0, /* non-blocking, no addresses */
