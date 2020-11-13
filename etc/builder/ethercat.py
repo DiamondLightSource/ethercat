@@ -318,6 +318,8 @@ class EthercatDevice:
         if "ni 9144" in self.type.lower():
             signals.extend([item for item in allSignals \
                             if "in" in item.lower()])
+        if "elm3704-0000" in self.type.lower():
+            signals.extend([item for item in allSignals if "samples" in item.lower()])
         return signals
 
 class EthercatChainElem:
