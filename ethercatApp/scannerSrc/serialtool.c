@@ -119,7 +119,6 @@ int writeserial(int action, int base, int pos)
                 perror("EC_IOCTL_SLAVE_SII_WRITE");
                 exit(1);
             }
-            printf("error:   %i\n", error);
             printf("WRITE:   %d\n", *serial);
         }
         printf("\n");
