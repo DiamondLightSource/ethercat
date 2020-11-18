@@ -17,6 +17,7 @@ slaveInfoFiles = [
     "Beckhoff EL4xxx.xml",
     "Beckhoff EL47xx.xml",
     "Beckhoff EL9xxx.xml",
+    "Beckhoff ELM37xx.xml",
     "Beckhoff EP1xxx.xml",
     "Beckhoff EP2xxx.xml",
     "Beckhoff EP3xxx.xml",
