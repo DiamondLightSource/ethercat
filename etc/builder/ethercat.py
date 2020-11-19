@@ -1,6 +1,7 @@
 from __future__ import print_function
 import os
 import libxml2
+import sys
 
 # module used from iocbuilder and from scripts in etc/scripts
 # 
@@ -532,7 +533,7 @@ def parseSyncManager(smNode):
 
 def getDescriptions(filename):
     '''return a dictionary of device descriptions in the file'''
-    print("processing file %s" % filename)
+    print("processing file %s" % filename, file=sys.stderr)
     doc = libxml2.parseFile(filename)
     vendornode = doc.xpathEval("/EtherCATInfo/Vendor/Id")
     if not vendornode:
