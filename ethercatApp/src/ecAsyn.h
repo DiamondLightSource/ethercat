@@ -77,7 +77,6 @@ private:
     int devid;
     EC_PDO_ENTRY_MAPPING ** mappings;
     int P_SLAVEINFO;
-#define FIRST_SLAVE_COMMAND P_SLAVEINFO
     int P_AL_STATE;
     int P_ERROR_FLAG;
     int P_DISABLE;
@@ -85,7 +84,6 @@ private:
     int P_DEVREVISION;
     int P_DEVPOSITION;
     int P_DEVNAME;
-#define LAST_SLAVE_COMMAND P_DEVNAME
     int P_First_PDO;
     int P_Last_PDO;
 public:
@@ -98,7 +96,6 @@ public:
     virtual asynStatus getBoundsForMapping(struct EC_PDO_ENTRY_MAPPING *m, epicsInt32 *low, epicsInt32 *high);
 };
 
-#define NUM_SLAVE_PARAMS (&LAST_SLAVE_COMMAND - &FIRST_SLAVE_COMMAND + 1)
 
 class ecSdoAsyn : public asynPortDriver, public ListNode<int>
 {

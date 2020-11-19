@@ -36,11 +36,6 @@ static int posmod(int a, int b)
     return c;
 }
 
-// check in gadc.h definition
-#define FIRST_WAVEFORM_COMMAND P_Capture
-#define LAST_WAVEFORM_COMMAND P_Waveform
-
-#define NUM_WAVEFORM_PARAMS (&LAST_WAVEFORM_COMMAND - &FIRST_WAVEFORM_COMMAND + 1)
 
 WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAPPING *m) : asynPortDriver(
     name,
@@ -75,10 +70,6 @@ WaveformPort::WaveformPort(const char * name, ecAsyn *p, struct EC_PDO_ENTRY_MAP
     setIntegerParam(P_State, GADC_STATE_WAITING);
     setIntegerParam(P_Support, GADC_BIT_TRIGGER | GADC_BIT_NEGATIVE_OFFSET);
 }
-
-#undef FIRST_WAVEFORM_COMMMAND
-#undef LAST_WAVEFORM_COMMAND
-#undef NUM_WAVEFORM_PARAMS
 
 
 // note possible enhancement for asynPortDriver, setter function pointer table
