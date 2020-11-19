@@ -28,7 +28,7 @@ int set_slave_list(char *slave_list_arg)
     {
         free(slave_list);
     }
-    slave_list = calloc(sizeof(char),strlen(slave_list_arg)+1);
+    slave_list = calloc(strlen(slave_list_arg)+1, sizeof(char));
     if (!slave_list)
         return NO;
     strcpy(slave_list, slave_list_arg);
@@ -61,7 +61,7 @@ char *read_slave_types(char *slave_list_filename)
         }
     }
     /* read all bytes to memory and pass the result to caller*/
-    buffer = calloc(sizeof(char), fstat.st_size);
+    buffer = calloc(fstat.st_size, sizeof(char));
     printf("Reading list of valid slaves from %s\n", slave_list_filename);
     f = fopen(slave_list_filename, "r");
     size = fread(buffer, sizeof(char), fstat.st_size, f);
@@ -137,8 +137,7 @@ void read_valid_slaves(char *slave_list_filename)
     int result;
     do  
     {
-        curr_slave = calloc(sizeof(slave_t), 1);
-        // result = get_slave_type(curr_slave);
+        curr_slave = calloc(1, sizeof(slave_t));
         result = get_slave_type(curr_slave, slave_list_filename);
         if (result == NO)
         {
