@@ -196,7 +196,7 @@ class SdoControl(Device):
     ArgInfo = makeArgInfo(__init__,
                           name = Simple("sdo name", str),
                           slave = Ident("ethercat slave", EthercatSlave),
-                          index = Simple("sdo index", int))
+                          index = Simple("sdo index (decimal)", int))
 
 class SdoEntryControl(Device):
     def __init__(self, name, parentsdo, asynparameter, description, subindex, bit_length):
@@ -208,5 +208,5 @@ class SdoEntryControl(Device):
                           name = Simple("sdo entry name", str),
                           asynparameter = Simple("asyn parameter prefix", str),
                           description = Simple("sdo entry description", str),
-                          subindex = Simple("sdo entry subindex", int),
+                          subindex = Simple("sdo entry subindex (decimal)", int),
                           bit_length = Simple("sdo entry bit length", int))
