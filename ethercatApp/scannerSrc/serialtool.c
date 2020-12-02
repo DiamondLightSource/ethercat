@@ -113,8 +113,7 @@ int writeserial(int action, int base, int pos)
             {
                 *serial = base;
             }
-            int error = ioctl(fd, EC_IOCTL_SLAVE_SII_WRITE, &sii) < 0;
-            if(error < 0)
+            if(ioctl(fd, EC_IOCTL_SLAVE_SII_WRITE, &sii) < 0)
             {
                 perror("EC_IOCTL_SLAVE_SII_WRITE");
                 exit(1);

@@ -9,7 +9,7 @@
 
 */
 
-void get_app_path(const char *argv0, char *path);
+void get_app_path(const char *program_path, char *path);
 int get_root_dir_index(const char *program_name);
 char *get_slave_list_filename(const char *program_name);
 

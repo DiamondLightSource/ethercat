@@ -161,8 +161,9 @@ void read_valid_slaves(char *slave_list_filename)
 char *shorten_name(char *name)
 {
     if (strlen(name) == 0) {
-        char *shortname = calloc(strlen("NO_NAME") + 1, sizeof(char));
-        strcpy(shortname, "NO_NAME");
+        char unnamed[] = "NO_NAME";
+        char *shortname = calloc(strlen(unnamed) + 1, sizeof(char));
+        strcpy(shortname, unnamed);
         return shortname;
     }
     char *shortname = calloc(strlen(name) + 1, sizeof(char));
