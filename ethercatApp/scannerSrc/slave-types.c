@@ -190,11 +190,12 @@ int check_valid_slave(char *name, int32_t revision)
     while ( i < valid_slaves_count)
     {
         curr_slave = valid_slaves[i];
-        if (strcmp(shortname, curr_slave->type) == 0) {
-            if (revision == curr_slave->revision) {
-                free(shortname);
-                return(YES);
-            }
+        if ((revision == curr_slave->revision) &&
+            (strcmp(shortname, curr_slave->type) == 0) )
+        {
+
+            free(shortname);
+            return(YES);
         }
         ++i;
     }
