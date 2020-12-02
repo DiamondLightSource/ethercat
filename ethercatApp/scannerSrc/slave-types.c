@@ -193,7 +193,6 @@ int check_valid_slave(char *name, int32_t revision)
         if ((revision == curr_slave->revision) &&
             (strcmp(shortname, curr_slave->type) == 0) )
         {
-
             free(shortname);
             return(YES);
         }

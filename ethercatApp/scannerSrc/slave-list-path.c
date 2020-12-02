@@ -12,20 +12,24 @@ void get_app_path(const char *program_path, char *path)
 {
 
     char buf[PATH_MAX];
-    if (program_path[0] == '/') {
+    if (program_path[0] == '/')
+    {
         // Absolute path used
         strcpy(buf, program_path);
     }
-    else {
+    else
+    {
         // Relative path used
-        if(NULL == getcwd(buf, PATH_MAX)) {
+        if(NULL == getcwd(buf, PATH_MAX))
+        {
             perror("Error getting current directory");
             exit(EXIT_FAILURE);
         }
         strcat(buf, "/");
         strcat(buf, program_path);
     }
-    if (NULL == realpath(buf, path)) {
+    if (NULL == realpath(buf, path))
+    {
         perror("Error getting real path");
         exit(EXIT_FAILURE);
     }
@@ -42,7 +46,8 @@ int get_root_dir_index(const char *program_name)
     char *found = strstr(program_name, binary_dir);
 
     // Handle the case where it is not found
-    if (found == NULL) {
+    if (found == NULL)
+    {
         return -1;
     }
     
@@ -64,7 +69,8 @@ char *get_slave_list_filename(const char *program_path)
 
     // Get root directory
     int root_dir_index = get_root_dir_index(real_path);
-    if (root_dir_index != -1) {
+    if (root_dir_index != -1)
+    {
         slave_list_filename = calloc(root_dir_index + strlen(relative_path) + 1, sizeof(char));
         strncpy(slave_list_filename, real_path, root_dir_index);
     }
@@ -75,7 +81,8 @@ char *get_slave_list_filename(const char *program_path)
     // Check file
     struct stat fstat;
     int result = stat(slave_list_filename, &fstat);
-    if (result) {
+    if (result)
+    {
         printf("Could not find slave list file at %s\n", slave_list_filename);
     }
 
