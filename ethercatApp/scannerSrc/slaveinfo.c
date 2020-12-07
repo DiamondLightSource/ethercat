@@ -2,7 +2,9 @@
 #include <string.h>
 #include <ecrt.h>
 #include <unistd.h>
+
 #include "slave-types.h"
+#include "slave-list-path.h"
 #include "version.h"
 
 typedef struct
@@ -157,7 +159,10 @@ int main(int argc, char ** argv) {
         exit(1);
     }
 
-    read_valid_slaves();
+    char *slave_list_filename = get_slave_list_filename(argv[0]);
+    read_valid_slaves(slave_list_filename);
+    free(slave_list_filename);
+
     if (scanbus(&thebus) != SCANBUS_OK)
     {
         exit(1);

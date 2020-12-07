@@ -1,6 +1,16 @@
 /**
 \page release_notes Release notes
 
+\section rel7_4 Release 7-4
+
+Now uses slave-types.txt file generated locally in module instead of hardcoded path
+Removed/commented out unused parameters to reduce compiler warnings
+Fixed order of arguments for calloc (size and number of elements swapped)
+Removed old asyn driver parameter macros and driver arguments
+Add support for <a href="https://www.beckhoff.com/english.asp?ethercat/elm3704_0001.htm">ELM3704-0001 4-channel multi-functional input</a>
+Add support for <a href="https://www.beckhoff.com/ELM3004/">ELM3004 4-channel analog input terminal</a> 
+Add support for <a href="https://www.beckhoff.com/english.asp?ethercat/ekm1101.htm">EKM1101 Couple with ID switch and diagnostics</a>
+
 \section rel7_3 Release 7-3
 
 Changes to speed up iocbuilder by using pickled xml info descriptions

@@ -55,7 +55,8 @@ diamondFilter = [
         "EP2338-0001", "EK1100", "EK1101", "EX260-SEC1", "EK1122", "EP1122-0001",
         "EL1124", "EP3314-0002", "EL3602", "NI 9144", "EL9410", "EP2624",
         "EL2124", "EL4134", "EL9510", "EL9512", "EL3202-0010", "EL3104",
-        "EL3602-0010", "EL2612", "EL2595", "EL3124", "EL2502", "EL3356-0010"]
+        "EL3602-0010", "EL2612", "EL2595", "EL3124", "EL2502", "EL3356-0010",
+        "EKM1101", "ELM3004", "ELM3704-0000"]
 #The entries in the wiki with these names don't show up in the database
 # EL9011 EL9080 EL9185 ZS2000-3712
 # I23 has an EL2612 that is not in the list of supported modules
@@ -101,7 +102,7 @@ class SdoEntry:
 
 class PdoEntry:
     '''An entry in a devices's PDO'''
-    def __init__(self, name, index, subindex, bitlen, datatype,oversample):
+    def __init__(self, name, index, subindex, bitlen, datatype, oversample):
         self.name = name
         self.index = index
         self.subindex = subindex
@@ -317,6 +318,8 @@ class EthercatDevice:
         if "ni 9144" in self.type.lower():
             signals.extend([item for item in allSignals \
                             if "in" in item.lower()])
+        if "elm3704-0000" in self.type.lower():
+            signals.extend([item for item in allSignals if "samples" in item.lower()])
         return signals
 
 class EthercatChainElem:

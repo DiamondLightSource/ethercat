@@ -35,7 +35,7 @@ scanner_LIBS += rtutils scannerlib Com
 PROD += serialtool
 # need private header files for the serial number write IOCTL
 serialtool_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
-serialtool_SRCS += serialtool.c slave-types.c
+serialtool_SRCS += serialtool.c slave-types.c slave-list-path.c
 
 PROD += get-slave-revisions 
 get-slave-revisions_INCLUDES += -I$(ETHERLAB)/src/ethercat-$(subst -,.,$(VERSION))/master
@@ -47,7 +47,7 @@ ifeq ($(TEST_SLAVE_TYPES), YES)
 endif
 
 PROD += slaveinfo
-slaveinfo_SRCS += slaveinfo.c slave-types.c
+slaveinfo_SRCS += slaveinfo.c slave-types.c slave-list-path.c
 
 PROD += parsertest
 parsertest_SRCS += parsertest.c

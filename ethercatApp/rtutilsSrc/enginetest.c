@@ -63,9 +63,9 @@ static int show_message(ENGINE * server, int size)
 
 static int connect_pair(ENGINE * server)
 {
-    struct timeval tv;
-    tv.tv_sec = 1;
-    tv.tv_usec = 0;
+    //struct timeval tv;
+    //tv.tv_sec = 1;
+    //tv.tv_usec = 0;
     //assert(setsockopt(server->listening, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(struct timeval)) == 0);
     //assert(setsockopt(server->listening, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(struct timeval)) == 0);
     return server->listening;

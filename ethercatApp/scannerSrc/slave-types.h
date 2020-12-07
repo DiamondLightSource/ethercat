@@ -10,8 +10,6 @@
 #define YES 1
 #define NO 0
 #define MAX_SLAVE_STRLEN 81
-#define SLAVE_LIST_FILE "/dls_sw/prod/R3.14.12.3/support/ethercat/" \
-                   "Rx-y/etc/scripts/slave-types.txt"
 #define BACKUP_LIST_FILE "/home/rjq35657/R3.14.12.3/support/" \
                   "ethercat/etc/scripts/slave-types.txt"
 #define SLAVE_TYPES_MAXCOUNT 500
@@ -25,10 +23,10 @@ typedef struct slave
 }
 slave_t;
 
-char *read_slave_types();
+char *read_slave_types(char * slave_list_filename);
 int copy_section(char *dest, char * start, char * end);
-int get_slave_type(slave_t *slave);
-void read_valid_slaves();
+int get_slave_type(slave_t *slave, char *slave_list_filename);
+void read_valid_slaves(char *slave_list_filename);
 int set_slave_list(char *slave_list);
 int check_valid_slave(char *name, int32_t revision);
 char *shorten_name(char *name);

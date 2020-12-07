@@ -40,9 +40,6 @@ class WaveformPort : public asynPortDriver
         GADC_BIT_NEGATIVE_OFFSET = 0x04
     };
 
-    /* on change of parameters, modify 
-       FIRST_WAVEFORM_COMMAND and LAST_WAVEFORM_COMMAND 
-       in gadc.cpp */
     int P_Capture;
     int P_Mode;
     int P_Samples;

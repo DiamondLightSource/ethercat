@@ -6,12 +6,16 @@
 #include <stdio.h>
 
 #include "slave-types.h"
+#include "slave-list-path.h"
 
-int main()
+int main(int argc, char ** argv)
 {
     int i = 0;
     slave_t *curr_slave;
-    read_valid_slaves();
+    //read_valid_slaves();
+    char *slave_list_filename = get_slave_list_filename(argv[0]);
+    read_valid_slaves_with_filename(slave_list_filename);
+    free(slave_list_filename);
 
     while ( i < valid_slaves_count )
     {

@@ -415,7 +415,6 @@ parsing_result_type_t parseDevice(xmlNode * node, CONTEXT * ctx)
         int found_slave = 0;
         for(; lnode && !found_slave; lnode = ellNext(lnode))
         {
-            int found_slave = 0;
             EC_DCS_LOOKUP * dcs_lookup = (EC_DCS_LOOKUP *)lnode;
             if (ctdev->position == dcs_lookup->position)
             {
