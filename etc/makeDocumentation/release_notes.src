@@ -1,6 +1,10 @@
 /**
 \page release_notes Release notes
 
+\section rel7_4_1 Release 7-4-1
+
+Add EKM1xxx.xml to life of slaveInfoFiles for iocbuilder descriptions
+
 \section rel7_4 Release 7-4
 
 Now uses slave-types.txt file generated locally in module instead of hardcoded path
