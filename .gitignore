@@ -21,3 +21,4 @@ ethercatApp/src/O.*
 lib
 include/*.h
 *.pyc
+*.idea
