@@ -1,6 +1,17 @@
 /**
 \page release_notes Release notes
 
+\section rel7_4_3 Release 7-4-3
+
+Missed updating ethercatApp/scannerSrc/version.h and these notes with the last release (7-4-2)
+Creating new release with these changes in place, and will tar 7-4-2
+
+\section rel7_4_2 Release 7-4-2
+
+Add Beckhoff EL25xx.xml to the slaveInfoFiles list of build_iocbuilder_descriptions.py
+Comment out print statement to avoid unparseable text appearing in the results of slaveinfo command
+Add *.idea to .gitignore
+
 \section rel7_4_1 Release 7-4-1
 
 Add EKM1xxx.xml to life of slaveInfoFiles for iocbuilder descriptions
