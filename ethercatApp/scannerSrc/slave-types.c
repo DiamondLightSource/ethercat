@@ -62,7 +62,7 @@ char *read_slave_types(char *slave_list_filename)
     }
     /* read all bytes to memory and pass the result to caller*/
     buffer = calloc(fstat.st_size, sizeof(char));
-    printf("Reading list of valid slaves from %s\n", slave_list_filename);
+    //printf("Reading list of valid slaves from %s\n", slave_list_filename);
     f = fopen(slave_list_filename, "r");
     size = fread(buffer, sizeof(char), fstat.st_size, f);
     if (size != fstat.st_size)
