@@ -97,6 +97,7 @@ int rtSockCreate(const char * socket_name)
     if(connect(sock, (struct sockaddr *) &address, sizeof(address)) == -1)
     {
         fprintf(stderr, "connect to %s failed %s\n", socket_name, strerror(errno));
+        close(sock);
         return -1;
     }
     return sock;
