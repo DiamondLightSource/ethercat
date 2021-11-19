@@ -1,6 +1,11 @@
 /**
 \page release_notes Release notes
 
+\section rel7_5 Release 7-5
+
+Fix "too many open files"
+Fix iocbuilder warning (jira cgp-279)
+
 \section rel7_4_3 Release 7-4-3
 
 Missed updating ethercatApp/scannerSrc/version.h and these notes with the last release (7-4-2)
