@@ -1,6 +1,10 @@
 /**
 \page release_notes Release notes
 
+\section rel7_5_1 Release 7-5-1
+
+Add number of SDOs to print output when calling ecAsyn constructor
+
 \section rel7_5 Release 7-5
 
 Fix "too many open files"
