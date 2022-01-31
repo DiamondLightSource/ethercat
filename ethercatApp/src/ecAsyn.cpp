@@ -221,7 +221,7 @@ ecAsyn::ecAsyn(EC_DEVICE * device, int pdos, int sdos,
     writeq(usr->writeq),
     device(device)
 {
-    printf("ecAsyn INIT type %s name %s PDOS %d\n", device->type_name, device->name, pdos);
+    printf("ecAsyn INIT type %s name %s PDOs %d SDOs %d\n", device->type_name, device->name, pdos, sdos);
 
     for(ELLNODE * node = ellFirst(&sampler_configs); node; node = ellNext(node))
     {
