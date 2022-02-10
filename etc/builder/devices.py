@@ -193,20 +193,43 @@ class SdoControl(Device):
     def assignEntry(self, sdoentry):
         self.sdo.assignEntry(sdoentry)
 
-    ArgInfo = makeArgInfo(__init__,
-                          name = Simple("sdo name", str),
-                          slave = Ident("ethercat slave", EthercatSlave),
-                          index = Simple("sdo index (decimal)", int))
+    ArgInfo = makeArgInfo(
+        __init__,
+        name = Simple("sdo name", str),
+        slave = Ident("ethercat slave", EthercatSlave),
+        index = Simple("sdo index (decimal)", int)
+    )
 
 class SdoEntryControl(Device):
     def __init__(self, name, parentsdo, asynparameter, description, subindex, bit_length):
         self.__super.__init__()
         self.sdoentry = ethercat.SdoEntry(parentsdo.sdo, name, asynparameter, description, subindex, bit_length)
 
-    ArgInfo = makeArgInfo(__init__,
-                          parentsdo = Ident("parent sdo", SdoControl),
-                          name = Simple("sdo entry name", str),
-                          asynparameter = Simple("asyn parameter prefix", str),
-                          description = Simple("sdo entry description", str),
-                          subindex = Simple("sdo entry subindex (decimal)", int),
-                          bit_length = Simple("sdo entry bit length", int))
+    ArgInfo = makeArgInfo(
+        __init__,
+        parentsdo = Ident("parent sdo", SdoControl),
+        name = Simple("sdo entry name", str),
+        asynparameter = Simple("asyn parameter prefix", str),
+        description = Simple("sdo entry description", str),
+        subindex = Simple("sdo entry subindex (decimal)", int),
+        bit_length = Simple("sdo entry bit length", int)
+    )
+
+class SdoEntryTemplate(AutoSubstitution):
+    TemplateFile = "sdoEntry.template"
+
+
+class SdoEntryControlWithTemplate(Device):
+    """ Combines creation of SdoEntryControl with SdoEntryTemplate"""
+    def __init__(self, name, parentsdo, asynparameter, description, subindex, bit_length, P, R):
+        # Create the two objects
+        SdoEntryControl(name, parentsdo, asynparameter, description, subindex, bit_length)
+        # SDO port name will be name of slave + "_SDO"
+        sdo_port = parentsdo.sdoslave.name + "_SDO"
+        # GUI name to hide screen by default
+        SdoEntryTemplate(name=name, PORT=sdo_port, P=P, R=R, PARAM=asynparameter)
+
+    ArgInfo = SdoEntryControl.ArgInfo + makeArgInfo(
+        P = Simple("PV prefix for SDO parameter records", str),
+        R = Simple("PV suffix for SDO parameter records", str),
+    )
