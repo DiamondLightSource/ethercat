@@ -226,7 +226,6 @@ class SdoEntryControlWithTemplate(Device):
         SdoEntryControl(name, parentsdo, asynparameter, description, subindex, bit_length)
         # SDO port name will be name of slave + "_SDO"
         sdo_port = parentsdo.sdoslave.name + "_SDO"
-        # GUI name to hide screen by default
         SdoEntryTemplate(name=name, PORT=sdo_port, P=P, R=R, PARAM=asynparameter)
 
     ArgInfo = SdoEntryControl.ArgInfo + makeArgInfo(
