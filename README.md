@@ -14,6 +14,9 @@ the folder etc/makeDocumentation.
 Release notes in
 etc/makeDocumentation/release_notes.src
 
+Building notes in
+etc/makeDocumentation/building.src
+
 Please email with issues as the maintainer has been know to ignore
 github notifications for months.
 

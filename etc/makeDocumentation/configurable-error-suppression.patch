@@ -1,15 +1,18 @@
-# HG changeset patch
-# User ronaldo.mercado@diamond.ac.uk
-# Date 1427125973 0
-# Branch dls-error-suppression
-# Node ID 0ce3fa45ccd010efffb75c2608a6aa8d051a7428
-# Parent  2eff7c993a632b3cfa8a4b3d954a60258d1c9965
-configurable suppression of error messages to stderr
+configurable suppression of errors on stderr
 
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/Makefile.am
---- a/lib/Makefile.am	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/Makefile.am	Mon Mar 23 15:52:53 2015 +0000
-@@ -34,6 +34,7 @@
+generated from patch posted here
+https://lists.etherlab.org/pipermail/etherlab-dev/2013/000316.html
+
+including a fix of the definition in liberror.c that is strangely
+defined as array of char pointers in the posted patch but should be
+just a char array
+
+
+diff --git a/lib/Makefile.am b/lib/Makefile.am
+index 1b08d93a..10d7a8c6 100644
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -34,6 +34,7 @@ lib_LTLIBRARIES = libethercat.la
  
  libethercat_la_SOURCES = \
  	common.c \
@@ -17,9 +20,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/Makefile.am
  	domain.c \
  	master.c \
  	reg_request.c \
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/common.c
---- a/lib/common.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/common.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/common.c b/lib/common.c
+index 853f232c..b48e3076 100644
+--- a/lib/common.c
++++ b/lib/common.c
 @@ -40,6 +40,7 @@
  
  #include "ioctl.h"
@@ -28,7 +32,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/common.c
  
  /*****************************************************************************/
  
-@@ -77,7 +78,8 @@
+@@ -77,7 +78,8 @@ ec_master_t *ecrt_open_master(unsigned int master_index)
  
      master = malloc(sizeof(ec_master_t));
      if (!master) {
@@ -38,7 +42,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/common.c
          return 0;
      }
  
-@@ -100,20 +102,23 @@
+@@ -100,20 +102,23 @@ ec_master_t *ecrt_open_master(unsigned int master_index)
      master->fd = open(path, O_RDWR);
  #endif
      if (EC_IOCTL_IS_ERROR(master->fd)) {
@@ -65,9 +69,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/common.c
                  " %s: %u, libethercat: %u.\n",
                  path, module_data.ioctl_version_magic,
                  EC_IOCTL_VERSION_MAGIC);
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
---- a/lib/domain.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/domain.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/domain.c b/lib/domain.c
+index 1ee838b8..c0bff2b2 100644
+--- a/lib/domain.c
++++ b/lib/domain.c
 @@ -42,6 +42,7 @@
  #include "ioctl.h"
  #include "domain.h"
@@ -76,7 +81,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
  
  /*****************************************************************************/
  
-@@ -82,7 +83,8 @@
+@@ -82,7 +83,8 @@ size_t ecrt_domain_size(const ec_domain_t *domain)
  
      ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_SIZE, domain->index);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -86,7 +91,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  
-@@ -99,7 +101,8 @@
+@@ -99,7 +101,8 @@ uint8_t *ecrt_domain_data(ec_domain_t *domain)
          offset = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_OFFSET,
                  domain->index);
          if (EC_IOCTL_IS_ERROR(offset)) {
@@ -96,7 +101,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
                      strerror(EC_IOCTL_ERRNO(offset)));
              return NULL;
          }
-@@ -118,7 +121,8 @@
+@@ -118,7 +121,8 @@ void ecrt_domain_process(ec_domain_t *domain)
  
      ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_PROCESS, domain->index);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -106,7 +111,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -131,7 +135,8 @@
+@@ -131,7 +135,8 @@ void ecrt_domain_queue(ec_domain_t *domain)
  
      ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_QUEUE, domain->index);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -116,7 +121,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -148,7 +153,8 @@
+@@ -148,7 +153,8 @@ void ecrt_domain_state(const ec_domain_t *domain, ec_domain_state_t *state)
  
      ret = ioctl(domain->master->fd, EC_IOCTL_DOMAIN_STATE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -126,27 +131,33 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/domain.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror-documentation.txt
---- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/lib/liberror-documentation.txt	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/liberror-documentation.txt b/lib/liberror-documentation.txt
+new file mode 100644
+index 00000000..cf18b41b
+--- /dev/null
++++ b/lib/liberror-documentation.txt
 @@ -0,0 +1,2 @@
 +
 +to suppress errors to stderr, set the global ecrt_err_to_stderr to 0
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror.c
---- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/lib/liberror.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/liberror.c b/lib/liberror.c
+new file mode 100644
+index 00000000..0847d59f
+--- /dev/null
++++ b/lib/liberror.c
 @@ -0,0 +1,8 @@
 +#include "liberror.h"
 +
 +int ecrt_err_to_stderr = 1;
-+char *ecrt_errstring[ERRSTRING_LEN];
++char ecrt_errstring[ERRSTRING_LEN];
 +
 +int ecrt_errcode;
 +
 +
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror.h
---- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/lib/liberror.h	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/liberror.h b/lib/liberror.h
+new file mode 100644
+index 00000000..23c8e7df
+--- /dev/null
++++ b/lib/liberror.h
 @@ -0,0 +1,115 @@
 +#define ERRSTRING_LEN 250
 +
@@ -263,9 +274,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/liberror.h
 +#define ECRT_ERRVOEHNDEXECUTE 705
 +#define ECRT_ERRVOEHNDEXECUTE1 706
 +#define ECRT_ERRVOEHNDEXECUTE2 707
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
---- a/lib/master.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/master.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/master.c b/lib/master.c
+index b4809914..7f3b43d2 100644
+--- a/lib/master.c
++++ b/lib/master.c
 @@ -39,6 +39,7 @@
  #include "master.h"
  #include "domain.h"
@@ -274,7 +286,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
  
  /****************************************************************************/
  
-@@ -46,8 +47,9 @@
+@@ -46,8 +47,9 @@ int ecrt_master_reserve(ec_master_t *master)
  {
      int ret = ioctl(master->fd, EC_IOCTL_REQUEST, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -286,7 +298,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
          return -EC_IOCTL_ERRNO(ret);
      }
      return 0;
-@@ -120,13 +122,15 @@
+@@ -120,13 +122,15 @@ ec_domain_t *ecrt_master_create_domain(ec_master_t *master)
  
      domain = malloc(sizeof(ec_domain_t));
      if (!domain) {
@@ -304,7 +316,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(index)));
          free(domain);
          return 0;
-@@ -169,7 +173,8 @@
+@@ -169,7 +173,8 @@ ec_slave_config_t *ecrt_master_slave_config(ec_master_t *master,
  
      sc = malloc(sizeof(ec_slave_config_t));
      if (!sc) {
@@ -314,7 +326,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
          return 0;
      }
  
-@@ -180,7 +185,8 @@
+@@ -180,7 +185,8 @@ ec_slave_config_t *ecrt_master_slave_config(ec_master_t *master,
  
      ret = ioctl(master->fd, EC_IOCTL_CREATE_SLAVE_CONFIG, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -324,7 +336,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          free(sc);
          return 0;
-@@ -217,7 +223,8 @@
+@@ -217,7 +223,8 @@ int ecrt_master_select_reference_clock(ec_master_t *master,
  
      ret = ioctl(master->fd, EC_IOCTL_SELECT_REF_CLOCK, config_index);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -334,7 +346,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -234,7 +241,8 @@
+@@ -234,7 +241,8 @@ int ecrt_master(ec_master_t *master, ec_master_info_t *master_info)
  
      ret = ioctl(master->fd, EC_IOCTL_MASTER, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -344,7 +356,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -258,7 +266,8 @@
+@@ -258,7 +266,8 @@ int ecrt_master_get_slave(ec_master_t *master, uint16_t slave_position,
  
      ret = ioctl(master->fd, EC_IOCTL_SLAVE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -354,7 +366,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -308,7 +317,8 @@
+@@ -308,7 +317,8 @@ int ecrt_master_get_sync_manager(ec_master_t *master, uint16_t slave_position,
  
      ret = ioctl(master->fd, EC_IOCTL_SLAVE_SYNC, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -364,7 +376,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -342,7 +352,8 @@
+@@ -342,7 +352,8 @@ int ecrt_master_get_pdo(ec_master_t *master, uint16_t slave_position,
  
      ret = ioctl(master->fd, EC_IOCTL_SLAVE_SYNC_PDO, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -374,7 +386,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -374,7 +385,8 @@
+@@ -374,7 +385,8 @@ int ecrt_master_get_pdo_entry(ec_master_t *master, uint16_t slave_position,
  
      ret = ioctl(master->fd, EC_IOCTL_SLAVE_SYNC_PDO_ENTRY, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -384,7 +396,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -407,7 +419,8 @@
+@@ -407,7 +419,8 @@ int ecrt_master_sdo_download(ec_master_t *master, uint16_t slave_position,
          if (EC_IOCTL_ERRNO(ret) == EIO && abort_code) {
              *abort_code = download.abort_code;
          }
@@ -394,7 +406,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
              strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -436,7 +449,8 @@
+@@ -436,7 +449,8 @@ int ecrt_master_sdo_download_complete(ec_master_t *master,
          if (EC_IOCTL_ERRNO(ret) == EIO && abort_code) {
              *abort_code = download.abort_code;
          }
@@ -404,7 +416,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
              strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -464,7 +478,8 @@
+@@ -464,7 +478,8 @@ int ecrt_master_sdo_upload(ec_master_t *master, uint16_t slave_position,
          if (EC_IOCTL_ERRNO(ret) == EIO && abort_code) {
              *abort_code = upload.abort_code;
          }
@@ -414,7 +426,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -493,7 +508,8 @@
+@@ -493,7 +508,8 @@ int ecrt_master_write_idn(ec_master_t *master, uint16_t slave_position,
          if (EC_IOCTL_ERRNO(ret) == EIO && error_code) {
              *error_code = io.error_code;
          }
@@ -424,7 +436,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -521,7 +537,8 @@
+@@ -521,7 +537,8 @@ int ecrt_master_read_idn(ec_master_t *master, uint16_t slave_position,
          if (EC_IOCTL_ERRNO(ret) == EIO && error_code) {
              *error_code = io.error_code;
          }
@@ -434,7 +446,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -539,7 +556,8 @@
+@@ -539,7 +556,8 @@ int ecrt_master_activate(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_ACTIVATE, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -444,7 +456,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -556,7 +574,8 @@
+@@ -556,7 +574,8 @@ int ecrt_master_activate(ec_master_t *master)
          master->process_data = mmap(0, master->process_data_size,
                  PROT_READ | PROT_WRITE, MAP_SHARED, master->fd, 0);
          if (master->process_data == MAP_FAILED) {
@@ -454,7 +466,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                      strerror(errno));
              master->process_data = NULL;
              master->process_data_size = 0;
-@@ -579,7 +598,8 @@
+@@ -579,7 +598,8 @@ void ecrt_master_deactivate(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_DEACTIVATE, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -464,7 +476,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return;
      }
-@@ -596,7 +616,8 @@
+@@ -596,7 +616,8 @@ int ecrt_master_set_send_interval(ec_master_t *master,
  
      ret = ioctl(master->fd, EC_IOCTL_SET_SEND_INTERVAL, &send_interval_us);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -474,7 +486,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -612,7 +633,8 @@
+@@ -612,7 +633,8 @@ void ecrt_master_send(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_SEND, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -484,7 +496,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -625,7 +647,8 @@
+@@ -625,7 +647,8 @@ void ecrt_master_receive(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_RECEIVE, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -494,7 +506,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -638,7 +661,8 @@
+@@ -638,7 +661,8 @@ void ecrt_master_state(const ec_master_t *master, ec_master_state_t *state)
  
      ret = ioctl(master->fd, EC_IOCTL_MASTER_STATE, state);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -504,7 +516,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -656,7 +680,8 @@
+@@ -656,7 +680,8 @@ int ecrt_master_link_state(const ec_master_t *master, unsigned int dev_idx,
  
      ret = ioctl(master->fd, EC_IOCTL_MASTER_LINK_STATE, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -514,7 +526,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -675,7 +700,8 @@
+@@ -675,7 +700,8 @@ void ecrt_master_application_time(ec_master_t *master, uint64_t app_time)
  
      ret = ioctl(master->fd, EC_IOCTL_APP_TIME, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -524,7 +536,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -688,7 +714,8 @@
+@@ -688,7 +714,8 @@ void ecrt_master_sync_reference_clock(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_SYNC_REF, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -534,7 +546,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -701,7 +728,8 @@
+@@ -701,7 +728,8 @@ void ecrt_master_sync_slave_clocks(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_SYNC_SLAVES, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -544,7 +556,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -714,7 +742,8 @@
+@@ -714,7 +742,8 @@ int ecrt_master_reference_clock_time(ec_master_t *master, uint32_t *time)
  
      ret = ioctl(master->fd, EC_IOCTL_REF_CLOCK_TIME, time);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -554,7 +566,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  
-@@ -729,7 +758,8 @@
+@@ -729,7 +758,8 @@ void ecrt_master_sync_monitor_queue(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_SYNC_MON_QUEUE, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -564,7 +576,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -744,7 +774,8 @@
+@@ -744,7 +774,8 @@ uint32_t ecrt_master_sync_monitor_process(ec_master_t *master)
      ret = ioctl(master->fd, EC_IOCTL_SYNC_MON_PROCESS, &time_diff);
      if (EC_IOCTL_IS_ERROR(ret)) {
          time_diff = 0xffffffff;
@@ -574,7 +586,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  
-@@ -759,7 +790,8 @@
+@@ -759,7 +790,8 @@ void ecrt_master_reset(ec_master_t *master)
  
      ret = ioctl(master->fd, EC_IOCTL_RESET, NULL);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -584,9 +596,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/master.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
---- a/lib/reg_request.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/reg_request.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/reg_request.c b/lib/reg_request.c
+index 7379721b..6b985100 100644
+--- a/lib/reg_request.c
++++ b/lib/reg_request.c
 @@ -41,6 +41,7 @@
  #include "reg_request.h"
  #include "slave_config.h"
@@ -595,7 +608,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
  
  /*****************************************************************************/
  
-@@ -72,7 +73,8 @@
+@@ -72,7 +73,8 @@ ec_request_state_t ecrt_reg_request_state(ec_reg_request_t *reg)
  
      ret = ioctl(reg->config->master->fd, EC_IOCTL_REG_REQUEST_STATE, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -605,7 +618,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return EC_REQUEST_ERROR;
      }
-@@ -85,7 +87,8 @@
+@@ -85,7 +87,8 @@ ec_request_state_t ecrt_reg_request_state(ec_reg_request_t *reg)
          ret = ioctl(reg->config->master->fd,
                  EC_IOCTL_REG_REQUEST_DATA, &io);
          if (EC_IOCTL_IS_ERROR(ret)) {
@@ -615,7 +628,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
                      strerror(EC_IOCTL_ERRNO(ret)));
              return EC_REQUEST_ERROR;
          }
-@@ -110,7 +113,8 @@
+@@ -110,7 +113,8 @@ void ecrt_reg_request_write(ec_reg_request_t *reg, uint16_t address,
  
      ret = ioctl(reg->config->master->fd, EC_IOCTL_REG_REQUEST_WRITE, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -625,7 +638,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -130,7 +134,8 @@
+@@ -130,7 +134,8 @@ void ecrt_reg_request_read(ec_reg_request_t *reg, uint16_t address,
  
      ret = ioctl(reg->config->master->fd, EC_IOCTL_REG_REQUEST_READ, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -635,9 +648,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/reg_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
---- a/lib/sdo_request.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/sdo_request.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/sdo_request.c b/lib/sdo_request.c
+index 8afb228b..a9527728 100644
+--- a/lib/sdo_request.c
++++ b/lib/sdo_request.c
 @@ -41,6 +41,7 @@
  #include "sdo_request.h"
  #include "slave_config.h"
@@ -646,7 +660,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
  
  /*****************************************************************************/
  
-@@ -68,7 +69,8 @@
+@@ -68,7 +69,8 @@ void ecrt_sdo_request_index(ec_sdo_request_t *req, uint16_t index,
  
      ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_INDEX, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -656,7 +670,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -86,7 +88,8 @@
+@@ -86,7 +88,8 @@ void ecrt_sdo_request_timeout(ec_sdo_request_t *req, uint32_t timeout)
  
      ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_TIMEOUT, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -666,7 +680,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -117,14 +120,16 @@
+@@ -117,14 +120,16 @@ ec_request_state_t ecrt_sdo_request_state(ec_sdo_request_t *req)
  
      ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_STATE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -685,7 +699,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
                      " memory (%zu bytes)!\n", data.size, req->mem_size);
              return EC_REQUEST_ERROR;
          }
-@@ -134,7 +139,8 @@
+@@ -134,7 +139,8 @@ ec_request_state_t ecrt_sdo_request_state(ec_sdo_request_t *req)
          ret = ioctl(req->config->master->fd,
                  EC_IOCTL_SDO_REQUEST_DATA, &data);
          if (EC_IOCTL_IS_ERROR(ret)) {
@@ -695,7 +709,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
                      strerror(EC_IOCTL_ERRNO(ret)));
              return EC_REQUEST_ERROR;
          }
-@@ -156,7 +162,8 @@
+@@ -156,7 +162,8 @@ void ecrt_sdo_request_read(ec_sdo_request_t *req)
  
      ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_READ, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -705,7 +719,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -175,7 +182,8 @@
+@@ -175,7 +182,8 @@ void ecrt_sdo_request_write(ec_sdo_request_t *req)
  
      ret = ioctl(req->config->master->fd, EC_IOCTL_SDO_REQUEST_WRITE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -715,9 +729,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/sdo_request.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
---- a/lib/slave_config.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/slave_config.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/slave_config.c b/lib/slave_config.c
+index 943ca2bb..c35b17fb 100644
+--- a/lib/slave_config.c
++++ b/lib/slave_config.c
 @@ -40,6 +40,7 @@
  #include "reg_request.h"
  #include "voe_handler.h"
@@ -726,7 +741,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
  
  /*****************************************************************************/
  
-@@ -90,7 +91,8 @@
+@@ -90,7 +91,8 @@ int ecrt_slave_config_sync_manager(ec_slave_config_t *sc, uint8_t sync_index,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_SYNC, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -736,7 +751,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -113,7 +115,8 @@
+@@ -113,7 +115,8 @@ void ecrt_slave_config_watchdog(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_WATCHDOG, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -746,7 +761,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -132,7 +135,8 @@
+@@ -132,7 +135,8 @@ int ecrt_slave_config_pdo_assign_add(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_ADD_PDO, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -756,7 +771,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -153,7 +157,8 @@
+@@ -153,7 +157,8 @@ void ecrt_slave_config_pdo_assign_clear(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_CLEAR_PDOS, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -766,7 +781,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -175,7 +180,8 @@
+@@ -175,7 +180,8 @@ int ecrt_slave_config_pdo_mapping_add(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_ADD_ENTRY, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -776,7 +791,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -196,7 +202,8 @@
+@@ -196,7 +202,8 @@ void ecrt_slave_config_pdo_mapping_clear(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_CLEAR_ENTRIES, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -786,7 +801,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -222,7 +229,8 @@
+@@ -222,7 +229,8 @@ int ecrt_slave_config_pdos(ec_slave_config_t *sc,
              break;
  
          if (sync_info->index >= EC_MAX_SYNC_MANAGERS) {
@@ -796,7 +811,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      sync_info->index);
              return -ENOENT;
          }
-@@ -284,7 +292,8 @@
+@@ -284,7 +292,8 @@ int ecrt_slave_config_reg_pdo_entry(
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_REG_PDO_ENTRY, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -806,7 +821,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -293,7 +302,8 @@
+@@ -293,7 +302,8 @@ int ecrt_slave_config_reg_pdo_entry(
          *bit_position = data.bit_position;
      } else {
          if (data.bit_position) {
@@ -816,7 +831,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      "in config %u:%u.\n", index, subindex,
                      sc->alias, sc->position);
              return -EFAULT;
-@@ -325,7 +335,8 @@
+@@ -325,7 +335,8 @@ int ecrt_slave_config_reg_pdo_entry_pos(
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_REG_PDO_POS, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -826,7 +841,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -334,7 +345,8 @@
+@@ -334,7 +345,8 @@ int ecrt_slave_config_reg_pdo_entry_pos(
          *bit_position = io.bit_position;
      } else {
          if (io.bit_position) {
@@ -836,7 +851,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      "in config %u:%u.\n", sync_index, pdo_pos, entry_pos,
                      sc->alias, sc->position);
              return -EFAULT;
-@@ -362,7 +374,8 @@
+@@ -362,7 +374,8 @@ void ecrt_slave_config_dc(ec_slave_config_t *sc, uint16_t assign_activate,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_DC, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -846,7 +861,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -384,7 +397,8 @@
+@@ -384,7 +397,8 @@ int ecrt_slave_config_sdo(ec_slave_config_t *sc, uint16_t index,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_SDO, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -856,7 +871,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -409,7 +423,8 @@
+@@ -409,7 +423,8 @@ int ecrt_slave_config_complete_sdo(ec_slave_config_t *sc, uint16_t index,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_SDO, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -866,7 +881,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -462,7 +477,8 @@
+@@ -462,7 +477,8 @@ int ecrt_slave_config_emerg_size(ec_slave_config_t *sc, size_t elements)
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_SIZE, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -876,7 +891,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -483,7 +499,8 @@
+@@ -483,7 +499,8 @@ int ecrt_slave_config_emerg_pop(ec_slave_config_t *sc, uint8_t *target)
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_POP, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
          if (EC_IOCTL_ERRNO(ret) != ENOENT) {
@@ -886,7 +901,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      strerror(EC_IOCTL_ERRNO(ret)));
          }
          return -EC_IOCTL_ERRNO(ret);
-@@ -503,7 +520,8 @@
+@@ -503,7 +520,8 @@ int ecrt_slave_config_emerg_clear(ec_slave_config_t *sc)
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_CLEAR, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -896,7 +911,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -522,7 +540,8 @@
+@@ -522,7 +540,8 @@ int ecrt_slave_config_emerg_overruns(ec_slave_config_t *sc)
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_EMERG_OVERRUNS, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -906,7 +921,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-@@ -557,14 +576,16 @@
+@@ -557,14 +576,16 @@ ec_sdo_request_t *ecrt_slave_config_create_sdo_request(ec_slave_config_t *sc,
  
      req = malloc(sizeof(ec_sdo_request_t));
      if (!req) {
@@ -925,7 +940,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      " memory.\n", size);
              free(req);
              return 0;
-@@ -580,7 +601,8 @@
+@@ -580,7 +601,8 @@ ec_sdo_request_t *ecrt_slave_config_create_sdo_request(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_SDO_REQUEST, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -935,7 +950,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          ec_sdo_request_clear(req);
          free(req);
-@@ -627,14 +649,16 @@
+@@ -627,14 +649,16 @@ ec_reg_request_t *ecrt_slave_config_create_reg_request(ec_slave_config_t *sc,
  
      reg = malloc(sizeof(ec_reg_request_t));
      if (!reg) {
@@ -954,7 +969,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      " memory.\n", size);
              free(reg);
              return 0;
-@@ -648,7 +672,8 @@
+@@ -648,7 +672,8 @@ ec_reg_request_t *ecrt_slave_config_create_reg_request(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_REG_REQUEST, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -964,7 +979,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          ec_reg_request_clear(reg);
          free(reg);
-@@ -692,14 +717,16 @@
+@@ -692,14 +717,16 @@ ec_voe_handler_t *ecrt_slave_config_create_voe_handler(ec_slave_config_t *sc,
  
      voe = malloc(sizeof(ec_voe_handler_t));
      if (!voe) {
@@ -983,7 +998,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                      " memory.\n", size);
              free(voe);
              return 0;
-@@ -713,7 +740,8 @@
+@@ -713,7 +740,8 @@ ec_voe_handler_t *ecrt_slave_config_create_voe_handler(ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_VOE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -993,7 +1008,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          ec_voe_handler_clear(voe);
          free(voe);
-@@ -744,7 +772,8 @@
+@@ -744,7 +772,8 @@ void ecrt_slave_config_state(const ec_slave_config_t *sc,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_STATE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1003,7 +1018,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -766,7 +795,8 @@
+@@ -766,7 +795,8 @@ int ecrt_slave_config_idn(ec_slave_config_t *sc, uint8_t drive_no,
  
      ret = ioctl(sc->master->fd, EC_IOCTL_SC_IDN, &io);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1013,9 +1028,10 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/slave_config.c
                  strerror(EC_IOCTL_ERRNO(ret)));
          return -EC_IOCTL_ERRNO(ret);
      }
-diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
---- a/lib/voe_handler.c	Tue Feb 12 17:31:08 2013 +0100
-+++ b/lib/voe_handler.c	Mon Mar 23 15:52:53 2015 +0000
+diff --git a/lib/voe_handler.c b/lib/voe_handler.c
+index 7aef1d60..623ceef3 100644
+--- a/lib/voe_handler.c
++++ b/lib/voe_handler.c
 @@ -42,6 +42,7 @@
  #include "voe_handler.h"
  #include "slave_config.h"
@@ -1024,7 +1040,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
  
  /*****************************************************************************/
  
-@@ -67,7 +68,8 @@
+@@ -67,7 +68,8 @@ void ecrt_voe_handler_send_header(ec_voe_handler_t *voe, uint32_t vendor_id,
  
      ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_SEND_HEADER, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1034,7 +1050,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -87,7 +89,8 @@
+@@ -87,7 +89,8 @@ void ecrt_voe_handler_received_header(const ec_voe_handler_t *voe,
  
      ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_REC_HEADER, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1044,7 +1060,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -118,7 +121,8 @@
+@@ -118,7 +121,8 @@ void ecrt_voe_handler_read(ec_voe_handler_t *voe)
  
      ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_READ, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1054,7 +1070,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -135,7 +139,8 @@
+@@ -135,7 +139,8 @@ void ecrt_voe_handler_read_nosync(ec_voe_handler_t *voe)
  
      ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_READ_NOSYNC, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1064,7 +1080,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -154,7 +159,8 @@
+@@ -154,7 +159,8 @@ void ecrt_voe_handler_write(ec_voe_handler_t *voe, size_t size)
  
      ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_WRITE, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1074,7 +1090,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
                  strerror(EC_IOCTL_ERRNO(ret)));
      }
  }
-@@ -171,14 +177,16 @@
+@@ -171,14 +177,16 @@ ec_request_state_t ecrt_voe_handler_execute(ec_voe_handler_t *voe)
  
      ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_EXEC, &data);
      if (EC_IOCTL_IS_ERROR(ret)) {
@@ -1093,7 +1109,7 @@ diff -r 2eff7c993a63 -r 0ce3fa45ccd0 lib/voe_handler.c
                      " memory (%zu bytes)!\n", data.size, voe->mem_size);
              return EC_REQUEST_ERROR;
          }
-@@ -187,7 +195,8 @@
+@@ -187,7 +195,8 @@ ec_request_state_t ecrt_voe_handler_execute(ec_voe_handler_t *voe)
  
          ret = ioctl(voe->config->master->fd, EC_IOCTL_VOE_DATA, &data);
          if (EC_IOCTL_IS_ERROR(ret)) {

@@ -12,15 +12,24 @@ The patch was published in the etherlab-devel mailing list on
 2013-07-02 [2] [3]
 
 The patch submitted is incomplete - a modification to include
-liberror.c in lib/Makefile.am is missing. The steps below produce a
-compatible library.
+liberror.c in lib/Makefile.am is missing. It also has a mistake in the
+definition of ecrt_errstring in liberror.c
+
+The steps below produce a compatible library.
 
 * INSTRUCTIONS
 
-hg clone http://hg.code.sf.net/p/etherlabmaster/code etherlabmaster-code
-cd etherlabmaster-code
-hg update 2eff7c993a63
-patch -p1 < ~/configurable-error-suppression.patch
+git clone https://gitlab.com/etherlab.org/ethercat.git
+cd ethercat
+git branch patches 1.5.2
+git checkout patches
+# fetch patches from ethercat module repository in github
+curl -O https://raw.githubusercontent.com/dls-controls/ethercat/master/etc/makeDocumentation/configurable-error-suppression.patch
+curl -O https://raw.githubusercontent.com/dls-controls/ethercat/master/etc/makeDocumentation/avoid-syslog-spam-when-bus-loses-power.patch
+# apply patches
+patch -p1 < configurable-error-suppression.patch
+patch -p0 < avoid-syslog-spam-when-bus-loses-power.patch
+# build as per INSTALL
 ./bootstrap
 ./configure
 make
@@ -35,7 +44,7 @@ This file "building.src" and "configure-error-suppression.patch" were uploaded t
 the distribution as part of the documentation (see below).
 
 * References
-[1] http://controls.diamond.ac.uk/downloads/support/ethercat/
+[1] https://github.com/dls-controls/ethercat/
 [2] http://lists.etherlab.org/pipermail/etherlab-dev/2013/000316.html
 [3] http://lists.etherlab.org/pipermail/etherlab-dev/attachments/20130702/7d75709f/attachment-0001.obj
 \endverbatim
