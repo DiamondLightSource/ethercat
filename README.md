@@ -3,14 +3,13 @@ EPICS support to read/write to ethercat based hardware
 
 Prerequisites: [IgH EtherCAT Master for Linux](http://etherlab.org/en/ethercat/index.php)
 
-This EPICS module builds with a patched version of etherlab, described [here](http://controls.diamond.ac.uk/downloads/support/ethercat/4-7/documentation/doxygen/building.html)
+This EPICS module builds with a patched version of etherlab, described in the file etc/makeDocumentation/building.src
 
-The documentation builds using doxygen based on files in the folder
-etc/makeDocumentation.
+The documentation was made when doxygen at DLS would build in the
+folder etc/makeDocumentation.
 
-[Doxygen documentation for old releases (up to 4-7) is available in "controls.diamond.ac.uk"](http://controls.diamond.ac.uk/downloads/support/ethercat/)
-
-Release notes for version 4-7: [link in "controls.diamond.ac.uk"](http://controls.diamond.ac.uk/downloads/support/ethercat/4-7/documentation/doxygen/release_notes.html)
+The doxygen documentation is no longer building at Diamond, but the "sources" are in
+the folder etc/makeDocumentation.
 
 Release notes in
 etc/makeDocumentation/release_notes.src
